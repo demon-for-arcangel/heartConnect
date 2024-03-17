@@ -22,8 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Asset.init({
-    firsName: DataTypes.STRING,
-    lastName: DataTypes.STRING
+    ruta: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Asset',
