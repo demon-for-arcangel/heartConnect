@@ -9,11 +9,17 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      firsName: {
+      name: {
         type: Sequelize.STRING
       },
-      lastName: {
+      des: {
         type: Sequelize.STRING
+      },
+      date: {
+        type: Sequelize.DATE
+      },
+      public: {
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,

@@ -2,21 +2,18 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable(process.env.TABLE_PREFERENCES, {
+    await queryInterface.createTable(process.env.TABLE_PREFERENCES_CHILDREN, {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      sports: {
-        type: Sequelize.STRING
+      id_preferences: {
+        type: Sequelize.INTEGER
       },
-      artistic: {
-        type: Sequelize.STRING
-      },
-      politicians: {
-        type: Sequelize.STRING
+      id_children: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -29,6 +26,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable(process.env.TABLE_PREFERENCES);
+    await queryInterface.dropTable(process.env.TABLE_PREFERENCES_CHILDREN);
   }
 };
