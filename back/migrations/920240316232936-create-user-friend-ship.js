@@ -26,7 +26,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references:{
           model: {
-            tableName: process.env.TABLE_FRIENDSHIP   
+            tableName: process.env.TABLE_USERS   
           },
           key: 'id'
         }

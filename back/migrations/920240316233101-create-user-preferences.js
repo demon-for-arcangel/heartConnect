@@ -42,6 +42,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('UserPreferences');
+    await queryInterface.dropTable(process.env.TABLE_USER_PREFRENCES);
   }
 };
