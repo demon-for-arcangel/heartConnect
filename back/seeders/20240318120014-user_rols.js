@@ -1,25 +1,28 @@
 'use strict';
 
+const { userRolFactory } = require('../factories/userRolFactory');
+const models = require('../models');
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+    try {
+      const adminUser = await models.User.findOne({ where: { email: 'admin@heartconnect.com' }});
+      const user = await models.User.findOne({ where: { email: 'user@heartconnect.com '}});
+
+      const adminRole = await models.Rol.findOne({ where: { name: 'administrador' }});
+      const userRole = await models.Rol.findOne({ where: { name: 'usuario' }});
+
+      await adminUser.setRoles(adminRole);
+      await user.setRoles(userRole);
+    }catch(error){
+      console.error(error);
+    }
+    let factoryUserRols = await userRolFactory(5)
+    await queryInterface.bulkInsert(process.env.TABLE_USER_ROLS, factoryUserRols);
   },
 
   async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+    await queryInterface.bulkDelete(process.env.TABLE_USER_ROLS, null, {});
   }
 };
