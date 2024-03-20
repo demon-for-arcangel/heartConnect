@@ -17,7 +17,7 @@ const register = async (req, res) => {
 
       let hashedPassword = await bcrypt.hash(password, 10);
 
-      let newUser = await conx.createUser({
+      let newUser = await conx.registrarUsuario({
           firstName,
           lastName,
           email,
