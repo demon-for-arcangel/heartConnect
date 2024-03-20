@@ -75,14 +75,14 @@ class Server {
     }
   
     routes() {
-      this.app.use(this.apiFiles, require("../routes/services/uploadsRoutes"));
-      this.app.use(this.userRoutePath, require("../routes/users/userRoutes"));
-      this.app.use(this.userRoutePath, require("../routes/users/alergiasRoutes"));
-      this.app.use(this.userRoutePath, require("../routes/news/newsRoutes"));
-      this.app.use(this.userRoutePath, require("../routes/landing/clubRoutes"));
-      this.app.use(this.userRoutePath, require("../routes/landing/contactRoutes"));
+/*       this.app.use(this.apiFiles, require("../routes/services/uploadsRoutes"));
+ */      this.app.use(this.userRoutePath, require("../routes/users/userRoutes"));
+      /* this.app.use(this.userRoutePath, require("../routes/users/alergiasRoutes")); */
+/*       this.app.use(this.userRoutePath, require("../routes/news/newsRoutes"));
+ */      /* this.app.use(this.userRoutePath, require("../routes/landing/clubRoutes")); */
+      /* this.app.use(this.userRoutePath, require("../routes/landing/contactRoutes"));
       this.app.use(this.userRoutePath, require("../routes/assetsRoutes"));
-      this.app.use(this.apiMail, require("../routes/services/mailRoutes.js"));
+      this.app.use(this.apiMail, require("../routes/services/mailRoutes.js")); */
     }
   
     sockets() {

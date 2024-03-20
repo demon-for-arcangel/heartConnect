@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Events',
-    tableName: processd.env.TABLE_EVENTS
+    tableName: process.env.TABLE_EVENTS
   });
   return Events;
 };
