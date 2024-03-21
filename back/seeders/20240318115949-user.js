@@ -1,7 +1,8 @@
 'use strict';
 
 const { QueryInterface } = require('sequelize');
-const { userFactory } = require('../factories/userFactory')
+const { userFactory } = require('../factories/userFactory');
+const bcrypt = require('bcrypt');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {

@@ -1,5 +1,7 @@
 'use strict';
 
+const { assetsFactory } = require('../factories/assetsFactory');
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {

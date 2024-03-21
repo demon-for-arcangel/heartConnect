@@ -28,6 +28,7 @@ const register = async (req, res) => {
           phone_number,
           active: false 
       });
+      console.log(newUser)
 
       if (roles && roles.length > 0) {
           await conx.assignRolesToUser(newUser.id, roles);

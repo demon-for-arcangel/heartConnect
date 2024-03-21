@@ -9,26 +9,23 @@ class UserModel {
     constructor() {}
 
     getUserByEmail = async (email) => {
-        let result = [];
-        conexion.conectar();
-        result = await models.User.findOne({
-            where: {
-                email: email,
-            },
-            attributes: ["id", "firsName", "lastName", "email", "phone_number", "password", "domicile", "born_date", "active"],
-        });
-        conexion.desconectar();
-        if (!result){
-            throw new Error("User not found by email");
-        }
-        return result;
+      let result = [];
+      conexion.conectar();
+      result = await models.User.findOne({
+          where: {
+              email: email,
+          },
+          attributes: ["id", "firstName", "lastName", "email", "phone_number", "password", "domicile", "born_date", "active"],
+      });
+      conexion.desconectar();
+      return result || null;
     }
 
     getUserById = async (id) => {
         let result = [];
         conexion.conectar();
         result = await models.User.findByPk(id, {
-            attributes: ["id", "firsName", "lastName", "email", "phone_number", "password", "domicile", "born_date", "active"],
+            attributes: ["id", "firstName", "lastName", "email", "phone_number", "password", "domicile", "born_date", "active"],
         });
         conexion.desconectar();
         if (!result){
@@ -113,17 +110,18 @@ class UserModel {
     };
 
     registrarUsuario = async (user) => {
-        let newUser = 0;
-        conexion.conectar();
-        try {
-          newUser = await models.Users.create(user);
-        } catch (error) {
-          throw error;
-        } finally {
-          conexion.desconectar();
-        }
-        return newUser;
-    };
+      console.log(user)
+      let newUser = 0;
+      conexion.conectar();
+      try {
+        newUser = await models.User.create(user);
+      } catch (error) {
+        throw error;
+      } finally {
+        conexion.desconectar();
+      }
+      return newUser;
+  };
 
     updateUser = async (id, user) => {
         let upUser = 0;
