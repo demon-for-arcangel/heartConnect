@@ -84,7 +84,7 @@ class UserModel {
 
     showRolUser = async (id) => {
         conexion.conectar();
-        let result = await models.UserRol.findAll({
+        let result = await models.UserRols.findAll({
           where: { id_user: id },
         });
     
