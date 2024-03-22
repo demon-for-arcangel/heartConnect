@@ -53,7 +53,7 @@ module.exports = {
    ], {});
 
    let factoryUser = await userFactory(10)
-   await QueryInterface.bulkInsert(process.env.TABLE_USERS, factoryUser, {})
+   await queryInterface.bulkInsert(process.env.TABLE_USERS, factoryUser, {})
  
   },
 

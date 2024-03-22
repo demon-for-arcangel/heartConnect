@@ -35,7 +35,7 @@ const register = async (req, res) => {
       }
 
       let token = await generarJWT(newUser.id, roles);
-      res.status(201).json({ token });
+      res.status(201).json({ fistName, lastName, email, password, photo_profile, born_date, domicile, phone_number, active, token });
   } catch (err) {
       console.log(err);
       res.status(500).json({ msg: "Error al registrar el usuario" });

@@ -7,12 +7,16 @@ module.exports = {
       {
         id: process.env.ID_ROL_ADMIN,
         name: "administrador",
-        desc: "Administrador de toda la aplicación."
+        desc: "Administrador de toda la aplicación.",
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         id: process.env.ID_ROL_USER,
         name: "usuario",
-        desc: "Usuario normal que disfruta de la aplicación."
+        desc: "Usuario normal que disfruta de la aplicación.",
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     ],
     {}
