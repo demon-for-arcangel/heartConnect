@@ -4,7 +4,7 @@ import { ConfirmationService, PrimeNGConfig } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { WebsocketsService } from './services/websockets.service';
 import { ToastModule } from 'primeng/toast';
-import { environment } from './environments/environment.development';
+import { environment } from './environments/environment';
 import { io } from 'socket.io-client';
 
 @Component({

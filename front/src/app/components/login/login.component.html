@@ -3,12 +3,12 @@
     <form>
         <div>
             <label for="email">Correo Electrónico:</label>
-            <input type="text" id="email" name="email" required>
+            <input type="text" id="email" name="email" [(ngModel)]="user.email" required>
         </div>
         <div>
             <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="password" name="password" [(ngModel)]="user.password" required>
         </div>
-        <input type="button" (click)="login()" value="Iniciar Sesión">
+        <button (click)="login()">Iniciar Sesión</button>
     </form>
 </div>

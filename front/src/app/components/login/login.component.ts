@@ -47,6 +47,7 @@ export class LoginComponent {
     if (this.validateForm()){
       this.userService.login(this.user).subscribe({
         next: (user: any | undefined) => {
+          console.log(user)
           if (user.status >= 400){
             this.showAlert = true;
             this.message = [{ severity: 'error', summary: 'Error', detail: 'Credenciales inválidas.', life: 3000 }];
