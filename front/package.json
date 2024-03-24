@@ -21,15 +21,11 @@
     "@angular/platform-browser": "^17.3.1",
     "@angular/platform-browser-dynamic": "^17.3.1",
     "@angular/router": "^17.3.1",
-    "@mapbox/mapbox-sdk": "^0.15.5",
     "angular-jwt": "^0.1.11",
     "jwt-decode": "^4.0.0",
     "primeicons": "^6.0.1",
     "primeng": "^17.12.0",
     "socket.io-client": "^4.7.5",
     "tslib": "^2.6.2"
-  },
-  "devDependencies": {
-    "@types/mapbox__mapbox-sdk": "^0.14.0"
   }
 }

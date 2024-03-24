@@ -1,31 +1,40 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import mbxGeocoding from '@mapbox/mapbox-sdk/services/geocoding';
+import { HttpClient } from '@angular/common/http';
+
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   @ViewChild('domicile') domicileInput!: ElementRef;
-  ngOnInit() {
-    const geocodingClient = mbxGeocoding({ accessToken: 'YOUR_MAPBOX_ACCESS_TOKEN' });
+  suggestions: any[] = [];
 
-    this.domicileInput.nativeElement.addEventListener('input', (event: Event) => {
-      const target = event.target as HTMLInputElement;
-      const searchText = target.value;
-      geocodingClient.forwardGeocode({
-        query: searchText,
-        autocomplete: true,
-        limit: 5
-      })
-      .send()
-      .then((response: any) => {
-        const suggestions = response.body.features;
-        // Aquí puedes procesar las sugerencias y mostrarlas en el contenedor de sugerencias
-        console.log(suggestions);
+  constructor(private http: HttpClient) {}
+
+  onDomicileInput(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const searchText = target.value;
+    this.http.get<any[]>(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(searchText)}`)
+      .subscribe(response => {
+        this.suggestions = response;
+      }, error => {
+        console.error('Error fetching suggestions:', error);
       });
-    });
- }
+  }
+
+  onBlur() {
+    setTimeout(() => {
+      if (this.suggestions.length > 0){
+        this.suggestions = [];
+      }
+    }, 20000);
+  }
+
+  selectSuggestion(suggestion: any) {
+    this.domicileInput.nativeElement.value = suggestion.display_name;
+    this.suggestions = [];
+  }
 }

@@ -10,7 +10,7 @@ import { io } from 'socket.io-client';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ToastModule],
+  imports: [RouterOutlet, ToastModule, ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   providers: [ConfirmationService, MessageService]
