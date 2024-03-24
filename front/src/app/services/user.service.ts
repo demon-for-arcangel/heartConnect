@@ -1,9 +1,23 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../environments/environment.development';
+import { User } from '../interfaces/user';
+import { Observable, catchError, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+  private baseUrl: string = environment.baseUrl;
+  private urlLogin: string = this.baseUrl + environment.login;
+
+  login(user: User): Observable<User | undefined>{
+    return this.http.post<User>(this.urlLogin, user, {withCredentials: false}).pipe(
+      catchError((error) => {
+        return of(error)
+      })
+    )
+  }
 }
