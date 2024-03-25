@@ -12,7 +12,7 @@
         <div>
             <label for="domicile">Domicilio</label>
             <div class="input-group">
-                <input type="text" id="domicile" name="domicile" required (input)="onDomicileInput($event)" (blur)="onBlur()">
+                <input type="text" id="domicile" name="domicile" required [(ngModel)]="domicileValue" (input)="onDomicileInput($event)" (blur)="onBlur()">
                 @if (suggestions.length > 0){
                     <div id="suggestions" class="suggestions-list">
                         <ul>
