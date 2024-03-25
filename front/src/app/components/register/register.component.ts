@@ -18,12 +18,13 @@ export class RegisterComponent {
     const target = event.target as HTMLInputElement;
     const searchText = target.value;
     this.http.get<any[]>(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(searchText)}`)
-      .subscribe(response => {
-        this.suggestions = response;
-      }, error => {
-        console.error('Error fetching suggestions:', error);
-      });
-  }
+       .subscribe(response => {
+         // Filtrar los resultados para incluir solo aquellos con el tipo "administrative"
+         this.suggestions = response.filter(suggestion => suggestion.type === 'administrative');
+       }, error => {
+         console.error('Error fetching suggestions:', error);
+       });
+   }
 
   onBlur() {
     setTimeout(() => {
