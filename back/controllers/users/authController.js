@@ -8,7 +8,7 @@ const conx = new Conexion();
 const register = async (req, res) => {
   let { firstName, lastName, email, password, photo_profile, born_date, domicile, phone_number } = req.body;
   let roles = req.body.roles; 
-  
+  console.log(req.body)
   try {
       let existingUser = await conx.getUserByEmail(email);
       if (existingUser) {

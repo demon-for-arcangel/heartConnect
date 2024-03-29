@@ -1,10 +1,37 @@
+.title-form {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
 .login-container {
-    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+    height: 300px;
     margin: 150px auto;
     padding: 20px;
     border-radius: 5px;
-/*     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave alrededor del contenedor */
-    color: white;
+}
+
+.welcome-message {
+    text-align: center;
+    background-image: url('https://imgs.search.brave.com/j3ojIFMg7nbOypiu_buS85UGHrcQ9uFJ0BIUpKGfYXU/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTQz/MDE0Mjg3MC9lcy9m/b3RvL2pvdmVuLXVz/YW5kby11bmEtYXBs/aWNhY2klQzMlQjNu/LWRlLWNpdGFzLmpw/Zz9zPTYxMng2MTIm/dz0wJms9MjAmYz04/c2o4WmU3YnR4eUVT/RDlEOEJPX3puYndJ/Ry0wcHNtNzFaVUNV/SXplblRFPQ');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+    color: white; 
+    padding: 80px; 
+    background-color: rgba(0, 0, 0, 0.4);
+    background-blend-mode: multiply;
+}
+
+.login-form {
+    width: 260px;
+    padding: 75px;
+    background-color: rgba(255, 255, 255, 0.625);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .login-container h2 {

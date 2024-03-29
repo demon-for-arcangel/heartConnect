@@ -5,8 +5,9 @@ export interface User {
     password?: string;
     email?: string;
     domicile?: string;
-    born_date?: Date;
+    born_date?: string;
     active?: boolean;
+    phone_number?: string;
     roles?: Role[];
     photo_profile?: number;
 }

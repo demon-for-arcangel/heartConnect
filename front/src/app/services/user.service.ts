@@ -22,5 +22,12 @@ export class UserService {
     )
   }
 
-  register(){}
+  register(user: User): Observable<User | undefined> {
+    return this.http.post<User>(this.urlRegister, user, {withCredentials: false}).pipe(
+      catchError((error) => {
+        console.error('Error al registrar el usuario:', error);
+        return of(error);
+      })
+    );
+  }
 }
