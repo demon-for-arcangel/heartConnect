@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
-
+import moment from 'moment';
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -41,6 +41,7 @@ export class RegisterComponent {
       born_date: birthdate,
       phone_number: phone,
     };
+    console.log(userData)
 
     this.userService.register(userData).subscribe(
       user => {
