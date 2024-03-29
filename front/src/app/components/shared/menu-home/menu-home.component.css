@@ -1,0 +1,40 @@
+/* header.component.css */
+.header-container {
+    background-color: #000000;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.header-content {
+    width: 80%;
+    margin: 0 auto;
+    display: flex; /* Añade Flexbox para alinear elementos horizontalmente */
+    justify-content: space-between; /* Distribuye el espacio entre los elementos */
+    align-items: center; /* Alinea los elementos verticalmente */
+}
+
+.header-content img {
+    margin-right: 20px; /* Añade un margen al logo para separarlo de la lista */
+}
+
+.header-content ul {
+    list-style-type: none; /* Elimina los puntos de la lista */
+    padding: 0;
+    margin: 0;
+    display: flex; /* Alinea los elementos <li> horizontalmente */
+    justify-content: center; /* Centra los elementos <li> */
+}
+
+.header-content ul li {
+    margin-right: 10px; /* Espacio entre los elementos <li> */
+}
+
+.header-content ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.header-content ul li a:hover {
+    text-decoration: underline;
+}

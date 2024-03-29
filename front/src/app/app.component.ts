@@ -1,21 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ConfirmationService, PrimeNGConfig } from 'primeng/api';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, PrimeNGConfig, MessageService } from 'primeng/api';
 import { WebsocketsService } from './services/websockets.service';
 import { ToastModule } from 'primeng/toast';
 import { environment } from './environments/environment';
 import { io } from 'socket.io-client';
+import { FooterComponent } from './components/shared/footer/footer.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ToastModule, ],
+  imports: [RouterOutlet, ToastModule, FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   providers: [ConfirmationService, MessageService]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'HeartConnect';
   isLogged = false;
 

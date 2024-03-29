@@ -9,12 +9,12 @@ const statusUser = (req, res, next) => {
         if (msg.active == 1) {
           next();
         } else {
-          res.status(400).json({ msg: "account desactivated" });
+          res.status(403).json({ msg: "Account desactivated" });
         }
     })
     .catch((err) => {
         console.log(err);
-        res.status(400).json({ msg: "user not found", error: err });
+        res.status(400).json({ msg: "User not found", error: err });
     });
 };
 

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessagesModule } from 'primeng/messages'
+import { Messages, MessagesModule } from 'primeng/messages'
 import { User } from '../../interfaces/user';
 import { Message } from 'primeng/api';
 import { UserService } from '../../services/user.service';
@@ -50,7 +50,13 @@ export class LoginComponent {
           console.log(user)
           if (user.status >= 400){
             this.showAlert = true;
-            this.message = [{ severity: 'error', summary: 'Error', detail: 'Credenciales inválidas.', life: 3000 }];
+            console.log(user.error);
+            console.log(user.error.msg);
+            if (user.error && user.error.msg === 'Account desactivated') {
+              this.message = [{ severity: 'error', summary: 'Error', detail: 'La cuenta está desactivada.', life: 3000 }];
+            } else {
+              this.message = [{ severity: 'error', summary: 'Error', detail: 'Credenciales inválidas.', life: 3000 }];
+            }
           }else{
             localStorage.clear();
             localStorage.setItem('user', JSON.stringify(user));
