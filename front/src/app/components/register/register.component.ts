@@ -1,8 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
-import moment from 'moment';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -14,10 +15,13 @@ export class RegisterComponent {
   @ViewChild('domicile') domicileInput!: ElementRef;
   suggestions: any[] = [];
   domicileValue: string = '';
+  dialogRef: DynamicDialogRef;
 
-  constructor(private http: HttpClient, private userService: UserService) {}
+  constructor(private http: HttpClient, private userService: UserService, dialogRef: DynamicDialogRef, private router: Router, private route: ActivatedRoute, public config: DynamicDialogConfig) {
+    this.dialogRef = dialogRef;
+  }
 
-  onSubmit() { //hacer
+  onSubmit() { 
     const firstname = (document.getElementById('firstname') as HTMLInputElement).value;
     const lastname = (document.getElementById('lastname') as HTMLInputElement).value;
     const email = (document.getElementById('email') as HTMLInputElement).value;
