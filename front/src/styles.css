@@ -1,19 +1,11 @@
-/* @import "primeng/resources/themes/lara-light-blue/theme.css";
- */
+
 @import "./theme.css";
-/* @import "primeng/resources/primeng.css";
-@import "primeicons/primeicons.css"; */
-
-/* @import "../node_modules/quill/dist/quill.core.css";
-@import "../node_modules/quill/dist/quill.snow.css"; */
-
-@layer reset, primeng;
 
 :root {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), linear-gradient(0deg, rgb(94, 5, 4), rgb(253, 19, 61));
+    background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), linear-gradient(0deg, rgb(94, 5, 4), rgb(253, 19, 61));
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

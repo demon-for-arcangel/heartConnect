@@ -5,11 +5,21 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { InformationComponent } from './components/information/information.component';
 import { PrivacyComponent } from './components/legal/privacy/privacy.component';
 import { TermsOfServiceComponent } from './components/legal/terms-of-service/terms-of-service.component';
+import { EditInformationComponent } from './components/edit/edit-information/edit-information.component';
+import { adminGuard } from './guards/admin.guard';
+import { EditGuideComponent } from './components/edit/edit-guide/edit-guide.component';
 
 export const routes: Routes = [
+    //cualquier usuario sin registrar
     {path: '', component: HomeComponent},
     {path: 'information', component: InformationComponent},
     {path: 'privacy', component: PrivacyComponent},
     {path: 'terms-of-service', component: TermsOfServiceComponent},
-    {path: 'home', component: DashboardComponent, canActivate:[anyLoggedGuard] },
+
+    //cualquier usuario registrado
+    {path: 'home', component: DashboardComponent, canActivate:[anyLoggedGuard]},
+
+    //admin
+    {path: 'edit-information', component: EditInformationComponent, canActivate:[adminGuard]},
+    {path: 'edit-guide', component: EditGuideComponent, canActivate:[adminGuard]},
 ];
