@@ -2,25 +2,13 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background-image: linear-gradient(0deg, rgb(94, 5, 4),rgb(253, 19, 61));
+    background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), linear-gradient(0deg, rgb(94, 5, 4), rgb(253, 19, 61));
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-}
-
-:root::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.4); 
-    z-index: -1; 
 }
 
 /* :root{
     background-color: black;
 }
  */
-
