@@ -6,11 +6,12 @@ import { ToastModule } from 'primeng/toast';
 import { environment } from './environments/environment';
 import { io } from 'socket.io-client';
 import { FooterComponent } from './components/shared/footer/footer.component';
+import { EditorModule } from 'primeng/editor';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ToastModule, FooterComponent],
+  imports: [RouterOutlet, ToastModule, FooterComponent, EditorModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   providers: [ConfirmationService, MessageService]

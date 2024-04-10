@@ -8,6 +8,7 @@ import { TermsOfServiceComponent } from './components/legal/terms-of-service/ter
 import { EditInformationComponent } from './components/edit/edit-information/edit-information.component';
 import { adminGuard } from './guards/admin.guard';
 import { EditGuideComponent } from './components/edit/edit-guide/edit-guide.component';
+import { EditTextComponent } from './components/edit/edit-text/edit-text.component';
 
 export const routes: Routes = [
     //cualquier usuario sin registrar
@@ -22,4 +23,7 @@ export const routes: Routes = [
     //admin
     {path: 'edit-information', component: EditInformationComponent, canActivate:[adminGuard]},
     {path: 'edit-guide', component: EditGuideComponent, canActivate:[adminGuard]},
+
+    //editor
+    {path: 'editor', component: EditTextComponent}
 ];
