@@ -23,7 +23,4 @@ export const routes: Routes = [
     //admin
     {path: 'edit-information', component: EditInformationComponent, canActivate:[adminGuard]},
     {path: 'edit-guide', component: EditGuideComponent, canActivate:[adminGuard]},
-
-    //editor
-    {path: 'editor', component: EditTextComponent}
 ];

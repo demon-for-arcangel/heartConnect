@@ -8,19 +8,13 @@ body {
 
 .ql-container {
     background-color: white;
-    width: 70%; /* Ajusta el ancho según tus necesidades */
-    margin: auto; /* Centra el contenedor horizontalmente */
+    width: 70%; 
+    height: 630px;
+    margin: auto; 
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 .ql-editor {
     background-color: white;
 }
-
-.ql-toolbar.ql-snow {
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-    padding: 8px;
-    width: 85%;
-  }
