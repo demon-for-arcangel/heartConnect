@@ -12,12 +12,13 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { ImageModule } from 'primeng/image';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { IonicModule } from '@ionic/angular';
+import { EditTextComponent } from '../edit-text/edit-text.component';
 @Component({
   selector: 'app-edit-information',
   standalone: true,
   imports: [EditorModule, FormsModule, InputTextModule, ButtonModule, 
   DialogComponent, ToastModule, ToolbarModule, AvatarModule, TableModule,
-  FileUploadModule, ImageModule, IonicModule],
+  FileUploadModule, ImageModule, IonicModule, EditTextComponent],
   templateUrl: './edit-information.component.html',
   styleUrl: './edit-information.component.css',
   providers: [ConfirmationService, MessageService]

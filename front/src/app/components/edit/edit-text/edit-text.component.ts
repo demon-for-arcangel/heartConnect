@@ -6,7 +6,7 @@ import { TableModule } from 'primeng/table';
 import { ImageModule } from 'primeng/image';
 import { DialogComponent } from '../../utils/dialog/dialog.component';
 import { FileUploadModule } from 'primeng/fileupload';
-import * as Quill from 'quill';
+import Quill from 'quill';
 
 @Component({
   selector: 'app-edit-text',
@@ -30,7 +30,7 @@ export class EditTextComponent implements OnInit {
   constructor() { }
  */
 
-  quill!: Quill.Quill;
+  quill!: Quill;
   @ViewChild('editor') editor!: ElementRef;
   constructor() {
 
