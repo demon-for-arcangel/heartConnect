@@ -16,27 +16,13 @@ import Quill from 'quill';
   styleUrl: './edit-text.component.css'
 })
 export class EditTextComponent implements OnInit {
-  /* public content: string = '';
-
-  text: string | undefined;
-  title: string | undefined;
-  textStructure: string | undefined;
-  fotos?: Array<any>;
-  arrPhotos?: Array<any>;
-  noText = 'No hay imagenes';
-  mutiple = true;
-  updatePhotos?: any;
-  arrUpdatePhotos?: any;
-  constructor() { }
- */
-
   quill!: Quill;
   @ViewChild('editor') editor!: ElementRef;
-  constructor() {
+  constructor() {}
 
-  }
+  ngOnInit(): void{}
 
- ngOnInit(): void {
+ ngAfterViewInit(): void {
   this.quill = new Quill!(this.editor.nativeElement, {
     theme: 'snow',
     modules: {

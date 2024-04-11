@@ -1,6 +1,7 @@
 
 @import "./theme.css";
-
+/* Añade esto a tu archivo styles.css o styles.scss */
+@import 'quill/dist/quill.snow.css';
 :root {
     min-height: 100vh;
     display: flex;
