@@ -1,14 +1,26 @@
-#editor {
-    border: 1px solid #ccc;
-    padding: 10px;
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    margin: 0; 
 }
 
-#toolbar {
-    margin-bottom: 10px;
+.ql-container {
+    background-color: white;
+    width: 70%; /* Ajusta el ancho según tus necesidades */
+    margin: auto; /* Centra el contenedor horizontalmente */
 }
 
-#text-area {
-    min-height: 200px;
-    border: 1px solid #ccc;
-    padding: 10px;
+.ql-editor {
+    background-color: white;
 }
+
+.ql-toolbar.ql-snow {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+    padding: 8px;
+    width: 85%;
+  }
