@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { MenuAdminComponent } from '../shared/menu-admin/menu-admin.component';
 import { MenuComponent } from '../shared/menu/menu.component';
 import { AuthService } from '../../services/auth.service';
+import { FooterComponent } from '../shared/footer/footer.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [MenuAdminComponent, MenuComponent],
+  imports: [MenuAdminComponent, MenuComponent, FooterComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })

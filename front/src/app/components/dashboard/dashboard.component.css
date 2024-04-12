@@ -1,0 +1,22 @@
+.container {
+    display: flex;
+    justify-content: space-between; 
+    margin: 10px;
+    min-height: 507px;
+}
+
+.messenger {
+    flex: 1; 
+    padding: 20px; 
+    box-sizing: border-box;  
+    background-color: burlywood;
+    margin-right: 10px;
+}
+
+.view-people {
+    flex: 2; 
+    padding: 20px; 
+    box-sizing: border-box; 
+    background-color: bisque;
+    margin-left: 10px;
+}
