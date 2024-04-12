@@ -1,0 +1,39 @@
+.header-container {
+    background-color: #000000;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.header-content {
+    width: 80%;
+    margin: 0 auto;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.header-content img {
+    margin-right: 20px; 
+}
+
+.header-content ul {
+    list-style-type: none; 
+    padding: 0;
+    margin: 0;
+    display: flex; 
+    justify-content: center; 
+}
+
+.header-content ul li {
+    margin-right: 10px; 
+}
+
+.header-content ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.header-content ul li a:hover {
+    text-decoration: underline;
+}
