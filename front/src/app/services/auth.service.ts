@@ -49,4 +49,19 @@ export class AuthService {
       return null;
     }
   }
+
+  isAdmin(): boolean {
+    let token = localStorage.getItem('user');
+    if (!token){
+      return false
+    }
+
+    try{
+      const decodedToken = JSON.parse(atob(token.split('.')[1]));
+      return decodedToken.roles && decodedToken.roles.includes('admin');
+    }catch (error) {
+      console.error('Error al decodificar el token', error)
+      return false
+    }
+  }
 }

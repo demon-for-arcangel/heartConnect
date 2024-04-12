@@ -1,2 +1,6 @@
-<app-menu-admin></app-menu-admin>
+@if (isAdmin){
+    <app-menu-admin></app-menu-admin>
+}@else{
+    <app-menu></app-menu>
+}
 <p>dashboard works!</p>

@@ -7,12 +7,12 @@ import { DialogModule } from '@angular/cdk/dialog';
 import { DialogComponent } from '../utils/dialog/dialog.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MessageService } from 'primeng/api';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FooterComponent } from '../shared/footer/footer.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MenuHomeComponent, ConfirmDialogModule, DialogModule, DialogComponent],
+  imports: [MenuHomeComponent, ConfirmDialogModule, DialogModule, DialogComponent, FooterComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
   providers: [DialogService]
