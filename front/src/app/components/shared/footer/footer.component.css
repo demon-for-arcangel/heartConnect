@@ -34,3 +34,42 @@
 .footer-content nav ul li a:hover {
     text-decoration: underline;
 }
+
+/* Estilos para pantallas pequeñas (menos de 600px de ancho) */
+@media (max-width: 600px) {
+    .footer-content {
+        width: 95%; 
+    }
+
+    .footer-content nav ul li {
+        display: block; 
+        margin-bottom: 5px; 
+    }
+
+    .footer-content nav ul li a {
+        display: block;
+        padding: 5px 0; 
+    }
+}
+
+/* Estilos para pantallas medianas (entre 600px y 900px de ancho) */
+@media (min-width: 600px) and (max-width: 900px) {
+    .footer-content {
+        width: 90%;
+    }
+}
+
+/* Estilos para pantallas grandes (más de 900px de ancho) */
+@media (min-width: 900px) {
+    .footer-content {
+        width: 80%; 
+        margin-top: 48px;
+    }
+}
+
+/* Estilos para pantallas extra grandes (por ejemplo, 1024px de ancho o más) */
+@media (min-width: 1024px) {
+    .footer-content {
+        width: 70%; 
+    }
+}

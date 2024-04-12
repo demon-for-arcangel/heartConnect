@@ -37,3 +37,57 @@
 .header-content ul li a:hover {
     text-decoration: underline;
 }
+
+/* Estilos para pantallas pequeñas (menos de 600px de ancho) */
+@media (max-width: 600px) {
+    .header-content {
+        width: 95%; 
+        flex-direction: column; 
+    }
+
+    .header-content img {
+        margin-bottom: 20px; 
+    }
+
+    .header-content ul {
+        justify-content: flex-start; 
+    }
+
+    .header-content ul li {
+        margin-bottom: 5px; 
+    }
+}
+
+/* Estilos para pantallas medianas (entre 600px y 900px de ancho) */
+@media (min-width: 600px) and (max-width: 900px) {
+    .header-content {
+        width: 95%;
+        flex-direction: column; 
+    }
+
+    .header-content img {
+        margin-bottom: 20px;
+    }
+
+    .header-content ul {
+        justify-content: flex-start;
+    }
+
+    .header-content ul li {
+        margin-bottom: 5px;
+    }
+}
+
+/* Estilos para pantallas grandes (más de 900px de ancho) */
+@media (min-width: 900px) {
+    .header-content {
+        width: 80%; 
+    }
+}
+
+/* Estilos para pantallas extra grandes (por ejemplo, 1024px de ancho o más) */
+@media (min-width: 1024px) {
+    .header-content {
+        width: 70%; 
+    }
+}
