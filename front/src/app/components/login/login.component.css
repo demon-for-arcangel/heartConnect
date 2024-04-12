@@ -68,3 +68,20 @@
 .login-container form button:hover {
     background-color: #0056b3;
 }
+
+/* Estilos para pantallas pequeñas (menos de 1000px de ancho) */
+@media (max-width: 1000px) {
+    .login-container {
+        width: 90%; /* Ajusta el ancho para pantallas pequeñas */
+        height: auto; /* Ajusta la altura para adaptarse al contenido */
+    }
+
+    .welcome-message {
+        padding: 28px; /* Reduce el padding para pantallas pequeñas */
+    }
+
+    .login-form {
+        width: 90%; /* Ajusta el ancho para pantallas pequeñas */
+        padding: 35px; /* Reduce el padding para pantallas pequeñas */
+    }
+}
