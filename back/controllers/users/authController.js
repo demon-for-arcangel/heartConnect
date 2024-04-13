@@ -2,6 +2,7 @@ const { response, request } = require("express");
 const Conexion = require("../../database/users/UserConnection");
 const bcrypt = require("bcrypt");
 const { generarJWT } = require("../../helpers/jwt");
+const nodemailer = require('nodemailer');
 
 const conx = new Conexion();
 
@@ -73,7 +74,9 @@ const login = async (req, res) => {
     }
   };
 
+  
+
 module.exports = {
   register,
-  login
+  login,
 }

@@ -43,6 +43,7 @@ class Server {
   
     routes() {
       this.app.use(this.userRoutePath, require("../routes/users/userRoutes"));
+      this.app.use(this.apiMail, require('../routes/services/mailRoutes'));
     }
   
     sockets() {
