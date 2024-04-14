@@ -9,6 +9,7 @@ import { EditInformationComponent } from './components/edit/edit-information/edi
 import { adminGuard } from './guards/admin.guard';
 import { EditGuideComponent } from './components/edit/edit-guide/edit-guide.component';
 import { EditTextComponent } from './components/edit/edit-text/edit-text.component';
+import { RequestResetComponent } from './components/resetPassword/request-reset/request-reset.component';
 
 export const routes: Routes = [
     //cualquier usuario sin registrar
@@ -16,6 +17,7 @@ export const routes: Routes = [
     {path: 'information', component: InformationComponent},
     {path: 'privacy', component: PrivacyComponent},
     {path: 'terms-of-service', component: TermsOfServiceComponent},
+    {path: 'forgot-password', component: RequestResetComponent},
 
     //cualquier usuario registrado
     {path: 'home', component: DashboardComponent, canActivate:[anyLoggedGuard]},

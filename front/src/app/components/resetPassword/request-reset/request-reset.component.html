@@ -1,0 +1,15 @@
+<app-menu-logo></app-menu-logo>
+<button (click)="goBack()">Volver atrás</button>
+<div class="card-container">
+    <div>
+        <h2>Restablecer Contraseña</h2>
+        <p>Ingresa tu correo electrónico para recibir instrucciones de restablecimiento.</p>
+        <form [formGroup]="resetForm">
+            <div>
+                <label for="email">Correo Electrónico:</label>
+                <input type="email" id="email" formControlName="email" required>
+            </div>
+            <button (click)="sendResetEmail()">Enviar</button>
+        </form>
+    </div>
+</div>

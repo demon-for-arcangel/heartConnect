@@ -3,11 +3,11 @@ export const environment = {
     baseUrl: 'http://localhost:9292/api',
     login: '/login',
     register: '/register',
-    mail: '/mail',
+    sendMail: '/mail/request-reset',
     // Websocket
     websocket: 'http://localhost:8090',
 
-    
+
 
     indexClub: '/club',
     showClub: '/show',

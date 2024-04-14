@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class MailService {
 
   constructor(private http: HttpClient) { }
-  urlSendMail = environment.baseUrl + environment.mail;
+  private urlSendMail = environment.baseUrl + environment.sendMail;
 
   sendMail(data: any): Observable<any>{
     return this.http.post(this.urlSendMail, data);

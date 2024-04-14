@@ -24,7 +24,11 @@ const sendMail = (mailOptions) =>{
 }
 
 const requestPasswordReset = async (req, res) => {
+    console.log(req.body);
     const { email } = req.body;
+    if (!email) {
+        return res.status(400).json({ msg: 'El email es necesario.'});
+    }
     try {
         const user = await User.findOne({ where: { email } });
         if (!user) {
@@ -37,7 +41,7 @@ const requestPasswordReset = async (req, res) => {
             from: process.env.MAIL_USER,
             to: email,
             subject: 'Restablecer Contraseña',
-            text: `Haz clic en el siguiente enlace para restablecer tu contraseña: \n\n http://localhost:3000/reset/${resetToken}\n\n Si no solicitaste este restablecimiento, por favor ignora este correo.`
+            text: `Haz clic en el siguiente enlace para restablecer tu contraseña: \n\n http://localhost:4200/reset\n\n Si no solicitaste este restablecimiento, por favor ignora este correo.`
         };
 
         sendMail(mailOptions, res); 
