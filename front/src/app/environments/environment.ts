@@ -4,6 +4,7 @@ export const environment = {
     login: '/login',
     register: '/register',
     sendMail: '/mail/request-reset',
+    resetPassword: '/mail/reset',
     // Websocket
     websocket: 'http://localhost:8090',
 
