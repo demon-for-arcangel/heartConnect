@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-reset-password',
@@ -8,5 +9,13 @@ import { Component } from '@angular/core';
   styleUrl: './reset-password.component.css'
 })
 export class ResetPasswordComponent {
+  token!: string;
 
+  constructor(private route: ActivatedRoute) {
+    this.route.params.subscribe(params => {
+      this.token = params['token'];
+    })
+  }
+
+  ngOnInit(): void{}
 }

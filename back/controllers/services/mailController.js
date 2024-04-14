@@ -41,7 +41,7 @@ const requestPasswordReset = async (req, res) => {
             from: process.env.MAIL_USER,
             to: email,
             subject: 'Restablecer Contraseña',
-            text: `Haz clic en el siguiente enlace para restablecer tu contraseña: \n\n http://localhost:4200/reset\n\n Si no solicitaste este restablecimiento, por favor ignora este correo.`
+            text: `Haz clic en el siguiente enlace para restablecer tu contraseña: \n\n http://localhost:4200/reset/${resetToken}\n\n Si no solicitaste este restablecimiento, por favor ignora este correo.`
         };
 
         sendMail(mailOptions, res); 
@@ -51,9 +51,10 @@ const requestPasswordReset = async (req, res) => {
         res.status(500).json({ msg: 'Error interno del servidor' });
     }
 }
+
 const resetPassword = async (req, res) =>{
     const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
+    const token = req.params.token;
 
     if (!token) {
         return res.status(401).json({ msg: 'Token no proporcionado' });
@@ -63,6 +64,12 @@ const resetPassword = async (req, res) =>{
 
     try{
         const decoded = verifyToken(token);
+
+        const user = await User.findOne({ where: { id: decoded.id }});
+
+        if (!user) {
+            return res.status(404).json({ msg: 'Usuario no encontrado' });
+        }
 
         const hashedPassword = await bcrypt.hash(newPassword);
 
