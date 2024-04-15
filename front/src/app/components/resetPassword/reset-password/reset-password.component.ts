@@ -3,11 +3,13 @@ import { ActivatedRoute } from '@angular/router';
 import { MailService } from '../../../services/mail.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { MenuLogoComponent } from '../../shared/menu-logo/menu-logo.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-reset-password',
   standalone: true,
-  imports: [BrowserModule, FormsModule],
+  imports: [FormsModule, MenuLogoComponent, CommonModule],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.css'
 })
@@ -15,7 +17,6 @@ export class ResetPasswordComponent {
   token!: string;
   newPassword!: string;
   confirmPassword!: string;
-  email!: string;
 
   constructor(private route: ActivatedRoute, private mailService: MailService) {
     this.route.params.subscribe(params => {
@@ -26,8 +27,9 @@ export class ResetPasswordComponent {
   ngOnInit(): void{}
 
   onSubmit(): void {
+    console.log(this.token)
     if (this.newPassword === this.confirmPassword) {
-        this.mailService.resetPassword({ email: this.email, newPassword: this.newPassword, confirmPassword: this.confirmPassword }).subscribe(
+        this.mailService.resetPassword(this.token, { newPassword: this.newPassword, confirmPassword: this.confirmPassword }).subscribe(
             (response: any) => {
                 console.log('Contraseña restablecida con éxito:', response);
             },

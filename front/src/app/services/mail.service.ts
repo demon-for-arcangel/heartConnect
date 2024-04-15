@@ -16,7 +16,8 @@ export class MailService {
     return this.http.post(this.urlSendMail, data);
   }
 
-  resetPassword(data: { email: string, newPassword: string, confirmPassword: string }): Observable<any> {
-    return this.http.post(this.urlResetPassword, data);
+  resetPassword(token: string, data: { newPassword: string, confirmPassword: string }): Observable<any> {
+    const url = `${this.urlResetPassword}/${token}`
+    return this.http.post(url, data);
   }
 }
