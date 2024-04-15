@@ -1,5 +1,5 @@
 const nodemailer = require('nodemailer');
-const { generarJWT, verifyToken } = require("../../helpers/jwt");
+const { generarJWT, verifyToken, revokeToken } = require("../../helpers/jwt");
 const bcrypt = require('bcrypt');
 const { User } = require('../../models');
 
@@ -36,12 +36,12 @@ const requestPasswordReset = async (req, res) => {
         }
 
         const resetToken = generarJWT({ id: user.id }, ['resetPassword']);
-        
+
         const mailOptions = {
             from: process.env.MAIL_USER,
             to: email,
             subject: 'Restablecer Contraseña',
-            text: `Haz clic en el siguiente enlace para restablecer tu contraseña: \n\n http://localhost:4200/reset\n\n Si no solicitaste este restablecimiento, por favor ignora este correo.`
+            text: `Haz clic en el siguiente enlace para restablecer tu contraseña: \n\n http://localhost:4200/reset/${resetToken}\n\n Si no solicitaste este restablecimiento, por favor ignora este correo.`
         };
 
         sendMail(mailOptions, res); 
@@ -64,14 +64,16 @@ const resetPassword = async (req, res) =>{
 
     try{
         const decoded = verifyToken(token);
+        console.log(decoded);
+        const userId = decoded.uid.id;
 
-        const user = await User.findOne({ where: { id: decoded.id }});
+        const user = await User.findOne({ where: { id: userId }});
 
         if (!user) {
             return res.status(404).json({ msg: 'Usuario no encontrado' });
         }
 
-        const hashedPassword = await bcrypt.hash(newPassword);
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
 
         user.password = hashedPassword;
         await user.save()

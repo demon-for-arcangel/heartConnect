@@ -12,7 +12,7 @@ const revokeToken = (token) => {
     blacklistedTokens.push(token);
 }
 
-const verifyToken = (token) => {
+const verifyTokenRevoke = (token) => {
     if (blacklistedTokens.includes(token)) {
         throw new Error('Token has been revoked');
     }else{
@@ -20,8 +20,22 @@ const verifyToken = (token) => {
     }
 }
 
+const verifyToken = (token) => {
+    if (blacklistedTokens.includes(token)) {
+        throw new Error('Token has been revoked');
+    } else {
+        try {
+            const decoded = jwt.verify(token, process.env.SECRETORPRIVATEKEY);
+            return decoded; 
+        } catch (error) {
+            throw new Error('Token inválido');
+        }
+    }
+}
+
 module.exports ={
     generarJWT,
     revokeToken,
+    verifyTokenRevoke,
     verifyToken
 }
