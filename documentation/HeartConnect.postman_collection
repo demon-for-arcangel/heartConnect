@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "1314d751-9787-4d9c-ba3e-d1fdeae7167b",
+		"name": "HeartConnect Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31811189"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"firstName\": \"Marcos\",\r\n \"lastName\": \"Pérez\",\r\n \"email\": \"marcos.perez@example.com\",\r\n \"password\": \"1234\",\r\n \"photo_profile\": 1,\r\n \"born_date\": \"1990-01-01\",\r\n \"domicile\": \"Calle Falsa 123\",\r\n \"phone_number\": 123456789,\r\n \"roles\": 2 \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9292/api/register/",
+					"host": [
+						"localhost"
+					],
+					"port": "9292",
+					"path": [
+						"api",
+						"register",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"email\": \"asdas@gmail.com\",\r\n \"password\": \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9292/api/login",
+					"host": [
+						"localhost"
+					],
+					"port": "9292",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SendMail",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"marinalaguna2004@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9292/api/mail/request-reset",
+					"host": [
+						"localhost"
+					],
+					"port": "9292",
+					"path": [
+						"api",
+						"mail",
+						"request-reset"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reset Password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"newPassword\": \"1234\",\r\n    \"confirmPassword\": \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9292/api/mail/reset/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOnsiaWQiOjN9LCJyb2xlcyI6WyJyZXNldFBhc3N3b3JkIl0sImlhdCI6MTcxMzE2NzQ5MiwiZXhwIjoxNzEzMTg5MDkyfQ.5MSHMaOIBKtzVYGUNbifRECEmiD-rc_d9yw81IvpKFI",
+					"host": [
+						"localhost"
+					],
+					"port": "9292",
+					"path": [
+						"api",
+						"mail",
+						"reset",
+						"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOnsiaWQiOjN9LCJyb2xlcyI6WyJyZXNldFBhc3N3b3JkIl0sImlhdCI6MTcxMzE2NzQ5MiwiZXhwIjoxNzEzMTg5MDkyfQ.5MSHMaOIBKtzVYGUNbifRECEmiD-rc_d9yw81IvpKFI"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
