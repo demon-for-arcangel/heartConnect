@@ -1,0 +1,80 @@
+#edit{
+    position: relative;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    margin-top: 50px;
+    max-width: 70%;
+}
+
+#btnUpdate{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50px;
+}
+
+h1, h3{
+    text-align: center;
+}
+
+.image{
+    max-height: 100px !important;
+    min-height: 100px !important;
+    border-radius: 10px !important;
+    object-fit: cover !important;
+    aspect-ratio: 1/1 !important;
+    box-shadow: 7px 9px 25px -16px rgba(0,0,0,1) !important;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} 
+
+#tableFotos{
+    margin:10px;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+#structure{
+    position: relative;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    margin-top: 50px;
+    max-width: 50%;
+}
+
+/* --------------------- */
+.my-editor .p-editor-toolbar {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 0.5rem;
+  }
+  
+  .my-editor .p-button {
+    padding: 0.2rem 0.5rem;
+    margin: 0 0.2rem;
+  }
+  
+  .my-editor .fa {
+    font-size: 1rem;
+    margin-right: 0.2rem;
+  }
+  
+  .my-editor .icon-button {
+    font-size: 0.8rem;
+  }
+
+  .p-button-text span.fa-stack-1x {
+    font-size: 12px !important; /* Ajusta este valor al tamaño deseado */
+}

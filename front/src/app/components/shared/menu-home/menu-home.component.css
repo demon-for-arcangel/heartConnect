@@ -1,0 +1,109 @@
+.header-container {
+    background-color: #000000;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.header-content {
+    width: 80%;
+    margin: 0 auto;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.header-content img {
+    margin-right: 20px; 
+}
+
+.header-content ul {
+    list-style-type: none; 
+    display: flex; 
+    justify-content: center; 
+}
+
+.header-content ul li {
+    margin-right: 30px; 
+}
+
+.header-content ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.header-content ul li a:hover {
+    text-decoration: underline;
+}
+
+.header-content button {
+    width: 300px; 
+    padding: 10px; 
+    border-radius: 20px; 
+    border: none;
+    color: #000000;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer; 
+    transition: all 0.3s ease;
+
+    background-image: linear-gradient(0deg, rgba(185,255,155, 0.15) 0%,rgba(255,255,255, 0.15) 100%),linear-gradient(90deg, rgb(0,0,0),rgb(255,0,0));
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat; 
+    color: #ffffff; 
+}
+
+/* Estilos para pantallas pequeñas (menos de 600px de ancho) */
+@media (max-width: 600px) {
+    .header-content {
+        width: 95%; 
+        flex-direction: column; 
+    }
+
+    .header-content img {
+        margin-bottom: 20px; 
+    }
+
+    .header-content ul {
+        justify-content: flex-start; 
+    }
+
+    .header-content ul li {
+        margin-bottom: 5px; 
+    }
+}
+
+/* Estilos para pantallas medianas (entre 600px y 900px de ancho) */
+@media (min-width: 600px) and (max-width: 900px) {
+    .header-content {
+        width: 95%;
+        flex-direction: column; 
+    }
+
+    .header-content img {
+        margin-bottom: 20px;
+    }
+
+    .header-content ul {
+        justify-content: flex-start;
+    }
+
+    .header-content ul li {
+        margin-bottom: 5px;
+    }
+}
+
+/* Estilos para pantallas grandes (más de 900px de ancho) */
+@media (min-width: 900px) {
+    .header-content {
+        width: 80%; 
+    }
+}
+
+/* Estilos para pantallas extra grandes (por ejemplo, 1024px de ancho o más) */
+@media (min-width: 1024px) {
+    .header-content {
+        width: 70%; 
+    }
+}

@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./theme.css";
+@import 'quill/dist/quill.snow.css';
+
+:root {
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), linear-gradient(0deg, rgb(94, 5, 4), rgb(253, 19, 61));
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+html, body {
+    min-height: 100vh; 
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
