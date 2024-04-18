@@ -4,6 +4,9 @@
     color: #fff;
     padding: 20px 0;
     text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
 .footer-content {
@@ -37,6 +40,7 @@
 
 /* Estilos para pantallas pequeñas (menos de 600px de ancho) */
 @media (max-width: 600px) {
+    
     .footer-content {
         width: 95%; 
     }
@@ -57,6 +61,7 @@
     .footer-content {
         width: 90%;
     }
+    
 }
 
 /* Estilos para pantallas grandes (más de 900px de ancho) */

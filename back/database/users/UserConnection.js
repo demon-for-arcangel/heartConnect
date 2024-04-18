@@ -54,9 +54,9 @@ class UserModel {
     };
 
     showUser = async (id) => {
-        conexion.conectar();
-        let result = await models.Users.findByPk(id, {
-          attributes: ["id", "firstName", "lastName", "email", "phone_number", "domicile", "born_date", "active"],
+      conexion.conectar();
+      let result = await models.Users.findByPk(id, {
+        attributes: ["id", "firstName", "lastName", "email"],
           include: [
             {
             model: models.Rol,
@@ -74,10 +74,11 @@ class UserModel {
         ]
         });
     
+        console.log(result);
         if (!result) {
           conexion.desconectar();
-          throw error;
-        }
+          throw new Error("User not found");
+         }
         conexion.desconectar();
         return result;
     };

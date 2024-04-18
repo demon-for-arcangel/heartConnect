@@ -2,8 +2,7 @@ const { response, request } = require("express");
 const Conexion = require("../../database/users/UserConnection");
 const bcrypt = require("bcrypt");
 const { generateRandPass } = require("../../helpers/generatePass");
-/* const { sendMail } = require("../services/mailController");
- */
+
 const conx = new Conexion();
 
 /**
@@ -17,6 +16,7 @@ const showUser = (req, res = response) => {
   let id = 0;
   try {
     id = req.params.id;
+    console.log(id);
   } catch (err) {
     console.log(err);
   } finally {
