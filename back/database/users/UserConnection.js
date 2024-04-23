@@ -17,6 +17,36 @@ class UserModel {
       throw error;
     }
   }
+
+  async getUserById(id) {
+    try {
+      const user = await models.User.findByPk(id);
+      if (!user) {
+        throw new Error('User not found');
+      }
+      return user;
+    } catch (error){
+      console.error('Error al obtener el usuario: ', error);
+      throw error;
+    }
+  }
+
+  async getUserByEmail(email) {
+    try {
+      const user = await models.User.findOne({
+        where: {
+          email: email
+        }
+      });
+      if (!user) {
+        throw new Error('Usuario no encontrado');
+      }
+      return user;
+    } catch (error) {
+      console.error('Error al obtener el usuario por email: ', error);
+      throw error;
+    }
+  }
 }
 
 module.exports = UserModel;

@@ -8,7 +8,10 @@ const router = Router();
 
 router.post('/register/', register);
 router.post('/login/', statusUser ,login );
+
 router.get('/users/', /*[checkToken, tokenCanAdmin],*/ controlador.index);
+router.get('/user/:id', controlador.getUserById);
+router.post('/user', controlador.getUserByEmail);
 /* router.get('/user/:id', /* [checkToken, tokenCanAdmin],   controlador.showUser );
  */
 /* 
