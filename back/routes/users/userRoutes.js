@@ -8,7 +8,9 @@ const router = Router();
 
 router.post('/register/', register);
 router.post('/login/', statusUser ,login );
-router.get('/user/:id', [checkToken, tokenCanAdmin] ,controlador.showUser );
+router.get('/users/', /*[checkToken, tokenCanAdmin],*/ controlador.index);
+/* router.get('/user/:id', /* [checkToken, tokenCanAdmin],   controlador.showUser );
+ */
 /* 
 
 router.get('/my-profile', [checkToken, tokenCanUserAuth], controlador.showUser );
@@ -27,7 +29,6 @@ router.post('/user/', [
 
 
 router.put('/user/', [checkToken, tokenCanAdmin],controlador.updateUser );
-router.get('/users/', [checkToken, tokenCanAdmin], controlador.index);
 router.put('/forget-pass/', [checkToken, tokenCanAdmin],controlador.forgetPass);
 router.post('/search', [checkToken, tokenCanAdmin], controlador.getUserByValue);
 
