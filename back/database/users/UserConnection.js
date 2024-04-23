@@ -13,7 +13,7 @@ class UserModel {
       const users = await models.User.findAll();
       return users;
     }catch (error){
-      console.error('Error al obtener la lista de usuarios: ', error);
+      console.error('Error getting user list: ', error);
       throw error;
     }
   }
@@ -26,7 +26,7 @@ class UserModel {
       }
       return user;
     } catch (error){
-      console.error('Error al obtener el usuario: ', error);
+      console.error('Error getting user: ', error);
       throw error;
     }
   }
@@ -39,11 +39,21 @@ class UserModel {
         }
       });
       if (!user) {
-        throw new Error('Usuario no encontrado');
+        throw new Error('User not found.');
       }
       return user;
     } catch (error) {
-      console.error('Error al obtener el usuario por email: ', error);
+      console.error('Error getting user by email: ', error);
+      throw error;
+    }
+  }
+
+  async registerUser(userData) {
+    try {
+      const newUser = await models.User.create(userData);
+      return newUser;
+    } catch (error) {
+      console.error('Error al registrar un nuevo usuario: ', error);
       throw error;
     }
   }

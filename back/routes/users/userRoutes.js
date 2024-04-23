@@ -12,13 +12,6 @@ router.post('/login/', statusUser ,login );
 router.get('/users/', /*[checkToken, tokenCanAdmin],*/ controlador.index);
 router.get('/user/:id', controlador.getUserById);
 router.post('/user', controlador.getUserByEmail);
-/* router.get('/user/:id', /* [checkToken, tokenCanAdmin],   controlador.showUser );
- */
-/* 
-
-router.get('/my-profile', [checkToken, tokenCanUserAuth], controlador.showUser );
-
-router.delete('/user/:id', controlador.deleteUser );
 
 router.post('/user/', [
     checkToken,
@@ -28,7 +21,15 @@ router.post('/user/', [
     check('email', 'El email es obligatorio').notEmpty(),
     check('email', 'No es un email válido').isEmail(),
     validateFilds
-],controlador.newUser );
+],controlador.registerUser );
+/* router.get('/user/:id', /* [checkToken, tokenCanAdmin],   controlador.showUser );
+ */
+/* 
+
+router.get('/my-profile', [checkToken, tokenCanUserAuth], controlador.showUser );
+
+router.delete('/user/:id', controlador.deleteUser );
+
 
 
 router.put('/user/', [checkToken, tokenCanAdmin],controlador.updateUser );
