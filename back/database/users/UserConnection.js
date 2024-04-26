@@ -47,7 +47,7 @@ class UserModel {
 }
 
 
-   async registerUser(userData) {
+  async registerUser(userData) {
     try {
         console.log('datos del nuevo: ', userData);
         if (!userData || typeof userData !== 'object') {
@@ -65,7 +65,7 @@ class UserModel {
         console.error('Error al registrar un nuevo usuario:', error);
         throw error;
     }
-}
+  }
 
   createUserRols = async (userId, arrRolsId) => {
     let newRoles = [];
@@ -85,6 +85,37 @@ class UserModel {
     }
     return newRoles;
   };
+
+  updateUser = async (userId, newData) => {
+    try {
+      const user = await models.User.findByPk(userId);
+      if (!user) {
+        throw new Error('User nor found.');
+      }
+
+      const updated = await user.update(newData);
+      return updated;
+    }catch (error) {
+      console.error('Error al actualizar el usuario: ', error);
+      throw error;
+    }
+  }
+
+  deleteUser = async (userId) => {
+    try {
+      const user = await models.User.findByPk(userId);
+      if (!user){
+        throw new Error('User not found.');
+      }
+
+      await user.destroy();
+
+      return { message: 'User deleted.' };
+    } catch (error) {
+      console.error('Error deleting user.');
+      throw error;
+    }
+  }
 }
 
 module.exports = UserModel;

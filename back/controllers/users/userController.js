@@ -66,6 +66,33 @@ const registerUserByAdmin = async (req, res) => {
   });
 }
 
+const updateUser = async (req, res) => {
+  const userId = req.user.id;
+  const newData = req.body;
+
+  try {
+    const updatedUser = await conx.updateUser(userId, newData);
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error('Error al actualizar el usuario:', error);
+    res.status(500).json({ msg: "Error al actualizar el usuario" });
+  }
+}
+
+const deleteUser = async (req, res) => {
+  const userId = req.params.id;
+
+  try {
+    const result = await conx.deleteUser(userId);
+    
+    res.status(200).json(result);
+  } catch (error) {
+    console.error('Error al eliminar el usuario:', error);
+    res.status(500).json({ msg: "Error al eliminar el usuario" });
+  }
+}
+
 module.exports = {
-  index, getUserById, getUserByEmail, registerUserByAdmin
+  index, getUserById, getUserByEmail, registerUserByAdmin, updateUser, deleteUser
 };
