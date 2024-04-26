@@ -60,3 +60,5 @@
 }
 ```
 - **Nota**: Reemplaza `{token}` en la URL con el token de restablecimiento recibido por correo electrónico.
+
+### 5. Listar Usuarios

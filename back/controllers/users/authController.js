@@ -59,26 +59,14 @@ const login = async (req, res) => {
       if (!isPasswordValid) {
         throw new Error("Contraseña incorrecta");
       }
-      
-      let roles = await conx.showRolUser(searchUser.id);
-      
-      let arrRoles = [];
-      
-      roles.forEach((element) => {
-        if (element.id_rol != null) {
-          arrRoles.push(element.id_rol);
-        }
-      });
 
-      let token = await generarJWT(searchUser.id, arrRoles);
+      let token = await generarJWT(searchUser.id);
       res.status(200).json({ token });
     }catch(err){
       console.log(err)
       res.status(400).json({msg: "Credenciales invalidas"});
     }
-  };
-
-  
+};
 
 module.exports = {
   register,
