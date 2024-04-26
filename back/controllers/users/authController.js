@@ -7,36 +7,40 @@ const nodemailer = require('nodemailer');
 const conx = new Conexion();
 
 const register = async (req, res) => {
-  let { firstName, lastName, email, password, photo_profile, born_date, domicile, phone_number } = req.body;
+  let body = req.body;
   let roles = req.body.roles; 
-  console.log(req.body)
+  console.log('cuerpo', body);
   try {
-      let existingUser = await conx.getUserByEmail(email);
+      let existingUser = await conx.getUserByEmail(body.email, body);
       if (existingUser) {
           return res.status(400).json({ msg: "El usuario ya existe" });
       }
 
-      let hashedPassword = await bcrypt.hash(password, 10);
+      let hashedPassword = await bcrypt.hash(body.password, 10); 
 
-      let newUser = await conx.registrarUsuario({
-          firstName,
-          lastName,
-          email,
-          password: hashedPassword,
-          photo_profile,
-          born_date,
-          domicile,
-          phone_number,
-          active: false 
-      });
-      console.log(newUser)
+      body.password = hashedPassword;
+      body.active = false;
+
+      let newUser = await conx.registerUser(body);
+      console.log('usuario nuevo creado: ', newUser)
 
       if (roles && roles.length > 0) {
           await conx.assignRolesToUser(newUser.id, roles);
       }
 
       let token = await generarJWT(newUser.id, roles);
-      res.status(201).json({ firstName, lastName, email, password, photo_profile, born_date, domicile, phone_number, token });
+
+      res.status(201).json({ 
+          firstName: body.firstName, 
+          lastName: body.lastName, 
+          email: body.email, 
+          password: body.password, 
+          photo_profile: body.photo_profile, 
+          born_date: body.born_date, 
+          domicile: body.domicile, 
+          phone_number: body.phone_number, 
+          token 
+      });
   } catch (err) {
       console.log(err);
       res.status(500).json({ msg: "Error al registrar el usuario" });

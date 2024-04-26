@@ -6,22 +6,24 @@ const { statusUser, tokenCanAdmin, tokenCanUserAuth, checkToken, tokenCanSocio }
 const { register, login } = require('../../controllers/users/authController');
 const router = Router();
 
-router.post('/register/', register);
-router.post('/login/', statusUser ,login );
+router.post('/register/', /*[check('firstName', 'El nombre es obligatorio').notEmpty(), check('lastName', 'Los apellido son obligatorios').notEmpty(),
+check('email', 'El email es obligatorio').notEmpty(),
+check('email', 'No es un email válido').isEmail(), validateFilds],*/ register);
+router.post('/login/', statusUser, login );
 
 router.get('/users/', /*[checkToken, tokenCanAdmin],*/ controlador.index);
 router.get('/user/:id', controlador.getUserById);
 router.post('/user', controlador.getUserByEmail);
 
-router.post('/user/', [
-    checkToken,
-    tokenCanAdmin,
+router.post('/user/new-user', [
+    /* checkToken,
+    tokenCanAdmin, */
     check('firstName', 'El nombre es obligatorio').notEmpty(),
     check('lastName', 'Los apellido son obligatorios').notEmpty(),
     check('email', 'El email es obligatorio').notEmpty(),
     check('email', 'No es un email válido').isEmail(),
     validateFilds
-],controlador.registerUser );
+],controlador.registerUserByAdmin );
 /* router.get('/user/:id', /* [checkToken, tokenCanAdmin],   controlador.showUser );
  */
 /* 

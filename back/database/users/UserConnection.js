@@ -31,32 +31,60 @@ class UserModel {
     }
   }
 
-  async getUserByEmail(email) {
+  async getUserByEmail(email, userData) {
     try {
-      const user = await models.User.findOne({
-        where: {
-          email: email
-        }
-      });
-      if (!user) {
-        throw new Error('User not found.');
-      }
-      return user;
+       let user = await models.User.findOne({
+         where: {
+           email: email
+         }
+       });
+       
+       return user;
     } catch (error) {
-      console.error('Error getting user by email: ', error);
-      throw error;
+       console.error('Error al obtener o crear usuario por email:', error);
+       throw error;
     }
-  }
+}
 
-  async registerUser(userData) {
+
+   async registerUser(userData) {
     try {
-      const newUser = await models.User.create(userData);
-      return newUser;
+        console.log('datos del nuevo: ', userData);
+        if (!userData || typeof userData !== 'object') {
+            throw new Error('Datos de usuario inválidos');
+        }
+
+        const newUser = await models.User.create(userData);
+
+        if (!newUser) {
+            throw new Error('No se pudo crear el usuario');
+        }
+
+        return newUser;
     } catch (error) {
-      console.error('Error al registrar un nuevo usuario: ', error);
-      throw error;
+        console.error('Error al registrar un nuevo usuario:', error);
+        throw error;
     }
-  }
+}
+
+  createUserRols = async (userId, arrRolsId) => {
+    let newRoles = [];
+    try {
+      conexion.conectar();
+      for (let rol of arrRolsId) {
+        let newRole = await models.UserRol.create({
+          id_user: userId,
+          id_rol: rol.id,
+        });
+        newRoles.push(newRole);
+      }
+    } catch (error) {
+      throw error;
+    } finally {
+      conexion.desconectar();
+    }
+    return newRoles;
+  };
 }
 
 module.exports = UserModel;

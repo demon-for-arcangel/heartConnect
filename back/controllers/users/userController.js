@@ -37,35 +37,35 @@ const getUserByEmail = async (req, res) => {
   }
 }
 
-const registerUser = async (req, res) => {
-  const { firstName, lastName, email, password, born_date, domicile, phone_number, roles, active } = req.body;
-
-  try {
-    const existingUser = await conx.getUserByEmail(email);
-    if (existingUser) {
-      return res.status(400).json({ msg: "El usuario ya existe" });
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = await conx.registerUser({
-      firstName,
-      lastName,
-      email,
-      password: hashedPassword,
-      photo_profile: 1,
-      born_date,
-      domicile,
-      phone_number,
-      roles,
-      active
+const registerUserByAdmin = async (req, res) => {
+  let randPass = generateRandPass();
+  req.body.password = await bcrypt.hash(randPass, 10);
+  conx.registerUser(req.body)
+  .then((msg) => {
+    conx.createUserRols(msg.id, req.body.roles).then(async (rtnMsg) => {
+      console.log(rtnMsg);
+      let mailOptions = {
+        from: process.env.MAIL_USER,
+        to: msg.email,
+        subject: "Bienvenido a HeartConnect",
+        html: `<p>Hola ${msg.firstName},</p>
+                <p>Gracias por registrarte en la plataforma.</p>
+                <p>Tu usuario es: ${msg.email}</p>
+                <p>Tu contraseña es: ${randPass}</p>
+                <p>Para iniciar sesión, utiliza la siguiente dirección: <a href="${process.env.URL_LOGIN}">${process.env.URL_LOGIN}</a></p>
+                <p>Saludos cordiales</p>`,
+      };
+      await sendMail(mailOptions);
     });
-    res.status(201).json(firstName, lastName, email, password, photo_profile, born_date, domicile, phone_number, roles, active);
-  } catch (error) {
-    console.error('Error al registrar un nuevo usuario: ', error);
-    res.status(500).json({ msg: "Error al registrar el usuario" });
-  }
+    console.log(msg);
+
+    res.status(200).json(msg);
+  })
+  .catch((error) => {
+    res.status(400).json(error);
+  });
 }
 
 module.exports = {
-  index, getUserById, getUserByEmail, registerUser
+  index, getUserById, getUserByEmail, registerUserByAdmin
 };
