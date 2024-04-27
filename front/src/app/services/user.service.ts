@@ -13,6 +13,7 @@ export class UserService {
   private baseUrl: string = environment.baseUrl;
   private urlLogin: string = this.baseUrl + environment.login;
   private urlRegister: string = this.baseUrl + environment.register;
+  private urlShowUser: string = this.baseUrl + environment.myProfile;
 
   login(user: User): Observable<User | undefined>{
     return this.http.post<User>(this.urlLogin, user, {withCredentials: false}).pipe(
@@ -29,5 +30,10 @@ export class UserService {
         return of(error);
       })
     );
+  }
+
+  getUserById(userId: string): Observable<User | undefined> {
+    const userUrl = `${this.urlShowUser}/${userId}`;
+    return this.http.get<User>(userUrl);
   }
 }

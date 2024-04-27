@@ -116,6 +116,16 @@ class UserModel {
       throw error;
     }
   }
+
+  logout = async (userId) => {
+    try {
+      await Token.destroy({ where: { userId } });
+      return true;
+    } catch (error) {
+      console.error('Error al eliminar el token:', error);
+      return false;
+    }
+  }
 }
 
 module.exports = UserModel;

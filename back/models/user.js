@@ -28,6 +28,11 @@ module.exports = (sequelize, DataTypes) => {
         sourceKey: "photo_profile",
         as: "image",
       });
+
+      /* this.belongsToMany(models.Rol, {
+        through: 'user_rols', // This should match the name of your join table
+        as: 'roles',
+       }); */
     }
   }
   User.init({

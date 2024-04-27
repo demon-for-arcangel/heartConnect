@@ -5,6 +5,7 @@ export const environment = {
     register: '/register',
     sendMail: '/mail/request-reset',
     resetPassword: '/mail/reset',
+    myProfile: '/user',
     // Websocket
     websocket: 'http://localhost:8090',
 
@@ -21,7 +22,6 @@ export const environment = {
     showSocios: '/socios',
     showSociosOfTutor: '/socios',
     showRols: '/rols',
-    myProfile: '/my-profile',
     updateUser: '/user',
     showUser: '/user',
     allUsers: '/users',

@@ -2,6 +2,7 @@ const { response, request } = require("express");
 const Conexion = require("../../database/users/UserConnection");
 const bcrypt = require("bcrypt");
 const { generateRandPass } = require("../../helpers/generatePass");
+const models = require('../../models')
 
 const conx = new Conexion();
 
@@ -18,13 +19,31 @@ const index = async (req, res) => {
 const getUserById = async (req, res) => {
   const userId = req.params.id;
   try {
-    const user = await conx.getUserById(userId); 
-    res.status(200).json(user);
+     // Fetch the user along with their roles
+     const user = await models.User.findOne({
+       where: { id: userId },
+       include: [{
+         model: models.Rol, // Assuming you have a Rol model defined
+         as: 'roles', // This should match the 'as' option in your association
+         through: { attributes: [] }, // Exclude join table attributes
+       }]
+     });
+ 
+     if (!user) {
+       return res.status(404).json({ msg: "User not found" });
+     }
+ 
+     const userWithRoles = {
+       ...user.toJSON(), // Convert the user instance to a plain object
+       roles: user.roles.map(role => role.toJSON()) // Convert each role instance to a plain object
+     };
+ 
+     res.status(200).json(userWithRoles);
   } catch (error) {
-    console.error('Error al obtener usuario por ID', error);
-    res.status(500).json({ msg: "Error"});
+     console.error('Error al obtener usuario por ID', error);
+     res.status(500).json({ msg: "Error" });
   }
-}
+ };
 
 const getUserByEmail = async (req, res) => {
   const email = req.body.email;

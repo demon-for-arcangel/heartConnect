@@ -16,7 +16,10 @@ export class DashboardComponent {
 
   constructor(private authService: AuthService) {}
   
-  ngOnInit():void{
-    this.isAdmin = this.authService.isAdmin();
+  // In your component
+  ngOnInit() {
+    this.authService.isAdmin().subscribe(isAdmin => {
+      this.isAdmin = isAdmin;
+    });
   }
 }
