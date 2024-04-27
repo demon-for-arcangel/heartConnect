@@ -22,6 +22,12 @@ export class AppComponent implements OnInit {
 
   private socket: any; 
 
+  cards = [
+    { imageUrl: 'path/to/image1.jpg', number: 1, description: 'Descripción 1' },
+    { imageUrl: 'path/to/image2.jpg', number: 2, description: 'Descripción 2' },
+    // Agrega más tarjetas según sea necesario
+  ];
+
   constructor(
     private primengConfig: PrimeNGConfig, 
     private messageService: MessageService, 

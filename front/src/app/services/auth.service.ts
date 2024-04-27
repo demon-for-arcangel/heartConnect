@@ -4,7 +4,7 @@ import { environment } from '../environments/environment';
 import { User } from '../interfaces/user';
 import { UserService } from './user.service';
 import { Observable, throwError } from 'rxjs';
-import { catchError, filter, map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -34,7 +34,7 @@ export class AuthService {
   getRolesOfToken(): any {
     try {
       let token = JSON.parse(localStorage.getItem('user') as string).token.split('.')[1];
-      const rolesOfToken = JSON.parse(atob(token)).roles;
+      const rolesOfToken = JSON.parse(atob(token)).roles || [];
       return rolesOfToken;
     } catch (error){
       return null;
@@ -61,13 +61,12 @@ export class AuthService {
        const decodedToken = JSON.parse(atob(token.split('.')[1]));
        const userId = decodedToken.uid;
    
-       // Use getUserById to obtain the details of the user
        return this.userService.getUserById(userId).pipe(
          map((user: User | undefined) => {
            if (!user) {
              throw new Error('User not found');
            }
-           // Check if any of the roles in the roles array have the name 'administrador'
+
            const isAdmin = user.roles?.some(role => role.name === 'administrador');
            if (isAdmin) {
              console.log('El usuario es administrador');
