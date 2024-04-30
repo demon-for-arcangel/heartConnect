@@ -31,14 +31,14 @@ export class DashboardComponent implements OnInit {
       image: environment.admin_card_image,
       title: 'Panel de usuarios',
       content: 'Gestión de usuarios',
-      link: '/users',
+      link: '/user-management',
     },
     {
       id_rol: environment.rol_redactor,
       image: environment.redactor_card_image,
       title: 'Panel del redactor',
-      content: 'Para la gestión de las noticias',
-      link: '/list-news',
+      content: 'Para la gestión de la información',
+      link: '/edit-menu',
     },
   ];
 }
