@@ -14,6 +14,8 @@ export class UserService {
   private urlLogin: string = this.baseUrl + environment.login;
   private urlRegister: string = this.baseUrl + environment.register;
   private urlShowUser: string = this.baseUrl + environment.myProfile;
+  private urlActiveUsers: string = this.baseUrl + environment.activeUsers;
+  private urlInactiveUsers: string = this.baseUrl + environment.inactiveUsers;
 
   login(user: User): Observable<User | undefined>{
     return this.http.post<User>(this.urlLogin, user, {withCredentials: false}).pipe(
@@ -35,5 +37,18 @@ export class UserService {
   getUserById(userId: string): Observable<User | undefined> {
     const userUrl = `${this.urlShowUser}/${userId}`;
     return this.http.get<User>(userUrl);
+  }
+
+  getActiveUsers(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.urlActiveUsers}`);
+  }
+
+  getInactiveUsers(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.urlInactiveUsers}`);
+  }
+
+  deleteUser(userId: number): Observable<any> {
+    const deleteUserUrl = `${this.baseUrl}/${userId}`;
+    return this.http.delete(`${deleteUserUrl}`);
   }
 }

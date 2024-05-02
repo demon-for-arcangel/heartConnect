@@ -1,3 +1,39 @@
 <app-menu-admin></app-menu-admin>
 
-<p>user-management works!</p>
+<div class="table-container">
+   <div class="table-card">
+      <h2>Cuentas Activadas</h2>
+      <table>
+         <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+         </tr>
+         @for (user of activeUsers; track user){
+            <tr>
+               <td>{{ user.firstName }}</td>
+               <td>{{ user.lastName }}</td>
+               <td>{{ user.email }}</td>
+            </tr>
+         }
+      </table>
+   </div>
+   <div class="table-card">
+      <h2>Cuentas Sin Activar</h2>
+      <table>
+         <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+         </tr>
+         @for (user of inactiveUsers; track user){
+            <tr>
+               <td>{{ user.firstName }}</td>
+               <td>{{ user.lastName }}</td>
+               <td>{{ user.email }}</td>
+            </tr>
+      }
+      </table>
+   </div>
+   <!-- <button (click)="deleteUser(user.id)">Eliminar</button> -->
+</div>

@@ -126,6 +126,34 @@ class UserModel {
       return false;
     }
   }
+
+  getActiveUsers = async () => {
+    try {
+      const activeUsers = await models.User.findAll({
+        where: {
+          active: 1
+        }
+      }); 
+      return activeUsers;
+    } catch (error) {
+      console.error('Error getting active users: ', error);
+      throw error;
+    }
+  }
+
+  getInactiveUsers = async () => {
+    try {
+      const inactiveUsers = await models.User.findAll({
+        where: {
+          active: 0
+        }
+      }); 
+      return inactiveUsers;
+    } catch (error) {
+      console.error('Error getting active users: ', error);
+      throw error;
+    }
+  }
 }
 
 module.exports = UserModel;

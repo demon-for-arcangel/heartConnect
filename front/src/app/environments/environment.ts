@@ -6,6 +6,9 @@ export const environment = {
     sendMail: '/mail/request-reset',
     resetPassword: '/mail/reset',
     myProfile: '/user',
+    activeUsers: '/users/active',
+    inactiveUsers: '/users/inactive',
+
     rol_admin : 1,
     admin_gestion_image:'../../assets/cards-dashboard/gestion.png',
     entrenador_faltas_image:'../../assets/cards-dashboard/listado.png',

@@ -19,13 +19,12 @@ const index = async (req, res) => {
 const getUserById = async (req, res) => {
   const userId = req.params.id;
   try {
-     // Fetch the user along with their roles
      const user = await models.User.findOne({
        where: { id: userId },
        include: [{
-         model: models.Rol, // Assuming you have a Rol model defined
-         as: 'roles', // This should match the 'as' option in your association
-         through: { attributes: [] }, // Exclude join table attributes
+         model: models.Rol, 
+         as: 'roles', 
+         through: { attributes: [] },
        }]
      });
  
@@ -34,8 +33,8 @@ const getUserById = async (req, res) => {
      }
  
      const userWithRoles = {
-       ...user.toJSON(), // Convert the user instance to a plain object
-       roles: user.roles.map(role => role.toJSON()) // Convert each role instance to a plain object
+       ...user.toJSON(), 
+       roles: user.roles.map(role => role.toJSON()) 
      };
  
      res.status(200).json(userWithRoles);
@@ -112,6 +111,27 @@ const deleteUser = async (req, res) => {
   }
 }
 
+const getActiveUsers = async (req, res) => {
+  try {
+    const activeUsers = await conx.getActiveUsers();
+    res.status(200).json(activeUsers);
+  } catch (error) {
+    console.error('Error al obtener usuarios activos', error);
+    res.status(500).json({ msg: "Error al obtener usuarios activos" });
+  }
+};
+
+const getInactiveUsers = async (req, res) => {
+  try {
+    const inactiveUsers = await conx.getInactiveUsers();
+    res.status(200).json(inactiveUsers);
+  } catch (error) {
+    console.error('Error al obtener usuarios inactivos', error);
+    res.status(500).json({ msg: "Error al obtener usuarios inactivos" });
+  }
+};
+
 module.exports = {
-  index, getUserById, getUserByEmail, registerUserByAdmin, updateUser, deleteUser
+  index, getUserById, getUserByEmail, registerUserByAdmin, updateUser, deleteUser,
+  getActiveUsers, getInactiveUsers
 };

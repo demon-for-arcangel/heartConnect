@@ -8,8 +8,8 @@ import { DialogComponent } from '../utils/dialog/dialog.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MessageService } from 'primeng/api';
 import { FooterComponent } from '../shared/footer/footer.component';
-
-@Component({
+@
+Component({
   selector: 'app-home',
   standalone: true,
   imports: [MenuHomeComponent, ConfirmDialogModule, DialogModule, DialogComponent, FooterComponent],
