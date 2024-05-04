@@ -16,6 +16,7 @@ export class UserService {
   private urlShowUser: string = this.baseUrl + environment.myProfile;
   private urlActiveUsers: string = this.baseUrl + environment.activeUsers;
   private urlInactiveUsers: string = this.baseUrl + environment.inactiveUsers;
+  private urlDeleteUsers: string = this.baseUrl + environment.deleteUsers;
 
   login(user: User): Observable<User | undefined>{
     return this.http.post<User>(this.urlLogin, user, {withCredentials: false}).pipe(
@@ -47,8 +48,9 @@ export class UserService {
     return this.http.get<any[]>(`${this.urlInactiveUsers}`);
   }
 
-  deleteUser(userId: number): Observable<any> {
-    const deleteUserUrl = `${this.baseUrl}/${userId}`;
-    return this.http.delete(`${deleteUserUrl}`);
+  deleteUser(userIds: string[]): Observable<any> {
+    return this.http.delete(`${this.urlDeleteUsers}`, {
+       body: { userIds: userIds }
+    });
   }
 }

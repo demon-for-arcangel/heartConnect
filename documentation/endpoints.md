@@ -62,3 +62,48 @@
 - **Nota**: Reemplaza `{token}` en la URL con el token de restablecimiento recibido por correo electrónico.
 
 ### 5. Listar Usuarios
+- **Método**: GET
+- **URL**: `localhost:9292/api/users/`
+- **Descripción**: Listar todos los usuarios de la base de datos, tanto los que tienen la cuenta activa como los que tienen la cuenta desactivada.
+
+### 6. Listar Usuarios con Cuenta Activa
+- **Método**:
+- **URL**:
+- **Descripción**:
+- **Cuerpo de la solicitud**:
+
+### 7. Listar Usuarios con Cuenta Inactiva
+- **Método**:
+- **URL**:
+- **Descripción**:
+- **Cuerpo de la solicitud**:
+
+### 8. Listar Usuario por Id
+- **Método**:
+- **URL**:
+- **Descripción**:
+- **Cuerpo de la solicitud**:
+
+### 9. Listar Usuario por Email
+- **Método**:
+- **URL**:
+- **Descripción**:
+- **Cuerpo de la solicitud**:
+
+### 10. Crear Usuario Siendo Administrador
+- **Método**:
+- **URL**:
+- **Descripción**:
+- **Cuerpo de la solicitud**:
+
+### 11. Eliminar Usuarios
+- **Método**:
+- **URL**:
+- **Descripción**:
+- **Cuerpo de la solicitud**:
+
+### 12. Actualizar Usuario
+- **Método**:
+- **URL**:
+- **Descripción**:
+- **Cuerpo de la solicitud**:

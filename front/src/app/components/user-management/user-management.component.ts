@@ -52,19 +52,31 @@ export class UserManagementComponent {
     this.hasSelectedUsers = this.activeUsers.some(user => user.selected) || this.inactiveUsers.some(user => user.selected);
    }
 
-  toggleSelect(user: any) {
-    const index = this.selectedUsers.indexOf(user);
-    if (index > -1) {
-       this.selectedUsers.splice(index, 1);
-    } else {
-       this.selectedUsers.push(user);
-    }
-    this.updateActionButtons();
-  }
+   toggleSelect(user: any) {
+    user.selected = !user.selected;
+    this.updateSelectedUsers(); 
+   }
 
   updateActionButtons() {}
 
   deleteUsers() { //modificar para poder hacer que se eliminen uno o muchos
+    const selectedUserIds = [...this.activeUsers, ...this.inactiveUsers]
+        .filter(user => user.selected)
+        .map(user => user.id);
     
+    if (selectedUserIds.length === 0) {
+        console.log('No hay usuarios seleccionados para eliminar.');
+        return;
+    }
+    
+    this.userService.deleteUser(selectedUserIds).subscribe(
+        response => {
+          console.log('Usuarios eliminados:', response);
+        },
+        error => {
+          console.error('Error al eliminar usuarios:', error);
+        }
+    );
   }
+  
 }

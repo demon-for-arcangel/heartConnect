@@ -7,9 +7,10 @@
 <div class="table-container">
    <div class="table-card">
       <h2>Cuentas Activadas</h2>
-      @if (selectedUsers.length > 0) {
+      @if (hasSelectedUsers) {
          <div>
             <button (click)="deleteUsers()">Eliminar usuarios seleccionados</button>
+            <button>Desactivar Cuenta</button>
          </div>
       }
       <table>

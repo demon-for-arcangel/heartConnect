@@ -2,6 +2,10 @@ h1 {
     text-align: center;
 }
 
+button {
+    margin: 10px;
+}
+
 .table-container {
     display: flex;
     justify-content: space-between;

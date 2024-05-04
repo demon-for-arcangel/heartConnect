@@ -8,6 +8,7 @@ export const environment = {
     myProfile: '/user',
     activeUsers: '/users/active',
     inactiveUsers: '/users/inactive',
+    deleteUsers: '/users/delete',
 
     rol_admin : 1,
     admin_gestion_image:'../../assets/cards-dashboard/gestion.png',
