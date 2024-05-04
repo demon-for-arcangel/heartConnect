@@ -2,9 +2,6 @@ import { Component } from '@angular/core';
 import { MenuAdminComponent } from '../shared/menu-admin/menu-admin.component';
 import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
-import { ToolbarModule } from 'primeng/toolbar';
-import { TooltipModule } from 'primeng/tooltip';
-import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-user-management',
@@ -59,7 +56,7 @@ export class UserManagementComponent {
 
   updateActionButtons() {}
 
-  deleteUsers() { //modificar para poder hacer que se eliminen uno o muchos
+  deleteUsers() {
     const selectedUserIds = [...this.activeUsers, ...this.inactiveUsers]
         .filter(user => user.selected)
         .map(user => user.id);
@@ -79,4 +76,5 @@ export class UserManagementComponent {
     );
   }
   
+  //hacer funcion para activar y desactivar cuentas
 }
