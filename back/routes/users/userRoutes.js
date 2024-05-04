@@ -29,7 +29,7 @@ router.post('/user/new-user', [
 ], controlador.registerUserByAdmin );
 
 router.put('/user/', /* [checkToken, tokenCanAdmin], */controlador.updateUser );
-router.delete('/user/:id', /* [checkToken, tokenCanAdmin], */controlador.deleteUsers );
+router.delete('/users/delete', /* [checkToken, tokenCanAdmin], */controlador.deleteUsers );
 /* router.get('/user/:id', /* [checkToken, tokenCanAdmin],   controlador.showUser );
  */
 
