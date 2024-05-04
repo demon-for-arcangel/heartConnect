@@ -7,14 +7,21 @@
 <div class="table-container">
    <div class="table-card">
       <h2>Cuentas Activadas</h2>
+      @if (selectedUsers.length > 0) {
+         <div>
+            <button (click)="deleteUsers()">Eliminar usuarios seleccionados</button>
+         </div>
+      }
       <table>
          <tr>
+            <th><input type="checkbox" (change)="selectAllUsers($event)"></th>
             <th>Nombre</th>
             <th>Apellido</th>
             <th>Email</th>
          </tr>
          @for (user of activeUsers; track user){
             <tr>
+               <td><input type="checkbox" (change)="toggleSelect(user)"></td>
                <td>{{ user.firstName }}</td>
                <td>{{ user.lastName }}</td>
                <td>{{ user.email }}</td>

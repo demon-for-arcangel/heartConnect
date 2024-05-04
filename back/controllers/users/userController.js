@@ -98,18 +98,22 @@ const updateUser = async (req, res) => {
   }
 }
 
-const deleteUser = async (req, res) => {
-  const userId = req.params.id;
-
+const deleteUsers = async (req, res) => {
+  const userIds = req.body.userIds;
+ 
   try {
-    const result = await conx.deleteUser(userId);
-    
-    res.status(200).json(result);
+     if (!Array.isArray(userIds) || userIds.length === 0) {
+       return res.status(400).json({ msg: "No se proporcionaron IDs de usuario para eliminar." });
+     }
+ 
+     const result = await conx.deleteUsers(userIds);
+     
+     res.status(200).json(result);
   } catch (error) {
-    console.error('Error al eliminar el usuario:', error);
-    res.status(500).json({ msg: "Error al eliminar el usuario" });
+     console.error('Error al eliminar los usuarios:', error);
+     res.status(500).json({ msg: "Error al eliminar los usuarios" });
   }
-}
+ }
 
 const getActiveUsers = async (req, res) => {
   try {
@@ -132,6 +136,6 @@ const getInactiveUsers = async (req, res) => {
 };
 
 module.exports = {
-  index, getUserById, getUserByEmail, registerUserByAdmin, updateUser, deleteUser,
+  index, getUserById, getUserByEmail, registerUserByAdmin, updateUser, deleteUsers,
   getActiveUsers, getInactiveUsers
 };

@@ -18,6 +18,8 @@ import { ToastModule } from 'primeng/toast';
 export class UserManagementComponent {
   activeUsers: any[] = [];
   inactiveUsers: any[] = [];
+  selectedUsers: any[] = [];
+  hasSelectedUsers: boolean = false;
 
   constructor(private userService: UserService){}
 
@@ -31,10 +33,34 @@ export class UserManagementComponent {
     })
   }
 
-  deleteUser(userId: number) {
-    this.userService.deleteUser(userId).subscribe(() => {
-       // Actualiza las listas de usuarios después de eliminar
-       this.ngOnInit();
+  selectAllUsers(event: any) {
+    const isChecked = event.target.checked;
+    this.activeUsers.forEach(user => {
+        user.selected = isChecked;
     });
+    this.inactiveUsers.forEach(user => {
+        user.selected = isChecked;
+    });
+    this.updateSelectedUsers();
+  }
+
+  updateSelectedUsers() {
+    this.hasSelectedUsers = this.activeUsers.some(user => user.selected) || this.inactiveUsers.some(user => user.selected);
+  }
+
+  toggleSelect(user: any) {
+    const index = this.selectedUsers.indexOf(user);
+    if (index > -1) {
+       this.selectedUsers.splice(index, 1);
+    } else {
+       this.selectedUsers.push(user);
+    }
+    this.updateActionButtons();
+  }
+
+  updateActionButtons() {}
+
+  deleteUsers() { //modificar para poder hacer que se eliminen uno o muchos
+    
   }
 }

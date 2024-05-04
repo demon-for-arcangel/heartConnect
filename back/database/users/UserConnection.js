@@ -101,21 +101,24 @@ class UserModel {
     }
   }
 
-  deleteUser = async (userId) => {
+  deleteUsers = async (userIds) => {
     try {
-      const user = await models.User.findByPk(userId);
-      if (!user){
-        throw new Error('User not found.');
-      }
-
-      await user.destroy();
-
-      return { message: 'User deleted.' };
+       if (!Array.isArray(userIds) || userIds.length === 0) {
+         throw new Error('No se proporcionaron IDs de usuario para eliminar.');
+       }
+   
+       const result = await models.User.destroy({
+         where: {
+           id: userIds
+         }
+       });
+   
+       return { message: `${result} usuarios eliminados.` };
     } catch (error) {
-      console.error('Error deleting user.');
-      throw error;
+       console.error('Error al eliminar los usuarios:', error);
+       throw error;
     }
-  }
+   }
 
   logout = async (userId) => {
     try {
