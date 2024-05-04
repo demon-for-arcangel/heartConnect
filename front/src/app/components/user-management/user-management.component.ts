@@ -2,11 +2,16 @@ import { Component } from '@angular/core';
 import { MenuAdminComponent } from '../shared/menu-admin/menu-admin.component';
 import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
+import { ToolbarModule } from 'primeng/toolbar';
+import { TooltipModule } from 'primeng/tooltip';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-user-management',
   standalone: true,
-  imports: [MenuAdminComponent, CommonModule],
+  imports: [
+    MenuAdminComponent, CommonModule, 
+    ],
   templateUrl: './user-management.component.html',
   styleUrl: './user-management.component.css'
 })

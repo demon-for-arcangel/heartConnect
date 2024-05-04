@@ -1,3 +1,7 @@
+h1 {
+    text-align: center;
+}
+
 .table-container {
     display: flex;
     justify-content: space-between;
@@ -5,23 +9,21 @@
 }
 
 .table-card {
-    background-color: #000000; /* Cambiado a negro */
+    background-color: #000000; 
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: calc(50% - 20px); /* Ajusta el ancho según sea necesario */
+    width: calc(50% - 20px); 
     margin-bottom: 20px;
-    color: white; /* Asegura que el texto dentro de las tarjetas sea blanco */
+    color: white; 
 }
 
-/* Agrega un margen a la derecha de la primera tarjeta */
 .table-card:first-child {
-    margin-right: 20px; /* Ajusta este valor según el espacio que desees */
+    margin-right: 20px; 
 }
 
-/* O agrega un margen a la izquierda de la segunda tarjeta */
 .table-card:last-child {
-    margin-left: 20px; /* Ajusta este valor según el espacio que desees */
+    margin-left: 20px; 
 }
 
 table {
@@ -33,7 +35,7 @@ th, td {
     border: 1px solid #3e3e3e;
     padding: 8px;
     text-align: left;
-    color: white; /* Asegura que el texto dentro de las celdas de la tabla sea blanco */
+    color: white; 
 }
 
 th {
@@ -59,4 +61,21 @@ button {
 
 button:hover {
     background-color: #da190b;
+}
+
+.insertUser {
+    border-radius: 10px;
+    background-color: #000000;
+    padding: 25px;
+    margin: 10px;
+}
+
+.insertUser button {
+    background-image: linear-gradient(0deg, rgba(185,255,155, 0.15) 0%,rgba(255,255,255, 0.15) 100%),linear-gradient(90deg, rgb(0,0,0),rgb(255,0,0));
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat; 
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 7px;
 }
