@@ -20,6 +20,7 @@ export class UserManagementComponent {
   inactiveUsers: any[] = [];
   selectedUsers: any[] = [];
   hasSelectedUsers: boolean = false;
+  allUsersSelected: boolean = false;
 
   constructor(private userService: UserService){}
 
@@ -36,17 +37,20 @@ export class UserManagementComponent {
   selectAllUsers(event: any) {
     const isChecked = event.target.checked;
     this.activeUsers.forEach(user => {
-        user.selected = isChecked;
+       user.selected = isChecked;
     });
     this.inactiveUsers.forEach(user => {
-        user.selected = isChecked;
+       user.selected = isChecked;
     });
     this.updateSelectedUsers();
-  }
+   }
 
-  updateSelectedUsers() {
+   updateSelectedUsers() {
+    const allActiveSelected = this.activeUsers.every(user => user.selected);
+    const allInactiveSelected = this.inactiveUsers.every(user => user.selected);
+    this.allUsersSelected = allActiveSelected && allInactiveSelected;
     this.hasSelectedUsers = this.activeUsers.some(user => user.selected) || this.inactiveUsers.some(user => user.selected);
-  }
+   }
 
   toggleSelect(user: any) {
     const index = this.selectedUsers.indexOf(user);

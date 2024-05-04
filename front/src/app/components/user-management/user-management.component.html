@@ -14,14 +14,14 @@
       }
       <table>
          <tr>
-            <th><input type="checkbox" (change)="selectAllUsers($event)"></th>
+            <th><input type="checkbox" [checked]="allUsersSelected" (change)="selectAllUsers($event)"></th>
             <th>Nombre</th>
             <th>Apellido</th>
             <th>Email</th>
          </tr>
          @for (user of activeUsers; track user){
             <tr>
-               <td><input type="checkbox" (change)="toggleSelect(user)"></td>
+               <td><input type="checkbox" [checked]="user.selected" (change)="toggleSelect(user)"></td>
                <td>{{ user.firstName }}</td>
                <td>{{ user.lastName }}</td>
                <td>{{ user.email }}</td>
