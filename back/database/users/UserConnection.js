@@ -67,24 +67,36 @@ class UserModel {
     }
   }
 
-  createUserRols = async (userId, arrRolsId) => {
+  createUserRols = async (userId, arrRolesName) => {
     let newRoles = [];
     try {
-      conexion.conectar();
-      for (let rol of arrRolsId) {
-        let newRole = await models.UserRol.create({
-          id_user: userId,
-          id_rol: rol.id,
-        });
-        newRoles.push(newRole);
-      }
+       conexion.conectar();
+       for (let roleName of arrRolesName) {
+         // Buscar el id del rol por su nombre
+         const role = await models.Rol.findOne({
+           where: {
+             name: roleName
+           }
+         });
+         if (!role) {
+           console.error(`El rol con nombre ${roleName} no se encontró.`);
+           continue; // Salta esta iteración y continúa con la siguiente
+         }
+         // Insertar el id del usuario y el id del rol en user_rols
+         let newRole = await models.UserRols.create({
+           id_user: userId,
+           id_rol: role.id, // Usar el id del rol encontrado
+         });
+         newRoles.push(newRole);
+       }
     } catch (error) {
-      throw error;
+       console.error('Error al crear roles de usuario:', error);
+       throw error;
     } finally {
-      conexion.desconectar();
+       conexion.desconectar();
     }
     return newRoles;
-  };
+   };
 
   updateUser = async (userId, newData) => {
     try {

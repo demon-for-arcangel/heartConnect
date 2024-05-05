@@ -2,8 +2,11 @@ const { response, request } = require("express");
 const Conexion = require("../../database/users/UserConnection");
 const bcrypt = require("bcrypt");
 const { generateRandPass } = require("../../helpers/generatePass");
-const models = require('../../models')
+const models = require('../../models');
+const nodemailer = require('nodemailer');
 
+/* const {sendMail} = require('../services/mailController')
+ */
 const conx = new Conexion();
 
 const index = async (req, res) => {
@@ -55,6 +58,26 @@ const getUserByEmail = async (req, res) => {
   }
 }
 
+let transporter = nodemailer.createTransport({
+  service: 'gmail', 
+  auth: {
+      user: process.env.MAIL_USER,
+      pass: process.env.MAIL_PASSWORD,
+  }
+});
+
+const sendMail = async (mailOptions) =>{
+  transporter.sendMail(mailOptions, function(error, info) {
+      if (error) {
+          console.log('Error al enviar el correo electrónico:', error);
+          res.status(203).json({'msg' : 'Correo NO enviado'})
+      } else {
+          console.log('Correo electrónico enviado exitosamente:', info.response);
+          res.status(200).json({'msg' : 'Correo enviado'})
+      }
+  });
+}
+
 const registerUserByAdmin = async (req, res) => {
   let randPass = generateRandPass();
   req.body.password = await bcrypt.hash(randPass, 10);
@@ -70,10 +93,10 @@ const registerUserByAdmin = async (req, res) => {
                 <p>Gracias por registrarte en la plataforma.</p>
                 <p>Tu usuario es: ${msg.email}</p>
                 <p>Tu contraseña es: ${randPass}</p>
-                <p>Para iniciar sesión, utiliza la siguiente dirección: <a href="${process.env.URL_LOGIN}">${process.env.URL_LOGIN}</a></p>
+                <p>Para iniciar sesión, utiliza la siguiente dirección: <a href="${process.env.FRONT_URL}">${process.env.URL_LOGIN}</a></p>
                 <p>Saludos cordiales</p>`,
       };
-      await sendMail(mailOptions);
+      sendMail(mailOptions);
     });
     console.log(msg);
 

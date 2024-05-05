@@ -11,7 +11,7 @@ let transporter = nodemailer.createTransport({
     }
 });
 
-const sendMail = (mailOptions) =>{
+const sendMail = async (mailOptions) =>{
     transporter.sendMail(mailOptions, function(error, info) {
         if (error) {
             console.log('Error al enviar el correo electrónico:', error);
@@ -88,5 +88,6 @@ const resetPassword = async (req, res) =>{
 
 module.exports = {
     requestPasswordReset,
-    resetPassword
+    resetPassword,
+    sendMail
 }

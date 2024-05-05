@@ -68,7 +68,7 @@ export class UserManagementComponent {
             severity:'info', 
             summary:'Información', 
             detail:'No hay usuarios seleccionados para eliminar.',
-            styleClass: 'custom-info-message' // Asegúrate de definir esta clase en tu CSS
+            styleClass: 'custom-info-message'
         });
         return;
     }
@@ -79,11 +79,11 @@ export class UserManagementComponent {
                 severity:'success', 
                 summary:'Éxito', 
                 detail:'Usuarios eliminados correctamente.',
-                styleClass: 'custom-success-message' // Clase personalizada para mensajes de éxito
+                styleClass: 'custom-success-message' 
             });
             setTimeout(() => {
-                location.reload(); // Recarga la página después de 5 segundos
-            }, 5000); // 5000 milisegundos equivalen a 5 segundos
+                location.reload(); 
+            }, 5000); 
         },
         error => {
             this.messageService.add({
