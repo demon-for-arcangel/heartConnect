@@ -1,13 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MenuAdminComponent } from '../shared/menu-admin/menu-admin.component';
 import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-user-management',
   standalone: true,
   imports: [
-    MenuAdminComponent, CommonModule, 
+    MenuAdminComponent, CommonModule, ToastModule
     ],
   templateUrl: './user-management.component.html',
   styleUrl: './user-management.component.css'
@@ -19,7 +21,7 @@ export class UserManagementComponent {
   hasSelectedUsers: boolean = false;
   allUsersSelected: boolean = false;
 
-  constructor(private userService: UserService){}
+  constructor(private userService: UserService, private messageService: MessageService){}
 
   ngOnInit(){
     this.userService.getActiveUsers().subscribe(users => {
@@ -62,19 +64,36 @@ export class UserManagementComponent {
         .map(user => user.id);
     
     if (selectedUserIds.length === 0) {
-        console.log('No hay usuarios seleccionados para eliminar.');
+        this.messageService.add({
+            severity:'info', 
+            summary:'Información', 
+            detail:'No hay usuarios seleccionados para eliminar.',
+            styleClass: 'custom-info-message' // Asegúrate de definir esta clase en tu CSS
+        });
         return;
     }
     
     this.userService.deleteUser(selectedUserIds).subscribe(
         response => {
-          console.log('Usuarios eliminados:', response);
+            this.messageService.add({
+                severity:'success', 
+                summary:'Éxito', 
+                detail:'Usuarios eliminados correctamente.',
+                styleClass: 'custom-success-message' // Clase personalizada para mensajes de éxito
+            });
+            setTimeout(() => {
+                location.reload(); // Recarga la página después de 5 segundos
+            }, 5000); // 5000 milisegundos equivalen a 5 segundos
         },
         error => {
-          console.error('Error al eliminar usuarios:', error);
+            this.messageService.add({
+                severity:'error', 
+                summary:'Error', 
+                detail:'Hubo un error al eliminar los usuarios.',
+                styleClass: 'custom-error-message' // Clase personalizada para mensajes de error
+            });
         }
     );
-  }
-  
+}
   //hacer funcion para activar y desactivar cuentas
 }

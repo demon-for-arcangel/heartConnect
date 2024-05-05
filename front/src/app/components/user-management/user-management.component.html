@@ -1,5 +1,5 @@
 <app-menu-admin></app-menu-admin>
-
+<p-toast></p-toast>
 <h1>Gestión de Usuarios</h1>
 <div class="insertUser">
    <button>Agregar Usuario</button>
@@ -32,14 +32,17 @@
    </div>
    <div class="table-card">
       <h2>Cuentas Sin Activar</h2>
+      
       <table>
          <tr>
+            <th><input type="checkbox" [checked]="allUsersSelected" (change)="selectAllUsers($event)"></th>
             <th>Nombre</th>
             <th>Apellido</th>
             <th>Email</th>
          </tr>
          @for (user of inactiveUsers; track user){
             <tr>
+               <td><input type="checkbox" [checked]="user.selected" (change)="toggleSelect(user)"></td>
                <td>{{ user.firstName }}</td>
                <td>{{ user.lastName }}</td>
                <td>{{ user.email }}</td>
