@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { MenuAdminComponent } from '../shared/menu-admin/menu-admin.component';
-import { UserService } from '../../services/user.service';
+import { MenuAdminComponent } from '../../shared/menu-admin/menu-admin.component';
+import { UserService } from '../../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';

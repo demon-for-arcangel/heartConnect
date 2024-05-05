@@ -10,7 +10,7 @@ import { adminGuard } from './guards/admin.guard';
 import { EditGuideComponent } from './components/edit/edit-guide/edit-guide.component';
 import { RequestResetComponent } from './components/resetPassword/request-reset/request-reset.component';
 import { ResetPasswordComponent } from './components/resetPassword/reset-password/reset-password.component';
-import { UserManagementComponent } from './components/user-management/user-management.component';
+import { UserManagementComponent } from './components/user/user-management/user-management.component';
 import { EditMenuComponent } from './components/edit/edit-menu/edit-menu.component';
 
 export const routes: Routes = [
