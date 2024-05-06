@@ -131,16 +131,6 @@ class UserModel {
        console.error('Error al eliminar los usuarios:', error);
        throw error;
     }
-   }
-
-  logout = async (userId) => {
-    try {
-      await Token.destroy({ where: { userId } });
-      return true;
-    } catch (error) {
-      console.error('Error al eliminar el token:', error);
-      return false;
-    }
   }
 
   getActiveUsers = async () => {

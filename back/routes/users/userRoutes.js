@@ -10,7 +10,6 @@ router.post('/register/', [check('firstName', 'El nombre es obligatorio').notEmp
 check('email', 'El email es obligatorio').notEmpty(),
 check('email', 'No es un email válido').isEmail(), validateFilds], register);
 router.post('/login/', statusUser, login );
-router.post('/logout', logout);
 router.get('/users/active', controlador.getActiveUsers);
 router.get('/users/inactive', controlador.getInactiveUsers);
 

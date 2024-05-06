@@ -68,28 +68,6 @@ const login = async (req, res) => {
     }
 };
 
-const logout = async (req, res) => {
-  try {
-    // Eliminar el token del lado del cliente
-    res.clearCookie('token');
-
-    // Eliminar el token del lado del servidor
-    const userId = req.user.email; // Suponiendo que tienes el ID del usuario en la solicitud
-    const tokenDeleted = await conx.logout(userId);
-    
-    if (tokenDeleted) {
-      res.status(200).json({ message: 'Logout exitoso' });
-    } else {
-      res.status(500).json({ message: 'Error al eliminar el token' });
-    }
-  } catch (error) {
-    console.error('Error en logout:', error);
-    res.status(500).json({ message: 'Error en logout' });
-  }
-};
-
 module.exports = {
-  register,
-  login,
-  logout
+  register, login
 }
