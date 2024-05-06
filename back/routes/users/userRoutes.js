@@ -29,14 +29,7 @@ router.post('/user/new-user', [
 ], controlador.registerUserByAdmin );
 
 router.put('/user/', /* [checkToken, tokenCanAdmin], */controlador.updateUser );
+router.put('/user/activate', /* [checkToken, tokenCanAdmin], */controlador.activateUser);
 router.delete('/users/delete', /* [checkToken, tokenCanAdmin], */controlador.deleteUsers );
-/* router.get('/user/:id', /* [checkToken, tokenCanAdmin],   controlador.showUser );
- */
-
-/* 
-router.get('/my-profile', [checkToken, tokenCanUserAuth], controlador.showUser );
-router.put('/forget-pass/', [checkToken, tokenCanAdmin],controlador.forgetPass);
-router.post('/search', [checkToken, tokenCanAdmin], controlador.getUserByValue);
-*/
 
 module.exports = router;

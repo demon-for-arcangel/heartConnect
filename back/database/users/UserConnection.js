@@ -13,7 +13,7 @@ class UserModel {
       const users = await models.User.findAll();
       return users;
     }catch (error){
-      console.error('Error getting user list: ', error);
+      console.error('Error al mostrar la lista de usuarios: ', error);
       throw error;
     }
   }
@@ -22,11 +22,11 @@ class UserModel {
     try {
       const user = await models.User.findByPk(id);
       if (!user) {
-        throw new Error('User not found');
+        throw new Error('User no encontrado');
       }
       return user;
     } catch (error){
-      console.error('Error getting user: ', error);
+      console.error('Error al mostrar el usuario: ', error);
       throw error;
     }
   }
@@ -72,7 +72,6 @@ class UserModel {
     try {
        conexion.conectar();
        for (let roleName of arrRolesName) {
-         // Buscar el id del rol por su nombre
          const role = await models.Rol.findOne({
            where: {
              name: roleName
@@ -80,12 +79,10 @@ class UserModel {
          });
          if (!role) {
            console.error(`El rol con nombre ${roleName} no se encontró.`);
-           continue; // Salta esta iteración y continúa con la siguiente
          }
-         // Insertar el id del usuario y el id del rol en user_rols
          let newRole = await models.UserRols.create({
            id_user: userId,
-           id_rol: role.id, // Usar el id del rol encontrado
+           id_rol: role.id, 
          });
          newRoles.push(newRole);
        }
@@ -151,7 +148,7 @@ class UserModel {
       }); 
       return activeUsers;
     } catch (error) {
-      console.error('Error getting active users: ', error);
+      console.error('Error al mostrar los usuarios activos: ', error);
       throw error;
     }
   }
@@ -165,8 +162,26 @@ class UserModel {
       }); 
       return inactiveUsers;
     } catch (error) {
-      console.error('Error getting active users: ', error);
+      console.error('Error al mostrar los usuarios inactivos: ', error);
       throw error;
+    }
+  }
+
+  activateUsers = async (userIds) => {
+    try {
+       if (!Array.isArray(userIds) || userIds.length === 0) {
+         throw new Error('No se proporcionaron IDs de los usuarios.');
+       }
+   
+       const updatedUsers = await models.User.update(
+         { active: 1 },
+         { where: { id: userIds } } 
+       );
+   
+       return { message: `${updatedUsers} usuarios activados.` };
+    } catch (error) {
+       console.error('Error al activar los usuarios: ', error);
+       throw error;
     }
   }
 }

@@ -5,8 +5,6 @@ const { generateRandPass } = require("../../helpers/generatePass");
 const models = require('../../models');
 const nodemailer = require('nodemailer');
 
-/* const {sendMail} = require('../services/mailController')
- */
 const conx = new Conexion();
 
 const index = async (req, res) => {
@@ -32,7 +30,7 @@ const getUserById = async (req, res) => {
      });
  
      if (!user) {
-       return res.status(404).json({ msg: "User not found" });
+       return res.status(404).json({ msg: "Usuario no encontrado" });
      }
  
      const userWithRoles = {
@@ -158,7 +156,19 @@ const getInactiveUsers = async (req, res) => {
   }
 };
 
+const activateUser = async (req, res) => {
+  const { userIds } = req.body;
+  console.log(userIds)
+  try {
+    const updatedUsers = await conx.activateUsers(userIds);
+    res.status(200).json({ message: 'Usuario activado correctamente', user: updatedUsers });
+  } catch (error) {
+    console.error('Error: ', error);
+    res.status(500).json({ message: 'Error al activar el usuario', error });
+  }
+}
+
 module.exports = {
   index, getUserById, getUserByEmail, registerUserByAdmin, updateUser, deleteUsers,
-  getActiveUsers, getInactiveUsers
+  getActiveUsers, getInactiveUsers, activateUser
 };
