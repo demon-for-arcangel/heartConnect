@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ConfirmationService, PrimeNGConfig, MessageService } from 'primeng/api';
+import { ConfirmationService, PrimeNGConfig, MessageService, PrimeIcons } from 'primeng/api';
 import { WebsocketsService } from './services/websockets.service';
 import { ToastModule } from 'primeng/toast';
 import { environment } from './environments/environment';

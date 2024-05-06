@@ -1,5 +1,6 @@
 @import "./theme.css";
 @import 'quill/dist/quill.snow.css';
+@import '../node_modules/primeicons/primeicons.css';
 
 :root {
     display: flex;

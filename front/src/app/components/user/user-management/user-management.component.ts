@@ -19,6 +19,8 @@ export class UserManagementComponent {
   inactiveUsers: any[] = [];
   selectedUsers: any[] = [];
   hasSelectedUsers: boolean = false;
+  hasSelectedActiveUsers: boolean = false;
+  hasSelectedInactiveUsers: boolean = false;
   allUsersSelected: boolean = false;
 
   constructor(private userService: UserService, private messageService: MessageService){}
@@ -33,28 +35,37 @@ export class UserManagementComponent {
     })
   }
 
-  selectAllUsers(event: any) {
+  selectAllUsers(event: any, userType: string) {
     const isChecked = event.target.checked;
-    this.activeUsers.forEach(user => {
+    let usersList = [];
+   
+    if (userType === 'active') {
+       usersList = this.activeUsers;
+    } else if (userType === 'inactive') {
+       usersList = this.inactiveUsers;
+    }
+   
+    usersList.forEach(user => {
        user.selected = isChecked;
     });
-    this.inactiveUsers.forEach(user => {
-       user.selected = isChecked;
-    });
+   
     this.updateSelectedUsers();
-   }
+  }
 
-   updateSelectedUsers() {
+  updateSelectedUsers() {
     const allActiveSelected = this.activeUsers.every(user => user.selected);
     const allInactiveSelected = this.inactiveUsers.every(user => user.selected);
     this.allUsersSelected = allActiveSelected && allInactiveSelected;
     this.hasSelectedUsers = this.activeUsers.some(user => user.selected) || this.inactiveUsers.some(user => user.selected);
-   }
+   
+    this.hasSelectedActiveUsers = this.activeUsers.some(user => user.selected);
+    this.hasSelectedInactiveUsers = this.inactiveUsers.some(user => user.selected);
+  }
 
-   toggleSelect(user: any) {
+  toggleSelect(user: any) {
     user.selected = !user.selected;
     this.updateSelectedUsers(); 
-   }
+  }
 
   updateActionButtons() {}
 
