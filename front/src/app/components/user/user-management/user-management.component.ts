@@ -90,21 +90,68 @@ export class UserManagementComponent {
                 severity:'success', 
                 summary:'Éxito', 
                 detail:'Usuarios eliminados correctamente.',
-                styleClass: 'custom-success-message' 
             });
             setTimeout(() => {
                 location.reload(); 
-            }, 5000); 
+            }, 3000); 
         },
         error => {
             this.messageService.add({
                 severity:'error', 
                 summary:'Error', 
                 detail:'Hubo un error al eliminar los usuarios.',
-                styleClass: 'custom-error-message' // Clase personalizada para mensajes de error
             });
         }
     );
-}
-  //hacer funcion para activar y desactivar cuentas
+  }
+  
+  activateSelectedUsers() {
+    const selectedUserIds = this.inactiveUsers.filter(user => user.selected).map(user => user.id);
+    if (selectedUserIds.length > 0) {
+      this.userService.activateUser(selectedUserIds).subscribe(
+        response => {
+          this.messageService.add({ 
+            severity: 'success', 
+            summary: 'Éxito', 
+            detail: 'Usuarios activados correctamente.' 
+          });
+          setTimeout(() => {
+            location.reload(); 
+          }, 3000); 
+        },
+        error => {
+          this.messageService.add({ 
+            severity: 'error', 
+            summary: 'Error', 
+            detail: 'Hubo un error al activar los usuarios.' 
+          });
+        }
+      );
+    }
+  }
+
+  desactivateSelectedUsers() {
+    const selectedUserIds = this.activeUsers.filter(user => user.selected).map(user => user.id);
+    if (selectedUserIds.length > 0) {
+      this.userService.desactivateUser(selectedUserIds).subscribe(
+        response => {
+          this.messageService.add({ 
+            severity: 'success', 
+            summary: 'Éxito', 
+            detail: 'Usuarios desactivados correctamente.' 
+          });
+          setTimeout(() => {
+            location.reload(); 
+          }, 3000); 
+        },
+        error => {
+         this.messageService.add({ 
+          severity: 'error', 
+          summary: 'Error', 
+          detail: 'Hubo un error al desactivar los usuarios.' 
+        });
+        }
+      );
+    }
+  }
 }

@@ -10,7 +10,7 @@ export const environment = {
     inactiveUsers: '/users/inactive',
     deleteUsers: '/users/delete',
     activateUsers: '/users/activate',
-    desactivateUsers: '/users/desactive',
+    desactivateUsers: '/users/desactivate',
 
     rol_admin : 1,
     admin_gestion_image:'../../assets/cards-dashboard/gestion.png',

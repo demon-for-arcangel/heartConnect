@@ -187,7 +187,7 @@ class UserModel {
       }
 
       const updatedUsers = await models.User.update(
-        { active: 1 },
+        { active: 0 },
         { where: { id: userIds } } 
       );
   
@@ -195,26 +195,6 @@ class UserModel {
     } catch (error) {
       console.error('Error al desactivar los usuarios: ', error);
       throw error;
-      console.error('Error al mostrar los usuarios inactivos: ', error);
-      throw error;
-    }
-  }
-
-  activateUsers = async (userIds) => {
-    try {
-       if (!Array.isArray(userIds) || userIds.length === 0) {
-         throw new Error('No se proporcionaron IDs de los usuarios.');
-       }
-   
-       const updatedUsers = await models.User.update(
-         { active: 1 },
-         { where: { id: userIds } } 
-       );
-   
-       return { message: `${updatedUsers} usuarios activados.` };
-    } catch (error) {
-       console.error('Error al activar los usuarios: ', error);
-       throw error;
     }
   }
 }
