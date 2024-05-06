@@ -17,6 +17,8 @@ export class UserService {
   private urlActiveUsers: string = this.baseUrl + environment.activeUsers;
   private urlInactiveUsers: string = this.baseUrl + environment.inactiveUsers;
   private urlDeleteUsers: string = this.baseUrl + environment.deleteUsers;
+  private urlActivateUsers: string = this.baseUrl + environment.activateUsers;
+  private urlDesactivateUsers: string = this.baseUrl + environment.desactivateUsers;
 
   login(user: User): Observable<User | undefined>{
     return this.http.post<User>(this.urlLogin, user, {withCredentials: false}).pipe(
@@ -52,5 +54,23 @@ export class UserService {
     return this.http.delete(`${this.urlDeleteUsers}`, {
        body: { userIds: userIds }
     });
+  }
+
+  activateUser(userIds: string[]): Observable<any> {
+    return this.http.put<any>(this.urlActivateUsers, { userIds: userIds }).pipe(
+      catchError((error) => {
+        console.error('Error al activar el usuario:', error);
+        return of(error);
+      })
+    );
+  }
+
+  desactivateUser(userIds: string[]): Observable<any> {
+    return this.http.put<any>(this.urlDesactivateUsers, { userIds: userIds }).pipe(
+      catchError((error) => {
+        console.error('Error al desactivar el usuario:', error);
+        return of(error);
+      })
+    );
   }
 }
