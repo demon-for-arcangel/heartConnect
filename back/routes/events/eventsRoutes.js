@@ -7,3 +7,4 @@ const router = Router();
 
 router.get('/', /*[checkToken, tokenCanAdmin],*/ controlador.index);
 router.get('/:id', controlador.getEventsById);
+
