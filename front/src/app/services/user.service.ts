@@ -37,6 +37,10 @@ export class UserService {
     );
   }
 
+  createNewUser(){
+    //implementar
+  }
+
   getUserById(userId: string): Observable<User | undefined> {
     const userUrl = `${this.urlShowUser}/${userId}`;
     return this.http.get<User>(userUrl);
