@@ -9,5 +9,6 @@ router.get('/', /*[checkToken, tokenCanAdmin],*/ controlador.index);
 router.get('/:id', controlador.getEventsById);
 router.post('/', controlador.createEvent);
 router.put('/:id', controlador.updateEvent);
+router.delete('/', controlador.deleteEvents);
 
 module.exports = router;

@@ -63,7 +63,20 @@ class EventsModel {
     }
   }
 
-  deleteEvent = async () => {}
+  async deleteEvents(ids) {
+    try {
+      const deletedEvents = await models.Events.destroy({
+        where: { id: ids }
+      });
+      if (deletedEvents === 0) {
+        throw new Error('Ningún evento encontrado o eliminado');
+      }
+      return { message: `${deletedEvents} eventos eliminados correctamente` };
+    } catch (error) {
+      console.error('Error al eliminar los eventos: ', error);
+      throw error;
+    }
+}
 }
 
 module.exports = EventsModel;

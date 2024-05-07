@@ -61,6 +61,17 @@ const updateEvent = async (req, res) => {
   }
 };
 
+const deleteEvents = async (req, res) => {
+  const eventIds = req.body.ids; 
+  try {
+    const result = await conx.deleteEvents(eventIds);
+    res.status(200).json(result);
+  } catch (error) {
+    console.error('Error al eliminar los eventos: ', error);
+    res.status(500).json({ msg: "Error al eliminar los eventos" });
+  }
+};
+
 module.exports = {
-    index, getEventsById, createEvent, updateEvent
+    index, getEventsById, createEvent, updateEvent, deleteEvents
 }
