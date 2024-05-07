@@ -19,17 +19,17 @@ module.exports = {
         type: Sequelize.STRING
       },
       relationship_type: {
-        type: Sequelize.STRING // Campo para indicar el tipo de relación: seria o esporádica
+        type: Sequelize.STRING 
       },
       has_children: {
-        type: Sequelize.BOOLEAN, // Campo para indicar si tiene hijos
-        defaultValue: false // Valor predeterminado: no tiene hijos
+        type: Sequelize.BOOLEAN, 
+        defaultValue: false
       },
       wants_children: {
-        type: Sequelize.BOOLEAN // Campo para indicar si quiere tener hijos en el futuro
+        type: Sequelize.BOOLEAN 
       },
       interest: {
-        type: Sequelize.STRING // Campo para indicar interés: hombre, mujeres o ambos
+        type: Sequelize.STRING 
       },
       createdAt: {
         allowNull: false,
