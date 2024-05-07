@@ -13,6 +13,12 @@ export class UserService {
   private baseUrl: string = environment.baseUrl;
   private urlLogin: string = this.baseUrl + environment.login;
   private urlRegister: string = this.baseUrl + environment.register;
+  private urlShowUser: string = this.baseUrl + environment.myProfile;
+  private urlActiveUsers: string = this.baseUrl + environment.activeUsers;
+  private urlInactiveUsers: string = this.baseUrl + environment.inactiveUsers;
+  private urlDeleteUsers: string = this.baseUrl + environment.deleteUsers;
+  private urlActivateUsers: string = this.baseUrl + environment.activateUsers;
+  private urlDesactivateUsers: string = this.baseUrl + environment.desactivateUsers;
 
   login(user: User): Observable<User | undefined>{
     return this.http.post<User>(this.urlLogin, user, {withCredentials: false}).pipe(
@@ -26,6 +32,47 @@ export class UserService {
     return this.http.post<User>(this.urlRegister, user, {withCredentials: false}).pipe(
       catchError((error) => {
         console.error('Error al registrar el usuario:', error);
+        return of(error);
+      })
+    );
+  }
+
+  createNewUser(){
+    //implementar
+  }
+
+  getUserById(userId: string): Observable<User | undefined> {
+    const userUrl = `${this.urlShowUser}/${userId}`;
+    return this.http.get<User>(userUrl);
+  }
+
+  getActiveUsers(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.urlActiveUsers}`);
+  }
+
+  getInactiveUsers(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.urlInactiveUsers}`);
+  }
+
+  deleteUser(userIds: string[]): Observable<any> {
+    return this.http.delete(`${this.urlDeleteUsers}`, {
+       body: { userIds: userIds }
+    });
+  }
+
+  activateUser(userIds: string[]): Observable<any> {
+    return this.http.put<any>(this.urlActivateUsers, { userIds: userIds }).pipe(
+      catchError((error) => {
+        console.error('Error al activar el usuario:', error);
+        return of(error);
+      })
+    );
+  }
+
+  desactivateUser(userIds: string[]): Observable<any> {
+    return this.http.put<any>(this.urlDesactivateUsers, { userIds: userIds }).pipe(
+      catchError((error) => {
+        console.error('Error al desactivar el usuario:', error);
         return of(error);
       })
     );

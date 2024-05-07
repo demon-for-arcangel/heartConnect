@@ -3,13 +3,13 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MailService } from '../../../services/mail.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { MenuLogoComponent } from '../../shared/menu-logo/menu-logo.component';
 import { CommonModule, Location } from '@angular/common';
+import { MenuAdminComponent } from '../../shared/menu-admin/menu-admin.component';
 
 @Component({
   selector: 'app-request-reset',
   standalone: true,
-  imports: [FormsModule, MenuLogoComponent, CommonModule, ReactiveFormsModule],
+  imports: [FormsModule, MenuAdminComponent, CommonModule, ReactiveFormsModule],
   templateUrl: './request-reset.component.html',
   styleUrl: './request-reset.component.css'
 })

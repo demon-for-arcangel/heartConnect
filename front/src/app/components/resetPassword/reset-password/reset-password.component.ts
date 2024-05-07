@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MailService } from '../../../services/mail.service';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { MenuLogoComponent } from '../../shared/menu-logo/menu-logo.component';
 import { CommonModule } from '@angular/common';
+import { MenuAdminComponent } from '../../shared/menu-admin/menu-admin.component';
 
 @Component({
   selector: 'app-reset-password',
   standalone: true,
-  imports: [FormsModule, MenuLogoComponent, CommonModule],
+  imports: [FormsModule, MenuAdminComponent, CommonModule],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.css'
 })

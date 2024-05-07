@@ -1,15 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
-import { Observable } from 'rxjs';
 import { User } from '../interfaces/user';
-
+import { UserService } from './user.service';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private userService: UserService) { }
   url = environment.baseUrl+environment.myProfile
 
   getUserByToken(): Observable<User | undefined>{
@@ -33,7 +34,7 @@ export class AuthService {
   getRolesOfToken(): any {
     try {
       let token = JSON.parse(localStorage.getItem('user') as string).token.split('.')[1];
-      const rolesOfToken = JSON.parse(atob(token)).roles;
+      const rolesOfToken = JSON.parse(atob(token)).roles || [];
       return rolesOfToken;
     } catch (error){
       return null;
@@ -50,18 +51,39 @@ export class AuthService {
     }
   }
 
-  isAdmin(): boolean {
+  isAdmin(): Observable<boolean> {
     let token = localStorage.getItem('user');
-    if (!token){
-      return false
+    if (!token) {
+       return throwError(() => new Error('No se encontró token'));
     }
+   
+    try {
+       const decodedToken = JSON.parse(atob(token.split('.')[1]));
+       const userId = decodedToken.uid;
+   
+       return this.userService.getUserById(userId).pipe(
+         map((user: User | undefined) => {
+           if (!user) {
+             throw new Error('User not found');
+           }
 
-    try{
-      const decodedToken = JSON.parse(atob(token.split('.')[1]));
-      return decodedToken.roles && decodedToken.roles.includes('admin');
-    }catch (error) {
-      console.error('Error al decodificar el token', error)
-      return false
+           const isAdmin = user.roles?.some(role => role.name === 'administrador');
+           if (isAdmin) {
+             console.log('El usuario es administrador');
+             return true;
+           } else {
+             console.log('El usuario no es administrador');
+             return false;
+           }
+         }),
+         catchError((error: any) => {
+           console.error('Error al obtener los detalles del usuario', error);
+           return throwError(() => new Error('Error al obtener los detalles del usuario'));
+         }),
+       );
+    } catch (error: any) {
+       console.error('Error al decodificar el token', error);
+       return throwError(() => new Error('Error al decodificar el token'));
     }
   }
 }

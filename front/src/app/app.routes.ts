@@ -10,6 +10,8 @@ import { adminGuard } from './guards/admin.guard';
 import { EditGuideComponent } from './components/edit/edit-guide/edit-guide.component';
 import { RequestResetComponent } from './components/resetPassword/request-reset/request-reset.component';
 import { ResetPasswordComponent } from './components/resetPassword/reset-password/reset-password.component';
+import { UserManagementComponent } from './components/user/user-management/user-management.component';
+import { EditMenuComponent } from './components/edit/edit-menu/edit-menu.component';
 
 export const routes: Routes = [
     //cualquier usuario sin registrar
@@ -24,6 +26,8 @@ export const routes: Routes = [
     {path: 'home', component: DashboardComponent, canActivate:[anyLoggedGuard]},
 
     //admin
+    {path: 'user-management', component: UserManagementComponent, canActivate:[adminGuard]},
+    {path: 'edit-menu', component: EditMenuComponent, canActivate:[adminGuard]},
     {path: 'edit-information', component: EditInformationComponent, canActivate:[adminGuard]},
     {path: 'edit-guide', component: EditGuideComponent, canActivate:[adminGuard]},
 ];

@@ -2,10 +2,9 @@
     <div class="header-container">
         <div class="header-content">
             <a routerLink="/"><img src="../../../../assets/logo.png" width="280px"></a>
-            <ul>
-                <li><a routerLink="edit-information">Editar Información</a></li>
-                <li><a routerLink="edit-guide">Editar Guia de HeartConnect</a></li>
-            </ul>
+            <button class="no-background" (click)="logout()">
+                <i class="fas fa-sign-out fa-lg" style="color: #ffffff;" ></i>        
+            </button>
         </div>
     </div>
 </header>

@@ -1,6 +1,7 @@
 @import "./theme.css";
 @import 'quill/dist/quill.snow.css';
-
+@import '../node_modules/primeicons/primeicons.css';
+@import '@fortawesome/fontawesome-free/css/all.min.css';
 :root {
     display: flex;
     flex-direction: column;

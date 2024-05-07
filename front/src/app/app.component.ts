@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ConfirmationService, PrimeNGConfig, MessageService } from 'primeng/api';
+import { ConfirmationService, PrimeNGConfig, MessageService, PrimeIcons } from 'primeng/api';
 import { WebsocketsService } from './services/websockets.service';
 import { ToastModule } from 'primeng/toast';
 import { environment } from './environments/environment';
@@ -21,6 +21,11 @@ export class AppComponent implements OnInit {
   isLogged = false;
 
   private socket: any; 
+
+  cards = [
+    { imageUrl: 'path/to/image1.jpg', number: 1, description: 'Descripción 1' },
+    { imageUrl: 'path/to/image2.jpg', number: 2, description: 'Descripción 2' },
+  ];
 
   constructor(
     private primengConfig: PrimeNGConfig, 

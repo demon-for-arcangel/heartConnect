@@ -30,19 +30,4 @@ export class EditInformationComponent {
 
   constructor(){}
 
-  onBoldClick() {
-    // Add your bold logic here
-  }
-
-  onItalicClick() {
-    // Add your italic logic here
-  }
-
-  onUnderlineClick() {
-    // Add your underline logic here
-  }
-
-  onStrikethroughClick() {
-    // Add your strikethrough logic here
-  }
 }
