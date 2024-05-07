@@ -1,5 +1,5 @@
 const { response, request } = require("express");
-const Conexion = require("../../database/users/UserConnection");
+const Conexion = require("../../database/rols/RolConnection");
 const models = require('../../models');
 
 const conx = new Conexion();
