@@ -10,7 +10,7 @@ class EventsModel {
 
     async indexEvents() {
         try {
-            const events = await models.indexEvents.findAll();
+            const events = await models.Events.findAll();
             return events;
           }catch (error){
             console.error('Error al mostrar la lista de eventos: ', error);
@@ -37,3 +37,5 @@ class EventsModel {
 
     deleteEvent = async () => {}
 }
+
+module.exports = EventsModel;

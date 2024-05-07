@@ -1,14 +1,13 @@
 const { response, request } = require("express");
 const Conexion = require("../../database/events/eventsConnection");
 const models = require('../../models');
-const nodemailer = require('nodemailer');
 
 const conx = new Conexion();
 
 const index = async (req, res) => {
     try{
       const events = await conx.indexEvents();
-      res.status(200).json(users);
+      res.status(200).json(events);
     }catch (error){
       console.error('Error al obtener los eventos', error);
       res.status(500).json({ msg: "Error"});
