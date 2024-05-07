@@ -1,0 +1,23 @@
+@if (isAdmin){
+    <app-menu-admin></app-menu-admin>
+    <section>
+        @for(card of cards; track card.id){
+            <div class="card" routerLink={{card.link}}>
+                <p-card header={{card.title}} [style]="{ width: '360px' }">
+                    <p class="m-0">{{card.content}}</p>
+                    <img alt="Card" src={{card.image}} width="300px" />
+                </p-card>
+            </div>
+        }
+    </section>
+}@else{
+    <app-menu></app-menu>
+    <div class="container">
+        <div class="messenger">
+            <p>mensajeria</p>
+        </div>
+        <div class="view-people">
+            <p>Contenido de la aplicacion</p>
+        </div>
+    </div>
+}

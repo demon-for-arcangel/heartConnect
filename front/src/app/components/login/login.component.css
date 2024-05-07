@@ -1,0 +1,86 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+    height: 300px;
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.welcome-message {
+    text-align: center;
+    background-image: url('https://imgs.search.brave.com/j3ojIFMg7nbOypiu_buS85UGHrcQ9uFJ0BIUpKGfYXU/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTQz/MDE0Mjg3MC9lcy9m/b3RvL2pvdmVuLXVz/YW5kby11bmEtYXBs/aWNhY2klQzMlQjNu/LWRlLWNpdGFzLmpw/Zz9zPTYxMng2MTIm/dz0wJms9MjAmYz04/c2o4WmU3YnR4eUVT/RDlEOEJPX3puYndJ/Ry0wcHNtNzFaVUNV/SXplblRFPQ');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+    color: white; 
+    padding: 98px; 
+    background-color: rgba(0, 0, 0, 0.4);
+    background-blend-mode: multiply;
+}
+
+.login-form {
+    width: 260px;
+    padding: 75px;
+    background-color: rgba(255, 255, 255, 0.625);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-container form div {
+    margin-bottom: 10px;
+}
+
+.login-container form label {
+    display: block;
+    margin-bottom: 5px;
+    color: black;
+}
+
+.login-container form input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.login-container form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.login-container form button:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 1000px) {
+    .login-container {
+        width: 90%; 
+        height: auto; 
+    }
+
+    .welcome-message {
+        padding: 28px; 
+    }
+
+    .login-form {
+        width: 90%; 
+        padding: 35px; 
+    }
+}

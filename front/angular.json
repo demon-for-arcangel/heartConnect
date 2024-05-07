@@ -21,11 +21,13 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
+              "src/assets/logo.png",
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/custom-theme.scss",
+              "src/styles.css",
+              "node_modules/primeicons/primeicons.css"
             ],
             "scripts": []
           },
@@ -55,16 +57,19 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+             "buildTarget": "front:build"
+          },
           "configurations": {
-            "production": {
-              "buildTarget": "front:build:production"
-            },
-            "development": {
-              "buildTarget": "front:build:development"
-            }
+             "production": {
+               "buildTarget": "front:build:production"
+             },
+             "development": {
+               "buildTarget": "front:build:development"
+             }
           },
           "defaultConfiguration": "development"
-        },
+         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
@@ -91,5 +96,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
