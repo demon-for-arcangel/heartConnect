@@ -14,6 +14,7 @@ class Server {
       this.apiMail = "/api/mail";
       this.apiRols = "/api/rols"
       this.apiEvents = "/api/events"
+      this.apiPreferences = "/api/preferences"
       
       this.serverExpress = require('http').createServer(this.app);
       this.serverWebSocket = require('http').createServer(this.app);
@@ -48,6 +49,7 @@ class Server {
       this.app.use(this.apiMail, require('../routes/services/mailRoutes'));
       this.app.use(this.apiRols, require('../routes/rols/rolRoutes'));
       this.app.use(this.apiEvents, require('../routes/events/eventsRoutes'));
+      this.app.use(this.apiPreferences, require('../routes/preferences/preferencesRoutes'));
     }
   
     sockets() {
