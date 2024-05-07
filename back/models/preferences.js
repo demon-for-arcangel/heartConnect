@@ -14,9 +14,13 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Preferences.init({
-    deportivos: DataTypes.STRING,
-    artisticos: DataTypes.STRING,
-    politicos: DataTypes.STRING
+    sports: DataTypes.STRING,
+    artistic: DataTypes.STRING,
+    politicians: DataTypes.STRING,
+    relationship_type: DataTypes.STRING,
+    has_children: DataTypes.BOOLEAN,
+    wants_children: DataTypes.BOOLEAN,
+    interest: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Preferences',
