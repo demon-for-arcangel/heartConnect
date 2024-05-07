@@ -1,10 +1,12 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @Component({
   selector: 'app-create-user',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, InputSwitchModule, CommonModule],
   templateUrl: './create-user.component.html',
   styleUrl: './create-user.component.css'
 })

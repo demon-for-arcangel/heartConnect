@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsToMany(models.User, {
-        through: 'user_rols', // This should match the name of your join table
+        through: 'user_rols',
         as: 'users',
        });
     }

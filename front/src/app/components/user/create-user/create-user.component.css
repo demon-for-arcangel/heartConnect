@@ -15,7 +15,7 @@
 .form-column {
     display: flex;
     flex-direction: column;
-    width: 48%; /* Ajusta este valor según sea necesario */
+    width: 48%; 
 }
 
 .form-field {
@@ -24,6 +24,14 @@
     margin-bottom: 20px;
     width: 100%;
     color:black;
+}
+
+.form-field.is-active-field {
+    display: flex;
+    flex-direction: row; 
+    align-items: center; 
+    gap: 10px; 
+    width: auto;
 }
 
 .form-field label {
@@ -47,7 +55,7 @@
     cursor: pointer;
     font-size: 16px;
     margin-top: 20px;
-    align-self: flex-end; /* Alinea el botón al final del formulario */
+    align-self: flex-end;
 }
 
 .submit-button:hover {

@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       /* this.belongsToMany(models.Rol, {
-        through: 'user_rols', // This should match the name of your join table
+        through: 'user_rols',
         as: 'roles',
        }); */
     }
