@@ -32,6 +32,20 @@ const getEventsById = async (req, res) => {
     }
 };
 
+const createEvent = async (req, res) => {
+  const eventData = req.body;
+  try {
+      const newEvent = await conx.createEvent(eventData);
+      if (!newEvent) {
+          return res.status(400).json({ msg: "No se pudo crear el evento" });
+      }
+      res.status(201).json(newEvent);
+  } catch (error) {
+      console.error('Error al crear el evento: ', error);
+      res.status(500).json({ msg: "Error al crear el evento" });
+  }
+};
+
 module.exports = {
-    index, getEventsById
+    index, getEventsById, createEvent
 }

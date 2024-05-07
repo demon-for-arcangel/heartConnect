@@ -31,11 +31,22 @@ class EventsModel {
         }
     }
 
-    createEvent = async () => {}
+  async createEvent(eventData) {
+    try {
+        const newEvent = await models.Events.create(eventData);
+        if (!newEvent) {
+            throw new Error('No se pudo crear el evento');
+        }
+        return newEvent;
+    } catch (error) {
+        console.error('Error al crear el evento: ', error);
+        throw error;
+    }
+  }
 
-    updateEvent = async () => {}
+  updateEvent = async () => {}
 
-    deleteEvent = async () => {}
+  deleteEvent = async () => {}
 }
 
 module.exports = EventsModel;
