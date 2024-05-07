@@ -44,7 +44,24 @@ class EventsModel {
     }
   }
 
-  updateEvent = async () => {}
+  async updateEvent(id, updatedData) {
+    try {
+      const event = await models.Events.findByPk(id);
+      if (!event) {
+        throw new Error('Evento no encontrado');
+      }
+
+      const updatedEvent = await event.update(updatedData);
+      if (!updatedEvent) {
+        throw new Error('No se pudo actualizar el evento');
+      }
+
+      return updatedEvent;
+    } catch (error) {
+      console.error('Error al actualizar el evento: ', error);
+      throw error;
+    }
+  }
 
   deleteEvent = async () => {}
 }
