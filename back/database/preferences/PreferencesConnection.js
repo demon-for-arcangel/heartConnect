@@ -40,6 +40,35 @@ class PreferencesModel {
             throw error;
         }
     }
+
+    async updatePreference(id, preferencesData) {
+        try {
+            const existingPreference = await models.Preferences.findByPk(id);
+            if (!existingPreference) {
+                throw new Error('Preferencias no encontradas');
+            }
+            await existingPreference.update(preferencesData);
+            return existingPreference;
+        } catch (error) {
+            console.error('Error al actualizar las preferencias: ', error);
+            throw error;
+        }
+    }
+    
+    async deletePreference(id) {
+        try {
+            const deletedPreference = await models.Preferences.findByPk(id);
+            if (!deletedPreference) {
+                throw new Error('Preferencias no encontradas');
+            }
+            await deletedPreference.destroy();
+            return { msg: 'Preferencias eliminadas exitosamente' };
+        } catch (error) {
+            console.error('Error al eliminar las preferencias: ', error);
+            throw error;
+        }
+    }
+    
 }
 
 module.exports = PreferencesModel;

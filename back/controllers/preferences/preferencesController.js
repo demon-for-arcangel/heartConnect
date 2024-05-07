@@ -45,6 +45,39 @@ const createPreference = async (req, res) => {
     }
 }
 
+const updatePreference = async (req, res) => {
+    const preferenceId = req.params.id;
+    const preferencesData = req.body;
+    try {
+        const [updatedRows] = await models.Preferences.update(preferencesData, {
+            where: { id: preferenceId },
+        });
+        if (updatedRows === 0) {
+            return res.status(404).json({ msg: "Preferencias no encontradas" });
+        }
+        res.status(200).json({ msg: "Preferencia actualizada correctamente" });
+    } catch (error) {
+        console.error('Error al actualizar las preferencias', error);
+        res.status(500).json({ msg: "Error" });
+    }
+}
+
+const deletePreference = async (req, res) => {
+    const preferenceId = req.params.id;
+    try {
+        const deletedPreference = await models.Preferences.destroy({
+            where: { id: preferenceId }
+        });
+        if (!deletedPreference) {
+            return res.status(404).json({ msg: "Preferencias no encontradas" });
+        }
+        res.status(200).json({ msg: "Preferencias eliminadas exitosamente" });
+    } catch (error) {
+        console.error('Error al eliminar las preferencias', error);
+        res.status(500).json({ msg: "Error" });
+    }
+}
+
 module.exports = {
-    index, getPreferencesById, createPreference
+    index, getPreferencesById, createPreference, updatePreference, deletePreference
 };
