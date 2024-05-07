@@ -9,9 +9,10 @@ class Server {
       this.app = express();
       this.middlewares();
   
-      this.userRoutePath = "/api";
+      this.RoutePath = "/api";
       this.apiFiles = "/api/file";
       this.apiMail = "/api/mail";
+      this.apiRols = "/api/rols"
       
       this.serverExpress = require('http').createServer(this.app);
       this.serverWebSocket = require('http').createServer(this.app);
@@ -42,8 +43,9 @@ class Server {
     }
   
     routes() {
-      this.app.use(this.userRoutePath, require("../routes/users/userRoutes"));
+      this.app.use(this.RoutePath, require("../routes/users/userRoutes"));
       this.app.use(this.apiMail, require('../routes/services/mailRoutes'));
+      this.app.use(this.apiRols, require('../routes/rols/rolRoutes'));
     }
   
     sockets() {
