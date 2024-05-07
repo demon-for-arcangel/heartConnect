@@ -1,18 +1,24 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { MenuAdminComponent } from '../../shared/menu-admin/menu-admin.component';
 import { UserService } from '../../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { DialogComponent } from '../../utils/dialog/dialog.component';
+import { DialogModule } from '@angular/cdk/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { CreateUserComponent } from '../create-user/create-user.component';
 
 @Component({
   selector: 'app-user-management',
   standalone: true,
   imports: [
-    MenuAdminComponent, CommonModule, ToastModule
+    MenuAdminComponent, CommonModule, ToastModule, DialogComponent, DialogModule, ConfirmDialogModule
     ],
   templateUrl: './user-management.component.html',
-  styleUrl: './user-management.component.css'
+  styleUrl: './user-management.component.css',
+  providers: [DialogService]
 })
 export class UserManagementComponent {
   activeUsers: any[] = [];
@@ -23,7 +29,10 @@ export class UserManagementComponent {
   hasSelectedInactiveUsers: boolean = false;
   allUsersSelected: boolean = false;
 
-  constructor(private userService: UserService, private messageService: MessageService){}
+  ref: DynamicDialogRef | undefined;
+  dialog: any;
+
+  constructor(private userService: UserService, private messageService: MessageService, public dialogService: DialogService){}
 
   ngOnInit(){
     this.userService.getActiveUsers().subscribe(users => {
@@ -79,7 +88,6 @@ export class UserManagementComponent {
             severity:'info', 
             summary:'Información', 
             detail:'No hay usuarios seleccionados para eliminar.',
-            styleClass: 'custom-info-message'
         });
         return;
     }
@@ -153,5 +161,18 @@ export class UserManagementComponent {
         }
       );
     }
+  }
+
+  newUser(): void {
+    this.ref = this.dialogService.open(CreateUserComponent, {
+      header: 'Agregar Nuevo Usuario',
+      modal: true,
+      width: '60%',
+      breakpoints: {
+        '960px': '75vw',
+        '640px': '90vw'
+      },
+      styleClass: 'custom-modal'
+    })
   }
 }

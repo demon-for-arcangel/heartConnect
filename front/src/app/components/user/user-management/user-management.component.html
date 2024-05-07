@@ -1,8 +1,9 @@
 <app-menu-admin></app-menu-admin>
-<p-toast></p-toast>
+<!-- <p-toast [autoZIndex]="false" [baseZIndex]="1000"></p-toast> -->
+<p-toast></p-toast> 
 <h1>Gestión de Usuarios</h1>
 <div class="insertUser">
-   <button><i class="pi pi-plus"> Agregar Usuario</i></button>
+   <button (click)="newUser()"><i class="pi pi-plus"> Agregar Usuario</i></button>
 </div>
 <div class="table-container">
    <div class="table-card">

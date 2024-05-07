@@ -1,0 +1,40 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
+    <div class="form-column">
+        <div class="form-field">
+           <label for="firstName">Nombre:</label>
+           <input id="firstName" type="text" formControlName="firstName">
+        </div>
+        <div class="form-field">
+           <label for="lastName">Apellido:</label>
+           <input id="lastName" type="text" formControlName="lastName">
+        </div>
+        <div class="form-field">
+           <label for="email">Email:</label>
+           <input id="email" type="email" formControlName="email">
+        </div>
+    </div>
+
+    <div class="form-column">
+        <div class="form-field">
+           <label for="birthDate">Fecha de Nacimiento:</label>
+           <input id="birthDate" type="date" formControlName="birthDate">
+        </div>
+        <div class="form-field">
+           <label for="address">Domicilio:</label>
+           <input id="address" type="text" formControlName="address">
+        </div>
+        <div class="form-field">
+           <label for="phoneNumber">Número de Teléfono:</label>
+           <input id="phoneNumber" type="text" formControlName="phoneNumber">
+        </div>
+        <div class="form-field">
+           <label for="roles">Roles:</label>
+           <input id="roles" type="text" formControlName="roles">
+        </div>
+        <div class="form-field">
+           <label for="isActive">Activo:</label>
+           <input id="isActive" type="checkbox" formControlName="isActive">
+        </div>
+    </div>
+    <button type="submit" class="submit-button">Crear Usuario</button>
+</form>
