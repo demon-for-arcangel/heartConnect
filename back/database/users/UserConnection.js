@@ -14,7 +14,6 @@ class UserModel {
       return users;
     }catch (error){
       console.error('Error al mostrar la lista de usuarios: ', error);
-      console.error('Error al mostrar la lista de usuarios: ', error);
       throw error;
     }
   }
@@ -24,11 +23,9 @@ class UserModel {
       const user = await models.User.findByPk(id);
       if (!user) {
         throw new Error('User no encontrado');
-        throw new Error('User no encontrado');
       }
       return user;
     } catch (error){
-      console.error('Error al mostrar el usuario: ', error);
       console.error('Error al mostrar el usuario: ', error);
       throw error;
     }
@@ -103,7 +100,7 @@ class UserModel {
     try {
       const user = await models.User.findByPk(userId);
       if (!user) {
-        throw new Error('User nor found.');
+        throw new Error('Usuario no encontrado.');
       }
 
       const updated = await user.update(newData);
