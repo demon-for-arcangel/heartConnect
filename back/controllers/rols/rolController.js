@@ -32,6 +32,19 @@ const getRolById = async (req, res) => {
     }
 }
 
+const updateRol = async (req, res) => {
+    const rolId = req.params.id;
+    const newData = req.body;
+
+    try {
+        const updateRol = await conx.updateRol(rolId, newData);
+        res.status(200).json(updateRol);
+    } catch (error) {
+        console.error('Error al actualizar el rol: ', error);
+        res.status(500).json({ msg: "Error al actualizar" });
+    }
+}
+
 module.exports = {
-    index, getRolById
+    index, getRolById, updateRol
 };

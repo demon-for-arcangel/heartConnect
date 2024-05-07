@@ -7,5 +7,6 @@ const router = Router();
 
 router.get('/', /*[checkToken, tokenCanAdmin],*/ controlador.index);
 router.get('/:id', controlador.getRolById);
+router.put('/:id', /* [checkToken, tokenCanAdmin], */controlador.updateRol );
 
 module.exports = router;
