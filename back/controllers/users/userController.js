@@ -43,7 +43,7 @@ const getUserById = async (req, res) => {
     console.error('Error al obtener usuario por ID', error);
     res.status(500).json({ msg: "Error" });
   }
- };
+};
 
 const getUserByEmail = async (req, res) => {
   const email = req.body.email;
