@@ -34,6 +34,17 @@ const getPreferencesById = async (req, res) => {
     }
 }
 
+const createPreference = async (req, res) => {
+    const preferencesData = req.body;
+    try {
+        const newPreference = await models.Preferences.create(preferencesData);
+        res.status(201).json(newPreference);
+    } catch (error) {
+        console.error('Error al crear las preferencias', error);
+        res.status(500).json({ msg: "Error" });
+    }
+}
+
 module.exports = {
-    index, getPreferencesById
+    index, getPreferencesById, createPreference
 };

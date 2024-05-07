@@ -7,7 +7,6 @@ const router = Router();
 
 router.get('/', /*[checkToken, tokenCanAdmin],*/ controlador.index);
 router.get('/:id', controlador.getPreferencesById);
-/* 
-router.put('/:id', /* [checkToken, tokenCanAdmin], controlador.updateRol );
- */
+router.post('/', controlador.createPreference);
+
 module.exports = router;

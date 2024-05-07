@@ -30,6 +30,16 @@ class PreferencesModel {
             throw error;
         }
     }
+
+    async createPreference(preferencesData) {
+        try {
+            const newPreference = await models.Preferences.create(preferencesData);
+            return newPreference;
+        } catch (error) {
+            console.error('Error al crear las preferencias: ', error);
+            throw error;
+        }
+    }
 }
 
 module.exports = PreferencesModel;
