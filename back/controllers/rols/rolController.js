@@ -14,6 +14,24 @@ const index = async (req, res) => {
     }
 }
 
+const getRolById = async (req, res) => {
+    const rolId = req.params.id;
+    try {
+        const rol = await models.Rol.findOne({
+            where: { id: rolId },
+        })
+
+        if (!rol) {
+            return res.status(404).json({ msg: "Rol no encontrado" });
+        }
+
+        res.status(200).json(rol);
+    } catch (error) {
+        console.error('Erro al obtener el rol por su ID', error);
+        res.status(500).json({ msg: "Error" });
+    }
+}
+
 module.exports = {
-    index, 
+    index, getRolById
 };

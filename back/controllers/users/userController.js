@@ -20,29 +20,28 @@ const index = async (req, res) => {
 const getUserById = async (req, res) => {
   const userId = req.params.id;
   try {
-     const user = await models.User.findOne({
-       where: { id: userId },
-       include: [{
-         model: models.Rol, 
-         as: 'roles', 
-         through: { attributes: [] },
-       }]
-     });
+    const user = await models.User.findOne({
+      where: { id: userId },
+      include: [{
+        model: models.Rol, 
+        as: 'roles', 
+        through: { attributes: [] },
+      }]
+    });
  
-     if (!user) {
-       return res.status(404).json({ msg: "Usuario no encontrado" });
-       return res.status(404).json({ msg: "Usuario no encontrado" });
-     }
+    if (!user) {
+      return res.status(404).json({ msg: "Usuario no encontrado" });
+    }
  
-     const userWithRoles = {
-       ...user.toJSON(), 
-       roles: user.roles.map(role => role.toJSON()) 
-     };
+    const userWithRoles = {
+      ...user.toJSON(), 
+      roles: user.roles.map(role => role.toJSON()) 
+    };
  
-     res.status(200).json(userWithRoles);
+    res.status(200).json(userWithRoles);
   } catch (error) {
-     console.error('Error al obtener usuario por ID', error);
-     res.status(500).json({ msg: "Error" });
+    console.error('Error al obtener usuario por ID', error);
+    res.status(500).json({ msg: "Error" });
   }
  };
 

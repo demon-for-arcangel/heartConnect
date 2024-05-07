@@ -19,16 +19,16 @@ class RolModel {
     }
 
     async getRolById(id) {
-        try {
-            const rol = await models.Rol.findByPk(id);
-            if (!rol) {
-                throw new Error('User no encontrado');
-            }
-            return rol;
-        } catch (error){
-            console.error('Error al mostrar el rol: ', error);
-            throw error;
+      try {
+        const rol = await models.Rol.findByPk(id);
+        if (!rol) {
+            throw new Error('User no encontrado');
         }
+        return rol;
+      } catch (error){
+        console.error('Error al mostrar el rol: ', error);
+        throw error;
+      }
     }
 
     async createRol() {}
