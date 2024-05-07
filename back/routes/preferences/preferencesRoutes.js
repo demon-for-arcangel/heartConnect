@@ -6,7 +6,8 @@ const { statusUser, tokenCanAdmin, tokenCanUserAuth, checkToken, tokenCanSocio }
 const router = Router();
 
 router.get('/', /*[checkToken, tokenCanAdmin],*/ controlador.index);
-/* router.get('/:id', controlador.getRolById);
+router.get('/:id', controlador.getPreferencesById);
+/* 
 router.put('/:id', /* [checkToken, tokenCanAdmin], controlador.updateRol );
  */
 module.exports = router;

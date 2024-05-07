@@ -17,6 +17,23 @@ const index = async (req, res) => {
     }
 }
 
+const getPreferencesById = async (req, res) => {
+    const preferencesId = req.params.id;
+    try {
+        const preferences = await models.Preferences.findOne({
+            where: { id: preferencesId },
+        });
+
+        if (!preferences) {
+            return res.status(404).json({ msg: "Preferencias no encontradas" });
+        }
+        res.status(200).json(preferences);
+    } catch (error) {
+        console.error('Error al obtener las preferencias por su Id', error);
+        res.status(500).json({ msg: "Error" });
+    }
+}
+
 module.exports = {
-    index, 
+    index, getPreferencesById
 };
