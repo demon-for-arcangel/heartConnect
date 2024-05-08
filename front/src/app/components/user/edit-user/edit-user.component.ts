@@ -1,15 +1,16 @@
 import { Component, Input } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-consult-user',
+  selector: 'app-edit-user',
   standalone: true,
-  imports: [],
-  templateUrl: './consult-user.component.html',
-  styleUrl: './consult-user.component.css'
+  imports: [FormsModule],
+  templateUrl: './edit-user.component.html',
+  styleUrl: './edit-user.component.css'
 })
-export class ConsultUserComponent {
+export class EditUserComponent {
   @Input() userId!: string;
   user: any = {};
 

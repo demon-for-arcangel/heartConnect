@@ -179,30 +179,44 @@ export class UserManagementComponent {
   }
 
   editUser(): void {
-    this.ref = this.dialogService.open(EditUserComponent, {
-      header: 'Editar Usuario',
-      modal: true,
-      width: '60%',
-      breakpoints: {
-        '960px': '75vw',
-        '640px': '90vw'
-      },
-      styleClass: 'custom-modal'
-    })
-  }
-
-  consultUser(): void {
-    // Encuentra todos los usuarios seleccionados
     const selectedUsers = [...this.activeUsers, ...this.inactiveUsers].filter(user => user.selected);
     if (selectedUsers.length > 1) {
-      // Maneja el caso en que se han seleccionado varios usuarios
       this.messageService.add({
         severity: 'warn',
         summary: 'Advertencia',
         detail: 'Por favor, selecciona solo un usuario para consultar.',
       });
     } else if (selectedUsers.length === 1) {
-      // Abre el modal con el ID del usuario seleccionado
+      const selectedUser = selectedUsers[0];
+      this.ref = this.dialogService.open(EditUserComponent, {
+        header: 'Editar Usuario',
+        modal: true,
+        width: '60%',
+        breakpoints: {
+          '960px': '75vw',
+          '640px': '90vw'
+        },
+        styleClass: 'custom-modal',
+        data: { userId: selectedUser.id }
+      })
+    } else {
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Información',
+        detail: 'Por favor, selecciona un usuario para consultar.',
+      });
+    }
+  }
+
+  consultUser(): void {
+    const selectedUsers = [...this.activeUsers, ...this.inactiveUsers].filter(user => user.selected);
+    if (selectedUsers.length > 1) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Advertencia',
+        detail: 'Por favor, selecciona solo un usuario para consultar.',
+      });
+    } else if (selectedUsers.length === 1) {
       const selectedUser = selectedUsers[0];
       this.ref = this.dialogService.open(ConsultUserComponent, {
         header: 'Consultar Usuario',
@@ -213,10 +227,9 @@ export class UserManagementComponent {
           '640px': '90vw'
         },
         styleClass: 'custom-modal',
-        data: { userId: selectedUser.id } // Pasa el ID del usuario seleccionado
+        data: { userId: selectedUser.id }
       });
     } else {
-      // Maneja el caso en que no hay usuario seleccionado
       this.messageService.add({
         severity: 'info',
         summary: 'Información',
