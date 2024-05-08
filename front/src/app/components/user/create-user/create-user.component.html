@@ -28,9 +28,12 @@
            <input id="phoneNumber" type="text" formControlName="phoneNumber">
         </div>
         <div class="form-field">
-           <label for="roles">Roles:</label>
-           <input id="roles" type="text" formControlName="roles">
-        </div>
+            <label for="roles">Roles:</label>
+            <select id="roles" formControlName="roles">
+               <option value="" disabled selected>Seleccione un rol</option>
+               <option *ngFor="let role of roles" [value]="role.id">{{role.name}}</option>
+            </select>
+         </div>
         <div class="form-field is-active-field">
            <label for="isActive">Activo:</label>
            <input id="isActive" type="checkbox" formControlName="isActive">

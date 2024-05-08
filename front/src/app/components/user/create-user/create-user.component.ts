@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { UserService } from '../../../services/user.service';
+import { RolService } from '../../../services/rol.service';
 
 @Component({
   selector: 'app-create-user',
@@ -13,8 +14,9 @@ import { UserService } from '../../../services/user.service';
 })
 export class CreateUserComponent {
   userForm!: FormGroup;
+  roles: any[] = [];
 
-  constructor(private fb: FormBuilder, private userService: UserService){}
+  constructor(private fb: FormBuilder, private userService: UserService, private rolService: RolService){}
 
   ngOnInit() {
     this.userForm = this.fb.group({
@@ -26,6 +28,10 @@ export class CreateUserComponent {
       phoneNumber: ['', Validators.required],
       roles: ['', Validators.required],
       isActive: [true]
+    });
+
+    this.rolService.getRols().subscribe(roles => {
+      this.roles = roles;
     });
   }
 
