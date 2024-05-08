@@ -27,7 +27,7 @@ router.post('/user/new-user', [
     validateFilds
 ], controlador.registerUserByAdmin );
 
-router.put('/user/', /* [checkToken, tokenCanAdmin], */controlador.updateUser );
+router.put('/user/:id', /* [checkToken, tokenCanAdmin], */controlador.updateUser );
 router.put('/users/activate', /* [checkToken, tokenCanAdmin], */controlador.activateUser);
 router.put('/users/desactivate', /* [checkToken, tokenCanAdmin], */controlador.deactivateUsers);
 router.delete('/users/delete', /* [checkToken, tokenCanAdmin], */controlador.deleteUsers );

@@ -30,4 +30,21 @@ export class EditUserComponent {
       });
     }
   }
+
+  updateUserData() {
+    const userId = this.user.id;
+    this.userService.updateUser(userId, this.user).subscribe(
+      updatedUser => {
+        console.log('Usuario actualizado con éxito:', updatedUser);
+        // hacer mensaje
+        setTimeout(() => {
+          location.reload();
+        }, 3000);
+      },
+      error => {
+        console.error('Error al actualizar el usuario:', error);
+        // hacer mensaje
+      }
+    );
+  }
 }

@@ -20,6 +20,7 @@ export class UserService {
   private urlActivateUsers: string = this.baseUrl + environment.activateUsers;
   private urlDesactivateUsers: string = this.baseUrl + environment.desactivateUsers;
   private urlCreateUser: string = this.baseUrl + environment.createUser;
+  private urlUpdateUser: string = this.baseUrl + environment.updateUser;
 
   login(user: User): Observable<User | undefined>{
     return this.http.post<User>(this.urlLogin, user, {withCredentials: false}).pipe(
@@ -81,6 +82,16 @@ export class UserService {
         console.error('Error al desactivar el usuario:', error);
         return of(error);
       })
+    );
+  }
+
+  updateUser(userId: string, userData: Partial<User>): Observable<User | undefined> {
+    const updateUrl = `${this.urlUpdateUser}/${userId}`;
+    return this.http.put<User>(updateUrl, userData).pipe(
+       catchError((error) => {
+         console.error('Error al actualizar el usuario:', error);
+         return of(undefined);
+       })
     );
   }
 }
