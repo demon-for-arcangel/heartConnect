@@ -106,7 +106,7 @@ const registerUserByAdmin = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-  const userId = req.user.id;
+  const userId = req.params.id;
   const newData = req.body;
 
   try {

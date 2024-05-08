@@ -71,14 +71,14 @@ class UserModel {
     let newRoles = [];
     try {
        conexion.conectar();
-       for (let roleName of arrRolesName) {
+       for (let roleId of arrRolesName) {
          const role = await models.Rol.findOne({
            where: {
-             name: roleName
+             id: roleId
            }
          });
          if (!role) {
-           console.error(`El rol con nombre ${roleName} no se encontró.`);
+           console.error(`El rol con id ${roleId} no se encontró.`);
          }
          let newRole = await models.UserRols.create({
            id_user: userId,

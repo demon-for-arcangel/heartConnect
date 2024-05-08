@@ -12,6 +12,7 @@ export const environment = {
     activateUsers: '/users/activate',
     desactivateUsers: '/users/desactivate',
     createUser: '/user/new-user',
+    updateUser: '/user',
     showRols: '/rols/',
 
     rol_admin : 1,
