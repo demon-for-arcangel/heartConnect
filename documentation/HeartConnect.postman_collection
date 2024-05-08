@@ -1,11 +1,491 @@
 {
 	"info": {
 		"_postman_id": "1314d751-9787-4d9c-ba3e-d1fdeae7167b",
-		"name": "HeartConnect Copy",
+		"name": "HeartConnect",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "31811189"
 	},
 	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "Show Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9292/api/users/",
+							"host": [
+								"localhost"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show User By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9292/api/user/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show User By Email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"marinalaguna2004@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9292/api/user/",
+							"host": [
+								"localhost"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User by Admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Juanvfdvfbv\",\r\n    \"lastName\": \"Pvfvfvdférez\",\r\n    \"email\": \"marinalaguna2004@gmail.com\",\r\n    \"born_date\": \"1990-05-15\",\r\n    \"domicile\": \"Calle Principal 123\",\r\n    \"phone_number\": \"+1234567890\",\r\n    \"roles\": [\"usuario\"],\r\n    \"active\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9292/api/user/new-user",
+							"host": [
+								"localhost"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"user",
+								"new-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"userIds\": [11, 12, 13]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9292/api/users/delete",
+							"host": [
+								"localhost"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"users",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "",
+								"type": "text",
+								"uuid": "5d5aa27b-ab2c-488a-a1e8-5e45e1b78d53"
+							}
+						],
+						"url": {
+							"raw": "localhost:9292/api/user/",
+							"host": [
+								"localhost"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users Active",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9292/api/users/active",
+							"host": [
+								"localhost"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"users",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users Inactive",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9292/api/users/inactive",
+							"host": [
+								"localhost"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"users",
+								"inactive"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activated Users",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userIds\": [8, 9]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9292/api/users/activate",
+							"host": [
+								"localhost"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"users",
+								"activate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Desactivate Users",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userIds\": [8, 9]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9292/api/users/desactivate",
+							"host": [
+								"localhost"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"users",
+								"desactivate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "rols",
+			"item": [
+				{
+					"name": "Show Rols",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9292/api/rols/",
+							"host": [
+								"localhost"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"rols",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show Rol By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9292/api/rols/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"rols",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Rol",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Administrador\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9292/api/rols/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"rols",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "preferences",
+			"item": [
+				{
+					"name": "children",
+					"item": []
+				},
+				{
+					"name": "interest",
+					"item": []
+				},
+				{
+					"name": "relationshipType",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "events",
+			"item": [
+				{
+					"name": "Show Events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9292/api/events/",
+							"host": [
+								"localhost"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"events",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show Events By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9292/api/events/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"events",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Event",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"name\": \"Evento de Prueba\",\r\n \"des\": \"Este es un evento de prueba para verificar la funcionalidad de creación de eventos.\",\r\n \"date\": \"2023-04-15T10:00:00Z\",\r\n \"public\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9292/api/events/",
+							"host": [
+								"localhost"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"events",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Event",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"name\": \"Nuevo nombre del evento\",\r\n \"des\": \"Nueva descripción del evento\",\r\n \"date\": \"2023-04-20T10:00:00Z\",\r\n \"public\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9292/api/events/3",
+							"host": [
+								"localhost"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"events",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Event",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"ids\": [3]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9292/api/events/",
+							"host": [
+								"localhost"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"events",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
 		{
 			"name": "Register",
 			"request": {
@@ -13,7 +493,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n \"firstName\": \"Marcos\",\r\n \"lastName\": \"Pérez\",\r\n \"email\": \"marcos.perez@example.com\",\r\n \"password\": \"1234\",\r\n \"photo_profile\": 1,\r\n \"born_date\": \"1990-01-01\",\r\n \"domicile\": \"Calle Falsa 123\",\r\n \"phone_number\": 123456789,\r\n \"roles\": 2 \r\n}",
+					"raw": "{\r\n  \"firstName\": \"hola\",\r\n  \"lastName\": \"Pérez\",\r\n  \"email\": \"hola@example.com\",\r\n  \"password\": \"1234\",\r\n  \"photo_profile\": 1,\r\n  \"born_date\": \"1990-01-01\",\r\n  \"domicile\": \"Calle Falsa 123\",\r\n  \"phone_number\": 123456789\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -42,7 +522,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n \"email\": \"asdas@gmail.com\",\r\n \"password\": \"1234\"\r\n}",
+					"raw": "{\r\n \"email\": \"user@heartconnect.com\",\r\n \"password\": \"1234\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

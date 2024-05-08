@@ -44,26 +44,26 @@ class UserModel {
        console.error('Error al obtener o crear usuario por email:', error);
        throw error;
     }
-}
+  }
 
 
   async registerUser(userData) {
     try {
-        console.log('datos del nuevo: ', userData);
-        if (!userData || typeof userData !== 'object') {
-            throw new Error('Datos de usuario inválidos');
-        }
+      console.log('datos del nuevo: ', userData);
+      if (!userData || typeof userData !== 'object') {
+        throw new Error('Datos de usuario inválidos');
+      }
 
-        const newUser = await models.User.create(userData);
+      const newUser = await models.User.create(userData);
 
-        if (!newUser) {
-            throw new Error('No se pudo crear el usuario');
-        }
+      if (!newUser) {
+        throw new Error('No se pudo crear el usuario');
+      }
 
-        return newUser;
+      return newUser;
     } catch (error) {
-        console.error('Error al registrar un nuevo usuario:', error);
-        throw error;
+      console.error('Error al registrar un nuevo usuario:', error);
+      throw error;
     }
   }
 
