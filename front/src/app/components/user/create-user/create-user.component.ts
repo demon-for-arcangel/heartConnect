@@ -23,11 +23,11 @@ export class CreateUserComponent {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      birthDate: ['', Validators.required],
-      address: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
+      born_date: ['', Validators.required],
+      domicile: ['', Validators.required],
+      phone_number: ['', Validators.required],
       roles: ['', Validators.required],
-      isActive: [true]
+      active: [true]
     });
 
     this.rolService.getRols().subscribe(roles => {
