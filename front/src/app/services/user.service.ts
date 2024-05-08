@@ -19,6 +19,7 @@ export class UserService {
   private urlDeleteUsers: string = this.baseUrl + environment.deleteUsers;
   private urlActivateUsers: string = this.baseUrl + environment.activateUsers;
   private urlDesactivateUsers: string = this.baseUrl + environment.desactivateUsers;
+  private urlCreateUser: string = this.baseUrl + environment.createUser;
 
   login(user: User): Observable<User | undefined>{
     return this.http.post<User>(this.urlLogin, user, {withCredentials: false}).pipe(
@@ -37,9 +38,14 @@ export class UserService {
     );
   }
 
-  createNewUser(){
-    //implementar
-  }
+  createNewUser(user: User): Observable<User | undefined> {
+    return this.http.post<User>(this.urlCreateUser, user).pipe(
+      catchError((error) => {
+        console.error('Error al crear un nuevo usuario:', error);
+        return of(undefined);
+      })
+    );
+  }  
 
   getUserById(userId: string): Observable<User | undefined> {
     const userUrl = `${this.urlShowUser}/${userId}`;
