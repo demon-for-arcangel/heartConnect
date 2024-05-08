@@ -1,6 +1,33 @@
 # Documentación de la API de HeartConnect
 
 ## Endpoints
+- [1. Registro de Usuario](#1-registro-de-usuario)
+- [2. Inicio de Sesión](#2-inicio-de-sesión)
+- [3. Enviar Correo Electrónico](#3-enviar-correo-electrónico)
+- [4. Restablecer Contraseña](#4-restablecer-contraseña)
+- [5. Listar Usuarios](#5-listar-usuarios)
+- [6. Listar Usuarios con Cuenta Activa](#6-listar-usuarios-con-cuenta-activa)
+- [7. Listar Usuarios con Cuenta Inactiva](#7-listar-usuarios-con-cuenta-inactiva)
+- [8. Listar Usuario por Id](#8-listar-usuario-por-id)
+- [9. Listar Usuario por Email](#9-listar-usuario-por-email)
+- [10. Crear Usuario Siendo Administrador](#10-crear-usuario-siendo-administrador)
+- [11. Eliminar Usuarios](#11-eliminar-usuarios)
+- [12. Actualizar Usuario](#12-actualizar-usuario)
+- [13. Activar Usuario](#13-activar-usuario)
+- [14. Desactivar Usuario](#14-desactivar-usuario)
+- [15. Listar Roles](#15-listar-roles)
+- [16. Listar Rol por su Id](#16-listar-rol-por-su-id)
+- [17. Actualizar Rol](#17-actualizar-rol)
+- [18. Listar todas las preferencias](#18-listar-todas-las-preferencias)
+- [19. Listar las preferencias por id](#19-listar-las-preferencias-por-id)
+- [20. Crear Nuevas Preferencias](#20-crear-nuevas-preferencias)
+- [21. Actualizar Preferencias](#21-actualizar-preferencias)
+- [22. Eliminar las preferencias por id](#22-eliminar-las-preferencias-por-id)
+- [23. Listar todas los eventos](#23-listar-todas-los-eventos)
+- [24. Listar los eventos por id](#24-listar-los-eventos-por-id)
+- [25. Crear Nuevo Evento](#25-crear-nuevo-evento)
+- [26. Actualizar Evento](#26-actualizar-evento)
+- [27. Eliminar eventos por id](#27-eliminar-eventos-por-id)
 
 ### 1. Registro de Usuario
 
