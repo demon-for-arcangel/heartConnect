@@ -1,0 +1,39 @@
+<div class="user-details">
+    <div class="form-column">
+        <div class="form-field">
+            <label for="firstName">Nombre:</label>
+            <p id="firstName">{{ user.firstName }}</p>
+        </div>
+        <div class="form-field">
+            <label for="lastName">Apellido:</label>
+            <p id="lastName">{{ user.lastName }}</p>
+        </div>
+        <div class="form-field">
+            <label for="email">Email:</label>
+            <p id="email">{{ user.email }}</p>
+        </div>
+        <div class="form-field">
+            <label for="birthDate">Fecha de Nacimiento:</label>
+            <p id="birthDate">{{ user.birthDate }}</p>
+        </div>
+    </div>
+
+    <div class="form-column">
+        <div class="form-field">
+            <label for="domicile">Domicilio:</label>
+            <p id="domicile">{{ user.domicile }}</p>
+        </div>
+        <div class="form-field">
+            <label for="phone_number">Número de Teléfono:</label>
+            <p id="phone_number">{{ user.phone_number }}</p>
+        </div>
+        <div class="form-field">
+            <label for="roles">Roles:</label>
+            <p id="roles">{{ user.roles }}</p>
+        </div>
+        <div class="form-field is-active-field">
+            <label for="active">Activo:</label>
+            <p id="active">{{ user.active ? 'Sí' : 'No' }}</p>
+        </div>
+    </div>
+</div>

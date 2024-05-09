@@ -1,0 +1,43 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
+    <div class="form-column">
+        <div class="form-field">
+           <label for="firstName">Nombre:</label>
+           <input id="firstName" type="text" formControlName="firstName">
+        </div>
+        <div class="form-field">
+           <label for="lastName">Apellido:</label>
+           <input id="lastName" type="text" formControlName="lastName">
+        </div>
+        <div class="form-field">
+           <label for="email">Email:</label>
+           <input id="email" type="email" formControlName="email">
+        </div>
+        <div class="form-field">
+           <label for="born_date">Fecha de Nacimiento:</label>
+           <input id="born_date" type="date" formControlName="born_date">
+        </div>
+    </div>
+
+    <div class="form-column">
+        <div class="form-field">
+           <label for="domicile">Domicilio:</label>
+           <input id="domicile" type="text" formControlName="domicile">
+        </div>
+        <div class="form-field">
+           <label for="phone_number">Número de Teléfono:</label>
+           <input id="phone_number" type="text" formControlName="phone_number">
+        </div>
+        <div class="form-field">
+            <label for="roles">Roles:</label>
+            <select id="roles" formControlName="roles">
+               <option value="" disabled selected>Seleccione un rol</option>
+               <option *ngFor="let role of roles" [value]="role.id">{{role.name}}</option>
+            </select>
+         </div>
+        <div class="form-field is-active-field">
+           <label for="active">Activo:</label>
+           <input id="active" type="checkbox" formControlName="active">
+        </div>
+    </div>
+    <button type="submit" class="submit-button">Crear Usuario</button>
+</form>

@@ -1,0 +1,20 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    margin: 0; 
+}
+
+.ql-container {
+    background-color: white;
+    width: 70%; 
+    height: 630px;
+    margin: auto; 
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.ql-editor {
+    background-color: white;
+}
