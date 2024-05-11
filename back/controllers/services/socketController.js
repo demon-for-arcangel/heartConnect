@@ -10,12 +10,12 @@ const socketController = (socket) => {
     });
 
     socket.on('create-new', (payload, callback) => {
-        callback({msg: "Mensaje recibido"});
         socket.broadcast.emit('created-new', payload);
+        callback({msg: "Mensaje recibido"});
     });
 
     socket.on('message', (message) => {
-        console.log(`Mensaje recibido de: ${message}`);
+        console.log(`Mensaje recibido de: ${JSON.stringify(message)}`);
         socket.broadcast.emit('message', message);
     });
 }
