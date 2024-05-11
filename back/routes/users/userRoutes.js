@@ -29,7 +29,7 @@ router.post('/user/new-user', [
 
 router.put('/user/:id', /* [checkToken, tokenCanAdmin], */controlador.updateUser );
 router.put('/users/activate', /* [checkToken, tokenCanAdmin], */controlador.activateUser);
-router.put('/users/desactivate', /* [checkToken, tokenCanAdmin], */controlador.deactivateUsers);
+router.put('/users/desactivate', /* [checkToken, tokenCanAdmin], */controlador.desactivateUsers);
 router.delete('/users/delete', /* [checkToken, tokenCanAdmin], */controlador.deleteUsers );
 
 module.exports = router;

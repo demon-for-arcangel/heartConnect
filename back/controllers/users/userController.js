@@ -168,7 +168,7 @@ const activateUser = async (req, res) => {
   }
 }
 
-const deactivateUsers = async (req, res) => {
+const desactivateUsers = async (req, res) => {
   const { userIds } = req.body; 
   try {
     const result = await conx.desactivateUsers(userIds);
@@ -181,5 +181,5 @@ const deactivateUsers = async (req, res) => {
 
 module.exports = {
   index, getUserById, getUserByEmail, registerUserByAdmin, updateUser, deleteUsers,
-  getActiveUsers, getInactiveUsers, activateUser, deactivateUsers
+  getActiveUsers, getInactiveUsers, activateUser, desactivateUsers
 };

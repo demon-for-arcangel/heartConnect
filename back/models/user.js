@@ -33,6 +33,11 @@ module.exports = (sequelize, DataTypes) => {
         through: 'user_rols',
         as: 'roles',
        }); */
+
+      this.hasMany(models.UserFriendShip, {
+        foreignKey: 'id_user',
+        as: 'friendship'
+      });
     }
   }
   User.init({

@@ -194,6 +194,7 @@ class UserModel {
       throw error;
     }
   }
+
 }
 
 module.exports = UserModel;

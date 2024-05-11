@@ -6,14 +6,14 @@
         <li *ngFor="let chat of chats">{{ chat.name }}</li>
       </ul>
     </div>
-    <div class="message-input">
-      <input type="text" placeholder="Escribe tu mensaje aquí..." />
-      <button (click)="sendMessage()">Enviar mensaje</button>
-    </div>
     <div class="messages">
-      <h2>Mensajes</h2>
-      <ul>
-        <li *ngFor="let message of messages">{{ message.data }}</li>
-      </ul>
+        <h2>Mensajes</h2>
+        <ul>
+            <li *ngFor="let message of messages">{{ message.data }}</li>
+        </ul>
+        <div class="message-input">
+          <input type="text" placeholder="Escribe tu mensaje aquí..." />
+          <button (click)="sendMessage()">Enviar mensaje</button>
+        </div>
     </div>
 </div>
