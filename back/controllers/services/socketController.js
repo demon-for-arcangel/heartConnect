@@ -12,9 +12,12 @@ const socketController = (socket) => {
     socket.on('create-new', (payload, callback) => {
         callback({msg: "Mensaje recibido"});
         socket.broadcast.emit('created-new', payload);
-    }); 
+    });
 
-
+    socket.on('message', (message) => {
+        console.log(`Mensaje recibido de: ${message}`);
+        socket.broadcast.emit('message', message);
+    });
 }
 
 module.exports = {
