@@ -14,6 +14,7 @@ export const environment = {
     createUser: '/user/new-user',
     updateUser: '/user',
     showRols: '/rols/',
+    showFriendship: '/friendship',
 
     rol_admin : 1,
     admin_gestion_image:'../../assets/cards-dashboard/gestion.png',

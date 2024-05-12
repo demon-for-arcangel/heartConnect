@@ -22,3 +22,9 @@ export interface UserRol {
     id: number;
     roles: Role[];
 }
+
+export interface UserFriendship {
+    id: number;
+    firstName: string;
+    lastName: string;
+}
