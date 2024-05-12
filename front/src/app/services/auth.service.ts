@@ -13,8 +13,30 @@ export class AuthService {
   constructor(private http: HttpClient, private userService: UserService) { }
   url = environment.baseUrl+environment.myProfile
 
-  getUserByToken(): Observable<User | undefined>{
-    return this.http.get(this.url, {withCredentials: true})
+  getUserByToken(token: string | null): Observable<User | undefined> {
+    return this.http.get<User>(this.url, { withCredentials: true }).pipe(
+      catchError((error: any) => {
+        console.error('Error al obtener el usuario:', error);
+        return throwError(() => new Error('Error al obtener el usuario'));
+      }),
+      map((user: User | undefined) => {
+        if (!user) {
+          throw new Error('User not found');
+        }
+
+        if (!token) {
+          throw new Error('Token is null');
+        }
+
+        const decodedToken = JSON.parse(atob(token.split('.')[1]));
+        const userId = decodedToken.uid;
+        return userId;
+      }),
+      catchError((error: any) => {
+        console.error('Error al decodificar el token', error);
+        return throwError(() => new Error('Error al decodificar el token'));
+      })
+    );
   }
 
   isLoggedIn(): boolean{

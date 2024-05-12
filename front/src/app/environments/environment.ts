@@ -5,7 +5,7 @@ export const environment = {
     register: '/register',
     sendMail: '/mail/request-reset',
     resetPassword: '/mail/reset',
-    myProfile: '/user',
+    myProfile: '/userToken',
     activeUsers: '/users/active',
     inactiveUsers: '/users/inactive',
     deleteUsers: '/users/delete',

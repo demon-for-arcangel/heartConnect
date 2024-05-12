@@ -16,6 +16,7 @@ router.get('/users/inactive', controlador.getInactiveUsers);
 router.get('/users/', /*[checkToken, tokenCanAdmin],*/ controlador.index);
 router.get('/user/:id', controlador.getUserById);
 router.post('/user', controlador.getUserByEmail);
+router.get('/userToken', controlador.getUserByToken);
 
 router.post('/user/new-user', [
     /* checkToken,

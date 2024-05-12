@@ -3,26 +3,26 @@
   <div class="chat-list">
     <h2>Lista de Chats</h2>
     <ul>
-      @for (chat of chats; track chat) {
-        <li>{{ chat.firstName }}</li>
-      }
-    </ul>
+<!--       @for (chat of chats; track chat) {
+ -->        <li>{{ chats.firstName }}</li>
+<!--       }
+ -->    </ul>
   </div>
   <div class="friends-list">
     <h2>Amigos</h2>
     <ul>
-      @for (friend of friends; track friend){
-        <li>{{ friend.firstName }}</li> 
-      }
-    </ul>
+<!--       @for (friend of friends; track friend){
+ -->        <li>{{ friends.firstName }}</li> 
+<!--       }
+ -->    </ul>
   </div>
   <div class="messages">
       <h2>Mensajes</h2>
       <ul>
-        @for (message of messages; track message) {
-          <li>{{ message.data }}</li>
-        }
-      </ul>
+<!--         @for (message of messages; track message) {
+ -->          <li>{{ messages.data }}</li>
+<!--         }
+ -->      </ul>
       <div class="message-input">
         <input type="text" placeholder="Escribe tu mensaje aquí..." />
         <button (click)="sendMessage()">Enviar mensaje</button>
