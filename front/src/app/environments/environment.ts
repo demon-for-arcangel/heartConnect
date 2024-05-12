@@ -6,6 +6,7 @@ export const environment = {
     sendMail: '/mail/request-reset',
     resetPassword: '/mail/reset',
     myProfile: '/userToken',
+    showUser: '/user',
     activeUsers: '/users/active',
     inactiveUsers: '/users/inactive',
     deleteUsers: '/users/delete',

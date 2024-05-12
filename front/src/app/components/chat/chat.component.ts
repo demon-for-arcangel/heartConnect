@@ -31,7 +31,8 @@ export class ChatComponent {
     this.authService.getUserByToken(token).subscribe(user => {
       console.log(this.user)
       if (user) {
-        this.user = user.id;
+        this.user = user;
+        console.log(this.user)
       } else {
         console.error('NO se ha encontrado una lista de amigos de este usuario.');
       }
