@@ -43,7 +43,6 @@ class Server {
   
     this.routes();
     this.sockets();
-  
   }
   
   async start() {
