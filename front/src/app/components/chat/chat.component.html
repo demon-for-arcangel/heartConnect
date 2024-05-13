@@ -1,21 +1,41 @@
 <div class="chat-container">
-  <h1>Chat</h1>
-  <div class="chat-list">
-    <h2>Lista de Chats</h2>
-    <ul>
-<!--       @for (chat of chats; track chat) {
- -->        <li>{{ chats.firstName }}</li>
-<!--       }
- -->    </ul>
+  <div class="title">
+    <h1>Chat</h1>
   </div>
-  <div class="friends-list">
-    <h2>Amigos</h2>
-    <ul>
-      @for (friend of friends; track friend){
-        <li>{{ friend.firstName }} {{  friend.lastName  }}</li> 
+  <div class="buttons-and-content">
+    <div class="chat-buttons">
+      <button class="chat-btn" [class.active]="activeSection === 'chats'" (click)="toggleSection('chats')">
+        <h2>Chats</h2>
+      </button>
+      <button class="chat-btn" [class.active]="activeSection === 'friends'" (click)="toggleSection('friends')">
+        <h2>Amigos</h2>
+      </button>
+    </div>
+  
+    <div class="content">
+      @if (activeSection === 'chats'){
+        <div class="chat-list">
+          <h2>Lista de Chats</h2>
+          <ul>
+      <!--       @for (chat of chats; track chat) {
+        -->        <li>{{ chats.firstName }}</li>
+      <!--       }
+        -->    </ul>
+        </div>
       }
-    </ul>
+      @if (activeSection === 'friends'){
+        <div class="friends-list">
+          <h2>Amigos</h2>
+          <ul>
+            @for (friend of friends; track friend){
+              <li>{{ friend.firstName }} {{  friend.lastName  }}</li> 
+            }
+          </ul>
+        </div>
+      }
+    </div>  
   </div>
+  
   <div class="messages">
       <h2>Mensajes</h2>
       <ul>

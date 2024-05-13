@@ -18,11 +18,16 @@ export class ChatComponent {
   chats: any = {};
   messages: any = {};
   user: any = {};
+  activeSection: string = 'chats';
 
   constructor(private userFriendshipService: UserFriendshipService, private authService: AuthService) {}
 
   sendMessage() {
     this.socket.emit('message', { data: 'Hello from client!' });
+  }
+
+  toggleSection(section: string) {
+    this.activeSection = section;
   }
 
   ngOnInit() {
