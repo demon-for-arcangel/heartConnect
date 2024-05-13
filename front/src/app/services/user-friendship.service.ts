@@ -13,8 +13,8 @@ export class UserFriendshipService {
   private baseUrl: string = environment.baseUrl;
   private urlShowFriendship: string = this.baseUrl + environment.showFriendship;
 
-  showFriendship(userId: string): Observable<UserFriendship | undefined> {
+  showFriendship(userId: string): Observable<UserFriendship[]> {
     const friendsUrl = `${this.urlShowFriendship}/${userId}`;
-    return this.http.get<UserFriendship>(`${friendsUrl}`);
+    return this.http.get<UserFriendship[]>(friendsUrl);
   }
 }

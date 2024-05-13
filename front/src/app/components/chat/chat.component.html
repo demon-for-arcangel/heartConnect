@@ -11,10 +11,10 @@
   <div class="friends-list">
     <h2>Amigos</h2>
     <ul>
-<!--       @for (friend of friends; track friend){
- -->        <li>{{ friends.firstName }}</li> 
-<!--       }
- -->    </ul>
+      @for (friend of friends; track friend){
+        <li>{{ friend.firstName }} {{  friend.lastName  }}</li> 
+      }
+    </ul>
   </div>
   <div class="messages">
       <h2>Mensajes</h2>

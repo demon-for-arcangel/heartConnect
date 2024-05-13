@@ -14,7 +14,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class ChatComponent {
   private socket = io('http://localhost:8090');
-  friends: any = {};
+  friends: UserFriendship[] = [];
   chats: any = {};
   messages: any = {};
   user: any = {};
@@ -27,7 +27,7 @@ export class ChatComponent {
 
   ngOnInit() {
     let token = localStorage.getItem('user');
-
+  
     this.authService.getUserByToken(token).subscribe(user => {
       console.log(this.user)
       if (user) {
@@ -38,9 +38,9 @@ export class ChatComponent {
         console.error('NO se ha encontrado una lista de amigos de este usuario.');
       }
     });
-  }
+  }  
 
-  loadFriends(userId: string) {
+  loadFriends(userId: string) { // ver porque no devuelve la lista de amigos de un usuario y solo devuelve '{}'
     console.log(userId)
     try {
       this.userFriendshipService.showFriendship(userId).subscribe(friends => {
