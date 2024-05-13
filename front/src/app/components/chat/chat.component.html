@@ -47,7 +47,9 @@
     </div>
       <div class="message-input">
         <input type="text" placeholder="Escribe tu mensaje aquí..." [(ngModel)]="newMessage" />
-        <button (click)="sendMessage()">Enviar mensaje</button>
+        <button (click)="sendMessage()">
+          <i class="pi pi-send"></i>
+        </button>
       </div>
   </div>
 </div>
