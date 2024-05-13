@@ -38,13 +38,15 @@
   
   <div class="messages">
       <h2>Mensajes</h2>
-      <ul>
-<!--         @for (message of messages; track message) {
- -->          <li>{{ messages.data }}</li>
-<!--         }
- -->      </ul>
+      <div class="message-container">
+        <ul>
+            @for (message of messages; track message) {
+                <li>{{ message.data }}</li>
+            }
+        </ul>
+    </div>
       <div class="message-input">
-        <input type="text" placeholder="Escribe tu mensaje aquí..." />
+        <input type="text" placeholder="Escribe tu mensaje aquí..." [(ngModel)]="newMessage" />
         <button (click)="sendMessage()">Enviar mensaje</button>
       </div>
   </div>
