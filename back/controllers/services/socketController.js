@@ -1,13 +1,24 @@
 const { sendMessage, getChatMessages } = require('../../services/messageService');
+
+const activeSockets = {};
+
 const socketController = (socket) => {
     console.log(`Cliente ${socket.id} conectado en ${process.env.WEBSOCKETPORT}`);
 
     socket.on('disconnect', () => {
         console.log(`Cliente ${socket.id} desconectado en ${process.env.WEBSOCKETPORT}`);
+        // Eliminar la conexión de socket del usuario desconectado
+        if (socket.userId) {
+            delete activeSockets[socket.userId];
+        }
     });
 
-    socket.on('connect', () => {
-        console.log(`Cliente ${socket.id} conectado en ${process.env.WEBSOCKETPORT}`);
+    // Manejar el inicio de sesión de un usuario
+    socket.on('login', (userId) => {
+        // Asociar el ID de usuario con la conexión de socket
+        activeSockets[userId] = socket;
+        socket.userId = userId;
+        console.log(`Usuario ${userId} conectado con el socket ${socket.id}`);
     });
 
     socket.on('create-new', (payload, callback) => {
@@ -20,9 +31,8 @@ const socketController = (socket) => {
         socket.broadcast.emit('message', message);
     });
 
-
-     // Evento para enviar un mensaje
-     socket.on('send-message', async (data) => {
+    //para emitir los eventos puede funcionar
+    socket.on('send-message', async (data) => {
         const { chatId, message } = data;
         try {
             // Guardar el mensaje en la base de datos
@@ -35,7 +45,6 @@ const socketController = (socket) => {
         }
     });
 
-    // Evento para enviar un mensaje a un usuario específico
     socket.on('send-private-message', async (data) => {
         const { recipientId, message } = data;
         try {

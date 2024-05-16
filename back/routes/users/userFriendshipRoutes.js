@@ -5,6 +5,7 @@ const { validateFilds, checkDiferenceAsign } = require('../../middlewares/valida
 const { statusUser, tokenCanAdmin, tokenCanUserAuth, checkToken, tokenCanSocio } = require('../../middlewares/abilities');
 const router = Router();
 
-router.get('/:id', controlador.showFriendship);
+router.get('/:id', controlador.showFriendship);//corregir esta funcion
+
 
 module.exports = router;

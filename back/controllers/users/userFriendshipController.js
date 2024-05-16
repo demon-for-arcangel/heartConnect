@@ -1,10 +1,6 @@
 const { response, request } = require("express");
 const Conexion = require("../../database/users/UserFriendshipConnection");
-/* const bcrypt = require("bcrypt");
-const { generateRandPass } = require("../../helpers/generatePass");
-const models = require('../../models');
-const nodemailer = require('nodemailer');
- */
+
 const conx = new Conexion();
 
 const showFriendship = async (req, res) => {

@@ -34,9 +34,14 @@ module.exports = (sequelize, DataTypes) => {
         as: 'roles',
        }); */
 
-      this.hasMany(models.UserFriendShip, {
+       this.hasMany(models.UserFriendShip, {
         foreignKey: 'id_user',
-        as: 'friendship'
+        as: 'friendships'
+      });
+
+      this.hasMany(models.UserFriendShip, {
+        foreignKey: 'id_friendship',
+        as: 'friendOf'
       });
     }
   }
