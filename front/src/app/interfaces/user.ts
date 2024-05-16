@@ -26,6 +26,6 @@ export interface UserRol {
 
 export interface UserFriendship {
     id: number;
-    firstName: string;
-    lastName: string;
+    firstName?: string;
+    lastName?: string;
 }

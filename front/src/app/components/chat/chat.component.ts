@@ -26,40 +26,16 @@ export class ChatComponent {
 
   constructor(private userFriendshipService: UserFriendshipService, private authService: AuthService) {}
 
-  sendMessage() {
-    const message = this.newMessage.trim();
-
-    if (message && this.selectedFriend) {
-      const recipientId = this.selectedFriend.id;
-      this.socket.emit('send-private-message', { recipientId, message });
-      console.log('Mensaje enviado:', this.newMessage);
-      this.messages.push({ data: this.newMessage });
-      this.newMessage = '';
-    }
-    setTimeout(() => {
-      const messageContainer = document.querySelector('.message-container');
-      if (messageContainer) {
-        messageContainer.scrollTop = messageContainer.scrollHeight;
-      }
-    });
-  }
-
-  toggleSection(section: string) {
-    this.activeSection = section;
-  }
-
   ngOnInit() {
     let token = localStorage.getItem('user');
   
     this.authService.getUserByToken(token).subscribe(user => {
-      console.log(this.user);
       if (user) {
         this.user = user.id;
-        console.log(this.user);
         this.loadFriends(this.user);
         this.socket.emit('login', this.user);
       } else {
-        console.error('NO se ha encontrado una lista de amigos de este usuario.');
+        console.error('No se ha encontrado una lista de amigos de este usuario.');
       }
     });
 
@@ -75,14 +51,12 @@ export class ChatComponent {
   }  
 
   loadFriends(userId: string) {
-    console.log(userId);
     try {
       this.userFriendshipService.showFriendship(userId).subscribe(friends => {
-        console.log(this.friends);
         if (friends) {
           this.friends = friends;
         } else {
-          console.error('NO se ha encontrado una lista de amigos de este usuario.');
+          console.error('No se ha encontrado una lista de amigos de este usuario.');
         }
       });
     } catch (error) {
@@ -91,7 +65,33 @@ export class ChatComponent {
   }
 
   selectFriend(friend: UserFriendship) {
+    console.log(friend);
     this.selectedFriend = friend;
-    this.messages = [];
+    this.messages = []; // Limpiar los mensajes cuando se selecciona un nuevo amigo
+    console.log(this.selectFriend)
+
+    // Aquí puedes cargar los mensajes existentes del chat si los tienes almacenados
+    // Puedes hacer una llamada al servidor para obtener los mensajes del chat con este amigo
+  }
+
+  sendMessage() {
+    const message = this.newMessage.trim();
+
+    if (message && this.selectedFriend) {
+      const recipientId = this.selectedFriend.id;
+      this.socket.emit('send-private-message', { recipientId, message });
+      this.messages.push({ data: this.newMessage });
+      this.newMessage = '';
+    }
+    setTimeout(() => {
+      const messageContainer = document.querySelector('.message-container');
+      if (messageContainer) {
+        messageContainer.scrollTop = messageContainer.scrollHeight;
+      }
+    });
+  }
+
+  toggleSection(section: string) {
+    this.activeSection = section;
   }
 }

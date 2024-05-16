@@ -28,7 +28,10 @@
           <h2>Amigos</h2>
           <ul>
             @for (friend of friends; track friend){
-              <li>{{ friend.firstName }} {{  friend.lastName  }}</li> 
+              <li>
+                <button (click)="selectFriend(friend)">{{ friend.firstName }} {{ friend.lastName }}</button>
+              
+              </li> 
             }
           </ul>
         </div>
@@ -37,8 +40,8 @@
   </div>
   
   <div class="messages">
-      <h2>Mensajes</h2>
-      <div class="message-container">
+    <h2>{{ selectedFriend ? selectedFriend.firstName + ' ' + selectedFriend.lastName : 'Mensajes' }}</h2>    
+    <div class="message-container">
         <ul>
             @for (message of messages; track message) {
                 <li>{{ message.data }}</li>
