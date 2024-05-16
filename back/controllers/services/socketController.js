@@ -48,13 +48,17 @@ const socketController = (socket) => {
     socket.on('send-private-message', async (data) => {
         const { recipientId, message } = data;
         try {
-            // Guardar el mensaje en la base de datos
-            const newMessage = await sendMessage(recipientId, message);
-
-            // Emitir el mensaje al cliente que corresponde al destinatario
-            io.to(recipientId).emit('new-private-message', newMessage);
+          // Guardar el mensaje en la base de datos si es necesario
+          // Aquí puedes llamar a tu servicio para guardar el mensaje
+          // Luego, emitir el mensaje al cliente correspondiente que representa al destinatario
+          const recipientSocketId = findSocketIdByUserId(recipientId);
+          if (recipientSocketId) {
+            io.to(recipientSocketId).emit('new-private-message', message);
+          } else {
+            console.log('El destinatario no está conectado actualmente.');
+          }
         } catch (error) {
-            console.error('Error al enviar el mensaje privado:', error);
+          console.error('Error al enviar el mensaje privado:', error);
         }
     });
 
@@ -70,6 +74,10 @@ const socketController = (socket) => {
             console.error('Error al unirse al chat:', error);
         }
     });
+}
+
+function findSocketIdByUserId(userId) {
+    return activeSockets[userId];
 }
 
 module.exports = {

@@ -38,9 +38,13 @@ export class ChatComponent {
         console.error('No se ha encontrado una lista de amigos de este usuario.');
       }
     });
-
+  
+    // Manejar el evento 'new-private-message' para recibir mensajes privados del servidor
     this.socket.on('new-private-message', (message) => {
-      this.messages.push(message);
+      // Agregar el mensaje recibido a la lista de mensajes del chat local
+      this.messages.push({ data: message, sender: 'otro usuario' });
+  
+      // Scroll al final del contenedor de mensajes
       setTimeout(() => {
         const messageContainer = document.querySelector('.message-container');
         if (messageContainer) {
@@ -48,7 +52,7 @@ export class ChatComponent {
         }
       });
     });
-  }  
+  }
 
   loadFriends(userId: string) {
     try {
@@ -67,8 +71,8 @@ export class ChatComponent {
   selectFriend(friend: UserFriendship) {
     console.log(friend);
     this.selectedFriend = friend;
-    this.messages = []; // Limpiar los mensajes cuando se selecciona un nuevo amigo
-    console.log(this.selectFriend)
+/*     this.messages = []; // Limpiar los mensajes cuando se selecciona un nuevo amigo
+ */    console.log(this.selectFriend)
 
     // Aquí puedes cargar los mensajes existentes del chat si los tienes almacenados
     // Puedes hacer una llamada al servidor para obtener los mensajes del chat con este amigo
@@ -80,7 +84,7 @@ export class ChatComponent {
     if (message && this.selectedFriend) {
       const recipientId = this.selectedFriend.id;
       this.socket.emit('send-private-message', { recipientId, message });
-      this.messages.push({ data: this.newMessage });
+      this.messages.push({ data: this.newMessage, sender: 'yo' });
       this.newMessage = '';
     }
     setTimeout(() => {
@@ -90,7 +94,7 @@ export class ChatComponent {
       }
     });
   }
-
+  
   toggleSection(section: string) {
     this.activeSection = section;
   }
