@@ -20,4 +20,17 @@ const getChatMessages = async (chatId) => {
   }
 };
 
-module.exports = { sendMessage, getChatMessages };
+const createChatIfNotExist = async (userId, friendId) => {
+  try {
+    let chat = await db.Chat.findOne({ where: { userId, friendId } });
+    if (!chat) {
+      chat = await db.Chat.create({ userId, friendId });
+    }
+    return chat;
+  } catch (error) {
+    console.error('Error al crear el chat:', error);
+    throw error;
+  }
+};
+
+module.exports = { sendMessage, getChatMessages, createChatIfNotExist };

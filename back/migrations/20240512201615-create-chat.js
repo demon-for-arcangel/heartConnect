@@ -15,6 +15,9 @@ module.exports = {
       messageId: {
         type: Sequelize.INTEGER
       },
+      friendId: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

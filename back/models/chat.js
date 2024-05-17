@@ -11,11 +11,23 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.hasMany(models.Message, {
+        foreignKey: 'chatId',
+        as: 'messages'
+      });
+      this.belongsTo(models.User, {
+        foreignKey: 'userId',
+        as: 'user'
+      });
+      this.belongsTo(models.User, {
+        foreignKey: 'friendId', as: 'friend',
+      })
     }
   }
   Chat.init({
     userId: DataTypes.INTEGER,
-    messagesId: DataTypes.INTEGER
+    messageId: DataTypes.INTEGER,
+    friendId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Chat',
