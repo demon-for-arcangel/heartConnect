@@ -17,6 +17,8 @@ import { FormsModule } from '@angular/forms';
 export class ChatComponent {
   private socket = io('http://localhost:8090');
   friends: UserFriendship[] = [];
+  chats: any[] = [];
+  requests: any[] = [];
   chatRequests: any[] = [];
   messages: any[] = [];
   user: any = {};
@@ -43,13 +45,13 @@ export class ChatComponent {
 
     this.socket.on('new-chat-request', (data) => {
       console.log('Nueva solicitud de chat recibida:', data);
-      this.chatRequests.push(data);
+      this.chatRequests.push(data.chat);
     });
 
     this.socket.on('chat-request-accepted', (chat) => {
       console.log('Solicitud de chat aceptada:', chat);
-      // Aquí puedes mover el chat aceptado a la lista de chats activos
-      // y eliminarlo de la lista de solicitudes de chat
+      this.chats.push(chat);
+      this.chatRequests = this.chatRequests.filter(request => request.id !== chat.id);
     });
 
     this.socket.on('new-private-message', (message) => {
@@ -111,7 +113,7 @@ export class ChatComponent {
   }
 
   acceptChatRequest(chatRequest: any) {
-    this.socket.emit('accept-chat-request', { chatId: chatRequest.chat.id });
+    this.socket.emit('accept-chat-request', { chatId: chatRequest.id });
   }
 
   toggleSection(section: string) {
