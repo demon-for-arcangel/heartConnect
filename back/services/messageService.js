@@ -23,10 +23,12 @@ const getChatMessages = async (chatId) => {
 const createChatIfNotExist = async (userId, friendId) => {
   try {
     let chat = await db.Chat.findOne({ where: { userId, friendId } });
+    let isNew = false;
     if (!chat) {
       chat = await db.Chat.create({ userId, friendId });
+      isNew = true;
     }
-    return chat;
+    return { ...chat.toJSON(), isNew };
   } catch (error) {
     console.error('Error al crear el chat:', error);
     throw error;
@@ -35,12 +37,12 @@ const createChatIfNotExist = async (userId, friendId) => {
 
 const getUserChats = async (userId) => {
   try {
-    const chats = await Chat.findAll({ where: { userId } });
+    const chats = await db.Chat.findAll({ where: { userId } });
     return chats;
   } catch (error) {
     console.error('Error al obtener los chats del usuario:', error);
     throw error;
   }
-}
+};
 
 module.exports = { sendMessage, getChatMessages, createChatIfNotExist, getUserChats };

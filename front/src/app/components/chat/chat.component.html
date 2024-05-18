@@ -19,10 +19,10 @@
       @if (activeSection === 'chats'){
         <div class="chat-list">
           <ul>
-      <!--       @for (chat of chats; track chat) {
-        -->        <li>{{ chats }}</li>
-      <!--       }
-        -->    </ul>
+            @for (chat of chats; track chat) {
+               <li>{{ chat.id }}</li>
+            }
+          </ul>
         </div>
       }
 

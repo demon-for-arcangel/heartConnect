@@ -1,4 +1,4 @@
-const { sendMessage, getChatMessages, createChatIfNotExist } = require('../../services/messageService');
+const { sendMessage, getChatMessages, createChatIfNotExist, getUserChats } = require('../../services/messageService');
 
 const activeSockets = {};
 
@@ -12,10 +12,17 @@ const socketController = (socket) => {
         }
     });
 
-    socket.on('login', (userId) => {
+    socket.on('login', async (userId) => {
         activeSockets[userId] = socket;
         socket.userId = userId;
         console.log(`Usuario ${userId} conectado con el socket ${socket.id}`);
+
+        try {
+            const chats = await getUserChats(userId);
+            socket.emit('user-chats', chats);
+        } catch (error) {
+            console.error('Error al obtener los chats del usuario:', error);
+        }
     });
 
     socket.on('create-new', (payload, callback) => {
@@ -78,10 +85,22 @@ const socketController = (socket) => {
     });
 }
 
+const getUserChatsController = async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const chats = await getUserChats(userId);
+      res.status(200).json(chats);
+    } catch (error) {
+      console.error('Error al obtener los chats del usuario:', error);
+      res.status(500).json({ message: 'Error al obtener los chats del usuario' });
+    }
+  };
+  
+
 function findSocketIdByUserId(userId) {
     return activeSockets[userId];
 }
 
 module.exports = {
-    socketController,
+    socketController, getUserChatsController 
 }

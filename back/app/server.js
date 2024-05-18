@@ -30,6 +30,7 @@ class Server {
     this.apiEvents = "/api/events"
     this.apiPreferences = "/api/preferences"
     this.apiFriendship = "/api/friendship"
+    this.apiChats = "/api/chats"
   
     this.serverExpress = require('http').createServer(this.app);
     this.serverWebSocket = require('http').createServer(this.app);
@@ -76,6 +77,7 @@ class Server {
       this.app.use(this.apiEvents, require('../routes/events/eventsRoutes'));
       this.app.use(this.apiPreferences, require('../routes/preferences/preferencesRoutes'));
       this.app.use(this.apiFriendship, require("../routes/users/userFriendshipRoutes"));
+      this.app.use(this.apiChats, require("../routes/services/socketRoutes.js"));
     }
   
     listen() {      
