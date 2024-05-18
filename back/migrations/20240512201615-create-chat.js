@@ -12,8 +12,8 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER
       },
-      messageId: {
-        type: Sequelize.INTEGER
+      accepted: {
+        type: Sequelize.BOOLEAN
       },
       friendId: {
         type: Sequelize.INTEGER

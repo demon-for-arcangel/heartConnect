@@ -17,18 +17,20 @@ import { FormsModule } from '@angular/forms';
 export class ChatComponent {
   private socket = io('http://localhost:8090');
   friends: UserFriendship[] = [];
-  chats: any = {};
+  chatRequests: any[] = [];
   messages: any[] = [];
   user: any = {};
   activeSection: string = 'chats';
   newMessage: string = '';
   selectedFriend: UserFriendship | null = null;
 
-  constructor(private userFriendshipService: UserFriendshipService, private authService: AuthService) {}
+  constructor(
+    private userFriendshipService: UserFriendshipService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
-    let token = localStorage.getItem('user');
-  
+    const token = localStorage.getItem('user');
     this.authService.getUserByToken(token).subscribe(user => {
       if (user) {
         this.user = user.id;
@@ -38,13 +40,21 @@ export class ChatComponent {
         console.error('No se ha encontrado una lista de amigos de este usuario.');
       }
     });
-  
-    // Manejar el evento 'new-private-message' para recibir mensajes privados del servidor
+
+    this.socket.on('new-chat-request', (data) => {
+      console.log('Nueva solicitud de chat recibida:', data);
+      this.chatRequests.push(data);
+    });
+
+    this.socket.on('chat-request-accepted', (chat) => {
+      console.log('Solicitud de chat aceptada:', chat);
+      // Aquí puedes mover el chat aceptado a la lista de chats activos
+      // y eliminarlo de la lista de solicitudes de chat
+    });
+
     this.socket.on('new-private-message', (message) => {
-      // Agregar el mensaje recibido a la lista de mensajes del chat local
+      console.log('Mensaje privado recibido:', message);
       this.messages.push({ data: message, sender: 'otro usuario' });
-  
-      // Scroll al final del contenedor de mensajes
       setTimeout(() => {
         const messageContainer = document.querySelector('.message-container');
         if (messageContainer) {
@@ -69,32 +79,41 @@ export class ChatComponent {
   }
 
   selectFriend(friend: UserFriendship) {
-    console.log(friend);
+    console.log('Amigo seleccionado:', friend);
     this.selectedFriend = friend;
-/*     this.messages = []; // Limpiar los mensajes cuando se selecciona un nuevo amigo
- */    console.log(this.selectFriend)
-
-    // Aquí puedes cargar los mensajes existentes del chat si los tienes almacenados
-    // Puedes hacer una llamada al servidor para obtener los mensajes del chat con este amigo
+    this.messages = []; // Limpiar los mensajes cuando se selecciona un nuevo amigo
   }
 
   sendMessage() {
     const message = this.newMessage.trim();
+    console.log('Enviando mensaje:', message);
+    console.log('Amigo seleccionado:', this.selectedFriend);
 
     if (message && this.selectedFriend) {
       const recipientId = this.selectedFriend.id;
+      console.log('Enviando a:', recipientId);
       this.socket.emit('send-private-message', { recipientId, message });
       this.messages.push({ data: this.newMessage, sender: 'yo' });
+      console.log('Mensajes actuales:', this.messages);
       this.newMessage = '';
+      setTimeout(() => {
+        const messageContainer = document.querySelector('.message-container');
+        if (messageContainer) {
+          messageContainer.scrollTop = messageContainer.scrollHeight;
+        }
+      });
     }
-    setTimeout(() => {
-      const messageContainer = document.querySelector('.message-container');
-      if (messageContainer) {
-        messageContainer.scrollTop = messageContainer.scrollHeight;
-      }
-    });
   }
-  
+
+  sendChatRequest(friend: UserFriendship) {
+    const message = 'Solicitud de chat';
+    this.socket.emit('send-chat-request', { recipientId: friend.id, message });
+  }
+
+  acceptChatRequest(chatRequest: any) {
+    this.socket.emit('accept-chat-request', { chatId: chatRequest.chat.id });
+  }
+
   toggleSection(section: string) {
     this.activeSection = section;
   }
