@@ -18,4 +18,16 @@ export class WebsocketsService {
       console.log('Desconectado');
     });
   }
+
+  getUserChats(userId: number): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.socket.emit('get-user-chats', userId, (response: any) => {
+        if (response.success) {
+          resolve(response.chats);
+        } else {
+          reject(response.error);
+        }
+      });
+    });
+  }
 }

@@ -43,12 +43,26 @@ const socketController = (socket) => {
         try {
             const chat = await createChatIfNotExist(socket.userId, recipientId);
             const newMessage = await sendMessage(chat.id, message);
+
+            // Emitir evento de nuevo chat a ambos usuarios si el chat es nuevo
+            if (chat.isNew) {
+                const recipientSocketId = findSocketIdByUserId(recipientId);
+                if (recipientSocketId) {
+                    io.to(recipientSocketId).emit('new-chat', chat);
+                }
+                socket.emit('new-chat', chat);
+            }
+
+            // Enviar el nuevo mensaje al destinatario si está conectado
             const recipientSocketId = findSocketIdByUserId(recipientId);
             if (recipientSocketId) {
                 io.to(recipientSocketId).emit('new-private-message', newMessage);
             } else {
                 console.log('El destinatario no está conectado actualmente.');
             }
+
+            // Enviar el nuevo mensaje al remitente
+            socket.emit('new-private-message', newMessage);
         } catch (error) {
             console.error('Error al enviar el mensaje privado:', error);
         }

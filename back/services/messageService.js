@@ -33,4 +33,14 @@ const createChatIfNotExist = async (userId, friendId) => {
   }
 };
 
-module.exports = { sendMessage, getChatMessages, createChatIfNotExist };
+const getUserChats = async (userId) => {
+  try {
+    const chats = await Chat.findAll({ where: { userId } });
+    return chats;
+  } catch (error) {
+    console.error('Error al obtener los chats del usuario:', error);
+    throw error;
+  }
+}
+
+module.exports = { sendMessage, getChatMessages, createChatIfNotExist, getUserChats };

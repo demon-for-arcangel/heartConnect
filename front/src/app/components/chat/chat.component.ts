@@ -6,6 +6,7 @@ import { UserFriendship } from '../../interfaces/user';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { WebsocketsService } from '../../services/websockets.service';
 
 @Component({
   selector: 'app-chat',
@@ -28,7 +29,8 @@ export class ChatComponent {
 
   constructor(
     private userFriendshipService: UserFriendshipService,
-    private authService: AuthService
+    private authService: AuthService,
+    private websocketService: WebsocketsService
   ) {}
 
   ngOnInit() {
@@ -37,32 +39,30 @@ export class ChatComponent {
       if (user) {
         this.user = user.id;
         this.loadFriends(this.user);
-        this.socket.emit('login', this.user);
+        this.websocketService.socket.emit('login', this.user);
+        this.loadChats();
       } else {
         console.error('No se ha encontrado una lista de amigos de este usuario.');
       }
     });
 
-    this.socket.on('new-chat-request', (data) => {
-      console.log('Nueva solicitud de chat recibida:', data);
-      this.chatRequests.push(data.chat);
-    });
-
-    this.socket.on('chat-request-accepted', (chat) => {
-      console.log('Solicitud de chat aceptada:', chat);
+    this.websocketService.socket.on('new-chat', (chat: any) => {
+      console.log('Nuevo chat creado:', chat);
       this.chats.push(chat);
-      this.chatRequests = this.chatRequests.filter(request => request.id !== chat.id);
     });
 
-    this.socket.on('new-private-message', (message) => {
+    this.websocketService.socket.on('new-private-message', (message: any) => {
       console.log('Mensaje privado recibido:', message);
-      this.messages.push({ data: message, sender: 'otro usuario' });
-      setTimeout(() => {
-        const messageContainer = document.querySelector('.message-container');
-        if (messageContainer) {
-          messageContainer.scrollTop = messageContainer.scrollHeight;
-        }
-      });
+      // Agregar el mensaje solo si es para el chat actualmente seleccionado
+      if (this.selectedFriend && this.selectedFriend.id === message.chatId) {
+        this.messages.push({ data: message.message, sender: 'otro usuario' });
+        setTimeout(() => {
+          const messageContainer = document.querySelector('.message-container');
+          if (messageContainer) {
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+          }
+        });
+      }
     });
   }
 
@@ -80,10 +80,20 @@ export class ChatComponent {
     }
   }
 
+  loadChats() {
+    this.websocketService.getUserChats(this.user).then(chats => {
+      this.chats = chats;
+    }).catch(error => {
+      console.error('Error al obtener los chats del usuario:', error);
+    });
+  }
+
   selectFriend(friend: UserFriendship) {
     console.log('Amigo seleccionado:', friend);
     this.selectedFriend = friend;
     this.messages = []; // Limpiar los mensajes cuando se selecciona un nuevo amigo
+    // Cargar mensajes del chat seleccionado
+    this.websocketService.socket.emit('join-chat', friend.id);
   }
 
   sendMessage() {
@@ -94,8 +104,8 @@ export class ChatComponent {
     if (message && this.selectedFriend) {
       const recipientId = this.selectedFriend.id;
       console.log('Enviando a:', recipientId);
-      this.socket.emit('send-private-message', { recipientId, message });
-      this.messages.push({ data: this.newMessage, sender: 'yo' });
+      this.websocketService.socket.emit('send-private-message', { recipientId, message });
+      this.messages.push({ data: message, sender: 'yo' });
       console.log('Mensajes actuales:', this.messages);
       this.newMessage = '';
       setTimeout(() => {
@@ -107,13 +117,8 @@ export class ChatComponent {
     }
   }
 
-  sendChatRequest(friend: UserFriendship) {
-    const message = 'Solicitud de chat';
-    this.socket.emit('send-chat-request', { recipientId: friend.id, message });
-  }
-
   acceptChatRequest(chatRequest: any) {
-    this.socket.emit('accept-chat-request', { chatId: chatRequest.id });
+    this.websocketService.socket.emit('accept-chat-request', { chatId: chatRequest.id });
   }
 
   toggleSection(section: string) {
