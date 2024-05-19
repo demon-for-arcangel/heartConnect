@@ -43,6 +43,18 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'id_friendship',
         as: 'friendOf'
       });
+
+      // Alias para la asociación con Chat como usuario
+      this.hasMany(models.Chat, {
+        foreignKey: 'userId',
+        as: 'chatsAsUser'
+      });
+
+      // Alias para la asociación con Chat como amigo
+      this.hasMany(models.Chat, {
+        foreignKey: 'friendId',
+        as: 'chatsAsFriend'
+      });
     }
   }
   User.init({

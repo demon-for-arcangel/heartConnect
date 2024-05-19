@@ -37,7 +37,16 @@ const createChatIfNotExist = async (userId, friendId) => {
 
 const getUserChats = async (userId) => {
   try {
-    const chats = await db.Chat.findAll({ where: { userId } });
+    const chats = await db.Chat.findAll({
+      where: { userId },
+      include: [
+        {
+          model: db.User,
+          as: 'friend',
+          attributes: ['id', 'firstName', 'lastName']
+        }
+      ]
+    });
     return chats;
   } catch (error) {
     console.error('Error al obtener los chats del usuario:', error);

@@ -15,12 +15,15 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'chatId',
         as: 'messages'
       });
+    
       this.belongsTo(models.User, {
         foreignKey: 'userId',
         as: 'user'
       });
+    
       this.belongsTo(models.User, {
-        foreignKey: 'friendId', as: 'friend',
+        foreignKey: 'friendId',
+        as: 'friend',
       })
     }
   }

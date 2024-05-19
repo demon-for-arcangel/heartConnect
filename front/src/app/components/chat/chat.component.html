@@ -20,7 +20,9 @@
         <div class="chat-list">
           <ul>
             @for (chat of chats; track chat) {
-               <li>{{ chat.id }}</li>
+              <li>
+                <button>{{ chat.friend.firstName }} {{ chat.friend.lastName }}</button>
+              </li>
             }
           </ul>
         </div>
