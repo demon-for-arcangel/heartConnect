@@ -12,6 +12,8 @@ export class WebsocketsService {
   socket?: any
   private baseUrl: string = environment.baseUrl;
   private urlShowChatsUserId: string = this.baseUrl + environment.showChatsUser;
+  private urlGetChatMessages: string = this.baseUrl + environment.getChatMessages; 
+
 
   constructor(private http: HttpClient) { 
     this.socket = io(environment.websocket)
@@ -26,5 +28,15 @@ export class WebsocketsService {
   getUserChats(userId: string): Observable<any[]> {
     const friendsUrl = `${this.urlShowChatsUserId}/${userId}`;
     return this.http.get<any[]>(friendsUrl);
+  }
+
+  getChatMessages(chatId: string): Observable<any[]> {
+    const messagesUrl = `${this.urlGetChatMessages}/${chatId}`;
+    return this.http.get<any[]>(messagesUrl).pipe(
+      catchError(error => {
+        console.error('Error al obtener los mensajes del chat:', error);
+        return of([]); 
+      })
+    );
   }
 }

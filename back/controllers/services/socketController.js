@@ -85,22 +85,32 @@ const socketController = (socket) => {
     });
 }
 
-const getUserChatsController = async (req, res) => {
+const getUserChatsCon = async (req, res) => {
     try {
-      const userId = req.params.userId;
-      const chats = await getUserChats(userId);
-      res.status(200).json(chats);
+    const userId = req.params.userId;
+    const chats = await getUserChats(userId);
+    res.status(200).json(chats);
     } catch (error) {
-      console.error('Error al obtener los chats del usuario:', error);
-      res.status(500).json({ message: 'Error al obtener los chats del usuario' });
+    console.error('Error al obtener los chats del usuario:', error);
+    res.status(500).json({ message: 'Error al obtener los chats del usuario' });
     }
-  };
-  
+};
+
+const getChatMessagesCon = async (req, res) => {
+    try {
+        const chatId = req.params.chatId;
+        const messages = await getChatMessages(chatId);
+        res.status(200).json(messages);
+    } catch (error) {
+        console.error('Error al obtener los mensajes del chat:', error);
+        res.status(500).json({ message: 'Error al obtener los mensajes del chat' });
+    }
+};
 
 function findSocketIdByUserId(userId) {
     return activeSockets[userId];
 }
 
 module.exports = {
-    socketController, getUserChatsController 
+    socketController, getUserChatsCon, getChatMessagesCon
 }

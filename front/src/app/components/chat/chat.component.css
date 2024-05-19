@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: 1fr 3fr; /* La segunda columna ocupa el doble de espacio */
     grid-row-gap: 20px; /* Espacio entre filas */
-    align-items: center;
+    align-items: start; /* Cambia de 'center' a 'start' para alinear los elementos en la parte superior */
     padding: 20px;
     max-width: 85%;
     margin: 70px;
@@ -22,9 +22,9 @@
     display: flex;
     flex-direction: row;
     margin-bottom: 10px;
+    margin-top: 0px; 
 }
 
-/* Estilos para los botones */
 .chat-btn {
     border: none;
     background: none;
@@ -32,7 +32,6 @@
     padding: 10px;
     margin-right: 10px;
     color: white;
-
 }
 
 .chat-btn.active {
@@ -67,12 +66,10 @@
     max-height: calc(100% - 40px); /* Resta el tamaño del área de entrada */
 }
 
-
 .message-input {
     align-self: flex-end; /* Coloca el área de entrada al final del contenedor de mensajes */
     margin-top: auto; /* Asegura que el área de entrada esté pegada a la parte inferior */
 }
-
 
 .messages ul {
     list-style-type: none;

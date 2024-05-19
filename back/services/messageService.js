@@ -53,5 +53,4 @@ const getUserChats = async (userId) => {
     throw error;
   }
 };
-
 module.exports = { sendMessage, getChatMessages, createChatIfNotExist, getUserChats };

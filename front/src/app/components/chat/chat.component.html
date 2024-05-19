@@ -21,7 +21,7 @@
           <ul>
             @for (chat of chats; track chat) {
               <li>
-                <button>{{ chat.friend.firstName }} {{ chat.friend.lastName }}</button>
+                <button (click)="selectChat(chat)">{{ chat.friend.firstName }} {{ chat.friend.lastName }}</button>
               </li>
             }
           </ul>

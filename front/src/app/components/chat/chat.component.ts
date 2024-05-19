@@ -26,6 +26,7 @@ export class ChatComponent {
   activeSection: string = 'chats';
   newMessage: string = '';
   selectedFriend: UserFriendship | null = null;
+  selectedChatId: string | null = null;
 
   constructor(
     private userFriendshipService: UserFriendshipService,
@@ -36,8 +37,8 @@ export class ChatComponent {
   ngOnInit() {
     const token = localStorage.getItem('user');
     this.authService.getUserByToken(token).subscribe(user => {
-      if (user) {
-        this.user = user.id;
+      if (user && user.id) {
+        this.user = user.id.toString(); // Asegurarse de que user.id es un string
         this.loadFriends(this.user);
         this.socket.emit('login', this.user);
         this.loadUserChats();
@@ -91,7 +92,27 @@ export class ChatComponent {
   selectFriend(friend: UserFriendship) {
     console.log('Amigo seleccionado:', friend);
     this.selectedFriend = friend;
-    this.messages = []; // Limpiar los mensajes cuando se selecciona un nuevo amigo
+    // Aquí necesitarás ajustar para que selecciona un chat relacionado al amigo seleccionado
+    this.loadMessages(this.selectedChatId); // Asegurarse de que friend.id es un string
+  }
+
+  selectChat(chat: any) {
+    console.log('Chat seleccionado:', chat);
+    this.selectedChatId = chat.id.toString(); // Asegurarse de que chat.id es un string
+    this.loadMessages(this.selectedChatId); 
+  }
+
+  loadMessages(chatId: string | null) {
+    if (chatId) {
+      this.websocketService.getChatMessages(chatId).subscribe({
+        next: (messages) => {
+          this.messages = messages;
+        },
+        error: (error) => {
+          console.error('Error al obtener los mensajes del chat:', error);
+        }
+      });
+    }
   }
 
   sendMessage() {
@@ -100,7 +121,7 @@ export class ChatComponent {
     console.log('Amigo seleccionado:', this.selectedFriend);
 
     if (message && this.selectedFriend) {
-      const recipientId = this.selectedFriend.id;
+      const recipientId = this.selectedFriend.id.toString(); // Asegurarse de que recipientId es un string
       console.log('Enviando a:', recipientId);
       this.socket.emit('send-private-message', { recipientId, message });
       this.messages.push({ data: this.newMessage, sender: 'yo' });
@@ -117,11 +138,11 @@ export class ChatComponent {
 
   sendChatRequest(friend: UserFriendship) {
     const message = 'Solicitud de chat';
-    this.socket.emit('send-chat-request', { recipientId: friend.id, message });
+    this.socket.emit('send-chat-request', { recipientId: friend.id.toString(), message }); // Asegurarse de que recipientId es un string
   }
 
   acceptChatRequest(chatRequest: any) {
-    this.socket.emit('accept-chat-request', { chatId: chatRequest.id });
+    this.socket.emit('accept-chat-request', { chatId: chatRequest.id.toString() }); // Asegurarse de que chatId es un string
   }
 
   toggleSection(section: string) {
