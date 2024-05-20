@@ -20,7 +20,6 @@ export class ChatComponent {
   friends: UserFriendship[] = [];
   chats: any[] = [];
   requests: any[] = [];
-  chatRequests: any[] = [];
   messages: any[] = [];
   user: any = {};
   activeSection: string = 'chats';
@@ -92,39 +91,45 @@ export class ChatComponent {
   selectFriend(friend: UserFriendship) {
     console.log('Amigo seleccionado:', friend);
     this.selectedFriend = friend;
-    // Aquí necesitarás ajustar para que selecciona un chat relacionado al amigo seleccionado
-    this.loadMessages(this.selectedChatId); // Asegurarse de que friend.id es un string
+    this.selectedChatId = null;
+    this.loadMessages(friend.id.toString()); // Asegurarse de que friend.id es un string
   }
 
   selectChat(chat: any) {
     console.log('Chat seleccionado:', chat);
-    this.selectedChatId = chat.id.toString(); // Asegurarse de que chat.id es un string
-    this.loadMessages(this.selectedChatId); 
-  }
-
-  loadMessages(chatId: string | null) {
-    if (chatId) {
-      this.websocketService.getChatMessages(chatId).subscribe({
-        next: (messages) => {
-          this.messages = messages;
-        },
-        error: (error) => {
-          console.error('Error al obtener los mensajes del chat:', error);
-        }
-      });
+    this.selectedFriend = chat.friend;
+    this.selectedChatId = chat.id ? chat.id.toString() : null; // Asegurarse de que chat.id es un string
+    if (this.selectedChatId) {
+      this.loadMessages(this.selectedChatId); 
     }
   }
 
-  sendMessage() {
-    const message = this.newMessage.trim();
-    console.log('Enviando mensaje:', message);
-    console.log('Amigo seleccionado:', this.selectedFriend);
+  loadMessages(chatId: string) {
+    this.websocketService.getChatMessages(chatId).subscribe({
+      next: (messages) => {
+        this.messages = messages.map(msg => ({ ...msg, type: 'chat' }));
+      },
+      error: (error) => {
+        console.error('Error al obtener los mensajes del chat:', error);
+      }
+    });
+  }
 
-    if (message && this.selectedFriend) {
-      const recipientId = this.selectedFriend.id.toString(); // Asegurarse de que recipientId es un string
+  sendMessage() {
+    const messageText = this.newMessage.trim();
+    console.log('Enviando mensaje:', messageText);
+    console.log('Amigo seleccionado:', this.selectedFriend);
+    console.log('Chat seleccionado:', this.selectedChatId);
+  
+    if (messageText && (this.selectedFriend || this.selectedChatId)) {
+      const recipientId = this.selectedFriend ? this.selectedFriend.id.toString() : this.selectedChatId ? this.selectedChatId.toString() : ''; // Verificar si selectedChatId no es null
       console.log('Enviando a:', recipientId);
-      this.socket.emit('send-private-message', { recipientId, message });
-      this.messages.push({ data: this.newMessage, sender: 'yo' });
+      this.socket.emit('send-private-message', { recipientId, message: messageText });
+      
+      // Determine message type
+      const messageType = this.selectedFriend ? 'friend' : 'chat';
+      
+      this.messages.push({ message: this.newMessage, sender: 'yo', type: messageType });
       console.log('Mensajes actuales:', this.messages);
       this.newMessage = '';
       setTimeout(() => {

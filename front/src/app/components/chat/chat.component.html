@@ -59,9 +59,16 @@
     <h2>{{ selectedFriend ? selectedFriend.firstName + ' ' + selectedFriend.lastName : 'Mensajes' }}</h2>    
     <div class="message-container">
         <ul>
+          @if (activeSection === 'chats') {
             @for (message of messages; track message) {
-                <li>{{ message.sender }}: {{ message.data }}</li>
+              <li>{{ message.message }}</li>
             }
+          }
+           @if (activeSection === 'friends'){
+            @for (message of messages; track message) {
+              <li>{{ message.sender }}: {{ message.data }}</li>
+            }
+          }
         </ul>
     </div>
       <div class="message-input">
