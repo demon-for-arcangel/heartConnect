@@ -13,7 +13,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       accepted: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: 0,
       },
       friendId: {
         type: Sequelize.INTEGER
