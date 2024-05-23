@@ -38,7 +38,7 @@ const socketController = (socket) => {
     socket.on('send-message', async (data) => {
         const { chatId, message } = data;
         try {
-            const newMessage = await sendMessage(chatId, message);
+            const newMessage = await sendMessage(chatId, message, socket.userId);
             io.to(chatId).emit('new-message', newMessage);
         } catch (error) {
             console.error('Error al enviar el mensaje:', error);
@@ -49,7 +49,7 @@ const socketController = (socket) => {
         const { recipientId, message } = data;
         try {
             const chat = await createChatIfNotExist(socket.userId, recipientId);
-            const newMessage = await sendMessage(chat.id, message);
+            const newMessage = await sendMessage(chat.id, message, socket.userId);
 
             // Emitir evento de nuevo chat a ambos usuarios si el chat es nuevo
             if (chat.isNew) {
@@ -87,12 +87,12 @@ const socketController = (socket) => {
 
 const getUserChatsCon = async (req, res) => {
     try {
-    const userId = req.params.userId;
-    const chats = await getUserChats(userId);
-    res.status(200).json(chats);
+        const userId = req.params.userId;
+        const chats = await getUserChats(userId);
+        res.status(200).json(chats);
     } catch (error) {
-    console.error('Error al obtener los chats del usuario:', error);
-    res.status(500).json({ message: 'Error al obtener los chats del usuario' });
+        console.error('Error al obtener los chats del usuario:', error);
+        res.status(500).json({ message: 'Error al obtener los chats del usuario' });
     }
 };
 

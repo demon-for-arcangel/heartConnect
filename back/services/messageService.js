@@ -1,8 +1,8 @@
 const db = require('../models');
 
-const sendMessage = async (chatId, messageContent) => {
+const sendMessage = async (chatId, messageContent, senderId) => {
   try {
-    const message = await db.Message.create({ chatId, message: messageContent });
+    const message = await db.Message.create({ chatId, message: messageContent, senderId });
     return message;
   } catch (error) {
     console.error('Error al enviar el mensaje:', error);

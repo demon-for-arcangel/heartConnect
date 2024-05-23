@@ -15,11 +15,16 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'chatId',
         as: 'chat'
       });
+      this.belongsTo(models.User, {
+        foreignKey: 'senderId',
+        as: 'sender'
+      })
     }
   }
   Message.init({
     chatId: DataTypes.INTEGER,
-    message: DataTypes.TEXT
+    message: DataTypes.TEXT,
+    senderId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Message',
