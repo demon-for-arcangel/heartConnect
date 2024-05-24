@@ -16,6 +16,7 @@ router.get('/users/inactive', controlador.getInactiveUsers);
 router.get('/users/', /*[checkToken, tokenCanAdmin],*/ controlador.index);
 router.get('/user/:id', controlador.getUserById);
 router.post('/user', controlador.getUserByEmail);
+router.get('/userToken', controlador.getUserByToken);
 
 router.post('/user/new-user', [
     /* checkToken,
@@ -27,9 +28,9 @@ router.post('/user/new-user', [
     validateFilds
 ], controlador.registerUserByAdmin );
 
-router.put('/user/', /* [checkToken, tokenCanAdmin], */controlador.updateUser );
+router.put('/user/:id', /* [checkToken, tokenCanAdmin], */controlador.updateUser );
 router.put('/users/activate', /* [checkToken, tokenCanAdmin], */controlador.activateUser);
-router.put('/users/desactivate', /* [checkToken, tokenCanAdmin], */controlador.deactivateUsers);
+router.put('/users/desactivate', /* [checkToken, tokenCanAdmin], */controlador.desactivateUsers);
 router.delete('/users/delete', /* [checkToken, tokenCanAdmin], */controlador.deleteUsers );
 
 module.exports = router;

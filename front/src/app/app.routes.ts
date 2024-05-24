@@ -12,6 +12,7 @@ import { RequestResetComponent } from './components/resetPassword/request-reset/
 import { ResetPasswordComponent } from './components/resetPassword/reset-password/reset-password.component';
 import { UserManagementComponent } from './components/user/user-management/user-management.component';
 import { EditMenuComponent } from './components/edit/edit-menu/edit-menu.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 export const routes: Routes = [
     //cualquier usuario sin registrar
@@ -24,6 +25,7 @@ export const routes: Routes = [
 
     //cualquier usuario registrado
     {path: 'home', component: DashboardComponent, canActivate:[anyLoggedGuard]},
+    {path: 'messenger', component: ChatComponent},
 
     //admin
     {path: 'user-management', component: UserManagementComponent, canActivate:[adminGuard]},

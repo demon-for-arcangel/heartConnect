@@ -6,41 +6,41 @@ const Conexion = require("../connection.js");
 const conexion = new Conexion();
 
 class EventsModel {
-    constructor() {}
+  constructor() {}
 
-    async indexEvents() {
-        try {
-            const events = await models.Events.findAll();
-            return events;
-          }catch (error){
-            console.error('Error al mostrar la lista de eventos: ', error);
-            throw error;
-        }
+  async indexEvents() {
+    try {
+      const events = await models.Events.findAll();
+      return events;
+      }catch (error){
+      console.error('Error al mostrar la lista de eventos: ', error);
+      throw error;
     }
+  }
 
-    async getEventById(id) {
-        try {
-          const event = await models.Events.findByPk(id);
-          if (!event) {
-            throw new Error('Evento no encontrado');
-          }
-          return event;
-        } catch (error){
-          console.error('Error al mostrar el evento: ', error);
-          throw error;
-        }
+  async getEventById(id) {
+    try {
+      const event = await models.Events.findByPk(id);
+      if (!event) {
+        throw new Error('Evento no encontrado');
+      }
+      return event;
+    } catch (error){
+      console.error('Error al mostrar el evento: ', error);
+      throw error;
     }
+  }
 
   async createEvent(eventData) {
     try {
-        const newEvent = await models.Events.create(eventData);
-        if (!newEvent) {
-            throw new Error('No se pudo crear el evento');
-        }
-        return newEvent;
+      const newEvent = await models.Events.create(eventData);
+      if (!newEvent) {
+        throw new Error('No se pudo crear el evento');
+      }
+      return newEvent;
     } catch (error) {
-        console.error('Error al crear el evento: ', error);
-        throw error;
+      console.error('Error al crear el evento: ', error);
+      throw error;
     }
   }
 
@@ -76,7 +76,7 @@ class EventsModel {
       console.error('Error al eliminar los eventos: ', error);
       throw error;
     }
-}
+  }
 }
 
 module.exports = EventsModel;

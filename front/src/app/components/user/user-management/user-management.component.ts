@@ -9,6 +9,8 @@ import { DialogModule } from '@angular/cdk/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CreateUserComponent } from '../create-user/create-user.component';
+import { ConsultUserComponent } from '../consult-user/consult-user.component';
+import { EditUserComponent } from '../edit-user/edit-user.component';
 
 @Component({
   selector: 'app-user-management',
@@ -174,5 +176,65 @@ export class UserManagementComponent {
       },
       styleClass: 'custom-modal'
     })
+  }
+
+  editUser(): void {
+    const selectedUsers = [...this.activeUsers, ...this.inactiveUsers].filter(user => user.selected);
+    if (selectedUsers.length > 1) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Advertencia',
+        detail: 'Por favor, selecciona solo un usuario para consultar.',
+      });
+    } else if (selectedUsers.length === 1) {
+      const selectedUser = selectedUsers[0];
+      this.ref = this.dialogService.open(EditUserComponent, {
+        header: 'Editar Usuario',
+        modal: true,
+        width: '60%',
+        breakpoints: {
+          '960px': '75vw',
+          '640px': '90vw'
+        },
+        styleClass: 'custom-modal',
+        data: { userId: selectedUser.id }
+      })
+    } else {
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Información',
+        detail: 'Por favor, selecciona un usuario para consultar.',
+      });
+    }
+  }
+
+  consultUser(): void {
+    const selectedUsers = [...this.activeUsers, ...this.inactiveUsers].filter(user => user.selected);
+    if (selectedUsers.length > 1) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Advertencia',
+        detail: 'Por favor, selecciona solo un usuario para consultar.',
+      });
+    } else if (selectedUsers.length === 1) {
+      const selectedUser = selectedUsers[0];
+      this.ref = this.dialogService.open(ConsultUserComponent, {
+        header: 'Consultar Usuario',
+        modal: true,
+        width: '60%',
+        breakpoints: {
+          '960px': '75vw',
+          '640px': '90vw'
+        },
+        styleClass: 'custom-modal',
+        data: { userId: selectedUser.id }
+      });
+    } else {
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Información',
+        detail: 'Por favor, selecciona un usuario para consultar.',
+      });
+    }
   }
 }

@@ -13,12 +13,14 @@ export class UserService {
   private baseUrl: string = environment.baseUrl;
   private urlLogin: string = this.baseUrl + environment.login;
   private urlRegister: string = this.baseUrl + environment.register;
-  private urlShowUser: string = this.baseUrl + environment.myProfile;
+  private urlShowUser: string = this.baseUrl + environment.showUser;
   private urlActiveUsers: string = this.baseUrl + environment.activeUsers;
   private urlInactiveUsers: string = this.baseUrl + environment.inactiveUsers;
   private urlDeleteUsers: string = this.baseUrl + environment.deleteUsers;
   private urlActivateUsers: string = this.baseUrl + environment.activateUsers;
   private urlDesactivateUsers: string = this.baseUrl + environment.desactivateUsers;
+  private urlCreateUser: string = this.baseUrl + environment.createUser;
+  private urlUpdateUser: string = this.baseUrl + environment.updateUser;
 
   login(user: User): Observable<User | undefined>{
     return this.http.post<User>(this.urlLogin, user, {withCredentials: false}).pipe(
@@ -37,9 +39,14 @@ export class UserService {
     );
   }
 
-  createNewUser(){
-    //implementar
-  }
+  createNewUser(user: User): Observable<User | undefined> {
+    return this.http.post<User>(this.urlCreateUser, user).pipe(
+      catchError((error) => {
+        console.error('Error al crear un nuevo usuario:', error);
+        return of(undefined);
+      })
+    );
+  }  
 
   getUserById(userId: string): Observable<User | undefined> {
     const userUrl = `${this.urlShowUser}/${userId}`;
@@ -75,6 +82,16 @@ export class UserService {
         console.error('Error al desactivar el usuario:', error);
         return of(error);
       })
+    );
+  }
+
+  updateUser(userId: string, userData: Partial<User>): Observable<User | undefined> {
+    const updateUrl = `${this.urlUpdateUser}/${userId}`;
+    return this.http.put<User>(updateUrl, userData).pipe(
+       catchError((error) => {
+         console.error('Error al actualizar el usuario:', error);
+         return of(undefined);
+       })
     );
   }
 }

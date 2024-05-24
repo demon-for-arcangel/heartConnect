@@ -18,6 +18,19 @@ module.exports = {
       politicians: {
         type: Sequelize.STRING
       },
+      relationship_type: {
+        type: Sequelize.STRING 
+      },
+      has_children: {
+        type: Sequelize.BOOLEAN, 
+        defaultValue: false
+      },
+      wants_children: {
+        type: Sequelize.BOOLEAN 
+      },
+      interest: {
+        type: Sequelize.STRING 
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

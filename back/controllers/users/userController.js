@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const { generateRandPass } = require("../../helpers/generatePass");
 const models = require('../../models');
 const nodemailer = require('nodemailer');
+const jwt = require('jsonwebtoken');
 
 const conx = new Conexion();
 
@@ -106,7 +107,7 @@ const registerUserByAdmin = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-  const userId = req.user.id;
+  const userId = req.params.id;
   const newData = req.body;
 
   try {
@@ -168,7 +169,7 @@ const activateUser = async (req, res) => {
   }
 }
 
-const deactivateUsers = async (req, res) => {
+const desactivateUsers = async (req, res) => {
   const { userIds } = req.body; 
   try {
     const result = await conx.desactivateUsers(userIds);
@@ -179,7 +180,30 @@ const deactivateUsers = async (req, res) => {
   }
 }
 
+const getUserByToken = async (req, res) => {
+  console.log('Entrando en getUserByToken');
+  const token = req.headers['x-token'];
+  console.log('Token recibido:', token);
+  
+  if (!token) {
+    return res.status(400).json({ error: 'Token no proporcionado en el encabezado x-token' });
+  }
+  
+  try {
+    const decodedToken = jwt.verify(token, process.env.SECRETORPRIVATEKEY);
+    console.log(decodedToken)
+    const userId = decodedToken.uid;
+    
+    const user = await conx.getUserById(userId);
+    
+    res.status(200).json(user);
+  } catch (error) {
+    console.error('Error al obtener el usuario por token:', error);
+    res.status(500).json({ error: 'Error al obtener el usuario por token' });
+  }
+};
+
 module.exports = {
   index, getUserById, getUserByEmail, registerUserByAdmin, updateUser, deleteUsers,
-  getActiveUsers, getInactiveUsers, activateUser, deactivateUsers
+  getActiveUsers, getInactiveUsers, activateUser, desactivateUsers, getUserByToken
 };

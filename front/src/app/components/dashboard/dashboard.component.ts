@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
       link: '/user-management',
     },
     {
-      id_rol: environment.rol_redactor,
+      id_rol: environment.rol_admin,
       image: environment.redactor_card_image,
       title: 'Panel del redactor',
       content: 'Para la gestión de la información',

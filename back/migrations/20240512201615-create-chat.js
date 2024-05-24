@@ -2,17 +2,17 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable(process.env.TABLE_PREFERENCES_INTEREST, {
+    await queryInterface.createTable(process.env.TABLE_CHAT, {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      id_preferences: {
+      userId: {
         type: Sequelize.INTEGER
       },
-      id_interest: {
+      friendId: {
         type: Sequelize.INTEGER
       },
       createdAt: {
@@ -26,6 +26,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable(process.env.TABLE_PREFERENCES_INTEREST);
+    await queryInterface.dropTable(process.env.TABLE_CHAT);
   }
 };

@@ -39,7 +39,7 @@
     font-weight: bold;
 }
 
-.form-field input {
+.form-field input, select {
     padding: 10px;
     border: 1px solid #ced4da;
     border-radius: 4px;
