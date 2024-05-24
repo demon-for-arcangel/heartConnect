@@ -13,6 +13,7 @@ export class WebsocketsService {
   private baseUrl: string = environment.baseUrl;
   private urlShowChatsUserId: string = this.baseUrl + environment.showChatsUser;
   private urlGetChatMessages: string = this.baseUrl + environment.getChatMessages; 
+  private urlCreateChat: string = this.baseUrl + environment.createChat;
 
 
   constructor(private http: HttpClient) { 
@@ -38,5 +39,10 @@ export class WebsocketsService {
         return of([]); 
       })
     );
+  }
+
+  createChat(userId: string, friendId: string): Observable<any> {
+    const payload = { userId, friendId };
+    return this.http.post<any>(this.urlCreateChat, payload);
   }
 }

@@ -29,7 +29,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   Chat.init({
     userId: DataTypes.INTEGER,
-    accepted: DataTypes.BOOLEAN,
     friendId: DataTypes.INTEGER
   }, {
     sequelize,

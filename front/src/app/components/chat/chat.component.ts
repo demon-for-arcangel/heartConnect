@@ -20,7 +20,6 @@ export class ChatComponent {
   private socket = io('http://localhost:8090');
   friends: UserFriendship[] = [];
   chats: any[] = [];
-  requests: any[] = [];
   messages: any[] = [];
   user: any = {};
   activeSection: string = 'chats';
@@ -101,14 +100,14 @@ export class ChatComponent {
   }
 
   filterFriendsWithoutChats() {
-    const chatFriendIds = this.chats.map(chat => chat.friend.id);
+    const chatFriendIds = this.chats.map(chat => chat.friend?.id);
     this.friends = this.friends.filter(friend => !chatFriendIds.includes(friend.id));
   }
 
   selectFriend(friend: UserFriendship) {
     this.selectedFriend = friend;
     this.selectedChatId = null;
-    this.loadMessages(friend.id.toString());
+    this.createOrLoadChat(this.user, friend.id.toString());
   }
 
   selectChat(chat: any) {
@@ -117,6 +116,18 @@ export class ChatComponent {
     if (this.selectedChatId) {
       this.loadMessages(this.selectedChatId);
     }
+  }
+
+  createOrLoadChat(userId: string, friendId: string) {
+    this.websocketService.createChat(userId, friendId).subscribe({
+      next: (chat) => {
+        this.selectedChatId = chat.id;
+        this.loadMessages(chat.id);
+      },
+      error: (error) => {
+        console.error('Error al crear o cargar el chat:', error);
+      }
+    });
   }
 
   loadMessages(chatId: string) {
@@ -132,9 +143,9 @@ export class ChatComponent {
 
   sendMessage() {
     const messageText = this.newMessage.trim();
-    if (messageText && (this.selectedFriend || this.selectedChatId)) {
-      const recipientId = this.selectedFriend ? this.selectedFriend.id.toString() : this.selectedChatId ? this.selectedChatId.toString() : '';
-      this.socket.emit('send-private-message', { recipientId, message: messageText });
+    if (messageText && this.selectedChatId) {
+      const recipientId = this.selectedChatId.toString();
+      this.socket.emit('send-private-message', { recipientId, messageText });
 
       this.messages.push({ message: this.newMessage, sender: 'yo', type: 'chat' });
       this.newMessage = '';
@@ -145,15 +156,6 @@ export class ChatComponent {
         }
       });
     }
-  }
-
-  sendChatRequest(friend: UserFriendship) {
-    const message = 'Solicitud de chat';
-    this.socket.emit('send-chat-request', { recipientId: friend.id.toString(), message });
-  }
-
-  acceptChatRequest(chatRequest: any) {
-    this.socket.emit('accept-chat-request', { chatId: chatRequest.id.toString() });
   }
 
   toggleSection(section: string) {

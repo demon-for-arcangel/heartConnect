@@ -10,9 +10,6 @@
       <button class="chat-btn" [class.active]="activeSection === 'friends'" (click)="toggleSection('friends')">
         <h2>Amigos</h2>
       </button>
-      <button class="chat-btn" [class.active]="activeSection === 'requests'" (click)="toggleSection('requests')">
-        <h2>Solicitudes</h2>
-      </button>
     </div>
   
     <div class="content">
@@ -35,19 +32,6 @@
               <li>
                 <button (click)="selectFriend(friend)">{{ friend.firstName }} {{ friend.lastName }}</button>
               </li> 
-            }
-          </ul>
-        </div>
-      }
-
-      @if (activeSection === 'requests'){
-        <div class="requests-list">
-          <ul>
-            @for (request of requests; track request){
-              <li>
-                <span>{{ request.message }}</span>
-                <button (click)="acceptChatRequest(request)">Aceptar</button>
-              </li>
             }
           </ul>
         </div>

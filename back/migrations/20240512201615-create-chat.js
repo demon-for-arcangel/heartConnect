@@ -12,10 +12,6 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER
       },
-      accepted: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-      },
       friendId: {
         type: Sequelize.INTEGER
       },

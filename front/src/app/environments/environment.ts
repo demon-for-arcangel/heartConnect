@@ -18,6 +18,7 @@ export const environment = {
     showFriendship: '/friendship',
     showChatsUser: '/chats',
     getChatMessages: '/chats/messages',
+    createChat: '/chats/new',
 
     rol_admin : 1,
     admin_gestion_image:'../../assets/cards-dashboard/gestion.png',
