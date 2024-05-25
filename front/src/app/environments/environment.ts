@@ -1,6 +1,11 @@
 export const environment = {
-    // Servidor
+    /*
+    ------------------------
+    -       Servidor         -
+    --------------------------
+    */
     baseUrl: 'http://localhost:9292/api',
+    // usuarios
     login: '/login',
     register: '/register',
     sendMail: '/mail/request-reset',
@@ -14,12 +19,24 @@ export const environment = {
     desactivateUsers: '/users/desactivate',
     createUser: '/user/new-user',
     updateUser: '/user',
-    showRols: '/rols/',
     showFriendship: '/friendship',
+    
+    // roles
+    showRols: '/rols/',
+    
+    // chat
     showChatsUser: '/chats',
     getChatMessages: '/chats/messages',
     createChat: '/chats/new',
 
+    // eventos
+    events: '/events',
+    activeEvents: '/users/active',
+    inactiveEvents: '/users/inactive',
+
+
+
+    
     rol_admin : 1,
     admin_gestion_image:'../../assets/cards-dashboard/gestion.png',
     entrenador_faltas_image:'../../assets/cards-dashboard/listado.png',

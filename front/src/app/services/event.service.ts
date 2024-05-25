@@ -11,46 +11,47 @@ export class EventService {
 
   constructor(private http: HttpClient) { }
   private baseUrl: string = environment.baseUrl;
+  private urlEvents: string = this.baseUrl + environment.events;
   //cambiar user a event y crearlos en el environment
-  private urlShowUser: string = this.baseUrl + environment.showUser;
-  private urlActiveUsers: string = this.baseUrl + environment.activeUsers;
-  private urlInactiveUsers: string = this.baseUrl + environment.inactiveUsers;
-  private urlDeleteUsers: string = this.baseUrl + environment.deleteUsers;
-  private urlActivateUsers: string = this.baseUrl + environment.activateUsers;
-  private urlDesactivateUsers: string = this.baseUrl + environment.desactivateUsers;
-  private urlCreateUser: string = this.baseUrl + environment.createUser;
-  private urlUpdateUser: string = this.baseUrl + environment.updateUser;
+  private urlActiveEvents: string = this.baseUrl + environment.activeUsers;
+  private urlInactiveEvents: string = this.baseUrl + environment.inactiveUsers;
+  private urlActivateEvents: string = this.baseUrl + environment.activateUsers;
+  private urlDesactivateEvents: string = this.baseUrl + environment.desactivateUsers;
 
   createNewEvent(event: Event): Observable<Event | undefined> {
-    return this.http.post<Event>(this.urlCreateUser, event).pipe(
+    return this.http.post<Event>(this.urlEvents, event).pipe(
       catchError((error) => {
         console.error('Error al crear un nuevo evento:', error);
         return of(undefined);
       })
     );
-  }  
+  } 
+  
+  getEvents(){
+
+  }
 
   getEventById(eventId: string): Observable<Event | undefined> {
-    const eventUrl = `${this.urlShowUser}/${eventId}`;
+    const eventUrl = `${this.urlEvents}/${eventId}`;
     return this.http.get<Event>(eventUrl);
   }
 
   getActiveEvents(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.urlActiveUsers}`);
+    return this.http.get<any[]>(`${this.urlActiveEvents}`);
   }
 
   getInactiveEvents(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.urlInactiveUsers}`);
+    return this.http.get<any[]>(`${this.urlInactiveEvents}`);
   }
 
   deleteEvent(eventsIds: string[]): Observable<any> {
-    return this.http.delete(`${this.urlDeleteUsers}`, {
+    return this.http.delete(`${this.urlEvents}`, {
        body: { eventsIds: eventsIds }
     });
   }
 
   activateEvent(eventsIds: string[]): Observable<any> {
-    return this.http.put<any>(this.urlActivateUsers, { eventsIds: eventsIds }).pipe(
+    return this.http.put<any>(this.urlActivateEvents, { eventsIds: eventsIds }).pipe(
       catchError((error) => {
         console.error('Error al activar el evento:', error);
         return of(error);
@@ -59,7 +60,7 @@ export class EventService {
   }
 
   desactivateEvent(eventsIds: string[]): Observable<any> {
-    return this.http.put<any>(this.urlDesactivateUsers, { eventsIds: eventsIds }).pipe(
+    return this.http.put<any>(this.urlDesactivateEvents, { eventsIds: eventsIds }).pipe(
       catchError((error) => {
         console.error('Error al desactivar el evento:', error);
         return of(error);
@@ -68,7 +69,7 @@ export class EventService {
   }
 
   updateEvent(eventId: string, eventData: Partial<Event>): Observable<Event | undefined> {
-    const updateUrl = `${this.urlUpdateUser}/${eventId}`;
+    const updateUrl = `${this.urlEvents}/${eventId}`;
     return this.http.put<Event>(updateUrl, eventData).pipe(
        catchError((error) => {
          console.error('Error al actualizar el evento:', error);
