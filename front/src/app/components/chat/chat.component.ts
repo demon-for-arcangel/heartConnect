@@ -8,11 +8,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { WebsocketsService } from '../../services/websockets.service';
 import { UserService } from '../../services/user.service';
+import { MenuComponent } from '../shared/menu/menu.component';
 
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [RouterModule, CommonModule, FormsModule],
+  imports: [RouterModule, CommonModule, FormsModule, MenuComponent],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css'
 })
