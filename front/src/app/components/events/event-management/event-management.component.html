@@ -1,0 +1,74 @@
+<!-- <app-menu-admin></app-menu-admin>
+<p-toast></p-toast> 
+<h1>Gestión de Eventos</h1>
+<div class="insertUser">
+   <button (click)="newUser()"><i class="pi pi-plus"> Agregar Evento</i></button>
+</div>
+<div class="table-container">
+   <div class="table-card">
+      <h2>Eventos Activados</h2>
+      @if (hasSelectedActiveUsers) {
+         <div>
+            <button (click)="deleteUsers()">
+               <i class="pi pi-trash"></i>
+            </button>
+            <button (click)="editUser()">
+               <i class="pi pi-user-edit"></i>
+            </button>
+            <button (click)="consultUser()">
+               <i class="pi pi-info-circle"></i>
+            </button>
+            <button (click)="desactivateSelectedUsers()">Desactivar Evento</button>
+         </div>
+      }
+      <table>
+         <tr>
+            <th><input type="checkbox" [checked]="allUsersSelected" (change)="selectAllUsers($event, 'active')"></th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+         </tr>
+         @for (user of activeUsers; track user){
+            <tr>
+               <td><input type="checkbox" [checked]="user.selected" (change)="toggleSelect(user)"></td>
+               <td>{{ user.firstName }}</td>
+               <td>{{ user.lastName }}</td>
+               <td>{{ user.email }}</td>
+            </tr>
+         }
+      </table>
+   </div>
+   <div class="table-card">
+      <h2>Eventos Sin Activar</h2>
+      @if (hasSelectedInactiveUsers) {
+         <div>
+            <button (click)="deleteUsers()">
+               <i class="pi pi-trash"></i>
+            </button>
+            <button (click)="editUser()">
+               <i class="pi pi-user-edit"></i>
+            </button>
+            <button (click)="consultUser()">
+               <i class="pi pi-info-circle"></i>
+            </button>
+            <button (click)="activateSelectedUsers()">Activar Evento</button>
+         </div>
+      }
+      <table>
+         <tr>
+            <th><input type="checkbox" [checked]="allUsersSelected" (change)="selectAllUsers($event, 'inactive')"></th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+         </tr>
+         @for (user of inactiveUsers; track user){
+            <tr>
+               <td><input type="checkbox" [checked]="user.selected" (change)="toggleSelect(user)"></td>
+               <td>{{ user.firstName }}</td>
+               <td>{{ user.lastName }}</td>
+               <td>{{ user.email }}</td>
+            </tr>
+         }
+      </table>
+   </div>
+</div> -->

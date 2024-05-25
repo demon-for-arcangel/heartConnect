@@ -13,6 +13,7 @@ import { ResetPasswordComponent } from './components/resetPassword/reset-passwor
 import { UserManagementComponent } from './components/user/user-management/user-management.component';
 import { EditMenuComponent } from './components/edit/edit-menu/edit-menu.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { EventManagementComponent } from './components/events/event-management/event-management.component';
 
 export const routes: Routes = [
     //cualquier usuario sin registrar
@@ -32,4 +33,5 @@ export const routes: Routes = [
     {path: 'edit-menu', component: EditMenuComponent, canActivate:[adminGuard]},
     {path: 'edit-information', component: EditInformationComponent, canActivate:[adminGuard]},
     {path: 'edit-guide', component: EditGuideComponent, canActivate:[adminGuard]},
+    {path: 'events-management', component: EventManagementComponent, canActivate:[adminGuard]},
 ];
