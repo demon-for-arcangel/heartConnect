@@ -78,8 +78,8 @@ export class EventManagementComponent {
     this.updateSelectedEvents(); 
   }
 
-  updateActionButtons() {}
-
+/*   updateActionButtons() {}
+ */
   deleteEvents() {
     const selectedEventIds = [...this.activeEvents, ...this.inactiveEvents]
         .filter(event => event.selected)

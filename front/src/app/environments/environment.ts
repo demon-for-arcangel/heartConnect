@@ -33,10 +33,12 @@ export const environment = {
     events: '/events',
     activeEvents: '/users/active',
     inactiveEvents: '/users/inactive',
+    activateEvents: '/users/activate',
+    desactivateEvents: '/users/desactivate',
 
 
 
-    
+
     rol_admin : 1,
     admin_gestion_image:'../../assets/cards-dashboard/gestion.png',
     entrenador_faltas_image:'../../assets/cards-dashboard/listado.png',

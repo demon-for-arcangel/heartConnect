@@ -12,11 +12,11 @@ export class EventService {
   constructor(private http: HttpClient) { }
   private baseUrl: string = environment.baseUrl;
   private urlEvents: string = this.baseUrl + environment.events;
-  //cambiar user a event y crearlos en el environment
-  private urlActiveEvents: string = this.baseUrl + environment.activeUsers;
-  private urlInactiveEvents: string = this.baseUrl + environment.inactiveUsers;
-  private urlActivateEvents: string = this.baseUrl + environment.activateUsers;
-  private urlDesactivateEvents: string = this.baseUrl + environment.desactivateUsers;
+  //realizar en el servidor
+  private urlActiveEvents: string = this.baseUrl + environment.activeEvents;
+  private urlInactiveEvents: string = this.baseUrl + environment.inactiveEvents;
+  private urlActivateEvents: string = this.baseUrl + environment.activateEvents;
+  private urlDesactivateEvents: string = this.baseUrl + environment.desactivateEvents;
 
   createNewEvent(event: Event): Observable<Event | undefined> {
     return this.http.post<Event>(this.urlEvents, event).pipe(
@@ -27,8 +27,13 @@ export class EventService {
     );
   } 
   
-  getEvents(){
-
+  getEvents(): Observable<Event[]> {
+    return this.http.get<Event[]>(this.urlEvents).pipe(
+      catchError((error) => {
+        console.error('Error al obtener los eventos:', error);
+        return of([]); // Devuelve un array vacío en caso de error
+      })
+    );
   }
 
   getEventById(eventId: string): Observable<Event | undefined> {

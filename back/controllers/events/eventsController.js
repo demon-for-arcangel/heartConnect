@@ -22,7 +22,7 @@ const getEventsById = async (req, res) => {
       });
    
       if (!event) {
-        return res.status(404).json({ msg: "Evento no encontrado" });
+        return res.status(404).json({ msg: "eeeEvento no encontrado" });
       }
    
       res.status(200).json(event);
@@ -72,6 +72,53 @@ const deleteEvents = async (req, res) => {
   }
 };
 
+const getActiveEvents = async (req, res) => {
+  console.log('Controlador getActiveEvents llamado');
+  try {
+    const activeEvents = await conx.getActiveEvents();
+    console.log('Eventos activos obtenidos:', activeEvents);
+    res.status(200).json(activeEvents);
+  } catch (error) {
+    console.error('Error al obtener eventos activos', error);
+    res.status(500).json({ msg: "Error al obtener eventos activos" });
+  }
+};
+
+const getInactiveEvents = async (req, res) => {
+  try {
+    const inactiveEvents = await conx.getInactiveEvents();
+    res.status(200).json(inactiveEvents);
+  } catch (error) {
+    console.error('Error al obtener eventos inactivos', error);
+    res.status(500).json({ msg: "Error al obtener eventos inactivos" });
+  }
+};
+
+const activateEvents = async (req, res) => {
+  const { eventsIds } = req.body;
+  console.log(eventsIds)
+  try {
+    const updatedEvents = await conx.activateEvents(eventsIds);
+    res.status(200).json({ message: 'Evento activado correctamente', event: updatedEvents });
+  } catch (error) {
+    console.error('Error: ', error);
+    res.status(500).json({ message: 'Error al activar el evento', error });
+  }
+}
+
+const desactivateEvents = async (req, res) => {
+  const { eventsIds } = req.body; 
+  try {
+    const result = await conx.desactivateEvents(eventsIds);
+    res.status(200).json(result);
+  } catch (error) {
+    console.error('Error al desactivar el evento: ', error);
+    res.status(500).json({ message: 'Error al desactivar el evento', error });
+  }
+}
+
+
 module.exports = {
-    index, getEventsById, createEvent, updateEvent, deleteEvents
+  index, getEventsById, createEvent, updateEvent, deleteEvents, getActiveEvents, getInactiveEvents,
+  activateEvents, desactivateEvents
 }

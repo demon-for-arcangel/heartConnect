@@ -8,7 +8,7 @@ module.exports = {
         name: 'Evento 1',
         des: 'Descripción del Evento 1',
         date: new Date(),
-        public: true,
+        public: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -16,7 +16,7 @@ module.exports = {
         name: 'Evento 2',
         des: 'Descripción del Evento 2',
         date: new Date(),
-        public: false,
+        public: 0,
         createdAt: new Date(),
         updatedAt: new Date()
       },
