@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
       image: environment.admin_card_image,
       title: 'Gestión de Eventos',
       content: 'Gestión de los eventos para la aplicación.',
-      link: '/-events-management'
+      link: '/events-management'
     }
   ];
 }
