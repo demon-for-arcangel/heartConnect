@@ -31,10 +31,10 @@ export const environment = {
 
     // eventos
     events: '/events',
-    activeEvents: '/users/active',
-    inactiveEvents: '/users/inactive',
-    activateEvents: '/users/activate',
-    desactivateEvents: '/users/desactivate',
+    activeEvents: '/events/show/active',
+    inactiveEvents: '/events/show/inactive',
+    activateEvents: '/events/update/activate',
+    desactivateEvents: '/events/update/desactivate',
 
 
 

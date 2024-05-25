@@ -25,15 +25,15 @@
          <tr>
             <th><input type="checkbox" [checked]="allEventsSelected" (change)="selectAllEvents($event, 'active')"></th>
             <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Email</th>
+            <th>Descripción</th>
+            <th>Fecha</th>
          </tr>
          @for (event of activeEvents; track event){
             <tr>
                <td><input type="checkbox" [checked]="event.selected" (change)="toggleSelect(event)"></td>
-               <td>{{ event.firstName }}</td>
-               <td>{{ event.lastName }}</td>
-               <td>{{ event.email }}</td>
+               <td>{{ event.name }}</td>
+               <td>{{ event.des }}</td>
+               <td>{{ event.date }}</td>
             </tr>
          }
       </table>
