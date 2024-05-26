@@ -4,18 +4,20 @@
 <div class="insertUser">
    <button (click)="newEvent()"><i class="pi pi-plus"> Agregar Evento</i></button>
 </div>
-<div class="buttons">
-   <button class="btn" [class.active]="activeSection === 'todos'" (click)="toggleSection('todos')">
-      <h2>Todos</h2>
-   </button>
-   <button class="btn" [class.active]="activeSection === 'activo'" (click)="toggleSection('activo')">
-      <h2>Activos</h2>
-    </button>
-    <button class="btn" [class.active]="activeSection === 'inactivo'" (click)="toggleSection('inactivo')">
-      <h2>Inactivos</h2>
-    </button>
+<div class="content">
+   <div class="sidebar">
+      <button class="btn" [class.active]="activeSection === 'todos'" (click)="toggleSection('todos')">
+         <h2>Todos</h2>
+      </button>
+      <button class="btn" [class.active]="activeSection === 'activo'" (click)="toggleSection('activo')">
+         <h2>Activos</h2>
+       </button>
+       <button class="btn" [class.active]="activeSection === 'inactivo'" (click)="toggleSection('inactivo')">
+         <h2>Inactivos</h2>
+       </button>   
+   </div>
 
-    <div class="table-container">
+   <div class="table-container">
       <div class="table-card">
          @if(activeSection === 'todos'){
             <h2>Todos los Eventos Creados</h2>
@@ -82,7 +84,7 @@
                }
             </table>
          }
-
+   
          @if (activeSection === 'inactivo'){
             <h2>Eventos Sin Activar</h2>
             @if (hasSelectedInactiveEvents) {
@@ -116,6 +118,6 @@
                }
             </table>   
          }
-      </div>  
+      </div>
    </div>
 </div>
