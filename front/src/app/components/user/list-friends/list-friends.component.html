@@ -10,8 +10,10 @@
             <ul>
                 @for(friend of friends; track friend){
                     <li>
-                      <p><strong>Nombre:</strong> {{ friend.firstName }}</p>
-                      <p><strong>Apellido:</strong> {{ friend.lastName }}</p>
+                        <div class="friend-info">
+                            <p><strong>Nombre:</strong> {{ friend.firstName }}</p>
+                            <p><strong>Apellido:</strong> {{ friend.lastName }}</p>
+                        </div>
                     </li>
                 }
             </ul>
