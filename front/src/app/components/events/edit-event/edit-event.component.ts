@@ -12,16 +12,16 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 })
 export class EditEventComponent {
   @Input() eventId!: string;
-  event: any = {};
+  evento: any = {};
 
   constructor(private eventService: EventService, public ref: DynamicDialogRef, public config: DynamicDialogConfig){}
 
   ngOnInit() {
     const eventId = this.config.data.eventId;
     if (eventId) {
-      this.eventService.getEventById(eventId).subscribe(user => {
-        if (event) {
-          this.event = event;
+      this.eventService.getEventById(eventId).subscribe(evento => {
+        if (evento) {
+          this.evento = evento;
         } else {
           console.error('No se encontró el evento con el ID proporcionado.');
         }
@@ -32,8 +32,8 @@ export class EditEventComponent {
   }
 
   updateEventData() {
-    const eventId = this.event.id;
-    this.eventService.updateEvent(eventId, this.event).subscribe(
+    const eventId = this.evento.id;
+    this.eventService.updateEvent(eventId, this.evento).subscribe(
       updatedEvent => {
         console.log('Evento actualizado con éxito:', updatedEvent);
         // hacer mensaje
