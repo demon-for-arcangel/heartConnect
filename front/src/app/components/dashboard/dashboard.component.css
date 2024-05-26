@@ -1,8 +1,20 @@
+.main-container {
+    display: flex;
+    height: 100vh; /* Asegura que el contenedor principal ocupe toda la altura de la pantalla */
+}
+
 .container {
     display: flex;
     justify-content: space-between; 
     margin: 10px;
-    min-height: 507px;
+    min-height: 680px;
+}
+
+.main-content {
+    margin-left: 25%; /* Deja espacio para el menú lateral */
+    flex-grow: 1; /* El contenido principal ocupa el espacio restante */
+    padding: 20px; /* Añade un poco de padding */
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
 }
 
 .messenger {
@@ -19,6 +31,7 @@
     box-sizing: border-box; 
     background-color: bisque;
     margin-left: 10px;
+    margin-right: 20px;
 }
 
 section {
@@ -30,7 +43,7 @@ section {
 }
 
 .card {
-    background-color: #000000;
+    background-color: #1c1c1c;
     color: white;
     width: 360px; 
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 

@@ -1,4 +1,5 @@
 export interface User {
+    uid?: number;
     id?: number;
     firstName?: string;
     lastName?: string;
@@ -21,4 +22,10 @@ export interface Role {
 export interface UserRol {
     id: number;
     roles: Role[];
+}
+
+export interface UserFriendship {
+    id: number;
+    firstName?: string;
+    lastName?: string;
 }

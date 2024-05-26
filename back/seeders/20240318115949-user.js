@@ -46,7 +46,7 @@ module.exports = {
       born_date: new Date('2004-06-22'),
       domicile: '403691.30310115 4282638.6555873',
       phone_number: '666 66 66 66',
-      active: false,
+      active: true,
       createdAt: new Date(),
       updatedAt: new Date()
     },

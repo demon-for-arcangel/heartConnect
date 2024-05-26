@@ -30,5 +30,5 @@ module.exports = {
 
  async down (queryInterface, Sequelize) {
     await queryInterface.bulkDelete(process.env.TABLE_USER_ROLS, null, {});
- }
+  }
 };
