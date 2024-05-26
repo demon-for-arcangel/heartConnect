@@ -51,7 +51,7 @@ export class EventService {
 
   deleteEvent(eventsIds: string[]): Observable<any> {
     return this.http.delete(`${this.urlEvents}`, {
-       body: { eventsIds: eventsIds }
+       body: { ids: eventsIds }
     });
   }
 

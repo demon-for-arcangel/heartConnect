@@ -25,25 +25,32 @@ import { ConsultEventComponent } from '../consult-event/consult-event.component'
 export class EventManagementComponent {
   activeEvents: any[] = [];
   inactiveEvents: any[] = [];
+  allEvents: any[] = [];
   selectedEvents: any[] = [];
   hasSelectedEvents: boolean = false;
   hasSelectedActiveEvents: boolean = false;
   hasSelectedInactiveEvents: boolean = false;
   allEventsSelected: boolean = false;
 
+  activeSection: string = 'todos';
+
   ref: DynamicDialogRef | undefined;
   dialog: any;
 
   constructor(private eventService: EventService, private messageService: MessageService, public dialogService: DialogService){}
 
-  ngOnInit(){
+  ngOnInit() {
+    this.eventService.getEvents().subscribe(events => {
+      this.allEvents = events;
+    });
+  
     this.eventService.getActiveEvents().subscribe(events => {
       this.activeEvents = events;
     });
-
+  
     this.eventService.getInactiveEvents().subscribe(events => {
       this.inactiveEvents = events;
-    })
+    });
   }
 
   selectAllEvents(event: any, eventType: string) {
@@ -54,6 +61,8 @@ export class EventManagementComponent {
       eventsList = this.activeEvents;
     } else if (eventType === 'inactive') {
       eventsList = this.inactiveEvents;
+    } else if (eventType === 'todos') {
+      eventsList = this.allEvents;
     }
    
     eventsList.forEach(event => {
@@ -66,22 +75,32 @@ export class EventManagementComponent {
   updateSelectedEvents() {
     const allActiveSelected = this.activeEvents.every(event => event.selected);
     const allInactiveSelected = this.inactiveEvents.every(event => event.selected);
-    this.allEventsSelected = allActiveSelected && allInactiveSelected;
+    const allEventsSelected = this.allEvents.every(event => event.selected);
+    this.allEventsSelected = allActiveSelected && allInactiveSelected && allEventsSelected;
     this.hasSelectedEvents = this.activeEvents.some(event => event.selected) || this.inactiveEvents.some(event => event.selected);
    
     this.hasSelectedActiveEvents = this.activeEvents.some(event => event.selected);
     this.hasSelectedInactiveEvents = this.inactiveEvents.some(event => event.selected);
   }
 
+/*   updateSelectedEvents() {
+    this.hasSelectedEvents = this.allEvents.some(event => event.selected);
+    this.hasSelectedActiveEvents = this.activeEvents.some(event => event.selected);
+    this.hasSelectedInactiveEvents = this.inactiveEvents.some(event => event.selected);
+    this.allEventsSelected = this.allEvents.every(event => event.selected);
+  } */
+
   toggleSelect(event: any) {
     event.selected = !event.selected;
     this.updateSelectedEvents(); 
   }
 
-/*   updateActionButtons() {}
- */
+  toggleSection(section: string) {
+    this.activeSection = section;
+  }
+
   deleteEvents() {
-    const selectedEventIds = [...this.activeEvents, ...this.inactiveEvents]
+    const selectedEventIds = [...this.activeEvents, ...this.inactiveEvents, ...this.allEvents]
         .filter(event => event.selected)
         .map(event => event.id);
     
@@ -93,6 +112,8 @@ export class EventManagementComponent {
         });
         return;
     }
+
+    console.log(selectedEventIds);
     
     this.eventService.deleteEvent(selectedEventIds).subscribe(
         response => {
@@ -175,11 +196,11 @@ export class EventManagementComponent {
         '640px': '90vw'
       },
       styleClass: 'custom-modal'
-    })
+    });
   }
 
   editEvent(): void {
-    const selectedEvents = [...this.activeEvents, ...this.inactiveEvents].filter(event => event.selected);
+    const selectedEvents = [...this.activeEvents, ...this.inactiveEvents, ...this.allEvents].filter(event => event.selected);
     if (selectedEvents.length > 1) {
       this.messageService.add({
         severity: 'warn',
@@ -198,7 +219,7 @@ export class EventManagementComponent {
         },
         styleClass: 'custom-modal',
         data: { eventId: selectedEvent.id }
-      })
+      });
     } else {
       this.messageService.add({
         severity: 'info',
@@ -209,7 +230,7 @@ export class EventManagementComponent {
   }
 
   consultEvent(): void {
-    const selectedEvents = [...this.activeEvents, ...this.inactiveEvents].filter(event => event.selected);
+    const selectedEvents = [...this.activeEvents, ...this.inactiveEvents, ...this.allEvents].filter(event => event.selected);
     if (selectedEvents.length > 1) {
       this.messageService.add({
         severity: 'warn',
