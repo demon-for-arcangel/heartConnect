@@ -17,39 +17,38 @@
 
     <div class="table-container">
       <div class="table-card">
-         @if (activeSection === 'todos'){
+         @if(activeSection === 'todos'){
             <h2>Todos los Eventos Creados</h2>
             @if (hasSelectedEvents){
-                 <div>
-                   <button (click)="deleteEvents()">
-                     <i class="pi pi-trash"></i>
-                   </button>
-                   <button (click)="editEvent()">
-                     <i class="pi pi-pencil"></i>
-                   </button>
-                   <button (click)="consultEvent()">
-                     <i class="pi pi-info-circle"></i>
-                   </button>
-                 </div>
-               <table>
-                 <tr>
-                   <th><input type="checkbox" [checked]="allEventsSelected" (change)="selectAllEvents($event, 'todos')"></th>
-                   <th>Nombre</th>
-                   <th>Descripción</th>
-                   <th>Fecha</th>
-                 </tr>
-                 @for (event of allEvents; track event){
-                 <tr>
-                   <td><input type="checkbox" [checked]="event.selected" (change)="toggleSelect(event)"></td>
-                   <td>{{ event.name }}</td>
-                   <td>{{ event.des }}</td>
-                   <td>{{ event.date }}</td>
-                 </tr>
-               }
-               </table>
+               <div>
+                  <button (click)="deleteEvents()">
+                    <i class="pi pi-trash"></i>
+                  </button>
+                  <button (click)="editEvent()">
+                    <i class="pi pi-pencil"></i>
+                  </button>
+                  <button (click)="consultEvent()">
+                    <i class="pi pi-info-circle"></i>
+                  </button>
+               </div>
             }
+            <table>
+              <tr>
+                <th><input type="checkbox" [checked]="allEventsSelected" (change)="selectAllEvents($event, 'todos')"></th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Fecha</th>
+              </tr>
+              @for (event of allEvents; track event){
+               <tr>
+                  <td><input type="checkbox" [checked]="event.selected" (change)="toggleSelect(event)"></td>
+                  <td>{{ event.name }}</td>
+                  <td>{{ event.des }}</td>
+                  <td>{{ event.date | date:'medium' }}</td>
+                </tr>
+              }
+            </table>
          }
-
          @if (activeSection === 'activo'){
             <h2>Eventos Activados</h2>
             @if (hasSelectedActiveEvents) {
