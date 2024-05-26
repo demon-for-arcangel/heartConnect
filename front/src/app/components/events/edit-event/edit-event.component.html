@@ -1,1 +1,25 @@
-<p>edit-event works!</p>
+<div class="event-details">
+    <div class="form-column">
+        <div class="form-field">
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" [(ngModel)]="event.name">
+        </div>
+        <div class="form-field">
+            <label for="des">Descripción:</label>
+            <input type="text" id="des" [(ngModel)]="event.des">
+        </div>
+    </div>
+    
+    <div class="form-column">
+        <div class="form-field">
+            <label for="date">Fecha:</label>
+            <input type="text" id="date" [(ngModel)]="event.date">
+        </div>
+        <div class="form-field">
+            <label for="public">Publico:</label>
+            <input type="text" id="public" [(ngModel)]="event.public">
+        </div>
+    </div>
+</div>
+
+<button class="update-button" (click)="updateEventData()">Actualizar</button>
