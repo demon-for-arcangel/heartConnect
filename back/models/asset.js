@@ -18,11 +18,12 @@ module.exports = (sequelize, DataTypes) => {
       this.hasOne(models.User, {
         foreignKey: 'photo_profile',
         as: 'image'
-     });
+      });
     }
   }
   Asset.init({
-    ruta: DataTypes.STRING,
+    filename: DataTypes.STRING,
+    path: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Asset',

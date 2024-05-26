@@ -9,8 +9,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      ruta: {
-        type: Sequelize.STRING
+      filename: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      path: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
