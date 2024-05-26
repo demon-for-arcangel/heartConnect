@@ -14,6 +14,7 @@ import { UserManagementComponent } from './components/user/user-management/user-
 import { EditMenuComponent } from './components/edit/edit-menu/edit-menu.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { EventManagementComponent } from './components/events/event-management/event-management.component';
+import { ListFriendsComponent } from './components/user/list-friends/list-friends.component';
 
 export const routes: Routes = [
     //cualquier usuario sin registrar
@@ -26,7 +27,8 @@ export const routes: Routes = [
 
     //usuarios
     {path: 'home', component: DashboardComponent, canActivate:[anyLoggedGuard]},    
-    {path: 'messenger', component: ChatComponent},
+    {path: 'messenger', component: ChatComponent, canActivate:[anyLoggedGuard]},
+    {path: 'list-friends', component: ListFriendsComponent, canActivate:[anyLoggedGuard]},
 
     //admin
     {path: 'user-management', component: UserManagementComponent, canActivate:[adminGuard]},
