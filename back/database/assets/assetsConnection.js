@@ -17,7 +17,7 @@ class AssetsModel {
     try{
         conexion.conectar();
         resultado = await models.Assets.findOne({
-            attributes:["ruta"],
+            attributes:["path"],
             where: {
                 id: assetId,
             },
@@ -57,7 +57,7 @@ class AssetsModel {
         conexion.conectar();
         resultado = await models.Assets.destroy({
           where: {
-            ruta: assetId
+            path: assetId
           },
         });
         conexion.desconectar();
@@ -79,7 +79,7 @@ class AssetsModel {
       conexion.conectar();
       for (let i =  0; i < arrId.length; i++) {
         resultado = await models.Assets.findOne({
-          attributes: ["ruta"],
+          attributes: ["path"],
           where: {
             id: arrId[i],
           },
@@ -114,7 +114,7 @@ class AssetsModel {
             include: [
                 {
                   model: models.Assets,
-                  attributes: ["id", "ruta"],
+                  attributes: ["id", "path"],
                 },
               ]
             
