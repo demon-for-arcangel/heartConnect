@@ -24,8 +24,8 @@ export const routes: Routes = [
     {path: 'forgot-password', component: RequestResetComponent},
     {path: 'reset/:token', component: ResetPasswordComponent},
 
-    //cualquier usuario registrado
-    {path: 'home', component: DashboardComponent, canActivate:[anyLoggedGuard]},
+    //usuarios
+    {path: 'home', component: DashboardComponent, canActivate:[anyLoggedGuard]},    
     {path: 'messenger', component: ChatComponent},
 
     //admin
