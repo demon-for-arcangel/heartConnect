@@ -1,1 +1,23 @@
-<p>consult-event works!</p>
+<div class="event-details">
+    <div class="form-column">
+        <div class="form-field">
+            <label for="name">Nombre:</label>
+            <p id="name">{{ event.name }}</p>
+        </div>
+        <div class="form-field">
+            <label for="des">Descripción:</label>
+            <p id="des">{{ event.des }}</p>
+        </div>
+    </div>
+    
+    <div class="form-column">
+        <div class="form-field">
+            <label for="date">Fecha:</label>
+            <p id="date">{{ event.date }}</p>
+        </div>
+        <div class="form-field">
+            <label for="public">Publico:</label>
+            <p id="public">{{ event.public }}</p>
+        </div>
+    </div>
+</div>

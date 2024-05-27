@@ -28,12 +28,7 @@ export class EventService {
   } 
   
   getEvents(): Observable<Event[]> {
-    return this.http.get<Event[]>(this.urlEvents).pipe(
-      catchError((error) => {
-        console.error('Error al obtener los eventos:', error);
-        return of([]); // Devuelve un array vacío en caso de error
-      })
-    );
+    return this.http.get<Event[]>(this.urlEvents);
   }
 
   getEventById(eventId: string): Observable<Event | undefined> {
@@ -51,7 +46,7 @@ export class EventService {
 
   deleteEvent(eventsIds: string[]): Observable<any> {
     return this.http.delete(`${this.urlEvents}`, {
-       body: { eventsIds: eventsIds }
+       body: { ids: eventsIds }
     });
   }
 

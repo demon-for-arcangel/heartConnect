@@ -25,115 +25,125 @@ import { ConsultEventComponent } from '../consult-event/consult-event.component'
 export class EventManagementComponent {
   activeEvents: any[] = [];
   inactiveEvents: any[] = [];
+  allEvents: any[] = [];
   selectedEvents: any[] = [];
   hasSelectedEvents: boolean = false;
   hasSelectedActiveEvents: boolean = false;
   hasSelectedInactiveEvents: boolean = false;
   allEventsSelected: boolean = false;
 
+  activeSection: string = 'todos';
+
   ref: DynamicDialogRef | undefined;
-  dialog: any;
 
-  constructor(private eventService: EventService, private messageService: MessageService, public dialogService: DialogService){}
+  constructor(private eventService: EventService, private messageService: MessageService, public dialogService: DialogService) {}
 
-  ngOnInit(){
+  ngOnInit() {
+    this.loadAllEvents();
+  }
+
+  loadAllEvents() {
+    this.eventService.getEvents().subscribe(events => {
+      this.allEvents = events;
+      console.log('todos los eventos', this.allEvents)
+      this.updateSelectedEvents();
+    });
     this.eventService.getActiveEvents().subscribe(events => {
       this.activeEvents = events;
+      this.updateSelectedEvents();
     });
-
     this.eventService.getInactiveEvents().subscribe(events => {
       this.inactiveEvents = events;
-    })
+      this.updateSelectedEvents();
+    });
   }
 
   selectAllEvents(event: any, eventType: string) {
     const isChecked = event.target.checked;
     let eventsList = [];
-   
+
     if (eventType === 'active') {
       eventsList = this.activeEvents;
     } else if (eventType === 'inactive') {
       eventsList = this.inactiveEvents;
+    } else if (eventType === 'todos') {
+      eventsList = this.allEvents;
     }
-   
+
     eventsList.forEach(event => {
-       event.selected = isChecked;
+      event.selected = isChecked;
     });
-   
+
     this.updateSelectedEvents();
   }
 
   updateSelectedEvents() {
-    const allActiveSelected = this.activeEvents.every(event => event.selected);
-    const allInactiveSelected = this.inactiveEvents.every(event => event.selected);
-    this.allEventsSelected = allActiveSelected && allInactiveSelected;
-    this.hasSelectedEvents = this.activeEvents.some(event => event.selected) || this.inactiveEvents.some(event => event.selected);
-   
+    this.hasSelectedEvents = this.allEvents.some(event => event.selected);
     this.hasSelectedActiveEvents = this.activeEvents.some(event => event.selected);
     this.hasSelectedInactiveEvents = this.inactiveEvents.some(event => event.selected);
+    this.allEventsSelected = this.allEvents.every(event => event.selected);
   }
 
   toggleSelect(event: any) {
     event.selected = !event.selected;
-    this.updateSelectedEvents(); 
+    this.updateSelectedEvents();
   }
 
-/*   updateActionButtons() {}
- */
+  toggleSection(section: string) {
+    this.activeSection = section;
+  }
+
   deleteEvents() {
-    const selectedEventIds = [...this.activeEvents, ...this.inactiveEvents]
-        .filter(event => event.selected)
-        .map(event => event.id);
-    
+    const selectedEventIds = this.allEvents.filter(event => event.selected).map(event => event.id);
     if (selectedEventIds.length === 0) {
-        this.messageService.add({
-            severity:'info', 
-            summary:'Información', 
-            detail:'No hay eventos seleccionados para eliminar.',
-        });
-        return;
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Información',
+        detail: 'No hay eventos seleccionados para eliminar.',
+      });
+      return;
     }
-    
+
     this.eventService.deleteEvent(selectedEventIds).subscribe(
-        response => {
-            this.messageService.add({
-                severity:'success', 
-                summary:'Éxito', 
-                detail:'Eventos eliminados correctamente.',
-            });
-            setTimeout(() => {
-                location.reload(); 
-            }, 3000); 
-        },
-        error => {
-            this.messageService.add({
-                severity:'error', 
-                summary:'Error', 
-                detail:'Hubo un error al eliminar los eventos.',
-            });
-        }
+      response => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Éxito',
+          detail: 'Eventos eliminados correctamente.',
+        });
+        setTimeout(() => {
+          this.loadAllEvents();
+        }, 3000);
+      },
+      error => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Hubo un error al eliminar los eventos.',
+        });
+      }
     );
   }
-  
+
   activateSelectedEvents() {
     const selectedEventIds = this.inactiveEvents.filter(event => event.selected).map(event => event.id);
     if (selectedEventIds.length > 0) {
       this.eventService.activateEvent(selectedEventIds).subscribe(
         response => {
-          this.messageService.add({ 
-            severity: 'success', 
-            summary: 'Éxito', 
-            detail: 'Eventos activados correctamente.' 
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Éxito',
+            detail: 'Eventos activados correctamente.'
           });
           setTimeout(() => {
-            location.reload(); 
-          }, 3000); 
+            this.loadAllEvents();
+          }, 3000);
         },
         error => {
-          this.messageService.add({ 
-            severity: 'error', 
-            summary: 'Error', 
-            detail: 'Hubo un error al activar los eventos.' 
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Hubo un error al activar los eventos.'
           });
         }
       );
@@ -145,21 +155,21 @@ export class EventManagementComponent {
     if (selectedEventIds.length > 0) {
       this.eventService.desactivateEvent(selectedEventIds).subscribe(
         response => {
-          this.messageService.add({ 
-            severity: 'success', 
-            summary: 'Éxito', 
-            detail: 'Eventos desactivados correctamente.' 
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Éxito',
+            detail: 'Eventos desactivados correctamente.'
           });
           setTimeout(() => {
-            location.reload(); 
-          }, 3000); 
+            this.loadAllEvents();
+          }, 3000);
         },
         error => {
-         this.messageService.add({ 
-          severity: 'error', 
-          summary: 'Error', 
-          detail: 'Hubo un error al desactivar los eventos.' 
-        });
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Hubo un error al desactivar los eventos.'
+          });
         }
       );
     }
@@ -175,16 +185,16 @@ export class EventManagementComponent {
         '640px': '90vw'
       },
       styleClass: 'custom-modal'
-    })
+    });
   }
 
   editEvent(): void {
-    const selectedEvents = [...this.activeEvents, ...this.inactiveEvents].filter(event => event.selected);
+    const selectedEvents = this.allEvents.filter(event => event.selected);
     if (selectedEvents.length > 1) {
       this.messageService.add({
         severity: 'warn',
         summary: 'Advertencia',
-        detail: 'Por favor, selecciona solo un evento para consultar.',
+        detail: 'Por favor, selecciona solo un evento para editar.',
       });
     } else if (selectedEvents.length === 1) {
       const selectedEvent = selectedEvents[0];
@@ -198,18 +208,18 @@ export class EventManagementComponent {
         },
         styleClass: 'custom-modal',
         data: { eventId: selectedEvent.id }
-      })
+      });
     } else {
       this.messageService.add({
         severity: 'info',
         summary: 'Información',
-        detail: 'Por favor, selecciona un evento para consultar.',
+        detail: 'Por favor, selecciona un evento para editar.',
       });
     }
   }
 
   consultEvent(): void {
-    const selectedEvents = [...this.activeEvents, ...this.inactiveEvents].filter(event => event.selected);
+    const selectedEvents = this.allEvents.filter(event => event.selected);
     if (selectedEvents.length > 1) {
       this.messageService.add({
         severity: 'warn',

@@ -20,13 +20,12 @@ module.exports = (sequelize, DataTypes) => {
 
       this.belongsToMany(models.Asset, {
         through: models.UserAssets,
-        foreignKey: "id_user",
+        foreignKey: 'id_user',
+        as: 'assets'
       });
-
       this.hasOne(models.Asset, {
-        foreignKey: "id",
-        sourceKey: "photo_profile",
-        as: "image",
+        as: 'photoProfile',
+        foreignKey: 'photo_profile'
       });
 
       /* this.belongsToMany(models.Rol, {
