@@ -36,8 +36,6 @@ export const environment = {
     activateEvents: '/events/update/activate',
     desactivateEvents: '/events/update/desactivate',
 
-    //assets
-    getFile: '/assets',
 
 
 

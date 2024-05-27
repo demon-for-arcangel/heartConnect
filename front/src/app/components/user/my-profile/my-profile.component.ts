@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MenuComponent } from '../../shared/menu/menu.component';
 import { AuthService } from '../../../services/auth.service';
 import { UserService } from '../../../services/user.service';
-import { User } from '../../../interfaces/user';
-import { FileService } from '../../../services/file.service';
 
 @Component({
   selector: 'app-my-profile',
@@ -12,40 +10,22 @@ import { FileService } from '../../../services/file.service';
   templateUrl: './my-profile.component.html',
   styleUrl: './my-profile.component.css'
 })
-export class MyProfileComponent implements OnInit {
+export class MyProfileComponent {
   user: any = {};
-  userProfileImageUrl: string = '';
 
   constructor(
     private authService: AuthService,
-    private userService: UserService,
-    private fileService: FileService
+    private userService: UserService
   ) {}
 
   ngOnInit() {
     const token = localStorage.getItem('user');
-    console.log('token del usuario', token);
-
-    if (token) {
-      this.authService.getUserByToken(token).subscribe(user => {
-        if (user && user.id) {
-          this.userService.getUserById(user.id.toString()).subscribe(userData => {
-            this.user = userData;
-            console.log('Usuario:', this.user);
-            if (this.user?.photo_profile) {
-              this.fileService.getFileById(this.user.photo_profile).subscribe({
-                next: (response: { filePath: string }) => {
-                  this.userProfileImageUrl = response.filePath;
-                  console.log('URL de la imagen del perfil:', this.userProfileImageUrl);
-                },
-                error: error => {
-                  console.error('Error al obtener la imagen del perfil:', error);
-                }
-              });
-            }
-          });
-        }
-      });
-    }
+    this.authService.getUserByToken(token).subscribe(user => {
+      if (user && user.id) {
+        this.user = user.id.toString();
+      } else {
+        console.error('No se ha encontrado el usuario.');
+      }
+    });
   }
 }
