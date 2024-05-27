@@ -24,8 +24,8 @@ module.exports = (sequelize, DataTypes) => {
         as: 'assets'
       });
       this.hasOne(models.Asset, {
-        foreignKey: 'photo_profile',
-        as: 'profileImage'
+        as: 'photoProfile',
+        foreignKey: 'photo_profile'
       });
 
       /* this.belongsToMany(models.Rol, {

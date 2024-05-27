@@ -1,5 +1,7 @@
 const { response } = require("express");
-const AssetsModel = require("../database/assetsModel");
+const fs = require('fs');
+const path = require('path');
+const AssetsModel = require("../database/assetsConnection");
 const assetsModel = new AssetsModel();
 
 const showAssetsUser = async (req, res = response) => {
@@ -31,20 +33,27 @@ const uploadAsset = async (req, res = response) => {
 
     req.on('end', async () => {
       const buffer = Buffer.concat(buffers);
-      const fileContent = buffer.toString('binary');
       const fileName = req.headers['file-name'];
+      const userId = req.headers['user-id'];
+
+      if (!fileName || !userId) {
+        return res.status(400).json({ msg: "File name and user ID are required in headers" });
+      }
 
       // Guardar en el sistema de archivos
-      const filePath = `/path/to/save/${fileName}`;
-      // Aquí usarías fs.writeFileSync(filePath, fileContent, 'binary');
+      const filePath = path.join(__dirname, '../uploads/', fileName);
+      fs.writeFileSync(filePath, buffer);
 
       // Guardar en la base de datos
       const asset = {
         path: filePath,
-        // Agrega otros campos necesarios aquí
       };
 
       const savedAsset = await assetsModel.saveAsset(asset);
+
+      // Asociar el asset al usuario
+      await assetsModel.associateAssetWithUser(savedAsset.id, userId);
+
       res.status(201).json(savedAsset);
     });
 
