@@ -21,8 +21,8 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              "../assets/logo.png",
-              "/assets/uploads"
+              "/assets/logo.png",
+              "/assets"
             ],
             "styles": [
               "./src/custom-theme.scss",
