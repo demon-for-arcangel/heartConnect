@@ -8,27 +8,43 @@ const conexion = new Conexion();
 class AssetsModel {
   constructor() {}
 
-  getAssetById=async(assetId)=>{
-    let resultado = [];
-    try{
+  getAssetById = async (assetId) => {
+    let resultado;
+    try {
+        // Conectar a la base de datos
+        console.log("Conectando a la base de datos...");
         conexion.conectar();
-        resultado = await models.Assets.findOne({
-            attributes:["path"],
+        
+        // Buscar el asset por ID y obtener solo el atributo 'path'
+        console.log(`Buscando asset con ID: ${assetId}`);
+        resultado = await models.Asset.findOne({
+            attributes: ["path"],
             where: {
                 id: assetId,
             },
         });
-        conexion.desconectar();
-        if (!resultado) {
-            throw new Error("Asset not found");
-          }
-    }catch(error){
-        throw error
-    }finally{
-        return resultado;
-    }
 
-  }
+        // Desconectar de la base de datos
+        console.log("Desconectando de la base de datos...");
+        conexion.desconectar();
+
+        // Verificar si se encontró el asset
+        if (!resultado) {
+            console.log("Asset no encontrado");
+            throw new Error("Asset not found");
+        }
+        
+    } catch (error) {
+        console.error("Error al obtener el asset:", error);
+        throw error;
+    } finally {
+        // Verificar el resultado antes de retornarlo
+        console.log("Resultado de la consulta:", resultado);
+        return resultado ? resultado.dataValues : null;
+    }
+};
+
+
 
   saveAsset = async (asset) =>{
     let resultado = [];
