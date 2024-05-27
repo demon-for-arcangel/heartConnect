@@ -1,0 +1,15 @@
+<div class="container">
+    <h1>Carga de Imágenes</h1>
+  
+    <div class="image-grid">
+      <div class="image-slot" *ngFor="let image of images; let i = index">
+        <img [src]="getPreviewImage(image)" alt="Imagen {{ i + 1 }}">
+        <button (click)="removeImage(i)">Eliminar</button>
+      </div>
+      <div class="image-slot" *ngIf="images.length < maxImages">
+        <button (click)="openFileInput()">Agregar Imagen</button>
+      </div>
+    </div>
+  
+    <input id="fileInput" type="file" accept="image/*" (change)="onFileChange($event)" style="display: none;">
+  </div>

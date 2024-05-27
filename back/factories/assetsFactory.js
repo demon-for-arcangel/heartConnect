@@ -5,7 +5,7 @@ const assetsFactory = async (arr) => {
     while (i < arr.length) {
         console.log(arr[i].toString())
         let newAsset = {
-            ruta:String(arr[i]),
+            path:String(arr[i]),
             createdAt: new Date(),
             updatedAt: new Date()
         }

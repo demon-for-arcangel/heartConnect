@@ -20,19 +20,40 @@ module.exports = (sequelize, DataTypes) => {
 
       this.belongsToMany(models.Asset, {
         through: models.UserAssets,
-        foreignKey: "id_user",
+        foreignKey: 'id_user',
+        as: 'assets'
       });
-
       this.hasOne(models.Asset, {
-        foreignKey: "id",
-        sourceKey: "photo_profile",
-        as: "image",
+        as: 'photoProfile',
+        foreignKey: 'photo_profile'
       });
 
       /* this.belongsToMany(models.Rol, {
         through: 'user_rols',
         as: 'roles',
        }); */
+
+       this.hasMany(models.UserFriendShip, {
+        foreignKey: 'id_user',
+        as: 'friendships'
+      });
+
+      this.hasMany(models.UserFriendShip, {
+        foreignKey: 'id_friendship',
+        as: 'friendOf'
+      });
+
+      // Alias para la asociación con Chat como usuario
+      this.hasMany(models.Chat, {
+        foreignKey: 'userId',
+        as: 'chatsAsUser'
+      });
+
+      // Alias para la asociación con Chat como amigo
+      this.hasMany(models.Chat, {
+        foreignKey: 'friendId',
+        as: 'chatsAsFriend'
+      });
     }
   }
   User.init({

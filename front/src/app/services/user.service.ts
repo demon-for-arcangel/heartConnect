@@ -13,7 +13,7 @@ export class UserService {
   private baseUrl: string = environment.baseUrl;
   private urlLogin: string = this.baseUrl + environment.login;
   private urlRegister: string = this.baseUrl + environment.register;
-  private urlShowUser: string = this.baseUrl + environment.myProfile;
+  private urlShowUser: string = this.baseUrl + environment.showUser;
   private urlActiveUsers: string = this.baseUrl + environment.activeUsers;
   private urlInactiveUsers: string = this.baseUrl + environment.inactiveUsers;
   private urlDeleteUsers: string = this.baseUrl + environment.deleteUsers;

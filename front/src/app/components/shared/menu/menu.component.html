@@ -1,14 +1,39 @@
-<header>
-    <div class="header-container">
-        <div class="header-content">
-            <a routerLink="/"><img src="../../../../assets/logo.png" width="280px"></a>
+<header class="sidebar">
+    <div class="sidebar-content">
+        <a routerLink="/home"><img src="../../../../assets/logo.png" width="280px" alt="heartconnect"></a>
+        <nav>
             <ul>
-                <li><a routerLink="">Inicio</a></li>
-                <li><a routerLink="">Amigos</a></li>
-                <li><a routerLink="">Mensajes</a></li>
-                <li><a routerLink="">Notificaciones</a></li>
-                <li><a routerLink="">Yo</a></li> <!--Desplegable con opciones de ver perfil, ajustes de privacidad, cerrar sesion-->
+                <li><a routerLink="">
+                    <i class="pi pi-home"></i>
+                    <p>Inicio</p>
+                </a></li>
+                <li><a routerLink="">
+                    <i class="pi pi-search"></i>
+                    <p>Explorar</p>
+                </a></li>
+                <li><a routerLink="">
+                    <i class="pi pi-bell"></i>
+                    <p>Notificaciones</p>
+                </a></li>
+                <li><a routerLink="/messenger">
+                    <i class="pi pi-envelope"></i>
+                    <p>Mensajes</p>
+                </a></li>
+                <li><a routerLink="/list-friends">
+                    <i class="pi pi-users"></i> 
+                    <p>Amigos</p>
+                </a></li>
+                <li>
+                    <a routerLink="/my-profile">
+                        <i class="pi pi-user"></i>
+                        <p>Mi perfil</p>
+                    </a>
+                </li>
+                <li><a routerLink="">
+                    <i class="pi pi-cog"></i>
+                    <p>Más Opciones</p>
+                </a></li>
             </ul>
-        </div>
+        </nav>
     </div>
 </header>

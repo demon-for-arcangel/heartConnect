@@ -11,4 +11,10 @@ router.post('/', controlador.createEvent);
 router.put('/:id', controlador.updateEvent);
 router.delete('/', controlador.deleteEvents);
 
+router.get('/show/active', controlador.getActiveEvents);
+router.get('/show/inactive', controlador.getInactiveEvents);
+router.put('/update/activate', /* [checkToken, tokenCanAdmin], */controlador.activateEvents);
+router.put('/update/desactivate', /* [checkToken, tokenCanAdmin], */controlador.desactivateEvents);
+
+
 module.exports = router;

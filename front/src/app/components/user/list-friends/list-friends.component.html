@@ -1,0 +1,27 @@
+<div class="main-container">
+    <app-menu></app-menu>
+    <div class="main-content">
+      <div class="container">
+        <h2>Lista de Amigos</h2>
+        @if(errorMessage){
+            <p class="error-message">{{ errorMessage }}</p>
+        }
+        @if(friends.length > 0){
+            <ul>
+                @for(friend of friends; track friend){
+                    <li>
+                        <div class="friend-info">
+                            <p><strong>Nombre:</strong> {{ friend.firstName }}</p>
+                            <p><strong>Apellido:</strong> {{ friend.lastName }}</p>
+                        </div>
+                    </li>
+                }
+            </ul>
+        }
+        @if(friends.length === 0 && !errorMessage){
+            <p>No tienes amigos en tu lista.</p>
+        }
+      </div>
+    </div>
+</div>
+  

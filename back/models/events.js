@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     des: DataTypes.STRING,
     date: DataTypes.DATE,
-    public: DataTypes.BOOLEAN,
+    public: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Events',
