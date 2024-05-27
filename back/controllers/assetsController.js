@@ -18,7 +18,7 @@ const showAsset = async (req, res = response) => {
   try {
     const asset = await assetsModel.getAssetById(req.params.id);
     if (asset) {
-      const filePath = `/assets/uploads/photo_profile/${path.basename(asset.path)}`;
+      const filePath = `../../../../assets/uploads/photo_profile/${path.basename(asset.path)}`;
       console.log('Archivo encontrado:', filePath);
       res.status(200).json({ filePath });
     } else {
