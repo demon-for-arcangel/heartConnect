@@ -11,8 +11,8 @@
                         <h2>{{user.lastName}}</h2>
                     </div>
                     <div class="buttons">
-                        <!-- Hacer dialogo para ver las preferencias del usuario,
-                        para editar el perfil, para la lista de amigos y las personas de interés -->
+                        <!-- Hacer dialogo para editar el perfil, para la lista de amigos y 
+                            las personas de interés y apara ver las preferencias tendremos otra pagina por lo cual sera un enlace-->
                         <button>Ver preferencias</button>
                         <button (click)="editProfile()">Editar perfil</button>
                     </div>
@@ -20,9 +20,9 @@
 
                 <div class="buttons">
                     <button (click)="showFriends()">Amigos</button>
-                    <button>Personas de interés</button>
+                    <button (click)="showLikeUsers()">Personas de interés</button>
                 </div>
-
+                <!--Añadir atributo description en la base de datos-->
                 <p>Descripción del usuario</p>                
             </div>
         </div>

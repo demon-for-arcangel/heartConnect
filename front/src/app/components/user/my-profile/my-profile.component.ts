@@ -9,6 +9,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MessageService } from 'primeng/api';
 import { ListFriendsComponent } from '../list-friends/list-friends.component';
 import { ShowFriendsComponent } from '../show-friends/show-friends.component';
+import { ShowLikeUsersComponent } from '../show-like-users/show-like-users.component';
 
 @Component({
   selector: 'app-my-profile',
@@ -76,6 +77,20 @@ export class MyProfileComponent implements OnInit {
   showFriends(): void {
     this.ref = this.dialogService.open(ShowFriendsComponent, {
       header: 'Lista de Amigos',
+      modal: true,
+      width: '60%',
+      breakpoints: {
+        '960px': '75vw',
+        '640px': '90vw'
+      },
+      styleClass: 'custom-modal',
+      data: { id: this.user.id }
+    });
+  }
+
+  showLikeUsers(): void {
+    this.ref = this.dialogService.open(ShowLikeUsersComponent, {
+      header: 'Lista de Personas que me Interesan',
       modal: true,
       width: '60%',
       breakpoints: {
