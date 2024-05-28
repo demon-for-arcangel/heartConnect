@@ -1,30 +1,64 @@
 <div class="main-container">
     <app-menu></app-menu>
     <div class="main-content">
-        <div class="container">
-            <div class="profile-info">
-                <div class="profile-header">
-                    <img [src]="userProfileImageUrl" alt="Foto de perfil dinámica">
-                    
-                    <div class="name-container">
-                        <h2>{{user.firstName}}</h2>
-                        <h2>{{user.lastName}}</h2>
-                    </div>
-                    <div class="buttons">
-                        <!-- Hacer dialogo para editar el perfil, para la lista de amigos y 
-                            las personas de interés y apara ver las preferencias tendremos otra pagina por lo cual sera un enlace-->
-                        <button>Ver preferencias</button>
-                        <button (click)="editProfile()">Editar perfil</button>
-                    </div>
-                </div>
-
-                <div class="buttons">
-                    <button (click)="showFriends()">Amigos</button>
-                    <button (click)="showLikeUsers()">Personas de interés</button>
-                </div>
-                <!--Añadir atributo description en la base de datos-->
-                <p>Descripción del usuario</p>                
+      <div class="container">
+        <div class="profile-info">
+          <div class="profile-header">
+            <img [src]="userProfileImageUrl" alt="Foto de perfil dinámica">
+            <div class="name-container">
+              <h2>{{user.firstName}}</h2>
+              <h2>{{user.lastName}}</h2>
             </div>
+            <div class="buttons">
+              <!-- Hacer dialogo para editar el perfil, para la lista de amigos y 
+                                  las personas de interés y apara ver las preferencias tendremos otra página por lo cual sera un enlace-->
+              <button>Ver preferencias</button>
+              <button (click)="editProfile()">Editar perfil</button>
+            </div>
+          </div>
+          <div class="buttons">
+            <button (click)="showFriends()">Amigos</button>
+            <button (click)="showLikeUsers()">Personas de interés</button>
+          </div>
+          <!--Añadir atributo description en la base de datos-->
+          <p>Descripción del usuario</p>  
+          <h1>Fotos</h1>   
+          <div class="image-grid">
+            <div class="grid-container">
+                @for(image of images; track image){
+                    <div class="grid-item" >
+                        @if(image){
+                            <div class="image-container">
+                                <img [src]="image.imageUrl" alt="Imagen de perfil">
+                                <button class="edit-button" (click)="editImage(index)">
+                                <i class="fas fa-pencil-alt"></i>
+                                </button>
+                                <button class="delete-button" (click)="deleteImage(index)">
+                                <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                            @if(!image && !editing){
+                                <button class="add-button" (click)="addImage()">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            }
+                            @if(editing && index === editingIndex){
+                                <div class="preview-container">
+                                    <img [src]="previewImage" alt="Vista previa">
+                                    <button class="save-button" (click)="saveImage()">
+                                    <i class="fas fa-save"></i>
+                                    </button>
+                                    <button class="cancel-button" (click)="cancelEditing()">
+                                    <i class="fas fa-times"></i>
+                                    </button>
+                                </div> 
+                            }   
+                        }
+                    </div>
+                }
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
