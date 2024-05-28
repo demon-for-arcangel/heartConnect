@@ -41,4 +41,6 @@ export class EditProfileComponent implements OnInit {
     const fileInput = document.getElementById('fileInput') as HTMLInputElement;
     fileInput.click();
   }
+
+  getPreviewImage(image: string){}
 }

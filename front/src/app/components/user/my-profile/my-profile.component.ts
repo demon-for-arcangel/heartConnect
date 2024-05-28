@@ -4,22 +4,32 @@ import { AuthService } from '../../../services/auth.service';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../interfaces/user';
 import { FileService } from '../../../services/file.service';
+import { EditProfileComponent } from '../edit-profile/edit-profile.component';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MessageService } from 'primeng/api';
+import { ListFriendsComponent } from '../list-friends/list-friends.component';
+import { ShowFriendsComponent } from '../show-friends/show-friends.component';
 
 @Component({
   selector: 'app-my-profile',
   standalone: true,
   imports: [MenuComponent],
   templateUrl: './my-profile.component.html',
-  styleUrl: './my-profile.component.css'
+  styleUrl: './my-profile.component.css',
+  providers: [DialogService]
 })
 export class MyProfileComponent implements OnInit {
   user: any = {};
   userProfileImageUrl: string = '';
 
+  ref: DynamicDialogRef | undefined;
+
   constructor(
     private authService: AuthService,
     private userService: UserService,
-    private fileService: FileService
+    private fileService: FileService,
+    public dialogService: DialogService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit() {
@@ -47,5 +57,33 @@ export class MyProfileComponent implements OnInit {
         }
       });
     }
+  }
+
+  editProfile(): void {
+    this.ref = this.dialogService.open(EditProfileComponent, {
+      header: 'Editar Mi Perfil',
+      modal: true,
+      width: '60%',
+      breakpoints: {
+        '960px': '75vw',
+        '640px': '90vw'
+      },
+      styleClass: 'custom-modal',
+      data: { id: this.user.id }
+    });
+  }
+
+  showFriends(): void {
+    this.ref = this.dialogService.open(ShowFriendsComponent, {
+      header: 'Lista de Amigos',
+      modal: true,
+      width: '60%',
+      breakpoints: {
+        '960px': '75vw',
+        '640px': '90vw'
+      },
+      styleClass: 'custom-modal',
+      data: { id: this.user.id }
+    });
   }
 }
