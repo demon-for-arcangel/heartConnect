@@ -45,7 +45,7 @@ export class MyProfileComponent implements OnInit {
   ngOnInit() {
     const token = localStorage.getItem('user');
     console.log('token del usuario', token);
-
+    
     if (token) {
       this.authService.getUserByToken(token).subscribe(user => {
         if (user && user.id) {
@@ -70,19 +70,19 @@ export class MyProfileComponent implements OnInit {
     this.placeholders = Array(this.maxNumberPhotos).fill(0).map((_, i) => i);
   }
   
-    editProfile(): void {
-      this.ref = this.dialogService.open(EditProfileComponent, {
-        header: 'Editar Mi Perfil',
-        modal: true,
-        width: '60%',
-        breakpoints: {
-          '960px': '75vw',
-          '640px': '90vw'
-        },
-        styleClass: 'custom-modal',
-        data: { id: this.user.id }
-      });
-    }
+  editProfile(): void {
+    this.ref = this.dialogService.open(EditProfileComponent, {
+      header: 'Editar Mi Perfil',
+      modal: true,
+      width: '60%',
+      breakpoints: {
+        '960px': '75vw',
+        '640px': '90vw'
+      },
+      styleClass: 'custom-modal',
+      data: { userId: this.user.id } // Asegúrate de pasar `userId` en el objeto `data`
+    });
+  }
   
     editImage(index: number): void {
       this.editingIndex = index;
@@ -113,16 +113,34 @@ export class MyProfileComponent implements OnInit {
     }
   
     saveAllImages(): void {
-      // Lógica para guardar todas las imágenes
       console.log('Guardando todas las imágenes...');
     }
   
     showFriends(): void {
-      // Lógica para mostrar amigos
+      this.ref = this.dialogService.open(ShowFriendsComponent, {
+        header: 'Lista de Amigos',
+        modal: true,
+        width: '60%',
+        breakpoints: {
+          '960px': '75vw',
+          '640px': '90vw'
+        },
+        styleClass: 'custom-modal',
+      });
     }
   
     showLikeUsers(): void {
-      // Lógica para mostrar personas de interés
+      this.ref = this.dialogService.open(ShowLikeUsersComponent, {
+        header: 'Personas que me gustan',
+        modal: true,
+        width: '60%',
+        breakpoints: {
+          '960px': '75vw',
+          '640px': '90vw'
+        },
+        styleClass: 'custom-modal',
+        data: { id: this.user.id }
+      });
     }
   }
   
