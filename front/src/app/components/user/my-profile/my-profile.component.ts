@@ -3,7 +3,6 @@ import { MenuComponent } from '../../shared/menu/menu.component';
 import { AuthService } from '../../../services/auth.service';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../interfaces/user';
-import { FileService } from '../../../services/file.service';
 import { EditProfileComponent } from '../edit-profile/edit-profile.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MessageService } from 'primeng/api';
