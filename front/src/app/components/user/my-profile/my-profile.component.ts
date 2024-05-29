@@ -12,6 +12,7 @@ import { ShowLikeUsersComponent } from '../show-like-users/show-like-users.compo
 import { Assets } from '../../../interfaces/assets';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   selector: 'app-my-profile',
   standalone: true,
@@ -20,8 +21,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './my-profile.component.css',
   providers: [DialogService]
 })
-export class MyProfileComponent implements OnInit {
+export class MyProfileComponent {
   user: any = {};
+
   userProfileImageUrl: string = '';
   images: { imageUrl: string }[] = [];
   editingIndex: number | null = null;
