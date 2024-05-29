@@ -17,6 +17,7 @@ export class EventService {
   private urlInactiveEvents: string = this.baseUrl + environment.inactiveEvents;
   private urlActivateEvents: string = this.baseUrl + environment.activateEvents;
   private urlDesactivateEvents: string = this.baseUrl + environment.desactivateEvents;
+  private urlsearchEvent: string = this.baseUrl + environment.searchEvent;
 
   createNewEvent(event: Event): Observable<Event | undefined> {
     return this.http.post<Event>(this.urlEvents, event).pipe(
@@ -75,6 +76,16 @@ export class EventService {
          console.error('Error al actualizar el evento:', error);
          return of(undefined);
        })
+    );
+  }
+
+  searchEvents(term: string): Observable<any[]> {
+    const searchUrl = `${this.urlsearchEvent}/${term}`;
+    return this.http.get<any[]>(searchUrl).pipe(
+      catchError((error) => {
+        console.error('Error al buscar eventos:', error);
+        return of([]);
+      })
     );
   }
 }

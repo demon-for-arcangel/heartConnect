@@ -203,7 +203,19 @@ const getUserByToken = async (req, res) => {
   }
 };
 
+const searchUsers = async (req, res) => {
+  const { query } = req.params; 
+
+  try {
+    const users = await conx.searchUsers(query);
+    res.status(200).json(users);
+  } catch (error) {
+    console.error('Error al buscar usuarios:', error);
+    res.status(500).json({ msg: "Error al buscar usuarios" });
+  }
+};
 module.exports = {
   index, getUserById, getUserByEmail, registerUserByAdmin, updateUser, deleteUsers,
-  getActiveUsers, getInactiveUsers, activateUser, desactivateUsers, getUserByToken
+  getActiveUsers, getInactiveUsers, activateUser, desactivateUsers, getUserByToken,
+  searchUsers
 };
