@@ -20,6 +20,7 @@ export const environment = {
     createUser: '/user/new-user',
     updateUser: '/user',
     showFriendship: '/friendship',
+    searchUser: '/search',
     
     // roles
     showRols: '/rols/',
@@ -35,6 +36,7 @@ export const environment = {
     inactiveEvents: '/events/show/inactive',
     activateEvents: '/events/update/activate',
     desactivateEvents: '/events/update/desactivate',
+    searchEvent: '/search',
 
     //assets
     getFile: '/assets',

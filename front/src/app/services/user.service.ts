@@ -21,6 +21,7 @@ export class UserService {
   private urlDesactivateUsers: string = this.baseUrl + environment.desactivateUsers;
   private urlCreateUser: string = this.baseUrl + environment.createUser;
   private urlUpdateUser: string = this.baseUrl + environment.updateUser;
+  private urlSearchUser: string = this.baseUrl + environment.searchUser;
 
   login(user: User): Observable<User | undefined>{
     return this.http.post<User>(this.urlLogin, user, {withCredentials: false}).pipe(
@@ -93,5 +94,9 @@ export class UserService {
          return of(undefined);
        })
     );
+  }
+
+  searchUsers(term: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.urlSearchUser}`, { params: { q: term } });
   }
 }

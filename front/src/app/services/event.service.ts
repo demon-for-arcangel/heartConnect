@@ -17,6 +17,7 @@ export class EventService {
   private urlInactiveEvents: string = this.baseUrl + environment.inactiveEvents;
   private urlActivateEvents: string = this.baseUrl + environment.activateEvents;
   private urlDesactivateEvents: string = this.baseUrl + environment.desactivateEvents;
+  private urlsearchEvent: string = this.baseUrl + environment.searchEvent;
 
   createNewEvent(event: Event): Observable<Event | undefined> {
     return this.http.post<Event>(this.urlEvents, event).pipe(
@@ -76,5 +77,9 @@ export class EventService {
          return of(undefined);
        })
     );
+  }
+
+  searchEvents(term: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.urlsearchEvent}`, { params: { q: term } });
   }
 }

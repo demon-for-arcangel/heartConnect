@@ -1,0 +1,27 @@
+<p>search works!</p>
+<div class="main-container">
+    <app-menu></app-menu>
+    <div class="main-content">
+      <div class="container">
+        
+        <div>
+          <input type="text" [(ngModel)]="searchTerm" placeholder="Search term" />
+          <select [(ngModel)]="searchType">
+            <option value="users">Users</option>
+            <option value="events">Events</option>
+          </select>
+          <button (click)="onSearch()">Search</button>
+        </div>
+        
+        <div *ngIf="results.length > 0">
+          <h3>Results</h3>
+          <ul>
+            <li *ngFor="let result of results">
+              {{ result.name || result.title }}
+            </li>
+          </ul>
+        </div>
+
+    </div>
+</div>
+  
