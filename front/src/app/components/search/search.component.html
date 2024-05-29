@@ -19,7 +19,8 @@
                     @for(result of results; track result){
                         @if(searchType === 'users'){
                             <li>
-                                {{ result.firstName }} {{ result.lastName }}
+                                <p>{{ result.firstName }}</p>
+                                <p>{{ result.lastName }}</p>
                             </li>
                         }
                         @if(searchType === 'events'){
