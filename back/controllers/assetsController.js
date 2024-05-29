@@ -17,6 +17,7 @@ const showAssetsUser = async (req, res = response) => {
 const showAsset = async (req, res = response) => {
   try {
     const asset = await assetsModel.getAssetById(req.params.id);
+
     if (asset) {
       const filePath = `../../../../assets/uploads/photo_profile/${path.basename(asset.path)}`;
       console.log('Archivo encontrado:', filePath);
@@ -25,9 +26,10 @@ const showAsset = async (req, res = response) => {
       console.log("Asset no encontrado");
       res.status(404).json({ msg: "Asset not found" });
     }
+
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: "Error retrieving asset" });
+    res.status(404).json({ msg: "Asset not found" });
   }
 };
 
@@ -47,15 +49,18 @@ const uploadAsset = async (req, res = response) => {
         return res.status(400).json({ msg: "File name and user ID are required in headers" });
       }
 
-      const filePath = path.join(__dirname, 'uploads/', fileName);
+      // Guardar en el sistema de archivos
+      const filePath = path.join(__dirname, '../uploads/', fileName);
       fs.writeFileSync(filePath, buffer);
 
+      // Guardar en la base de datos
       const asset = {
         path: filePath,
       };
 
       const savedAsset = await assetsModel.saveAsset(asset);
 
+      // Asociar el asset al usuario
       await assetsModel.associateAssetWithUser(savedAsset.id, userId);
 
       res.status(201).json(savedAsset);
