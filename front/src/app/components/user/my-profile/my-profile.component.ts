@@ -11,6 +11,7 @@ import { ShowFriendsComponent } from '../show-friends/show-friends.component';
 import { ShowLikeUsersComponent } from '../show-like-users/show-like-users.component';
 import { Assets } from '../../../interfaces/assets';
 import { CommonModule } from '@angular/common';
+import { FileService } from '../../../services/file.service';
 
 
 @Component({

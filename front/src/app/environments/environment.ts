@@ -38,7 +38,8 @@ export const environment = {
     desactivateEvents: '/events/update/desactivate',
     searchEvent: '/events/search',
 
-
+    //assets
+    getFile: '/assets',
 
 
     rol_admin : 1,
