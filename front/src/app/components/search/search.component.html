@@ -19,12 +19,12 @@
                     @for(result of results; track result){
                         @if(searchType === 'users'){
                             <li>
-                                {{ result.firstName || result.lastName }}
+                                {{ result.firstName }} {{ result.lastName }}
                             </li>
                         }
                         @if(searchType === 'events'){
                             <li>
-                              {{ result.name || result.des }}
+                              {{ result.name }} {{ result.des }}
                             </li>
                         }
                     }
