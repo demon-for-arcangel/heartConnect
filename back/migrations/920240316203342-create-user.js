@@ -26,6 +26,9 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull:true
       },
+      desc: {
+        type: Sequelize.TEXT,
+      },
       photo_profile: {
         defaultValue: 1,
         type: Sequelize.INTEGER,

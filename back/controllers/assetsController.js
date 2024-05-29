@@ -17,7 +17,16 @@ const showAssetsUser = async (req, res = response) => {
 const showAsset = async (req, res = response) => {
   try {
     const asset = await assetsModel.getAssetById(req.params.id);
-    res.status(200).json(asset);
+
+    if (asset) {
+      const filePath = `../../../../assets/uploads/photo_profile/${path.basename(asset.path)}`;
+      console.log('Archivo encontrado:', filePath);
+      res.status(200).json({ filePath });
+    } else {
+      console.log("Asset no encontrado");
+      res.status(404).json({ msg: "Asset not found" });
+    }
+
   } catch (err) {
     console.error(err);
     res.status(404).json({ msg: "Asset not found" });

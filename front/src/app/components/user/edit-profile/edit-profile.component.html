@@ -1,15 +1,41 @@
-<div class="container">
-    <h1>Carga de Imágenes</h1>
-  
-    <div class="image-grid">
-      <div class="image-slot" *ngFor="let image of images; let i = index">
-        <img [src]="getPreviewImage(image)" alt="Imagen {{ i + 1 }}">
-        <button (click)="removeImage(i)">Eliminar</button>
-      </div>
-      <div class="image-slot" *ngIf="images.length < maxImages">
-        <button (click)="openFileInput()">Agregar Imagen</button>
-      </div>
+<div class="user-details">
+    <div class="form-column">
+        <div class="form-field">
+            <label for="firstName">Nombre:</label>
+            <input type="text" id="firstName" [(ngModel)]="user.firstName">
+        </div>
+        <div class="form-field">
+            <label for="lastName">Apellido:</label>
+            <input type="text" id="lastName" [(ngModel)]="user.lastName">
+        </div>
+        <div class="form-field">
+            <label for="email">Email:</label>
+            <input type="text" id="email" [(ngModel)]="user.email">
+        </div>
+        <div class="form-field">
+            <label for="born_date">Fecha de Nacimiento:</label>
+            <input type="text" id="born_date" [(ngModel)]="user.born_date">
+        </div>
+        <div class="form-field">
+            <label for="desc">Descripción:</label>
+            <input type="text" id="desc" [(ngModel)]="user.desc">
+        </div>
     </div>
-  
-    <input id="fileInput" type="file" accept="image/*" (change)="onFileChange($event)" style="display: none;">
-  </div>
+
+    <div class="form-column">
+        <div class="form-field">
+            <label for="domicile">Domicilio:</label>
+            <input type="text" id="domicile" [(ngModel)]="user.domicile">
+        </div>
+        <div class="form-field">
+            <label for="phone_number">Número de Teléfono:</label>
+            <input type="text" id="phone_number" [(ngModel)]="user.phone_number">
+        </div>
+        <div class="form-field">
+            <label for="roles">Roles:</label>
+            <input type="text" id="roles" [(ngModel)]="user.roles">
+        </div>
+    </div>
+</div>
+
+<button class="update-button" (click)="updateUserData()">Actualizar</button>

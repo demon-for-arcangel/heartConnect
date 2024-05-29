@@ -1,30 +1,57 @@
 <div class="main-container">
-    <app-menu></app-menu>
-    <div class="main-content">
-        <div class="container">
-            <div class="profile-info">
-                <div class="profile-header">
-                    <img src="ruta-a-la-foto-de-perfil" alt="Foto de perfil">
 
-                    <div class="name-container">
-                        <h2>Nombre</h2>
-                        <h2>Apellido</h2>
-                    </div>
-                    <div class="buttons">
-                        <!-- Hacer dialogo para ver las preferencias del usuario,
-                        para editar el perfil, para la lista de amigos y las personas de interés -->
-                        <button>Ver preferencias</button>
-                        <button>Editar perfil</button>
-                    </div>
-                </div>
-
-                <div class="buttons">
-                    <button>Amigos</button>
-                    <button>Personas de interés</button>
-                </div>
-
-                <p>Descripción del usuario</p>                
-            </div>
+  <app-menu></app-menu>
+  <div class="main-content">
+    <div class="container">
+      <div class="profile-info">
+        <div class="profile-header">
+          <img [src]="userProfileImageUrl" alt="Foto de perfil dinámica">
+          <div class="name-container">
+            <h2>{{user.firstName}}</h2>
+            <h2>{{user.lastName}}</h2>
+          </div>
+          <div class="buttons">
+            <button>Ver preferencias</button>
+            <button (click)="editProfile()">Editar perfil</button>
+          </div>
         </div>
+        <div class="buttons">
+          <button (click)="showFriends()">Amigos</button>
+          <button (click)="showLikeUsers()">Personas de interés</button>
+        </div>
+        <p> {{ user.desc  }}  </p>  
+        <div class="image-grid">
+          <h1>Fotos</h1>   
+          <div class="grid-container">
+            @for(placeholder of placeholders; track placeholder) {
+              <div class="image-container">
+                <div class="grid-item">
+                  <img [src]="images[placeholder]?.imageUrl" alt="Imagen de perfil">
+                  <button class="edit-button" (click)="editImage(placeholder)">
+                    <i class="fas fa-pencil-alt"></i>
+                  </button>
+                  <button class="delete-button" (click)="deleteImage(placeholder)">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+
+                </div>
+              </div>
+
+              @if(images.length < maxNumberPhotos){
+                <div class="image-container">
+                  <div class="grid-item add-button-container">
+                    <button class="add-button" (click)="addImage()">
+                      <i class="fas fa-plus"></i>
+                    </button>
+                  </div>
+                </div>
+              }
+            }
+
+          </div>
+        </div>
+        <button class="save-all-button" (click)="saveAllImages()">Guardar</button>
+      </div>
     </div>
+  </div>
 </div>

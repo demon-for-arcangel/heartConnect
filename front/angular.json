@@ -22,7 +22,10 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/assets/logo.png",
-              "src/assets"
+
+              "src/assets",
+              "src/assets/uploads"
+
             ],
             "styles": [
               "./src/custom-theme.scss",
