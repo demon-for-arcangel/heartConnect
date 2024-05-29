@@ -1,16 +1,16 @@
-<p>search works!</p>
 <div class="main-container">
     <app-menu></app-menu>
     <div class="main-content">
       <div class="container">
 
         <div>
-          <input type="text" [(ngModel)]="searchTerm" placeholder="Search term" />
-          <select [(ngModel)]="searchType">
-            <option value="users">Users</option>
-            <option value="events">Events</option>
-          </select>
-          <button (click)="onSearch()">Search</button>
+            <select [(ngModel)]="searchType">
+              <option value="users">Users</option>
+              <option value="events">Events</option>
+            </select>
+            <br>
+            <input type="text" [(ngModel)]="searchTerm" placeholder="Search term" />
+            <button (click)="onSearch()">Search</button>
         </div>
         @if(results.length > 0){
             <div>
