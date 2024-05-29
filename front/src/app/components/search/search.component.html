@@ -3,7 +3,7 @@
     <app-menu></app-menu>
     <div class="main-content">
       <div class="container">
-        
+
         <div>
           <input type="text" [(ngModel)]="searchTerm" placeholder="Search term" />
           <select [(ngModel)]="searchType">
@@ -12,16 +12,25 @@
           </select>
           <button (click)="onSearch()">Search</button>
         </div>
-        
-        <div *ngIf="results.length > 0">
-          <h3>Results</h3>
-          <ul>
-            <li *ngFor="let result of results">
-              {{ result.name || result.title }}
-            </li>
-          </ul>
-        </div>
-
+        @if(results.length > 0){
+            <div>
+                <h3>Results</h3>
+                <ul>
+                    @for(result of results; track result){
+                        @if(searchType === 'users'){
+                            <li>
+                                {{ result.firstName || result.lastName }}
+                            </li>
+                        }
+                        @if(searchType === 'events'){
+                            <li>
+                              {{ result.name || result.des }}
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        }
     </div>
 </div>
   

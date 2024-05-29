@@ -80,6 +80,12 @@ export class EventService {
   }
 
   searchEvents(term: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.urlsearchEvent}`, { params: { q: term } });
+    const searchUrl = `${this.urlsearchEvent}/${term}`;
+    return this.http.get<any[]>(searchUrl).pipe(
+      catchError((error) => {
+        console.error('Error al buscar eventos:', error);
+        return of([]);
+      })
+    );
   }
 }

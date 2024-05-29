@@ -97,6 +97,12 @@ export class UserService {
   }
 
   searchUsers(term: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.urlSearchUser}`, { params: { q: term } });
+    const searchUrl = `${this.urlSearchUser}/${term}`;
+    return this.http.get<any[]>(searchUrl).pipe(
+      catchError((error) => {
+        console.error('Error al buscar usuarios:', error);
+        return of([]);
+      })
+    );
   }
 }
