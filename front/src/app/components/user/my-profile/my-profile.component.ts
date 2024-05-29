@@ -24,11 +24,13 @@ import { CommonModule } from '@angular/common';
 export class MyProfileComponent implements OnInit {
   user: any = {};
   userProfileImageUrl: string = '';
-  images: { imageUrl: string }[] = []; // Tu array de imágenes
+  images: { imageUrl: string }[] = [];
   editingIndex: number | null = null;
   previewImage: string = '';
   editing: boolean = false;
   index: number = 0;
+  maxNumberPhotos: number = 3;
+  placeholders: number[] = [];
 
   ref: DynamicDialogRef | undefined;
   
@@ -65,6 +67,7 @@ export class MyProfileComponent implements OnInit {
         }
       });
     }
+    this.placeholders = Array(this.maxNumberPhotos).fill(0).map((_, i) => i);
   }
   
     editProfile(): void {
