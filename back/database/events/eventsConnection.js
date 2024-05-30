@@ -143,6 +143,24 @@ class EventsModel {
       throw error;
     }
   }
+
+  async searchEvents(term) {
+    try {
+      const events = await models.Events.findAll({
+        where: {
+          [Op.or]: [
+            { name: { [Op.like]: `%${term}%` } },
+            { des: { [Op.like]: `%${term}%` } },
+/*             { location: { [Op.like]: `%${term}%` } }
+ */          ]
+        }
+      });
+      return events;
+    } catch (error) {
+      console.error('Error al buscar eventos:', error);
+      throw error;
+    }
+  }
 }
 
 module.exports = EventsModel;

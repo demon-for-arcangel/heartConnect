@@ -16,5 +16,6 @@ router.get('/show/inactive', controlador.getInactiveEvents);
 router.put('/update/activate', /* [checkToken, tokenCanAdmin], */controlador.activateEvents);
 router.put('/update/desactivate', /* [checkToken, tokenCanAdmin], */controlador.desactivateEvents);
 
+router.get('/search/:query', controlador.searchEvents);
 
 module.exports = router;
