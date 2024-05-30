@@ -16,8 +16,14 @@ const showAssetsUser = async (req, res = response) => {
 
 const showAsset = async (req, res = response) => {
   try {
-    const asset = await assetsModel.getAssetById(req.params.id);
+    const assetId = parseInt(req.params.id);
 
+    if (isNaN(assetId)) {
+      throw new Error('Invalid asset id');
+    }
+
+    const asset = await assetsModel.getAssetById(assetId);
+    console.log(asset)
     if (asset) {
       const filePath = `../../../../assets/uploads/photo_profile/${path.basename(asset.path)}`;
       console.log('Archivo encontrado:', filePath);
@@ -32,6 +38,7 @@ const showAsset = async (req, res = response) => {
     res.status(404).json({ msg: "Asset not found" });
   }
 };
+
 
 const uploadAsset = async (req, res = response) => {
   try {
@@ -68,7 +75,7 @@ const uploadAsset = async (req, res = response) => {
 
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: "Error uploading file" });
+    res.status(500).json({ msg: "Error al buscar elarchivo" });
   }
 };
 

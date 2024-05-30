@@ -8,12 +8,12 @@ const conexion = new Conexion();
 class AssetsModel {
   constructor() {}
 
-  getAssetById=async(assetId)=>{
-    let resultado = [];
-    try{
+  getAssetById = async (assetId) => {
+    let resultado = []; // Inicializamos resultado como null
+    try {
         conexion.conectar();
-        resultado = await models.Assets.findOne({
-            attributes:["path"],
+        resultado = await models.Asset.findOne({
+            attributes: ["path"],
             where: {
                 id: assetId,
             },
@@ -21,20 +21,20 @@ class AssetsModel {
         conexion.desconectar();
         if (!resultado) {
             throw new Error("Asset not found");
-          }
-    }catch(error){
-        throw error
-    }finally{
+        }
+    } catch (error) {
+        throw error;
+    } finally {
         return resultado;
     }
+};
 
-  }
 
   saveAsset = async (asset) =>{
     let resultado = [];
     try{
         conexion.conectar();
-        resultado = await models.Assets.create(asset);
+        resultado = await models.Asset.create(asset);
         conexion.desconectar();
       }catch(error){
         throw error
@@ -51,7 +51,7 @@ class AssetsModel {
     console.log(assetId)
     try{
         conexion.conectar();
-        resultado = await models.Assets.destroy({
+        resultado = await models.Asset.destroy({
           where: {
             path: assetId
           },
@@ -74,7 +74,7 @@ class AssetsModel {
     try {
       conexion.conectar();
       for (let i =  0; i < arrId.length; i++) {
-        resultado = await models.Assets.findOne({
+        resultado = await models.Asset.findOne({
           attributes: ["path"],
           where: {
             id: arrId[i],
@@ -109,7 +109,7 @@ class AssetsModel {
             },
             include: [
                 {
-                  model: models.Assets,
+                  model: models.Asset,
                   attributes: ["id", "path"],
                 },
               ]
