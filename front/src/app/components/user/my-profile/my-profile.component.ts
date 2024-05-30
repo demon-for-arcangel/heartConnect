@@ -2,14 +2,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MenuComponent } from '../../shared/menu/menu.component';
 import { AuthService } from '../../../services/auth.service';
 import { UserService } from '../../../services/user.service';
-import { User } from '../../../interfaces/user';
 import { EditProfileComponent } from '../edit-profile/edit-profile.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MessageService } from 'primeng/api';
-import { ListFriendsComponent } from '../list-friends/list-friends.component';
 import { ShowFriendsComponent } from '../show-friends/show-friends.component';
 import { ShowLikeUsersComponent } from '../show-like-users/show-like-users.component';
-import { Assets } from '../../../interfaces/assets';
 import { CommonModule } from '@angular/common';
 import { FileService } from '../../../services/file.service';
 
