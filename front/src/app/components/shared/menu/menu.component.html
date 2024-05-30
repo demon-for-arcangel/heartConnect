@@ -3,11 +3,11 @@
         <a routerLink="/home"><img src="../../../../assets/logo.png" width="280px" alt="heartconnect"></a>
         <nav>
             <ul>
-                <li><a routerLink="">
+                <li><a routerLink="/home">
                     <i class="pi pi-home"></i>
                     <p>Inicio</p>
                 </a></li>
-                <li><a routerLink="">
+                <li><a routerLink="/search">
                     <i class="pi pi-search"></i>
                     <p>Explorar</p>
                 </a></li>
@@ -29,10 +29,18 @@
                         <p>Mi perfil</p>
                     </a>
                 </li>
-                <li><a routerLink="">
-                    <i class="pi pi-cog"></i>
-                    <p>Más Opciones</p>
-                </a></li>
+                <li style="position: relative;">
+                    <input type="checkbox" id="opcionesToggle" class="opciones-toggle">
+                    <label for="opcionesToggle" class="opciones-label">
+                      <i class="pi pi-cog"></i>
+                      <p>Más Opciones</p>
+                    </label>
+                    <div class="opciones-dropdown">
+                      <a routerLink="#">Ver eventos disponibles</a>
+                      <a routerLink="#">Modo noche</a>
+                      <!-- Agrega más opciones aquí -->
+                    </div>
+                </li>
             </ul>
         </nav>
     </div>
