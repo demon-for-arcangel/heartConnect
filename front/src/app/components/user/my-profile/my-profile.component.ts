@@ -94,8 +94,21 @@ export class MyProfileComponent {
       this.images.splice(index, 1);
     }
   
-    addImage(): void {
-      // Lógica para añadir una nueva imagen
+    addImage(fileInputEvent: any): void {
+      const file = fileInputEvent.target.files[0];
+      if (file) {
+        this.fileService.uploadFile(file, this.user.id.toString()).subscribe({
+          next: (response: any) => {
+            if (response) {
+              console.log('Imagen subida:', response);
+              this.images.push({ imageUrl: response.filePath });
+            }
+          },
+          error: (error) => {
+            console.error('Error al subir la imagen:', error);
+          }
+        });
+      }
     }
   
     saveImage(): void {

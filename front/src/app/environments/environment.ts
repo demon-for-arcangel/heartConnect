@@ -41,6 +41,7 @@ export const environment = {
 
     // assets
     getFile: '/assets',
+    uploadAssets: '/assets/upload',
 
     rol_admin : 1,
     admin_gestion_image:'../../assets/cards-dashboard/gestion.png',
