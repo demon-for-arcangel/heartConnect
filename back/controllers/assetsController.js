@@ -10,7 +10,7 @@ const showAssetsUser = async (req, res = response) => {
     res.status(200).json(assets);
   } catch (err) {
     console.error(err);
-    res.status(404).json({ msg: "User has no assets" });
+    res.status(404).json({ msg: "Usuario no tiene assets" });
   }
 };
 
@@ -19,23 +19,24 @@ const showAsset = async (req, res = response) => {
     const assetId = parseInt(req.params.id);
 
     if (isNaN(assetId)) {
-      throw new Error('Invalid asset id');
+      throw new Error('Id de asset no válido');
     }
 
     const asset = await assetsModel.getAssetById(assetId);
     console.log(asset)
     if (asset) {
-      const filePath = path.join(__dirname, '../uploads/photo_profile/', path.basename(asset.path));
-      console.log('Archivo encontrado:', filePath);
-      res.status(200).json({ filePath });
+      const relativePath = path.relative(__dirname, path.join(__dirname, '../../../../assets/uploads/photo_profile/', path.basename(asset.path)));
+      const normalizedPath = relativePath.replace(/\\/g, '/');
+      console.log('Archivo encontrado:', normalizedPath);
+      res.status(200).json({ filePath: normalizedPath });
     } else {
       console.log("Asset no encontrado");
-      res.status(404).json({ msg: "Asset not found" });
+      res.status(404).json({ msg: "Asset no encontrado" });
     }
 
   } catch (err) {
     console.error(err);
-    res.status(404).json({ msg: "Asset not found" });
+    res.status(404).json({ msg: "Asset no encontrado" });
   }
 };
 

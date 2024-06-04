@@ -9,6 +9,7 @@ import { ShowFriendsComponent } from '../show-friends/show-friends.component';
 import { ShowLikeUsersComponent } from '../show-like-users/show-like-users.component';
 import { CommonModule } from '@angular/common';
 import { MenuComponent } from '../../shared/menu/menu.component';
+import { Image } from '../../../interfaces/assets';
 
 @Component({
   selector: 'app-my-profile',
@@ -21,7 +22,7 @@ import { MenuComponent } from '../../shared/menu/menu.component';
 export class MyProfileComponent implements OnInit {
   user: any = {};
   userProfileImageUrl: string = '';
-  images: { imageUrl: string }[] = [];
+  images: Image[] = [];
   editingIndex: number | null = null;
   previewImage: string = '';
   editing: boolean = false;
@@ -60,8 +61,8 @@ export class MyProfileComponent implements OnInit {
             }
             if (this.user.id) {
               this.fileService.getUserAssets(this.user.id).subscribe({
-                next: (assets) => {
-                  this.images = assets.map(asset => ({ imageUrl: asset.path }));
+                next: (assets: any[]) => {
+                  this.images = assets.map(asset => ({ id: asset.id, path: asset.filePath }));
                   console.log('Imágenes del usuario:', this.images);
                 },
                 error: (error) => {
@@ -92,7 +93,7 @@ export class MyProfileComponent implements OnInit {
   editImage(index: number): void {
     this.editingIndex = index;
     this.editing = true;
-    this.previewImage = this.images[index].imageUrl;
+    this.previewImage = this.images[index].path;
   }
 
   deleteImage(index: number): void {
@@ -106,7 +107,7 @@ export class MyProfileComponent implements OnInit {
         next: (response: any) => {
           if (response) {
             console.log('Imagen subida:', response);
-            this.images.push({ imageUrl: response.filePath });
+            this.images.push({ path: response.filePath });
           }
         },
         error: (error) => {
@@ -118,7 +119,7 @@ export class MyProfileComponent implements OnInit {
 
   saveImage(): void {
     if (this.editingIndex !== null) {
-      this.images[this.editingIndex].imageUrl = this.previewImage;
+      this.images[this.editingIndex].path = this.previewImage;
       this.cancelEditing();
     }
   }
