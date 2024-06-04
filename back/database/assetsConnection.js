@@ -94,6 +94,7 @@ class AssetsModel {
     }
   };
 
+  //-------------------------User_Assets---------------------------
   async associateAssetWithUser(assetId, userId) {
     try {
         await models.UserAssets.create({
@@ -104,9 +105,7 @@ class AssetsModel {
         throw error;
     }
   }
-
-  //-------------------------User_Assets---------------------------
-
+  
   getAssetsOfUser = async (userId) => {
     let resultado = [];
     try{

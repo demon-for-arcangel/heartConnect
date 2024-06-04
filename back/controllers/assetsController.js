@@ -25,7 +25,7 @@ const showAsset = async (req, res = response) => {
     const asset = await assetsModel.getAssetById(assetId);
     console.log(asset)
     if (asset) {
-      const filePath = `../../../../assets/uploads/photo_profile/${path.basename(asset.path)}`;
+      const filePath = path.join(__dirname, '../uploads/photo_profile/', path.basename(asset.path));
       console.log('Archivo encontrado:', filePath);
       res.status(200).json({ filePath });
     } else {
@@ -71,7 +71,7 @@ const uploadAsset = async (req, res = response) => {
 
     for (const file of files) {
       const fileName = generateUniqueFileNameWithExtension(file.name);
-      const filePath = path.join(__dirname, '../uploads/', fileName);
+      const filePath = path.join(__dirname, '../uploads/', fileName).replace(/\\/g, '/');
 
       await new Promise((resolve, reject) => {
         file.mv(filePath, async (err) => {
@@ -102,6 +102,7 @@ const uploadAsset = async (req, res = response) => {
     res.status(500).json({ msg: "Error al subir el archivo" });
   }
 };
+
 
 function generateUniqueFileNameWithExtension(originalFileName) {
   if (!originalFileName) {

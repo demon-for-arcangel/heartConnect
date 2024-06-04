@@ -11,18 +11,9 @@ export class FileService {
   private baseUrl: string = environment.baseUrl;
   private urlGetFile: string = this.baseUrl + environment.getFile;
   private urlUploadFile: string = this.baseUrl + environment.uploadAssets;
+  private urlGetAssetsofUser: string = this.baseUrl + environment.getAssetsOfUser;
 
   constructor(private http: HttpClient) { }
-
-  /* getFileById(fileId: string): Observable<string> {
-    const fileUrl = `${this.urlGetFile}/${fileId}`;
-    return this.http.get<string>(fileUrl).pipe(
-      catchError((error) => {
-        console.error('Error al obtener el archivo:', error);
-        return of('');
-      })
-    );
-  } */
 
   getFileById(assetId: string): Observable<{ filePath: string }> {
     return this.http.get<{ filePath: string }>(`${this.urlGetFile}/${assetId}`);
@@ -44,5 +35,9 @@ export class FileService {
         return of(null);
       })
     );
+  }
+
+  getUserAssets(userId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.urlGetAssetsofUser}/${userId}`);
   }
 }
