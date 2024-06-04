@@ -62,7 +62,6 @@ const uploadAsset = async (req, res = response) => {
 
     let files = req.files.file;
 
-    // Asegurarse de que files sea un array
     if (!Array.isArray(files)) {
       files = [files];
     }
@@ -103,10 +102,9 @@ const uploadAsset = async (req, res = response) => {
   }
 };
 
-
 function generateUniqueFileNameWithExtension(originalFileName) {
   if (!originalFileName) {
-    throw new TypeError('The original file name is required');
+    throw new TypeError('Es necesario el nombre del archivo');
   }
 
   const timestamp = Date.now();
@@ -114,14 +112,27 @@ function generateUniqueFileNameWithExtension(originalFileName) {
   const fileExtension = path.extname(originalFileName);
 
   if (!fileExtension) {
-    throw new TypeError('The file extension is required');
+    throw new TypeError('La extension del archivo es necesaria');
   }
 
   return `${timestamp}-${randomString}${fileExtension}`;
 }
 
+const deleteAssetById = async (req, res) => {
+  try {
+    const assetId = req.params.id;
+    const deleted = await assetsModel.deleteAssetById(assetId);
+    if (deleted) {
+      res.status(200).json({ message: 'Asset eliminado correctamente' });
+    } else {
+      res.status(404).json({ message: 'Asset no encontrado' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'error al eliminar' });
+  }
+};
+
 module.exports = {
-  showAssetsUser,
-  showAsset,
-  uploadAsset
+  showAssetsUser, showAsset, uploadAsset, deleteAssetById
 };
