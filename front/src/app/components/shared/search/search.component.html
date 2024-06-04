@@ -1,0 +1,16 @@
+<div>
+    <input type="text" [(ngModel)]="searchTerm" placeholder="Search term" />
+    <button (click)="onSearch()">Search</button>
+</div>
+@if(results.length > 0){
+    <div>
+        <h3>Results</h3>
+        <ul>
+            @for(result of results; track result){
+                <li>
+                    <p>{{ result.firstName }} {{ result.lastName }}</p>
+                </li>
+            }
+        </ul>
+    </div>
+}

@@ -6,11 +6,12 @@ import { FooterComponent } from '../shared/footer/footer.component';
 import { RouterLink } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { environment } from '../../environments/environment';
+import { SearchComponent } from '../shared/search/search.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [MenuAdminComponent, MenuComponent, FooterComponent, RouterLink, CardModule],
+  imports: [MenuAdminComponent, MenuComponent, FooterComponent, RouterLink, CardModule, SearchComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
