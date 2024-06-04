@@ -42,7 +42,15 @@
     align-items: center;
     background-color: #131313;
     padding: 20px;
-    margin-top: 40%;
+    margin-top: 20%;
+    border-radius: 10px;
+}
+
+.card-user {
+    background-color: #0b0b0b;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
 }
 
 section {

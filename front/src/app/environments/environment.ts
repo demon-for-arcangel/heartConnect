@@ -5,6 +5,7 @@ export const environment = {
     --------------------------
     */
     baseUrl: 'http://localhost:9292/api',
+    
     // usuarios
     login: '/login',
     register: '/register',
@@ -40,7 +41,6 @@ export const environment = {
 
     // assets
     getFile: '/assets',
-
 
     rol_admin : 1,
     admin_gestion_image:'../../assets/cards-dashboard/gestion.png',
