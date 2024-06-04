@@ -40,9 +40,13 @@
               @if(images.length < maxNumberPhotos){
                 <div class="image-container">
                   <div class="grid-item add-button-container">
-                    <button class="add-button" (click)="addImage()">
+                    <label for="fileInput" class="add-button">
                       <i class="fas fa-plus"></i>
-                    </button>
+                    </label>
+                    <input id="fileInput" type="file" style="display:none" (change)="addImage($event)">
+                    @if(previewImage){
+                      <img [src]="previewImage" alt="Vista previa de la imagen">                    
+                    }
                   </div>
                 </div>
               }

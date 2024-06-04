@@ -10,7 +10,7 @@ export class FileService {
 
   private baseUrl: string = environment.baseUrl;
   private urlGetFile: string = this.baseUrl + environment.getFile;
-  private urlUploadFile: string = this.baseUrl + '/uploadAsset';
+  private urlUploadFile: string = this.baseUrl + environment.uploadAssets;
 
   constructor(private http: HttpClient) { }
 

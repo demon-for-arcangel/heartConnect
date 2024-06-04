@@ -39,71 +39,85 @@ const showAsset = async (req, res = response) => {
   }
 };
 
-
-
-
 const uploadAsset = async (req, res = response) => {
   try {
     console.log("Inicio de la carga de archivos");
 
-    const buffers = [];
-    req.on('data', chunk => {
-      console.log("Recibiendo datos...");
-      buffers.push(chunk);
-    });
+    const contentType = req.headers['content-type'];
+    const userId = req.headers['user-id'];
 
-    req.on('end', async () => {
-      console.log("Terminó de recibir datos");
+    console.log("Headers recibidos:", { contentType, userId });
 
-      const buffer = Buffer.concat(buffers);
-      const contentType = req.headers['content-type'];
-      const contentDisposition = req.headers['content-disposition'];
-      const userId = req.headers['user-id'];
+    if (!userId) {
+      console.log("Falta userId en los headers");
+      return res.status(400).json({ msg: "User ID is required in headers" });
+    }
 
-      console.log("Headers recibidos:", { contentType, contentDisposition, userId });
+    if (!req.files || Object.keys(req.files).length === 0) {
+      console.log("No se encontró ningún archivo en la solicitud");
+      return res.status(400).json({ msg: "No file was uploaded" });
+    }
 
-      if (!userId || !contentDisposition) {
-        console.log("Falta userId o contentDisposition en los headers");
-        return res.status(400).json({ msg: "File data and user ID are required in headers" });
-      }
+    console.log("Archivos recibidos:", req.files);
 
-      const fileNameMatch = contentDisposition.match(/filename="(.+)"/);
-      if (!fileNameMatch) {
-        console.log("Nombre del archivo no encontrado en contentDisposition");
-        return res.status(400).json({ msg: "File name is required" });
-      }
-      const fileName = fileNameMatch[1];
+    let files = req.files.file;
 
-      console.log("Nombre del archivo:", fileName);
+    // Asegurarse de que files sea un array
+    if (!Array.isArray(files)) {
+      files = [files];
+    }
 
-      // Guardar en el sistema de archivos
+    const savedAssets = [];
+
+    for (const file of files) {
+      const fileName = generateUniqueFileNameWithExtension(file.name);
       const filePath = path.join(__dirname, '../uploads/', fileName);
-      fs.writeFileSync(filePath, buffer);
 
-      console.log("Archivo guardado en el sistema de archivos:", filePath);
+      await new Promise((resolve, reject) => {
+        file.mv(filePath, async (err) => {
+          if (err) {
+            console.error("Error al mover el archivo:", err);
+            return reject(err);
+          }
 
-      // Guardar en la base de datos
-      const asset = {
-        path: filePath,
-      };
+          console.log("Archivo guardado en el sistema de archivos:", filePath);
 
-      const savedAsset = await assetsModel.saveAsset(asset);
+          const asset = { path: filePath };
+          const savedAsset = await assetsModel.saveAsset(asset);
+          console.log("Asset guardado en la base de datos:", savedAsset);
 
-      console.log("Asset guardado en la base de datos:", savedAsset);
+          await assetsModel.associateAssetWithUser(savedAsset.id, userId);
+          console.log("Asset asociado al usuario");
 
-      // Asociar el asset al usuario
-      await assetsModel.saveAssetOfUser(userId, savedAsset.id);
+          savedAssets.push(savedAsset);
+          resolve();
+        });
+      });
+    }
 
-      console.log("Asset asociado al usuario");
-
-      res.status(201).json(savedAsset);
-    });
+    res.status(201).json(savedAssets);
 
   } catch (err) {
     console.error("Error durante la carga del archivo:", err);
     res.status(500).json({ msg: "Error al subir el archivo" });
   }
 };
+
+function generateUniqueFileNameWithExtension(originalFileName) {
+  if (!originalFileName) {
+    throw new TypeError('The original file name is required');
+  }
+
+  const timestamp = Date.now();
+  const randomString = Math.random().toString(36).substring(2, 15);
+  const fileExtension = path.extname(originalFileName);
+
+  if (!fileExtension) {
+    throw new TypeError('The file extension is required');
+  }
+
+  return `${timestamp}-${randomString}${fileExtension}`;
+}
 
 module.exports = {
   showAssetsUser,

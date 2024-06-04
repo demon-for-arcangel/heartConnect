@@ -93,7 +93,17 @@ class AssetsModel {
       return rtnAssets;
     }
   };
-  
+
+  async associateAssetWithUser(assetId, userId) {
+    try {
+        await models.UserAssets.create({
+            id_user: userId,
+            id_asset: assetId
+        });
+    } catch (error) {
+        throw error;
+    }
+  }
 
   //-------------------------User_Assets---------------------------
 
