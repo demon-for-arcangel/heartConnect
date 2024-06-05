@@ -9,48 +9,32 @@ class AssetsModel {
   constructor() {}
 
   getAssetById = async (assetId) => {
-    let resultado;
+    let resultado = []; // Inicializamos resultado como null
     try {
-        // Conectar a la base de datos
-        console.log("Conectando a la base de datos...");
         conexion.conectar();
-        
-        // Buscar el asset por ID y obtener solo el atributo 'path'
-        console.log(`Buscando asset con ID: ${assetId}`);
         resultado = await models.Asset.findOne({
             attributes: ["path"],
             where: {
                 id: assetId,
             },
         });
-
-        // Desconectar de la base de datos
-        console.log("Desconectando de la base de datos...");
         conexion.desconectar();
-
-        // Verificar si se encontró el asset
         if (!resultado) {
-            console.log("Asset no encontrado");
             throw new Error("Asset not found");
         }
-        
     } catch (error) {
-        console.error("Error al obtener el asset:", error);
         throw error;
     } finally {
-        // Verificar el resultado antes de retornarlo
-        console.log("Resultado de la consulta:", resultado);
-        return resultado ? resultado.dataValues : null;
+        return resultado;
     }
 };
-
 
 
   saveAsset = async (asset) =>{
     let resultado = [];
     try{
         conexion.conectar();
-        resultado = await models.Assets.create(asset);
+        resultado = await models.Asset.create(asset);
         conexion.desconectar();
       }catch(error){
         throw error
@@ -62,27 +46,26 @@ class AssetsModel {
     }
   }
 
-  deleteByRuta =async(assetId)=>{
-    let resultado = [];
-    console.log(assetId)
-    try{
-        conexion.conectar();
-        resultado = await models.Assets.destroy({
-          where: {
-            path: assetId
-          },
-        });
-        conexion.desconectar();
-        if (!resultado) {
-            throw new Error("Asset not found");
-          }
-    }catch(error){
-        throw error
-    }finally{
-        return resultado;
+  deleteAssetById = async (assetId) => {
+    try {
+      const asset = await this.getAssetById(assetId);
+      if (!asset) {
+        throw new Error("Asset no encontrado");
+      }
+  
+      await this.deleteAsset(assetId); 
+  
+      await models.UserAssets.destroy({
+        where: {
+          id_asset: assetId,
+        },
+      }); 
+  
+      return true; 
+    } catch (error) {
+      throw error;
     }
-
-  }
+  };
 
   getAssetsByArrIds = async (arrId) => {
     let resultado = [];
@@ -90,7 +73,7 @@ class AssetsModel {
     try {
       conexion.conectar();
       for (let i =  0; i < arrId.length; i++) {
-        resultado = await models.Assets.findOne({
+        resultado = await models.Asset.findOne({
           attributes: ["path"],
           where: {
             id: arrId[i],
@@ -109,9 +92,47 @@ class AssetsModel {
       return rtnAssets;
     }
   };
+
+  deleteAssetById = async (assetId) => {
+    try {
+      const asset = await this.getAssetById(assetId);
+      if (!asset) {
+        throw new Error("Asset no encontrado");
+      }
   
+      await models.UserAssets.destroy({
+        where: {
+          id_asset: assetId
+        }
+      });
+  
+      const deletedRows = await models.Asset.destroy({
+        where: {
+          id: assetId
+        }
+      });
+  
+      if (deletedRows === 0) {
+        throw new Error("no se puede eliminar el asset");
+      }
+  
+      return true;
+    } catch (error) {
+      throw error;
+    }
+  };
 
   //-------------------------User_Assets---------------------------
+  async associateAssetWithUser(assetId, userId) {
+    try {
+        await models.UserAssets.create({
+            id_user: userId,
+            id_asset: assetId
+        });
+    } catch (error) {
+        throw error;
+    }
+  }
 
   getAssetsOfUser = async (userId) => {
     let resultado = [];
@@ -125,7 +146,7 @@ class AssetsModel {
             },
             include: [
                 {
-                  model: models.Assets,
+                  model: models.Asset,
                   attributes: ["id", "path"],
                 },
               ]

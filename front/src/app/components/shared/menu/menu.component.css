@@ -53,6 +53,21 @@ nav {
 .sidebar-content ul li a i {
     margin-right: 10px; /* Espacio entre el icono y el texto */
 }
+.opciones-label {
+   color: #fff;
+    text-decoration: none;
+    display: flex; /* Cambiado a flex para alinear el icono y el texto horizontalmente */
+    align-items: center; /* Centra los elementos verticalmente */
+    padding: 10px 20px;
+    width: 100%; /* Asegura que los enlaces ocupen todo el ancho del contenedor */
+    box-sizing: border-box;
+
+    margin-right: 10px;
+}
+
+.opciones-label i {
+    margin-right: 10px; /* Espacio entre el icono y el texto */
+}
 
 .sidebar-content ul li a:hover {
     background-color: #333333; /* Cambia el color de fondo al pasar el cursor */
@@ -65,4 +80,38 @@ nav {
         height: auto; /* Permite que la barra lateral se ajuste en altura */
         position: static; /* No es fija en pantallas pequeñas */
     }
+}
+
+.opciones-dropdown {
+    display: none;
+    position: absolute;
+    background-color: #0c0c0c;
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+    bottom: 100%; /* Cambia de top a bottom */
+    border-radius: 8px;
+}
+
+.opciones-dropdown a {
+    color: rgb(255, 255, 255);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.opciones-toggle:checked ~ .opciones-dropdown {
+    display: block;
+}
+
+.opciones-toggle {
+    display: none;
+}
+
+.opciones-label {
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
 }

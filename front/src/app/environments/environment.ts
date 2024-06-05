@@ -5,6 +5,7 @@ export const environment = {
     --------------------------
     */
     baseUrl: 'http://localhost:9292/api',
+    
     // usuarios
     login: '/login',
     register: '/register',
@@ -20,6 +21,7 @@ export const environment = {
     createUser: '/user/new-user',
     updateUser: '/user',
     showFriendship: '/friendship',
+    searchUser: '/users/search',
     
     // roles
     showRols: '/rols/',
@@ -35,11 +37,12 @@ export const environment = {
     inactiveEvents: '/events/show/inactive',
     activateEvents: '/events/update/activate',
     desactivateEvents: '/events/update/desactivate',
+    searchEvent: '/events/search',
 
-    //assets
+    // assets
     getFile: '/assets',
-
-
+    uploadAssets: '/assets/upload',
+    getAssetsOfUser: '/assets/user',
 
     rol_admin : 1,
     admin_gestion_image:'../../assets/cards-dashboard/gestion.png',

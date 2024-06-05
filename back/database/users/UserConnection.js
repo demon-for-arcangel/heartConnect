@@ -194,6 +194,24 @@ class UserModel {
       throw error;
     }
   }
+
+  async searchUsers(term) {
+    try {
+      const users = await models.User.findAll({
+        where: {
+          [Op.or]: [
+            { firstName: { [Op.like]: `%${term}%` } },
+            { lastName: { [Op.like]: `%${term}%` } },
+            { email: { [Op.like]: `%${term}%` } }
+          ]
+        }
+      });
+      return users;
+    } catch (error) {
+      console.error('Error al buscar usuarios:', error);
+      throw error;
+    }
+  }
 }
 
 module.exports = UserModel;

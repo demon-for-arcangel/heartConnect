@@ -33,4 +33,6 @@ router.put('/users/activate', /* [checkToken, tokenCanAdmin], */controlador.acti
 router.put('/users/desactivate', /* [checkToken, tokenCanAdmin], */controlador.desactivateUsers);
 router.delete('/users/delete', /* [checkToken, tokenCanAdmin], */controlador.deleteUsers );
 
+router.get('/users/search/:query', controlador.searchUsers);
+
 module.exports = router;
