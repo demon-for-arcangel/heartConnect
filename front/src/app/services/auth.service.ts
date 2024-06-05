@@ -103,6 +103,7 @@ export class AuthService {
     try {
        const decodedToken = JSON.parse(atob(token.split('.')[1]));
        const userId = decodedToken.uid;
+  
    
        return this.userService.getUserById(userId).pipe(
          map((user: User | undefined) => {

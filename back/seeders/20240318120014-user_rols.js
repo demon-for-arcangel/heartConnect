@@ -14,11 +14,11 @@ module.exports = {
       const userRole = await models.Rol.findOne({ where: { name: 'usuario' }});
 
       if (adminUser && adminRole) {
-        await adminUser.setRoles(adminRole);
+        await adminUser.setRoles([adminRole]); 
       }
 
       if (user && userRole) {
-        await user.setRoles(userRole);
+        await user.setRoles([userRole]); 
       }
     } catch(error) {
       console.error(error);
