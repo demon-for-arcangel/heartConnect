@@ -73,7 +73,7 @@ const uploadAsset = async (req, res = response) => {
       const fileName = generateUniqueFileNameWithExtension(file.name);
       const relativeUploadsDir = 'assets/uploads/photos/';
       const relativeFilePath = path.join(relativeUploadsDir, fileName).replace(/\\/g, '/');
-      const absoluteUploadsDir = path.resolve(__dirname, './../../front/src/assets/uploads/photo_profile/photos/');
+      const absoluteUploadsDir = path.resolve(__dirname, './../../front/src/assets/uploads/photos/');
 
       // Crear directorio si no existe
       if (!fs.existsSync(absoluteUploadsDir)) {
@@ -101,7 +101,8 @@ const uploadAsset = async (req, res = response) => {
             await assetsModel.associateAssetWithUser(savedAsset.id, userId);
             console.log("Asset asociado al usuario");
 
-            savedAssets.push(savedAsset);
+            // Estructura de la respuesta para que incluya el atributo 'Asset'
+            savedAssets.push({ id_user: userId, Asset: savedAsset });
             resolve();
           } catch (error) {
             console.error("Error al guardar el asset o asociar con el usuario:", error);
