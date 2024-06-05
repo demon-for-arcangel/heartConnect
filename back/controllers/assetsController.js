@@ -93,7 +93,7 @@ const uploadAsset = async (req, res = response) => {
 
           console.log("Archivo guardado en el sistema de archivos:", absoluteFilePath);
 
-          const asset = { path: `../../${relativeFilePath}` };  // Aquí añadimos el prefijo ../../../../
+          const asset = { path: `../../../../${relativeFilePath}` };  
           try {
             const savedAsset = await assetsModel.saveAsset(asset);
             console.log("Asset guardado correctamente:", savedAsset);
