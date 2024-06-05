@@ -95,34 +95,30 @@
     width: 100%;
 }
 
-.grid-item {
-    position: relative;
-    width: 100%;
-    padding-top: 100%; /* Esto crea un cuadrado */
-}
-
-.grit-item img{
-    padding: 10px;
-    background-color: #000000;
-}
-
 .image-container {
     margin: 10%;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     border-radius: 10px;
     overflow: hidden;
-    background-color: aquamarine;
+    background-color: #1d1c1c;
+    position: relative;
+    width: 180px; 
+    height: 200px; 
 }
 
 .image-container img {
-    width: 100%;
-    height: 100%;
+    width: 150%; 
+    height: 150%; 
     object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-25%, -25%); 
     border-radius: 10px;
 }
+
 
 .edit-button,
 .delete-button,
