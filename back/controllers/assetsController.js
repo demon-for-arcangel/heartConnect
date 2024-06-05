@@ -71,7 +71,7 @@ const uploadAsset = async (req, res = response) => {
 
     for (const file of files) {
       const fileName = generateUniqueFileNameWithExtension(file.name);
-      const filePath = path.relative(__dirname, path.join(__dirname, '../../../../../uploads/photos/photo_profile/', fileName)).replace(/\\/g, '/');
+      const filePath = path.relative(__dirname, path.join(__dirname, '../../../../src/assets/uploads/photos/', fileName)).replace(/\\/g, '/');
 
       await new Promise((resolve, reject) => {
         file.mv(filePath, async (err) => {

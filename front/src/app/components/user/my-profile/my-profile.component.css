@@ -101,6 +101,11 @@
     padding-top: 100%; /* Esto crea un cuadrado */
 }
 
+.grit-item img{
+    padding: 10px;
+    background-color: #000000;
+}
+
 .image-container {
     margin: 10%;
     display: flex;
