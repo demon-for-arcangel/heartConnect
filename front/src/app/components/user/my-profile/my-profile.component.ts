@@ -59,10 +59,14 @@ export class MyProfileComponent implements OnInit {
                 }
               });
             }
+
+
             if (this.user.id) {
               this.fileService.getUserAssets(this.user.id).subscribe({
                 next: (assets: any[]) => {
-                  this.images = assets.map(asset => ({ id: asset.id, path: asset.filePath }));
+                  console.log('Assets del usuario:', assets);
+            
+                  this.images = assets.map(asset => ({ id: asset.id, path: asset.path }));
                   console.log('Imágenes del usuario:', this.images);
                 },
                 error: (error) => {
@@ -70,6 +74,8 @@ export class MyProfileComponent implements OnInit {
                 }
               });
             }
+            
+            
           });
         }
       });
@@ -107,7 +113,7 @@ export class MyProfileComponent implements OnInit {
         next: (response: any) => {
           if (response) {
             console.log('Imagen subida:', response);
-            this.images.push({ path: response.filePath });
+            this.images.push({ id: response.id, path: response.path });
           }
         },
         error: (error) => {
