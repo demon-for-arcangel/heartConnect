@@ -10,6 +10,7 @@ import { ShowLikeUsersComponent } from '../show-like-users/show-like-users.compo
 import { CommonModule } from '@angular/common';
 import { MenuComponent } from '../../shared/menu/menu.component';
 import { Image } from '../../../interfaces/assets';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-profile',
@@ -36,6 +37,7 @@ export class MyProfileComponent implements OnInit {
     private fileService: FileService,
     public dialogService: DialogService,
     private messageService: MessageService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -136,6 +138,10 @@ export class MyProfileComponent implements OnInit {
         }
       });
     }
+  }
+
+  navigatePreferences(){
+    this.router.navigate(['/my-preferences']);
   }
   
 
