@@ -26,7 +26,7 @@ export class MyProfileComponent implements OnInit {
   editingIndex: number | null = null;
   previewImage: string = '';
   editing: boolean = false;
-  maxNumberPhotos: number = 60;
+  maxNumberPhotos: number = 8;
 
   ref: DynamicDialogRef | undefined;
 
