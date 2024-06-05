@@ -36,7 +36,6 @@ export class MyProfileComponent implements OnInit {
     private fileService: FileService,
     public dialogService: DialogService,
     private messageService: MessageService,
-    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
