@@ -1,14 +1,13 @@
 <div class="main-container">
-
   <app-menu></app-menu>
   <div class="main-content">
     <div class="container">
       <div class="profile-info">
         <div class="profile-header">
-          <img [src]="userProfileImageUrl" alt="Foto de perfil dinámica">
+          <img [src]="userProfileImageUrl" alt="Foto de perfil">
           <div class="name-container">
-            <h2>{{user.firstName}}</h2>
-            <h2>{{user.lastName}}</h2>
+            <h2>{{ user.firstName }}</h2>
+            <h2>{{ user.lastName }}</h2>
           </div>
           <div class="buttons">
             <button>Ver preferencias</button>
@@ -19,35 +18,39 @@
           <button (click)="showFriends()">Amigos</button>
           <button (click)="showLikeUsers()">Personas de interés</button>
         </div>
-        <p> {{ user.desc  }}  </p>  
+        <p>{{ user.desc }}</p>
         <div class="image-grid">
-          <h1>Fotos</h1>   
+          <h1>Fotos</h1>
           <div class="grid-container">
-            @for(placeholder of placeholders; track placeholder) {
+            @for (image of images; track image){
               <div class="image-container">
                 <div class="grid-item">
-                  <img [src]="images[placeholder]?.imageUrl" alt="Imagen de perfil">
-                  <button class="edit-button" (click)="editImage(placeholder)">
-                    <i class="fas fa-pencil-alt"></i>
-                  </button>
-                  <button class="delete-button" (click)="deleteImage(placeholder)">
-                    <i class="fas fa-trash-alt"></i>
-                  </button>
-
+                    <img [src]="image.path" alt="Imagen">
+                  @if(image.id !== undefined){
+                    <button class="edit-button" (click)="editImage(image.id)">
+                      <i class="fas fa-pencil-alt"></i>
+                    </button>
+                    <button class="delete-button" (click)="deleteImage(image.id)">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  }
                 </div>
               </div>
-
-              @if(images.length < maxNumberPhotos){
-                <div class="image-container">
-                  <div class="grid-item add-button-container">
-                    <button class="add-button" (click)="addImage()">
-                      <i class="fas fa-plus"></i>
-                    </button>
-                  </div>
-                </div>
-              }
             }
-
+            
+            @if(images.length < maxNumberPhotos){
+              <div class="image-container">
+                <div class="grid-item add-button-container">
+                  <label for="fileInput" class="add-button">
+                    <i class="fas fa-plus"></i>
+                  </label>
+                  <input id="fileInput" type="file" style="display:none" (change)="addImage($event)">
+                  @if (previewImage){
+                    <img [src]="previewImage" alt="Vista previa de la imagen">
+                  }
+                </div>
+              </div>
+            }
           </div>
         </div>
         <button class="save-all-button" (click)="saveAllImages()">Guardar</button>
