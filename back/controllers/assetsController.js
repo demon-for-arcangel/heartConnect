@@ -73,7 +73,7 @@ const uploadAsset = async (req, res = response) => {
       const fileName = generateUniqueFileNameWithExtension(file.name);
       const relativeUploadsDir = 'assets/uploads/photos/';
       const relativeFilePath = path.join(relativeUploadsDir, fileName).replace(/\\/g, '/');
-      const absoluteUploadsDir = path.resolve(__dirname, '../../front/src/assets/uploads/photos/');
+      const absoluteUploadsDir = path.resolve(__dirname, './../../front/src/assets/uploads/photo_profile/photos/');
 
       // Crear directorio si no existe
       if (!fs.existsSync(absoluteUploadsDir)) {
