@@ -71,26 +71,42 @@ const uploadAsset = async (req, res = response) => {
 
     for (const file of files) {
       const fileName = generateUniqueFileNameWithExtension(file.name);
-      const filePath = path.relative(__dirname, path.join(__dirname, '../../../../src/assets/uploads/photos/', fileName)).replace(/\\/g, '/');
+      const relativeUploadsDir = 'assets/uploads/photos/';
+      const relativeFilePath = path.join(relativeUploadsDir, fileName).replace(/\\/g, '/');
+      const absoluteUploadsDir = path.resolve(__dirname, '../../front/src/assets/uploads/photos/');
 
+      // Crear directorio si no existe
+      if (!fs.existsSync(absoluteUploadsDir)) {
+        console.log(`Creando directorio: ${absoluteUploadsDir}`);
+        fs.mkdirSync(absoluteUploadsDir, { recursive: true });
+      }
+
+      const absoluteFilePath = path.join(absoluteUploadsDir, fileName);
+
+      console.log(`Moviendo archivo a: ${absoluteFilePath}`);
       await new Promise((resolve, reject) => {
-        file.mv(filePath, async (err) => {
+        file.mv(absoluteFilePath, async (err) => {
           if (err) {
             console.error("Error al mover el archivo:", err);
             return reject(err);
           }
 
-          console.log("Archivo guardado en el sistema de archivos:", filePath);
+          console.log("Archivo guardado en el sistema de archivos:", absoluteFilePath);
 
-          const asset = { path: filePath };
-          const savedAsset = await assetsModel.saveAsset(asset);
-          console.log("Asset guardado correctament:", savedAsset);
+          const asset = { path: `../../${relativeFilePath}` };  // Aquí añadimos el prefijo ../../../../
+          try {
+            const savedAsset = await assetsModel.saveAsset(asset);
+            console.log("Asset guardado correctamente:", savedAsset);
 
-          await assetsModel.associateAssetWithUser(savedAsset.id, userId);
-          console.log("Asset asociado al usuario");
+            await assetsModel.associateAssetWithUser(savedAsset.id, userId);
+            console.log("Asset asociado al usuario");
 
-          savedAssets.push(savedAsset);
-          resolve();
+            savedAssets.push(savedAsset);
+            resolve();
+          } catch (error) {
+            console.error("Error al guardar el asset o asociar con el usuario:", error);
+            reject(error);
+          }
         });
       });
     }

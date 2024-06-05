@@ -65,9 +65,8 @@ export class MyProfileComponent implements OnInit {
               this.fileService.getUserAssets(this.user.id).subscribe({
                 next: (assets: any[]) => {
                   console.log('Assets del usuario:', assets);
-            
-                  this.images = assets.map(asset => ({ id: asset.id, path: asset.path }));
-                  console.log('Imágenes del usuario:', this.images);
+
+                  this.images = assets
                 },
                 error: (error) => {
                   console.error('Error al obtener los assets del usuario:', error);
