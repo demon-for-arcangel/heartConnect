@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { UserService } from '../../../services/user.service';
 import { FileService } from '../../../services/file.service';
@@ -26,7 +26,7 @@ export class MyProfileComponent implements OnInit {
   editingIndex: number | null = null;
   previewImage: string = '';
   editing: boolean = false;
-  maxNumberPhotos: number = 8;
+  maxNumberPhotos: number = 60;
 
   ref: DynamicDialogRef | undefined;
 
@@ -35,7 +35,8 @@ export class MyProfileComponent implements OnInit {
     private userService: UserService,
     private fileService: FileService,
     public dialogService: DialogService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -60,21 +61,17 @@ export class MyProfileComponent implements OnInit {
               });
             }
 
-
             if (this.user.id) {
               this.fileService.getUserAssets(this.user.id).subscribe({
                 next: (assets: any[]) => {
                   console.log('Assets del usuario:', assets);
-
-                  this.images = assets
+                  this.images = assets;
                 },
                 error: (error) => {
                   console.error('Error al obtener los assets del usuario:', error);
                 }
               });
             }
-            
-            
           });
         }
       });
@@ -109,10 +106,13 @@ export class MyProfileComponent implements OnInit {
     const file = fileInputEvent.target.files[0];
     if (file && this.user.id) {
       this.fileService.uploadFile(file, this.user.id.toString()).subscribe({
-        next: (response: any) => {
-          if (response) {
-            console.log('Imagen subida:', response);
-            this.images.push({ id: response.id, path: response.path });
+        next: (response: any[]) => {
+          console.log('Respuesta del servidor:', response);
+          if (response && response.length > 0 && response[0].Asset) {
+            const asset = response[0].Asset;
+            this.images.push({ id: asset.id, path: asset.path });
+            console.log('Ruta de la imagen subida:', asset.path);
+            this.loadImages()  // Forzar la detección de cambios
           }
         },
         error: (error) => {
@@ -121,6 +121,24 @@ export class MyProfileComponent implements OnInit {
       });
     }
   }
+  
+  loadImages(): void {
+    if (this.user.id) {
+      this.fileService.getUserAssets(this.user.id).subscribe({
+        next: (assets: any[]) => {
+          console.log('Assets del usuario:', assets);
+          this.images = assets;
+          setTimeout(() => {
+            window.location.reload();
+          }, 50);
+        },
+        error: (error) => {
+          console.error('Error al obtener los assets del usuario:', error);
+        }
+      });
+    }
+  }
+  
 
   saveImage(): void {
     if (this.editingIndex !== null) {
