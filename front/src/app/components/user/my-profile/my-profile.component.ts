@@ -22,11 +22,11 @@ import { Image } from '../../../interfaces/assets';
 export class MyProfileComponent implements OnInit {
   user: any = {};
   userProfileImageUrl: string = '';
-  images: Image[] = [];
+  images: any[] = [];
   editingIndex: number | null = null;
   previewImage: string = '';
   editing: boolean = false;
-  maxNumberPhotos: number = 3;
+  maxNumberPhotos: number = 8;
 
   ref: DynamicDialogRef | undefined;
 
