@@ -62,17 +62,35 @@ class UserPreferencesModel {
         }
     }
 
-    async updatePreference(userId, preferenceId, preferencesData) {
+    async updatePreference(userId, preferencesData) {
         try {
-            const updatedUserPreference = await models.UserPreferences.update(preferencesData, {
-                where: {
-                    userId: userId,
-                    preferenceId: preferenceId
-                }
+            const userPreference = await models.UserPreferences.findOne({
+                where: { id_user: userId }
             });
-            return updatedUserPreference;
+
+            if (!userPreference) {
+                console.error(`No se encontraron preferencias para el usuario con ID: ${userId}`);
+                throw new Error('Preferencias no encontradas');
+            }
+
+            console.log(`Preferencia encontrada para el usuario: ${JSON.stringify(userPreference)}`);
+
+            // Actualizar las preferencias del usuario
+            const updatedPreference = await models.Preferences.update(preferencesData, {
+                where: { id: userPreference.id_preferences }
+            });
+
+            // Verificar si la preferencia fue actualizada
+            if (updatedPreference[0] === 0) {
+                console.error(`Preferencia con ID: ${userPreference.id_preferences} no encontrada para actualización`);
+                throw new Error('Preferencia no encontrada para este usuario');
+            }
+
+            console.log(`Preferencia actualizada: ${JSON.stringify(updatedPreference)}`);
+
+            return updatedPreference;
         } catch (error) {
-            console.error('Error al actualizar la preferencia: ', error);
+            console.error('Error al actualizar las preferencias: ', error);
             throw error;
         }
     }

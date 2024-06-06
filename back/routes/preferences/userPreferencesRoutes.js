@@ -8,7 +8,7 @@ const router = Router();
 router.get('/', /*[checkToken, tokenCanAdmin],*/ controlador.index);
 router.get('/:userId', controlador.getPreferencesById);
 router.post('/', controlador.createPreference);
-router.put('/:id', controlador.updatePreference);
+router.put('/:userId', controlador.updatePreference);
 router.delete('/:id', controlador.deletePreference);
 
 module.exports = router;

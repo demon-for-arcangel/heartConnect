@@ -70,17 +70,19 @@ const createPreference = async (req, res) => {
     const userId = req.params.userId;
     const preferencesData = req.body;
     try {
-        const relationshipType = preferencesData.relationship_type;
-        const interest = preferencesData.interest;
+        const { relationship_type, interest } = preferencesData;
         
-        const existingRelationshipType = await models.PreferencesRelation.findByPk(relationshipType);
+        const existingRelationshipType = await models.PreferencesRelation.findByPk(relationship_type);
         const existingInterest = await models.PreferencesInterest.findByPk(interest);
 
         if (!existingRelationshipType || !existingInterest) {
             return res.status(400).json({ msg: "Los IDs de relationship_type o interest proporcionados no son válidos" });
         }
 
-        const newUserPreference = await conx.createPreference(userId, preferencesData);
+        const newPreference = await models.Preferences.create(preferencesData);
+
+        const newUserPreference = await conx.createPreference(userId, { preferenceId: newPreference.id });
+        
         res.status(201).json(newUserPreference);
     } catch (error) {
         console.error('Error al crear la preferencia', error);
@@ -88,31 +90,35 @@ const createPreference = async (req, res) => {
     }
 }
 
+
 const updatePreference = async (req, res) => {
     const userId = req.params.userId;
-    const preferenceId = req.params.preferenceId;
     const preferencesData = req.body;
     try {
-        const relationshipType = preferencesData.relationship_type;
-        const interest = preferencesData.interest;
-        
-        const existingRelationshipType = await models.PreferencesRelation.findByPk(relationshipType);
+        console.log(`Actualización de preferencias iniciada para el usuario ID: ${userId}`);
+
+        const { relationship_type, interest } = preferencesData;
+
+        const existingRelationshipType = await models.PreferencesRelation.findByPk(relationship_type);
         const existingInterest = await models.PreferencesInterest.findByPk(interest);
 
         if (!existingRelationshipType || !existingInterest) {
             return res.status(400).json({ msg: "Los IDs de relationship_type o interest proporcionados no son válidos" });
         }
 
-        const updatedUserPreference = await conx.updatePreference(userId, preferenceId, preferencesData);
-        if (!updatedUserPreference) {
-            return res.status(404).json({ msg: "Preferencia no encontrada para este usuario" });
-        }
-        res.status(200).json(updatedUserPreference);
+        console.log(`Tipo de relación existente: ${JSON.stringify(existingRelationshipType)}`);
+        console.log(`Interés existente: ${JSON.stringify(existingInterest)}`);
+        console.log(userId)
+
+        const updatedPreference = await conx.updatePreference(userId, preferencesData);
+
+        res.status(200).json({ msg: "Preferencia actualizada exitosamente" });
     } catch (error) {
         console.error('Error al actualizar la preferencia', error);
         res.status(500).json({ msg: "Error" });
     }
 }
+
 
 const deletePreference = async (req, res) => {
     const userId = req.params.userId;
