@@ -110,7 +110,7 @@ const updatePreference = async (req, res) => {
         console.log(`Interés existente: ${JSON.stringify(existingInterest)}`);
         console.log(userId)
 
-        const updatedPreference = await conx.updatePreference(userId, preferencesData);
+        await conx.updatePreference(userId, preferencesData);
 
         res.status(200).json({ msg: "Preferencia actualizada exitosamente" });
     } catch (error) {
@@ -122,29 +122,22 @@ const updatePreference = async (req, res) => {
 
 const deletePreference = async (req, res) => {
     const userId = req.params.userId;
-    const preferenceId = req.params.preferenceId;
+    
     try {
-        const deletedUserPreference = await conx.deletePreference(userId, preferenceId);
-        if (!deletedUserPreference) {
-            return res.status(404).json({ msg: "Preferencia no encontrada para este usuario" });
-        }
+        const deletedPreference = await conx.deletePreference(userId);
         
-        const deletedPreference = await models.Preferences.destroy({
-            where: {
-                id: preferenceId
-            }
-        });
-
         if (!deletedPreference) {
-            return res.status(404).json({ msg: "Preferencia no encontrada en la tabla preferences" });
+            return res.status(404).json({ msg: "Preferencia no encontrada para este usuario" });
         }
 
         res.status(200).json({ msg: "Preferencia eliminada exitosamente" });
     } catch (error) {
         console.error('Error al eliminar la preferencia', error);
-        res.status(500).json({ msg: "Error" });
+        res.status(500).json({ msg: "Error al eliminar la preferencia" });
     }
-}
+};
+
+
 
 module.exports = {
     index, getPreferencesById, createPreference, updatePreference, deletePreference

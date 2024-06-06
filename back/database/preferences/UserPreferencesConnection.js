@@ -24,19 +24,16 @@ class UserPreferencesModel {
 
     async getPreferenceById(userId) {
         try {
-            // Busca el usuario y su preferencia asociada
             const userPreference = await models.UserPreferences.findOne({
                 where: {
                     userId: userId
                 }
             });
     
-            // Si no se encuentra la preferencia del usuario, devuelve null
             if (!userPreference) {
                 return null;
             }
     
-            // Encuentra la preferencia en la tabla de preferencias
             const preference = await models.Preferences.findByPk(userPreference.id_preferences);
     
             // Devuelve la preferencia encontrada
@@ -51,9 +48,8 @@ class UserPreferencesModel {
     async createPreference(userId, preferencesData) {
         try {
             const newUserPreference = await models.UserPreferences.create({
-                userId: userId,
-                preferenceId: preferencesData.preferenceId
-                // Añade más campos si es necesario
+                id_user: userId,
+                id_preferences: preferencesData.preferenceId
             });
             return newUserPreference;
         } catch (error) {
@@ -94,21 +90,45 @@ class UserPreferencesModel {
             throw error;
         }
     }
-    
-    async deletePreference(userId, preferenceId) {
+
+    async deletePreference(userId) {
         try {
-            const deletedUserPreference = await models.UserPreferences.destroy({
-                where: {
-                    userId: userId,
-                    preferenceId: preferenceId
-                }
+            console.log(`Buscando preferencias para el usuario con ID: ${userId}`);
+    
+            const userPreference = await models.UserPreferences.findOne({
+                where: { id_user: userId }
             });
-            return deletedUserPreference;
+    
+            if (!userPreference) {
+                console.error(`No se encontraron preferencias para el usuario con ID: ${userId}`);
+                throw new Error('Preferencias no encontradas');
+            }
+    
+            console.log(`Encontrada preferencia con ID: ${userPreference.id_preferences} para el usuario con ID: ${userId}`);
+    
+            await models.UserPreferences.destroy({
+                where: { id_user: userId }
+            });
+    
+            console.log(`Preferencias del usuario con ID: ${userId} eliminadas de la tabla UserPreferences`);
+    
+            // Luego, eliminar la preferencia de la tabla Preferences
+            const deletedPreference = await models.Preferences.destroy({
+                where: { id: userPreference.id_preferences }
+            });
+    
+            if (deletedPreference === 0) {
+                console.error(`No se encontraron preferencias en la tabla Preferences con ID: ${userPreference.id_preferences}`);
+                throw new Error('Preferencias no encontradas en la tabla Preferences');
+            }
+    
+            console.log(`Preferencia con ID: ${userPreference.id_preferences} eliminada de la tabla Preferences`);
+            return deletedPreference;
         } catch (error) {
             console.error('Error al eliminar la preferencia: ', error);
             throw error;
         }
-    }
+    }   
 }
 
 module.exports = UserPreferencesModel;

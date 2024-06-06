@@ -9,6 +9,6 @@ router.get('/', /*[checkToken, tokenCanAdmin],*/ controlador.index);
 router.get('/:userId', controlador.getPreferencesById);
 router.post('/', controlador.createPreference);
 router.put('/:userId', controlador.updatePreference);
-router.delete('/:id', controlador.deletePreference);
+router.delete('/:userId', controlador.deletePreference);
 
 module.exports = router;

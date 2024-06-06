@@ -28,7 +28,8 @@ module.exports = {
           model: {
             tableName: process.env.TABLE_PREFERENCES   
           },
-          key: 'id'
+          key: 'id',
+          onDelete: 'CASCADE',
         }
       },
       createdAt: {
