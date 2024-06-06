@@ -1,17 +1,16 @@
 'use strict';
 
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.bulkInsert(process.env.TABLE_USER_PREFERENCES, [
+    await queryInterface.bulkInsert(process.env.TABLE_PREFERENCES_RELATION, [
       {
-        id_user: 2, 
-        id_preferences: 1, 
+        type: 'Seria', 
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        id_user: 3, 
-        id_preferences: 2, 
+        type: 'Esporádica',
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -19,6 +18,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.bulkDelete(process.env.TABLE_USER_PREFERENCES, null, {});
+    await queryInterface.bulkDelete(process.env.TABLE_PREFERENCES_RELATION, null, {});
   }
 };
