@@ -22,6 +22,9 @@ export const environment = {
     updateUser: '/user',
     showFriendship: '/friendship',
     searchUser: '/users/search',
+
+    // preferencias
+    getPreferencesById: '/preferences',
     
     // roles
     showRols: '/rols/',
