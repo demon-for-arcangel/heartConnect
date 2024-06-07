@@ -11,19 +11,19 @@ export class PreferencesService {
   constructor(private http: HttpClient) { }
   private baseUrl: string = environment.baseUrl;
   private urlGetPreferencesById: string = this.baseUrl + environment.getPreferencesById;
-  private urlGetOptionsRelation: string = this.baseUrl + environment.getOptionsRelation;
-  private urlGetOptionsInterest: string = this.baseUrl + environment.getOptionsInterest;
+  private urlGetOptionsRelation: string = this.baseUrl + environment.getPreferencesById + environment.getOptionsRelation;
+  private urlGetOptionsInterest: string = this.baseUrl + environment.getPreferencesById + environment.getOptionsInterest;
 
   getUserPreferences(userId: string): Observable<any> {
     const url = `${this.urlGetPreferencesById}/${userId}`;
     return this.http.get<any>(url);
   }
 
-  getRelationshipTypeOptions(): Observable<string[]> {
-    return this.http.get<string[]>(`${this.urlGetOptionsRelation}`);
+  getRelationshipTypeOptions(): Observable<{ id: number, type: string }[]> {
+    return this.http.get<{ id: number, type: string }[]>(`${this.urlGetOptionsRelation}`);
   }
 
-  getInterestedInOptions(): Observable<string[]> {
-    return this.http.get<string[]>(`${this.urlGetOptionsInterest}`);
+  getInterestedInOptions(): Observable<{ id: number, gender: string }[]> {
+    return this.http.get<{ id: number, gender: string }[]>(`${this.urlGetOptionsInterest}`);
   }
 }

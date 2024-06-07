@@ -15,8 +15,8 @@ import { FormsModule } from '@angular/forms';
   providers: [DialogService]
 })
 export class EditPreferencesComponent {
-  relationshipTypeOptions: string[] = [];
-  interestedInOptions: string[] = [];
+  relationshipTypeOptions: { id: number, type: string }[] = [];
+  interestedInOptions: { id: number, gender: string }[] = [];
 
   relationshipType: string = '';
   sportsInterest: number = 0;
@@ -41,31 +41,47 @@ export class EditPreferencesComponent {
       this.authService.getUserByToken(token).subscribe(user => {
         if (user && user.id) {
           this.user = user;
-          console.log(this.user)
-  
+          console.log(this.user);
+
           this.preferencesService.getUserPreferences(this.user.id).subscribe(
             (data) => {
-              console.log(data)
+              console.log(data);
               this.relationshipType = data.relationship_type;
               this.sportsInterest = data.sports;
               this.artisticInterest = data.artistic;
               this.politicalInterest = data.politicians;
               this.hasOrWantsChildren = data.hasOrWantsChildren;
               this.interestedIn = data.interest;
+
+              // Cargar opciones después de obtener las preferencias del usuario
+              this.loadOptions();
             },
             (error) => {
               console.error('Error al obtener las preferencias del usuario', error);
             }
           );
         }
-      })
+      });
+    } else {
+      this.loadOptions();
     }
+  }
+
+  loadOptions(): void {
     this.preferencesService.getInterestedInOptions().subscribe(options => {
       this.interestedInOptions = options;
+      // Si la opción actual del usuario no está en las opciones, agregarla
+      if (this.interestedIn && !this.interestedInOptions.some(option => option.gender === this.interestedIn)) {
+        this.interestedInOptions.unshift({ id: -1, gender: this.interestedIn });
+      }
     });
 
     this.preferencesService.getRelationshipTypeOptions().subscribe(options => {
       this.relationshipTypeOptions = options;
+      // Si la opción actual del usuario no está en las opciones, agregarla
+      if (this.relationshipType && !this.relationshipTypeOptions.some(option => option.type === this.relationshipType)) {
+        this.relationshipTypeOptions.unshift({ id: -1, type: this.relationshipType });
+      }
     });
   }
 }

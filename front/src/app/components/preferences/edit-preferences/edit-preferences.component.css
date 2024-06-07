@@ -37,7 +37,7 @@
 
 .preference-item input[type="text"],
 .preference-item input[type="number"],
-.preference-item input[type="checkbox"] {
+.preference-item select {
     flex: 2; 
     padding: 8px;
     border: none;
@@ -56,4 +56,9 @@
 .preference-item input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+.preference-item select option {
+    background-color: #333;
+    color: white;
 }

@@ -2,7 +2,13 @@
   <div class="preference-grid">
     <div class="preference-item">
       <label>Tipo de relación:</label>
-      <input type="text" [(ngModel)]="relationshipType">
+      <select [(ngModel)]="relationshipType">
+        @for(option of relationshipTypeOptions; track option){
+          <option [value]="option.type">
+            {{ option.type }}
+          </option>
+        }
+      </select>
     </div>
     <div class="preference-item">
       <label>Interés en deportes (0-100):</label>
@@ -22,7 +28,13 @@
     </div>
     <div class="preference-item">
       <label>Interesado/a en:</label>
-      <input type="text" [(ngModel)]="interestedIn">
+      <select [(ngModel)]="interestedIn">
+        @for(option of interestedInOptions; track option){
+          <option [value]="option.gender">
+            {{ option.gender }}
+          </option>
+        }
+      </select>
     </div>
   </div>
 </div>
