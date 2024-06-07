@@ -24,7 +24,6 @@ class UserPreferencesModel {
 
     async getUserPreferenceById(userId) {
         try {
-            // Buscar en la tabla user_preferences usando el userId
             const userPreference = await models.UserPreferences.findOne({
                 where: {
                     id_user: userId
@@ -35,7 +34,6 @@ class UserPreferencesModel {
                 return null;
             }
 
-            // Usar el id_preferences para buscar en la tabla preferences
             const preference = await models.Preferences.findByPk(userPreference.id_preferences);
 
             if (!preference) {
@@ -75,12 +73,10 @@ class UserPreferencesModel {
 
             console.log(`Preferencia encontrada para el usuario: ${JSON.stringify(userPreference)}`);
 
-            // Actualizar las preferencias del usuario
             const updatedPreference = await models.Preferences.update(preferencesData, {
                 where: { id: userPreference.id_preferences }
             });
 
-            // Verificar si la preferencia fue actualizada
             if (updatedPreference[0] === 0) {
                 console.error(`Preferencia con ID: ${userPreference.id_preferences} no encontrada para actualización`);
                 throw new Error('Preferencia no encontrada para este usuario');
