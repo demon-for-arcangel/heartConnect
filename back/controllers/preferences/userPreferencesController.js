@@ -43,13 +43,21 @@ const getUserPreferencesById = async (req, res) => {
             return res.status(404).json({ msg: "Preferencia no encontrada para este usuario" });
         }
 
-        res.status(200).json(preference);
+        const relationshipType = await models.PreferencesRelation.findByPk(preference.relationship_type);
+        const interest = await models.PreferencesInterest.findByPk(preference.interest);
+
+        const preferenceWithRelations = {
+            ...preference.toJSON(),
+            relationship_type: relationshipType ? relationshipType.type : null,
+            interest: interest ? interest.gender : null
+        };
+
+        res.status(200).json(preferenceWithRelations);
     } catch (error) {
         console.error('Error al obtener las preferencias del usuario por su Id', error);
         res.status(500).json({ msg: "Error" });
     }
 }
-
 const createUserPreference = async (req, res) => {
     const userId = req.params.userId;
     const preferencesData = req.body;

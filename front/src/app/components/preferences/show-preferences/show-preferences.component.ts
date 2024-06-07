@@ -37,7 +37,7 @@ export class ShowPreferencesComponent {
           this.preferencesService.getUserPreferences(this.user.id).subscribe(
             (data) => {
               console.log(data)
-              this.relationshipType = data.relationshipType;
+              this.relationshipType = data.relationship_type;
               this.sportsInterest = data.sports;
               this.artisticInterest = data.artistic;
               this.politicalInterest = data.politicians;
