@@ -16,4 +16,12 @@ export class PreferencesService {
     const url = `${this.urlGetPreferencesById}/${userId}`;
     return this.http.get<any>(url);
   }
+
+  getRelationshipTypeOptions(): Observable<string[]> {
+    return this.http.get<string[]>('api/preferences/relationshipTypeOptions');
+  }
+
+  getInterestedInOptions(): Observable<string[]> {
+    return this.http.get<string[]>('api/preferences/interestedInOptions');
+  }
 }

@@ -15,6 +15,9 @@ import { FormsModule } from '@angular/forms';
   providers: [DialogService]
 })
 export class EditPreferencesComponent {
+  relationshipTypeOptions: string[] = [];
+  interestedInOptions: string[] = [];
+
   relationshipType: string = '';
   sportsInterest: number = 0;
   artisticInterest: number = 0;
@@ -57,5 +60,12 @@ export class EditPreferencesComponent {
         }
       })
     }
+    this.preferencesService.getInterestedInOptions().subscribe(options => {
+      this.interestedInOptions = options;
+    });
+
+    this.preferencesService.getRelationshipTypeOptions().subscribe(options => {
+      this.relationshipTypeOptions = options;
+    });
   }
 }
