@@ -1,38 +1,28 @@
-<p>edit-preferences works!</p>
-<div class="main-container">
-    <app-menu></app-menu>
-    <div class="main-content">
-      <div class="container">
-        <h2>Preferencias del usuario</h2>
-        <div class="preferences-container">
-          <div class="preference-grid">
-            <div class="preference-item">
-              <label>Tipo de relación:</label>
-              <span>{{ relationshipType }}</span>
-            </div>
-            <div class="preference-item">
-              <label>Interés en deportes (0-100):</label>
-              <span>{{ sportsInterest }}</span>
-            </div>
-            <div class="preference-item">
-              <label>Interés artístico (0-100):</label>
-              <span>{{ artisticInterest }}</span>
-            </div>
-            <div class="preference-item">
-              <label>Interés político (0-100):</label>
-              <span>{{ politicalInterest }}</span>
-            </div>
-            <div class="preference-item">
-              <label>Tiene o quiere hijos:</label>
-              <span>{{ hasOrWantsChildren ? 'Sí' : 'No' }}</span>
-            </div>
-            <div class="preference-item">
-              <label>Interesado/a en:</label>
-              <span>{{ interestedIn }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
+<div class="preferences-container">
+  <div class="preference-grid">
+    <div class="preference-item">
+      <label>Tipo de relación:</label>
+      <input type="text" [(ngModel)]="relationshipType">
+    </div>
+    <div class="preference-item">
+      <label>Interés en deportes (0-100):</label>
+      <input type="number" [(ngModel)]="sportsInterest">
+    </div>
+    <div class="preference-item">
+      <label>Interés artístico (0-100):</label>
+      <input type="number" [(ngModel)]="artisticInterest">
+    </div>
+    <div class="preference-item">
+      <label>Interés político (0-100):</label>
+      <input type="number" [(ngModel)]="politicalInterest">
+    </div>
+    <div class="preference-item">
+      <label>Tiene o quiere hijos:</label>
+      <input type="checkbox" [(ngModel)]="hasOrWantsChildren">
+    </div>
+    <div class="preference-item">
+      <label>Interesado/a en:</label>
+      <input type="text" [(ngModel)]="interestedIn">
     </div>
   </div>
-  
+</div>
