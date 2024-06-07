@@ -6,9 +6,9 @@ const { statusUser, tokenCanAdmin, tokenCanUserAuth, checkToken, tokenCanSocio }
 const router = Router();
 
 router.get('/', /*[checkToken, tokenCanAdmin],*/ controlador.index);
-router.get('/:userId', controlador.getPreferencesById);
-router.post('/', controlador.createPreference);
-router.put('/:userId', controlador.updatePreference);
-router.delete('/:userId', controlador.deletePreference);
+router.get('/:userId', controlador.getUserPreferencesById);
+router.post('/', controlador.createUserPreference);
+router.put('/:userId', controlador.updateUserPreference);
+router.delete('/:userId', controlador.deleteUserPreference);
 
 module.exports = router;

@@ -1,5 +1,5 @@
 const { response, request } = require("express");
-const Conexion = require("../../database/preferences/PreferencesConnection");
+const Conexion = require("../../database/preferences/UserPreferencesConnection");
 const models = require('../../models');
 
 const conx = new Conexion();
@@ -7,7 +7,7 @@ const conx = new Conexion();
 const index = async (req, res) => {
     const userId = req.params.userId;
     try {
-        const userPreferences = await conx.indexPreferences(userId);
+        const userPreferences = await conx.indexUserPreferences(userId);
         
         const preferencesWithRelations = await Promise.all(userPreferences.map(async (preference) => {
             const relationshipType = await models.PreferencesRelation.findByPk(preference.relationship_type);
@@ -34,39 +34,23 @@ const index = async (req, res) => {
     }
 }
 
-const getPreferencesById = async (req, res) => {
+const getUserPreferencesById = async (req, res) => {
     const userId = req.params.userId;
     try {
-        const preference = await conx.getPreferenceById(userId);
+        const preference = await conx.getUserPreferenceById(userId);
         
         if (!preference) {
             return res.status(404).json({ msg: "Preferencia no encontrada para este usuario" });
         }
 
-        const relationshipType = await models.PreferencesRelation.findByPk(preference.relationship_type);
-        const interest = await models.PreferencesInterest.findByPk(preference.interest);
-        
-        const preferenceWithRelations = {
-            id: preference.id,
-            sports: preference.sports,
-            artistic: preference.artistic,
-            politicians: preference.politicians,
-            relationshipType: relationshipType ? relationshipType.type : null,
-            hasChildren: preference.has_children,
-            wantsChildren: preference.wants_children,
-            interest: interest ? interest.gender : null,
-            createdAt: preference.createdAt,
-            updatedAt: preference.updatedAt
-        };
-
-        res.status(200).json(preferenceWithRelations);
+        res.status(200).json(preference);
     } catch (error) {
         console.error('Error al obtener las preferencias del usuario por su Id', error);
         res.status(500).json({ msg: "Error" });
     }
 }
 
-const createPreference = async (req, res) => {
+const createUserPreference = async (req, res) => {
     const userId = req.params.userId;
     const preferencesData = req.body;
     try {
@@ -81,7 +65,7 @@ const createPreference = async (req, res) => {
 
         const newPreference = await models.Preferences.create(preferencesData);
 
-        const newUserPreference = await conx.createPreference(userId, { preferenceId: newPreference.id });
+        const newUserPreference = await conx.createUserPreference(userId, { preferenceId: newPreference.id });
         
         res.status(201).json(newUserPreference);
     } catch (error) {
@@ -91,7 +75,7 @@ const createPreference = async (req, res) => {
 }
 
 
-const updatePreference = async (req, res) => {
+const updateUserPreference = async (req, res) => {
     const userId = req.params.userId;
     const preferencesData = req.body;
     try {
@@ -110,7 +94,7 @@ const updatePreference = async (req, res) => {
         console.log(`Interés existente: ${JSON.stringify(existingInterest)}`);
         console.log(userId)
 
-        await conx.updatePreference(userId, preferencesData);
+        await conx.updateUserPreference(userId, preferencesData);
 
         res.status(200).json({ msg: "Preferencia actualizada exitosamente" });
     } catch (error) {
@@ -120,11 +104,11 @@ const updatePreference = async (req, res) => {
 }
 
 
-const deletePreference = async (req, res) => {
+const deleteUserPreference = async (req, res) => {
     const userId = req.params.userId;
     
     try {
-        const deletedPreference = await conx.deletePreference(userId);
+        const deletedPreference = await conx.deleteUserPreference(userId);
         
         if (!deletedPreference) {
             return res.status(404).json({ msg: "Preferencia no encontrada para este usuario" });
@@ -137,8 +121,6 @@ const deletePreference = async (req, res) => {
     }
 };
 
-
-
 module.exports = {
-    index, getPreferencesById, createPreference, updatePreference, deletePreference
+    index, getUserPreferencesById, createUserPreference, updateUserPreference, deleteUserPreference
 };

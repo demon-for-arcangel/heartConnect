@@ -7,7 +7,7 @@ const conexion = new Conexion();
 class UserPreferencesModel {
     constructor() {}
 
-    async indexPreferences(userId) {
+    async indexUserPreferences(userId) {
         try {
             const userPreferences = await models.UserPreferences.findAll({
                 where: {
@@ -22,30 +22,34 @@ class UserPreferencesModel {
         }
     }
 
-    async getPreferenceById(userId) {
+    async getUserPreferenceById(userId) {
         try {
+            // Buscar en la tabla user_preferences usando el userId
             const userPreference = await models.UserPreferences.findOne({
                 where: {
-                    userId: userId
+                    id_user: userId
                 }
             });
-    
+
             if (!userPreference) {
                 return null;
             }
-    
+
+            // Usar el id_preferences para buscar en la tabla preferences
             const preference = await models.Preferences.findByPk(userPreference.id_preferences);
-    
-            // Devuelve la preferencia encontrada
+
+            if (!preference) {
+                return null;
+            }
+
             return preference;
         } catch (error) {
             console.error('Error al mostrar la preferencia por su ID', error);
             throw error;
         }
-    }
-    
+    }   
 
-    async createPreference(userId, preferencesData) {
+    async createUserPreference(userId, preferencesData) {
         try {
             const newUserPreference = await models.UserPreferences.create({
                 id_user: userId,
@@ -58,7 +62,7 @@ class UserPreferencesModel {
         }
     }
 
-    async updatePreference(userId, preferencesData) {
+    async updateUserPreference(userId, preferencesData) {
         try {
             const userPreference = await models.UserPreferences.findOne({
                 where: { id_user: userId }
@@ -91,7 +95,7 @@ class UserPreferencesModel {
         }
     }
 
-    async deletePreference(userId) {
+    async deleteUserPreference(userId) {
         try {
             console.log(`Buscando preferencias para el usuario con ID: ${userId}`);
     

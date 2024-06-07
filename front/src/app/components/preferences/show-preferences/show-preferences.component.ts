@@ -31,18 +31,18 @@ export class ShowPreferencesComponent {
     if (token) {
       this.authService.getUserByToken(token).subscribe(user => {
         if (user && user.id) {
-          // Asignar el usuario recuperado a this.user
           this.user = user;
+          console.log(this.user)
   
-          // Llamar al servicio para obtener las preferencias del usuario
           this.preferencesService.getUserPreferences(this.user.id).subscribe(
             (data) => {
+              console.log(data)
               this.relationshipType = data.relationshipType;
-              this.sportsInterest = data.sportsInterest;
-              this.artisticInterest = data.artisticInterest;
-              this.politicalInterest = data.politicalInterest;
+              this.sportsInterest = data.sports;
+              this.artisticInterest = data.artistic;
+              this.politicalInterest = data.politicians;
               this.hasOrWantsChildren = data.hasOrWantsChildren;
-              this.interestedIn = data.interestedIn;
+              this.interestedIn = data.interest;
             },
             (error) => {
               console.error('Error al obtener las preferencias del usuario', error);
