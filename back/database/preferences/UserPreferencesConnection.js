@@ -129,6 +129,31 @@ class UserPreferencesModel {
             throw error;
         }
     }   
+
+    /*-------- Sacar las posibles opciones de tipo de relacion y el tipo de interes ---------- */
+    async getOptionsRelation() {
+        try {
+            const relationOptions = await models.PreferencesRelation.findAll({
+                attributes: ['id', 'type']
+            });
+            return relationOptions;
+        } catch (error) {
+            console.error('Error al obtener las opciones de tipo de relación: ', error);
+            throw error;
+        }
+    }
+
+    async getOptionsInterest() {
+        try {
+            const interestOptions = await models.PreferencesInterest.findAll({
+                attributes: ['id', 'gender']
+            });
+            return interestOptions;
+        } catch (error) {
+            console.error('Error al obtener las opciones de interés: ', error);
+            throw error;
+        }
+    }
 }
 
 module.exports = UserPreferencesModel;

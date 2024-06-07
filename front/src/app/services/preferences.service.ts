@@ -18,10 +18,10 @@ export class PreferencesService {
   }
 
   getRelationshipTypeOptions(): Observable<string[]> {
-    return this.http.get<string[]>('api/preferences/relationshipTypeOptions');
+    return this.http.get<string[]>('api/preferences/relationOptions');
   }
 
   getInterestedInOptions(): Observable<string[]> {
-    return this.http.get<string[]>('api/preferences/interestedInOptions');
+    return this.http.get<string[]>('api/preferences/interestOptions');
   }
 }

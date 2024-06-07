@@ -11,4 +11,7 @@ router.post('/', controlador.createUserPreference);
 router.put('/:userId', controlador.updateUserPreference);
 router.delete('/:userId', controlador.deleteUserPreference);
 
+router.get('/options/relation', controlador.getOptionsRelation);
+router.get('/options/interest', controlador.getOptionsInterest);
+
 module.exports = router;
