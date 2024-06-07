@@ -25,6 +25,8 @@ export const environment = {
 
     // preferencias
     getPreferencesById: '/userPreferences',
+    getOptionsRelation: '/options/relation',
+    getOptionsInterest: '/options/interest',
     
     // roles
     showRols: '/rols/',

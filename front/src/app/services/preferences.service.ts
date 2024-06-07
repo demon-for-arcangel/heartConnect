@@ -11,6 +11,8 @@ export class PreferencesService {
   constructor(private http: HttpClient) { }
   private baseUrl: string = environment.baseUrl;
   private urlGetPreferencesById: string = this.baseUrl + environment.getPreferencesById;
+  private urlGetOptionsRelation: string = this.baseUrl + environment.getOptionsRelation;
+  private urlGetOptionsInterest: string = this.baseUrl + environment.getOptionsInterest;
 
   getUserPreferences(userId: string): Observable<any> {
     const url = `${this.urlGetPreferencesById}/${userId}`;
@@ -18,10 +20,10 @@ export class PreferencesService {
   }
 
   getRelationshipTypeOptions(): Observable<string[]> {
-    return this.http.get<string[]>('api/preferences/relationOptions');
+    return this.http.get<string[]>(`${this.urlGetOptionsRelation}`);
   }
 
   getInterestedInOptions(): Observable<string[]> {
-    return this.http.get<string[]>('api/preferences/interestOptions');
+    return this.http.get<string[]>(`${this.urlGetOptionsInterest}`);
   }
 }
