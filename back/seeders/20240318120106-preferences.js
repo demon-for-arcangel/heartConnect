@@ -4,9 +4,9 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert(process.env.TABLE_PREFERENCES, [
       {
-        sports: 'Football',
-        artistic: 'Painting',
-        politicians: 'Democrat',
+        sports: 12,
+        artistic: 30,
+        politicians: 70,
         relationship_type: 1, 
         has_children: false,
         wants_children: true,
@@ -15,9 +15,9 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        sports: 'Basketball',
-        artistic: 'Sculpture',
-        politicians: 'Republican',
+        sports: 40,
+        artistic: 85,
+        politicians: 60,
         relationship_type: 2,
         has_children: true,
         wants_children: false,

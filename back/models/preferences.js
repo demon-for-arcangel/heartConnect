@@ -19,9 +19,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Preferences.init({
-    sports: DataTypes.STRING,
-    artistic: DataTypes.STRING,
-    politicians: DataTypes.STRING,
+    sports: DataTypes.NUMBER,
+    artistic: DataTypes.NUMBER,
+    politicians: DataTypes.NUMBER,
     relationship_type: DataTypes.NUMBER,
     has_children: DataTypes.BOOLEAN,
     wants_children: DataTypes.BOOLEAN,
