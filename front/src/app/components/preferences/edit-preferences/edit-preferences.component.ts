@@ -55,7 +55,6 @@ export class EditPreferencesComponent {
               this.wantsChildren = data.wants_children
               this.interestedIn = data.interest;
 
-              // Cargar opciones después de obtener las preferencias del usuario
               this.loadOptions();
             },
             (error) => {
@@ -72,7 +71,6 @@ export class EditPreferencesComponent {
   loadOptions(): void {
     this.preferencesService.getInterestedInOptions().subscribe(options => {
       this.interestedInOptions = options;
-      // Si la opción actual del usuario no está en las opciones, agregarla
       if (this.interestedIn && !this.interestedInOptions.some(option => option.gender === this.interestedIn)) {
         this.interestedInOptions.unshift({ id: -1, gender: this.interestedIn });
       }
@@ -80,10 +78,40 @@ export class EditPreferencesComponent {
 
     this.preferencesService.getRelationshipTypeOptions().subscribe(options => {
       this.relationshipTypeOptions = options;
-      // Si la opción actual del usuario no está en las opciones, agregarla
       if (this.relationshipType && !this.relationshipTypeOptions.some(option => option.type === this.relationshipType)) {
         this.relationshipTypeOptions.unshift({ id: -1, type: this.relationshipType });
       }
     });
+  }
+
+  savePreferences(): void {
+    // Obtener los IDs de las opciones seleccionadas
+    const selectedRelationshipType = this.relationshipTypeOptions.find(option => option.type === this.relationshipType);
+    const selectedInterest = this.interestedInOptions.find(option => option.gender === this.interestedIn);
+
+    const preferencesData = {
+      relationship_type: selectedRelationshipType ? selectedRelationshipType.id : null,
+      sports: this.sportsInterest,
+      artistic: this.artisticInterest,
+      politicians: this.politicalInterest,
+      has_children: this.hasChildren,
+      wants_children: this.wantsChildren,
+      interest: selectedInterest ? selectedInterest.id : null
+    };
+
+    console.log('Datos a enviar:', preferencesData);
+
+    this.preferencesService.editPreferences(this.user.id, preferencesData).subscribe(
+      response => {
+        console.log('Preferencias actualizadas exitosamente', response);
+        setTimeout(() => {
+          window.location.reload();
+        }, 50);
+      },
+      error => {
+        console.error('Error al actualizar las preferencias', error);
+        alert('Error al actualizar las preferencias: ' + error.message);
+      }
+    );
   }
 }

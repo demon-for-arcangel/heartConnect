@@ -26,4 +26,14 @@ export class PreferencesService {
   getInterestedInOptions(): Observable<{ id: number, gender: string }[]> {
     return this.http.get<{ id: number, gender: string }[]>(`${this.urlGetOptionsInterest}`);
   }
+
+  editPreferences(userId: string, preferencesData: any): Observable<any> {
+    const url = `${this.urlGetPreferencesById}/${userId}`;
+    return this.http.put<any>(url, preferencesData).pipe(
+      catchError(error => {
+        console.error('Error al actualizar las preferencias', error);
+        return of(null);
+      })
+    );
+  }
 }
