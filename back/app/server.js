@@ -5,8 +5,8 @@ const { socketController } = require("../controllers/services/socketController")
 const fileUpload = require('express-fileupload');
 const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4')
-const typeDefs = require('../typeDefs/typeDefs.js');
-const resolvers = require('../resolvers/resolvers.js');
+const typeDefs = require('../typeDefs/userPeopleInterest.js');
+const resolvers = require('../resolvers/userPeopleInterest.js');
 
 class Server {
   constructor() {
@@ -54,49 +54,49 @@ class Server {
     this.listen();
   }
   
-    middlewares() {
-      this.app.use(cors({
-        origin: process.env.FRONT_URL,
-        credentials: true,
-      }));
-      this.app.use(express.json());
-  
-      this.app.use( fileUpload({
-        useTempFiles : true,
-        tempFileDir : '/tmp/',
-        createParentPath: true
+  middlewares() {
+    this.app.use(cors({
+      origin: process.env.FRONT_URL,
+      credentials: true,
     }));
-    }
+    this.app.use(express.json());
 
-    applyGraphQLMiddleware() {
-      this.app.use(this.graphQLPath , express.json(), expressMiddleware(this.serverGraphQL));
-    }
-  
-    routes() {
-      this.app.use(this.RoutePath, require("../routes/users/userRoutes"));
-      this.app.use(this.apiMail, require('../routes/services/mailRoutes'));
-      this.app.use(this.apiRols, require('../routes/rols/rolRoutes'));
-      this.app.use(this.apiEvents, require('../routes/events/eventsRoutes'));
-      this.app.use(this.apiPreferences, require('../routes/preferences/preferencesRoutes'));
-      this.app.use(this.apiUserPreferences, require('../routes/preferences/userPreferencesRoutes'))
-      this.app.use(this.apiFriendship, require("../routes/users/userFriendshipRoutes"));
-      this.app.use(this.apiChats, require("../routes/services/socketRoutes.js"));
-      this.app.use(this.apiAssets, require("../routes/assets/assetsRoutes.js"));
-    }
-  
-    listen() {      
-      this.app.listen(process.env.PORT, () => {
-        console.log(`Servidor escuchando en: ${process.env.URL}:${process.env.PORT}${this.graphQLPath}`);
-      });
-      this.applyGraphQLMiddleware()
-      this.serverWebSocket.listen(process.env.WEBSOCKETPORT, () => {
-        console.log(`Servidor de WebSockets escuchando en: ${process.env.WEBSOCKETPORT}`);
-      }); 
-    }
+    this.app.use( fileUpload({
+      useTempFiles : true,
+      tempFileDir : '/tmp/',
+      createParentPath: true
+  }));
+  }
 
-    sockets() {
-      this.io.on("connection", socketController);
-    }
+  applyGraphQLMiddleware() {
+    this.app.use(this.graphQLPath , express.json(), expressMiddleware(this.serverGraphQL));
+  }
+
+  routes() {
+    this.app.use(this.RoutePath, require("../routes/users/userRoutes"));
+    this.app.use(this.apiMail, require('../routes/services/mailRoutes'));
+    this.app.use(this.apiRols, require('../routes/rols/rolRoutes'));
+    this.app.use(this.apiEvents, require('../routes/events/eventsRoutes'));
+    this.app.use(this.apiPreferences, require('../routes/preferences/preferencesRoutes'));
+    this.app.use(this.apiUserPreferences, require('../routes/preferences/userPreferencesRoutes'))
+    this.app.use(this.apiFriendship, require("../routes/users/userFriendshipRoutes"));
+    this.app.use(this.apiChats, require("../routes/services/socketRoutes.js"));
+    this.app.use(this.apiAssets, require("../routes/assets/assetsRoutes.js"));
+  }
+
+  listen() {      
+    this.app.listen(process.env.PORT, () => {
+      console.log(`Servidor escuchando en: ${process.env.URL}:${process.env.PORT}${this.graphQLPath}`);
+    });
+    this.applyGraphQLMiddleware()
+    this.serverWebSocket.listen(process.env.WEBSOCKETPORT, () => {
+      console.log(`Servidor de WebSockets escuchando en: ${process.env.WEBSOCKETPORT}`);
+    }); 
+  }
+
+  sockets() {
+    this.io.on("connection", socketController);
+  }
 }
   
 module.exports = Server; 
