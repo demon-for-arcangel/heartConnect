@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require('uuid');
 const { getUserPeopleInterest, addUserPeopleInterest, deletePeopleInterest } = require('../database/userPeopleInterest.js')
-const { UserPeopleInterest, User, Person } = require('../models');
+const { UserPeopleInterest } = require('../models');
 
 const userPeopleInterests = {
   Query: {

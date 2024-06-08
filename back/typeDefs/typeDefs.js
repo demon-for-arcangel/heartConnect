@@ -2,7 +2,7 @@ const { gql } = require('graphql-tag');
 
 const typeDefs = gql`
   type UserPeopleInterest {
-    id: Int
+    id: ID!
     userId: Int
     personId: Int
   }
