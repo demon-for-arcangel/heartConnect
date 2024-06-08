@@ -10,7 +10,7 @@ class UserEventsModel {
 
   async getInscriptionsById(id) {
     try {
-      const event = await models.UserEvents.findAll({ where: { id_event: id } });
+      const event = await models.UserEvents.findAll({ where: { id_events: id } });
       if (!event) {
         throw new Error('Inscripciones no encontradas');
       }

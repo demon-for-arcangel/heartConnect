@@ -5,7 +5,7 @@ const { validateFilds, checkDiferenceAsign } = require('../../middlewares/valida
 const { statusUser, tokenCanAdmin, tokenCanUserAuth, checkToken, tokenCanSocio } = require('../../middlewares/abilities');
 const router = Router();
 
-router.get('/:eventId', /*[checkToken, tokenCanAdmin],*/ controlador.getInscriptionsById);
+router.get('/:id', /*[checkToken, tokenCanAdmin],*/ controlador.getInscriptionsById);
 router.post('/', controlador.createInscription);
 router.delete('/:id', controlador.deleteInscription);
 

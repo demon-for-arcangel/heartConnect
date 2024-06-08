@@ -6,9 +6,9 @@ const Conexion = require("../../database/events/userEventsConnection");
 const conx = new Conexion();
 
 const getInscriptionsById = async (req, res) => {
-  const eventId = req.params.id;
+  const id = req.params.id;
   try {
-    const inscripciones = await conx.getInscriptionsById(eventId);
+    const inscripciones = await conx.getInscriptionsById(id);
 
     if (!inscripciones) {
       return res.status(404).json({ msg: "Inscripciones no encontradas" });
