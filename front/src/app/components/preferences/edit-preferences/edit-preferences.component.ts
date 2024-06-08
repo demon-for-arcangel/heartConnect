@@ -51,8 +51,8 @@ export class EditPreferencesComponent {
               this.sportsInterest = data.sports;
               this.artisticInterest = data.artistic;
               this.politicalInterest = data.politicians;
-              this.hasChildren = data.hasChildren;
-              this.wantsChildren = data.wantsChildren
+              this.hasChildren = data.has_children;
+              this.wantsChildren = data.wants_children
               this.interestedIn = data.interest;
 
               // Cargar opciones después de obtener las preferencias del usuario
