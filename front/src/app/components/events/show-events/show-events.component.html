@@ -1,0 +1,23 @@
+<div class="main-container">
+    <app-menu></app-menu>
+    <div class="main-content">
+      <div class="container">
+        <div class="events-container">
+            @for(event of events; track event){
+                <div class="card">
+                    <div class="card-header">
+                      <h3>{{ event.name }}</h3>
+                    </div>
+                    <div class="card-body">
+                      <p>{{ event.des }}</p>
+                    </div>
+                    <div class="card-footer">
+                      <button (click)="showInformation(event.id)">Más Información</button>
+                    </div>
+                </div>
+            }
+        </div>
+      </div>
+    </div>
+</div>
+  
