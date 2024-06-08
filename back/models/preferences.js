@@ -10,17 +10,22 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Preferences.belongsTo(models.PreferencesRelation, {
+        foreignKey: 'id',
+      });
+      Preferences.belongsTo(models.PreferencesInterest, {
+        foreignKey: 'id',
+      });
     }
   }
   Preferences.init({
-    sports: DataTypes.STRING,
-    artistic: DataTypes.STRING,
-    politicians: DataTypes.STRING,
-    relationship_type: DataTypes.STRING,
+    sports: DataTypes.NUMBER,
+    artistic: DataTypes.NUMBER,
+    politicians: DataTypes.NUMBER,
+    relationship_type: DataTypes.NUMBER,
     has_children: DataTypes.BOOLEAN,
     wants_children: DataTypes.BOOLEAN,
-    interest: DataTypes.STRING
+    interest: DataTypes.NUMBER,
   }, {
     sequelize,
     modelName: 'Preferences',

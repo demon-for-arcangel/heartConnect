@@ -17,6 +17,7 @@ import { EventManagementComponent } from './components/events/event-management/e
 import { ListFriendsComponent } from './components/user/list-friends/list-friends.component';
 import { MyProfileComponent } from './components/user/my-profile/my-profile.component';
 import { SearchComponent } from './components/search/search.component';
+import { ShowPreferencesComponent } from './components/preferences/show-preferences/show-preferences.component';
 
 export const routes: Routes = [
     //cualquier usuario sin registrar
@@ -33,6 +34,7 @@ export const routes: Routes = [
     {path: 'list-friends', component: ListFriendsComponent, canActivate:[anyLoggedGuard]},
     {path: 'my-profile', component: MyProfileComponent, canActivate:[anyLoggedGuard]},
     {path: 'search', component: SearchComponent, canActivate:[anyLoggedGuard]},
+    {path: 'my-preferences', component: ShowPreferencesComponent, canActivate:[anyLoggedGuard]},
 
     //admin
     {path: 'user-management', component: UserManagementComponent, canActivate:[adminGuard]},

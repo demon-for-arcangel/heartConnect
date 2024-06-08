@@ -10,13 +10,13 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       sports: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       artistic: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       politicians: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       relationship_type: {
         type: Sequelize.STRING 
