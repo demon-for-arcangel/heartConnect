@@ -17,9 +17,7 @@ const index = async (req, res) => {
 const getRolById = async (req, res) => {
     const rolId = req.params.id;
     try {
-        const rol = await models.Rol.findOne({
-            where: { id: rolId },
-        })
+        const rol = await conx.getRolById(rolId);
 
         if (!rol) {
             return res.status(404).json({ msg: "Rol no encontrado" });
