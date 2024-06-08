@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { EventService } from '../../../services/event.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-consult-information',
@@ -15,7 +16,8 @@ export class ConsultInformationComponent {
   constructor(
     public config: DynamicDialogConfig,
     public ref: DynamicDialogRef,
-    private eventService: EventService
+    private eventService: EventService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -30,5 +32,29 @@ export class ConsultInformationComponent {
     );
   }
 
-  inscription(){}
+  inscription(): void {
+    this.authService.getUserByToken(localStorage.getItem('user')).subscribe(
+      (user) => {
+        if (user && user.id) {
+          const userId: string = user.id.toString();
+          const eventId: string = this.event.id.toString(); 
+  
+          this.eventService.createInscription(userId, eventId).subscribe(
+            (response) => {
+              console.log('Usuario inscrito exitosamente:', response);
+            },
+            (error) => {
+              console.error('Error al inscribir al usuario en el evento:', error);
+            }
+          );
+        } else {
+          console.error('No se pudo obtener el ID del usuario');
+        }
+      },
+      (error) => {
+        console.error('Error al obtener el usuario:', error);
+      }
+    );
+  }
+  
 }

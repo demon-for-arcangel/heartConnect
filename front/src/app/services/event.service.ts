@@ -18,6 +18,17 @@ export class EventService {
   private urlActivateEvents: string = this.baseUrl + environment.activateEvents;
   private urlDesactivateEvents: string = this.baseUrl + environment.desactivateEvents;
   private urlsearchEvent: string = this.baseUrl + environment.searchEvent;
+  private urlInscriptions: string = this.baseUrl + environment.inscriptions; 
+  
+  createInscription(userId: string, eventId: string): Observable<any> {
+    const body = { userId, eventId };
+    return this.http.post<any>(this.urlInscriptions, body).pipe(
+      catchError((error) => {
+        console.error('Error al crear la inscripción:', error);
+        return of(undefined);
+      })
+    );
+  }
 
   createNewEvent(event: Event): Observable<Event | undefined> {
     return this.http.post<Event>(this.urlEvents, event).pipe(

@@ -43,6 +43,7 @@ export const environment = {
     activateEvents: '/events/update/activate',
     desactivateEvents: '/events/update/desactivate',
     searchEvent: '/events/search',
+    inscriptions: '/userEvents',
 
     // assets
     getFile: '/assets',
