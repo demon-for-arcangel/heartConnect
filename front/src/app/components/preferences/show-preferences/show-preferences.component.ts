@@ -18,7 +18,8 @@ export class ShowPreferencesComponent {
   sportsInterest: number = 0;
   artisticInterest: number = 0;
   politicalInterest: number = 0;
-  hasOrWantsChildren: boolean = false;
+  hasChildren: boolean = false;
+  wantsChildren: boolean = false;
   interestedIn: string = '';
 
   user: any = {};
@@ -47,7 +48,8 @@ export class ShowPreferencesComponent {
               this.sportsInterest = data.sports;
               this.artisticInterest = data.artistic;
               this.politicalInterest = data.politicians;
-              this.hasOrWantsChildren = data.hasOrWantsChildren;
+              this.hasChildren = data.has_children;
+              this.wantsChildren = data.wants_children;
               this.interestedIn = data.interest;
             },
             (error) => {
