@@ -1,19 +1,24 @@
 const { v4: uuidv4 } = require('uuid');
-const { getPeopleInterest, addPeopleInterest, deletePeopleInterest } = require('../database/userPeopleInterest.js')
+const { getUserPeopleInterest, addUserPeopleInterest, deletePeopleInterest } = require('../database/userPeopleInterest.js')
 const { UserPeopleInterest, User, Person } = require('../models');
 
 const userPeopleInterests = {
   Query: {
-    userPeopleInterests: async (_, { userId }) => {
-      
-    }
+    userPeopleInterests: (_, {userId}) => getUserPeopleInterest(userId),
   },
   Mutation: {
-    addUserPeopleInterest: async (_, { userId, personId }) => {
-      
+    addUserPeopleInterest: (_, { id, userId, personId }) => {
+      const newPeopleInterest = {
+        id: id,
+        userId: userId,
+        personId: personId
+      }
+      const addPeopleInterest  = addUserPeopleInterest(newPeopleInterest)
+      return addPeopleInterest
     },
     deleteUserPeopleInterest: async (_, { id }) => {
-      
+      const deletePeople = deletePeopleInterest(id)
+      return deletePeople
     }
   },
 };
