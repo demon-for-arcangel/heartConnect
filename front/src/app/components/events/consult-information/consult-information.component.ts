@@ -11,7 +11,6 @@ import { GoogleMapsModule } from '@angular/google-maps';
   templateUrl: './consult-information.component.html',
   styleUrl: './consult-information.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-
 })
 export class ConsultInformationComponent {
   event: any;
