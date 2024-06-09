@@ -8,18 +8,23 @@
             <label for="des">Descripción:</label>
             <input type="text" id="des" [(ngModel)]="evento.des">
         </div>
-    </div>
-    
-    <div class="form-column">
+        
         <div class="form-field">
             <label for="date">Fecha:</label>
             <input type="text" id="date" [(ngModel)]="evento.date">
         </div>
         <div class="form-field">
-            <label for="public">Publico:</label>
-            <input type="text" id="public" [(ngModel)]="evento.public">
+            <label for="public">Público:</label>
+            <input type="checkbox" id="public" [(ngModel)]="evento.public">
         </div>
     </div>
-</div>
+    
+    <div class="map-container">
+        <google-map [center]="{ lat: latitude, lng: longitude }" [zoom]="zoom" (mapClick)="onMapClick($event)">
+            <map-marker [position]="{ lat: latitude, lng: longitude }"></map-marker>
+        </google-map>
+    </div>
 
-<button class="update-button" (click)="updateEventData()">Actualizar</button>
+    <button class="update-button" (click)="updateEventData()">Actualizar</button>
+        
+</div>
