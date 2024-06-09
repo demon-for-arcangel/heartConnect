@@ -56,13 +56,13 @@ export class EventService {
     return this.http.get<any[]>(`${this.urlInactiveEvents}`);
   }
 
-  deleteEvent(eventsIds: string[]): Observable<any> {
+  deleteEvent(eventsIds: number[]): Observable<any> {
     return this.http.delete(`${this.urlEvents}`, {
        body: { ids: eventsIds }
     });
   }
 
-  activateEvent(eventsIds: string[]): Observable<any> {
+  activateEvent(eventsIds: number[]): Observable<any> {
     return this.http.put<any>(this.urlActivateEvents, { eventsIds: eventsIds }).pipe(
       catchError((error) => {
         console.error('Error al activar el evento:', error);
@@ -71,7 +71,7 @@ export class EventService {
     );
   }
 
-  desactivateEvent(eventsIds: string[]): Observable<any> {
+  desactivateEvent(eventsIds: number[]): Observable<any> {
     return this.http.put<any>(this.urlDesactivateEvents, { eventsIds: eventsIds }).pipe(
       catchError((error) => {
         console.error('Error al desactivar el evento:', error);

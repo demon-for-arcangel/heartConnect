@@ -48,7 +48,7 @@ class EventsModel {
     try {
       const event = await models.Events.findByPk(id);
       if (!event) {
-        throw new Error('sssEvento no encontrado');
+        throw new Error('Evento no encontrado');
       }
 
       const updatedEvent = await event.update(updatedData);
