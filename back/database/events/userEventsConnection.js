@@ -21,6 +21,16 @@ class UserEventsModel {
     }
   }
 
+  async getInscriptionByUserAndEvent(userId, eventId) {
+    try {
+      const inscription = await models.UserEvents.findOne({ where: { id_user: userId, id_events: eventId } });
+      return inscription;
+    } catch (error) {
+      console.error('Error al obtener la inscripción del usuario por el evento:', error);
+      throw error;
+    }
+  }  
+
   async createInscription(userId, eventId) {
     try {
         console.log(userId, eventId)

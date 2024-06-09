@@ -23,11 +23,14 @@ const getInscriptionsById = async (req, res) => {
 
 const createInscription = async (req, res) => {
   const { userId, eventId } = req.body;  
-console.log(userId, eventId)
 
   try {
+    const existingInscription = await conx.getInscriptionByUserAndEvent(userId, eventId);
+    if (existingInscription) {
+      return res.status(400).json({ error: 'El usuario ya está inscrito en este evento' });
+    }
+
     const newInscription = await conx.createInscription(userId, eventId);
-    console.log(newInscription)
     res.status(201).json(newInscription);
   } catch (error) {
     console.error('Error al crear la inscripcion: ', error);
