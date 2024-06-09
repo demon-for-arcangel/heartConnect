@@ -15,8 +15,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
 })
 export class CreateEventComponent {
   eventForm!: FormGroup;
-  latitude: number = 37.7749; // Initial latitude (example: San Francisco)
-  longitude: number = -122.4194; // Initial longitude (example: San Francisco)
+  latitude: number = 0;
+  longitude: number = 0; 
   zoom: number = 12;
 
   constructor(private fb: FormBuilder, private eventService: EventService) {}
@@ -26,7 +26,7 @@ export class CreateEventComponent {
       name: ['', Validators.required],
       des: ['', Validators.required],
       date: ['', [Validators.required]],
-      public: [false, Validators.required], // Assuming it's a boolean
+      public: [false, Validators.required], 
       latitude: [this.latitude, Validators.required],
       longitude: [this.longitude, Validators.required],
     });

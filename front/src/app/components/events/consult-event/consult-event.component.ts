@@ -16,7 +16,7 @@ export class ConsultEventComponent {
   event: any = {};
   latitude: number = 0;
   longitude: number = 0;
-  zoom: number = 20;
+  zoom: number = 12;
 
   constructor(private eventService: EventService, public ref: DynamicDialogRef, public config: DynamicDialogConfig){}
 
