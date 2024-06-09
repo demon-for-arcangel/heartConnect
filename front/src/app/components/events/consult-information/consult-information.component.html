@@ -5,12 +5,13 @@
     <div class="modal-body">
       <p><strong>Description:</strong> {{ event?.des }}</p>
       <p><strong>Date:</strong> {{ event?.date }}</p>
-<!--       <p><strong>Location:</strong> {{ event?.location }}</p>
- -->      
       <p><strong>Status:</strong> {{ event?.public ? 'Active' : 'Inactive' }}</p>
+      <google-map
+        [center]="{ lat: latitude, lng: longitude }"
+        [zoom]="zoom">
+      </google-map>
     </div>
     <div class="modal-footer">
       <button (click)="inscription()">Inscribirse en el Evento</button>
     </div>
 </div>
-  

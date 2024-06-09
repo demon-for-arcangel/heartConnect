@@ -3,6 +3,7 @@ export interface Event {
     name?: string;
     des: string;
     date: string;
-/*     location?: string;
- */    public?: boolean;
+    latitude: number;
+    longitude: number;
+    public?: boolean;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ConfirmationService, PrimeNGConfig, MessageService, PrimeIcons } from 'primeng/api';
 import { WebsocketsService } from './services/websockets.service';
@@ -7,14 +7,16 @@ import { environment } from './environments/environment';
 import { io } from 'socket.io-client';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { EditorModule } from 'primeng/editor';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ToastModule, FooterComponent, EditorModule],
+  imports: [RouterOutlet, ToastModule, FooterComponent, EditorModule, GoogleMapsModule ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  providers: [ConfirmationService, MessageService]
+  providers: [ConfirmationService, MessageService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppComponent implements OnInit {
   title = 'HeartConnect';

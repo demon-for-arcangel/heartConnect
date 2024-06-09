@@ -1,17 +1,21 @@
-import { Component } from '@angular/core';
+import { Component  } from '@angular/core';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { EventService } from '../../../services/event.service';
 import { AuthService } from '../../../services/auth.service';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @Component({
   selector: 'app-consult-information',
   standalone: true,
-  imports: [],
+  imports: [GoogleMapsModule],
   templateUrl: './consult-information.component.html',
-  styleUrl: './consult-information.component.css'
+  styleUrl: './consult-information.component.css',
 })
 export class ConsultInformationComponent {
   event: any;
+  latitude: number = 0;
+  longitude: number = 0;
+  zoom: number = 15;
 
   constructor(
     public config: DynamicDialogConfig,
@@ -24,7 +28,11 @@ export class ConsultInformationComponent {
     const eventId = this.config.data.eventId;
     this.eventService.getEventById(eventId).subscribe(
       (data) => {
-        this.event = data;
+        if (data) {
+          this.event = data;
+          this.latitude = data.latitude !== undefined ? parseFloat(data.latitude.toString()) : 0;
+          this.longitude = data.longitude !== undefined ? parseFloat(data.longitude.toString()) : 0;
+        }
       },
       (error) => {
         console.error('Error al obtener la información del evento:', error);

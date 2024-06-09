@@ -48,3 +48,9 @@
 .custom-modal {
     max-width: 80%;
 }
+
+google-map {
+    height: 300px;
+    width: 100px;
+}
+  
