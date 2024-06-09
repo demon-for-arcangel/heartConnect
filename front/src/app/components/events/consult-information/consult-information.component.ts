@@ -1,4 +1,4 @@
-import { Component  } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { EventService } from '../../../services/event.service';
 import { AuthService } from '../../../services/auth.service';
@@ -10,12 +10,14 @@ import { GoogleMapsModule } from '@angular/google-maps';
   imports: [GoogleMapsModule],
   templateUrl: './consult-information.component.html',
   styleUrl: './consult-information.component.css',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
 })
 export class ConsultInformationComponent {
   event: any;
   latitude: number = 0;
   longitude: number = 0;
-  zoom: number = 15;
+  zoom: number = 20;
 
   constructor(
     public config: DynamicDialogConfig,
@@ -32,6 +34,8 @@ export class ConsultInformationComponent {
           this.event = data;
           this.latitude = data.latitude !== undefined ? parseFloat(data.latitude.toString()) : 0;
           this.longitude = data.longitude !== undefined ? parseFloat(data.longitude.toString()) : 0;
+          console.log(this.latitude)
+          console.log(this.longitude)
         }
       },
       (error) => {

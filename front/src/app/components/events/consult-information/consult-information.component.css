@@ -54,3 +54,13 @@ google-map {
     width: 100px;
 }
   
+/* Estilo para el marcador */
+.google-map-marker {
+    width: 40px; /* Ancho del marcador */
+    height: 40px; /* Alto del marcador */
+    background-color: red; /* Color de fondo del marcador */
+    border-radius: 50%; /* Para que el marcador sea redondo */
+    border: 2px solid white; /* Borde blanco para resaltar el marcador */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Sombra para dar profundidad */
+    cursor: pointer; /* Cambiar cursor al pasar sobre el marcador */
+}
