@@ -17,15 +17,9 @@ const index = async (req, res) => {
 const getEventsById = async (req, res) => {
     const eventId = req.params.id;
     try {
-      const event = await models.Events.findOne({
-        where: { id: eventId },
-      });
+      const events = await conx.getEventById(eventId);
    
-      if (!event) {
-        return res.status(404).json({ msg: "eeeEvento no encontrado" });
-      }
-   
-      res.status(200).json(event);
+      res.status(200).json(events);
     } catch (error) {
       console.error('Error al obtener el evento por ID', error);
       res.status(500).json({ msg: "Error" });

@@ -46,27 +46,26 @@ class AssetsModel {
     }
   }
 
-  deleteByRuta =async(assetId)=>{
-    let resultado = [];
-    console.log(assetId)
-    try{
-        conexion.conectar();
-        resultado = await models.Asset.destroy({
-          where: {
-            path: assetId
-          },
-        });
-        conexion.desconectar();
-        if (!resultado) {
-            throw new Error("Asset not found");
-          }
-    }catch(error){
-        throw error
-    }finally{
-        return resultado;
+  deleteAssetById = async (assetId) => {
+    try {
+      const asset = await this.getAssetById(assetId);
+      if (!asset) {
+        throw new Error("Asset no encontrado");
+      }
+  
+      await this.deleteAsset(assetId); 
+  
+      await models.UserAssets.destroy({
+        where: {
+          id_asset: assetId,
+        },
+      }); 
+  
+      return true; 
+    } catch (error) {
+      throw error;
     }
-
-  }
+  };
 
   getAssetsByArrIds = async (arrId) => {
     let resultado = [];
@@ -93,9 +92,47 @@ class AssetsModel {
       return rtnAssets;
     }
   };
+
+  deleteAssetById = async (assetId) => {
+    try {
+      const asset = await this.getAssetById(assetId);
+      if (!asset) {
+        throw new Error("Asset no encontrado");
+      }
   
+      await models.UserAssets.destroy({
+        where: {
+          id_asset: assetId
+        }
+      });
+  
+      const deletedRows = await models.Asset.destroy({
+        where: {
+          id: assetId
+        }
+      });
+  
+      if (deletedRows === 0) {
+        throw new Error("no se puede eliminar el asset");
+      }
+  
+      return true;
+    } catch (error) {
+      throw error;
+    }
+  };
 
   //-------------------------User_Assets---------------------------
+  async associateAssetWithUser(assetId, userId) {
+    try {
+        await models.UserAssets.create({
+            id_user: userId,
+            id_asset: assetId
+        });
+    } catch (error) {
+        throw error;
+    }
+  }
 
   getAssetsOfUser = async (userId) => {
     let resultado = [];

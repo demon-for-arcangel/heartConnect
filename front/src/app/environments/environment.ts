@@ -22,6 +22,11 @@ export const environment = {
     updateUser: '/user',
     showFriendship: '/friendship',
     searchUser: '/users/search',
+
+    // preferencias
+    getPreferencesById: '/userPreferences',
+    getOptionsRelation: '/options/relation',
+    getOptionsInterest: '/options/interest',
     
     // roles
     showRols: '/rols/',
@@ -38,9 +43,12 @@ export const environment = {
     activateEvents: '/events/update/activate',
     desactivateEvents: '/events/update/desactivate',
     searchEvent: '/events/search',
+    inscriptions: '/userEvents',
 
     // assets
     getFile: '/assets',
+    uploadAssets: '/assets/upload',
+    getAssetsOfUser: '/assets/user',
 
     rol_admin : 1,
     admin_gestion_image:'../../assets/cards-dashboard/gestion.png',

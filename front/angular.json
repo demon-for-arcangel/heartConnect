@@ -22,7 +22,6 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/assets/logo.png",
-
               "src/assets",
               "src/assets/uploads"
 
@@ -94,7 +93,9 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/zone.js/dist/zone.js"
+            ]
           }
         }
       }

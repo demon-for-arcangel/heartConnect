@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert(process.env.TABLE_USER_EVENTS, [
       {
         id_user: 2,
@@ -18,7 +18,7 @@ module.exports = {
     ], {});
   },
 
-  down: async (queryInterface, Sequelize) => {
+  async down (queryInterface, Sequelize) {
     await queryInterface.bulkDelete(process.env.TABLE_USER_EVENTS, null, {});
   }
 };
