@@ -1,0 +1,66 @@
+.modal-container {
+    padding: 20px;
+    background-color: rgb(11, 11, 11);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    background-color: #151515;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.modal-header h2 {
+    margin: 0;
+}
+
+.modal-body {
+    padding: 15px;
+}
+
+.modal-body p {
+    margin: 10px 0;
+}
+
+.modal-footer {
+    padding: 10px;
+    text-align: right;
+}
+
+.modal-footer button {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+
+    background-image: linear-gradient(0deg, rgba(185, 255, 155, 0) 0%,rgba(255,255,255, 0.15) 100%),linear-gradient(90deg, rgb(0,0,0),rgb(255,0,0));
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat; 
+    color: #ffffff;
+}
+
+.custom-modal {
+    max-width: 80%;
+}
+
+google-map {
+    height: 300px;
+    width: 100px;
+}
+  
+/* Estilo para el marcador */
+.google-map-marker {
+    width: 40px; /* Ancho del marcador */
+    height: 40px; /* Alto del marcador */
+    background-color: red; /* Color de fondo del marcador */
+    border-radius: 50%; /* Para que el marcador sea redondo */
+    border: 2px solid white; /* Borde blanco para resaltar el marcador */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Sombra para dar profundidad */
+    cursor: pointer; /* Cambiar cursor al pasar sobre el marcador */
+}

@@ -18,6 +18,12 @@ module.exports = {
       date: {
         type: Sequelize.DATE
       },
+      latitude: {
+        type: Sequelize.FLOAT
+      },
+      longitude: {
+        type: Sequelize.FLOAT
+      },
       public: {
         type: Sequelize.INTEGER
       },
