@@ -1,6 +1,6 @@
 .event-form {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
     max-width: 600px;
@@ -10,43 +10,52 @@
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     gap: 20px;
-}
-
-.form-column {
+  }
+  
+  .form-columns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
+  }
+  
+  .form-column {
     display: flex;
     flex-direction: column;
-    width: 48%; 
-}
-
-.form-field {
+    width: 48%;
+  }
+  
+  .form-field {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
     width: 100%;
-    color:black;
-}
-
-.form-field.is-active-field {
+    color: black;
+  }
+  
+  .form-field.is-active-field {
     display: flex;
-    flex-direction: row; 
-    align-items: center; 
-    gap: 10px; 
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
     width: auto;
-}
-
-.form-field label {
+  }
+  
+  .form-field label {
     margin-bottom: 10px;
     font-weight: bold;
-}
-
-.form-field input, select {
+  }
+  
+  .form-field input, 
+  .form-field select {
     padding: 10px;
     border: 1px solid #ced4da;
     border-radius: 4px;
     font-size: 16px;
-}
-
-.submit-button {
+  }
+  
+  .submit-button {
     padding: 10px 20px;
     background-color: #007bff;
     color: white;
@@ -56,8 +65,16 @@
     font-size: 16px;
     margin-top: 20px;
     align-self: flex-end;
-}
-
-.submit-button:hover {
+  }
+  
+  .submit-button:hover {
     background-color: #0056b3;
-}
+  }
+  
+  google-map {
+    display: block;
+    height: 400px;
+    width: 100%;
+    margin-top: 20px;
+  }
+  

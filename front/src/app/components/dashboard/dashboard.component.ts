@@ -36,13 +36,6 @@ export class DashboardComponent implements OnInit {
     },
     {
       id_rol: environment.rol_admin,
-      image: environment.redactor_card_image,
-      title: 'Panel del redactor',
-      content: 'Para la gestión de la información',
-      link: '/edit-menu',
-    },
-    {
-      id_rol: environment.rol_admin,
       image: environment.admin_card_image,
       title: 'Gestión de Eventos',
       content: 'Gestión de los eventos para la aplicación.',
