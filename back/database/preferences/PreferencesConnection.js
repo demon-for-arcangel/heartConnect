@@ -34,6 +34,22 @@ class PreferencesModel {
     async createPreference(preferencesData) {
         try {
             const newPreference = await models.Preferences.create(preferencesData);
+
+            const sum_preferences = preferencesData.sports + preferencesData.artistic + preferencesData.politicians;
+
+            const updateCount = await models.Preferences.update({
+                sum_preferences: sum_preferences
+            }, {
+                where: {
+                    id: id 
+                }
+            });
+            
+            if (updateCount > 0) {
+                console.log(`Se actualizó sum_preferences correctamente para el usuario con ID ${userId}`);
+            } else {
+                console.log(`No se encontró ninguna fila para actualizar sum_preferences para el usuario con ID ${userId}`);
+            }
             return newPreference;
         } catch (error) {
             console.error('Error al crear las preferencias: ', error);
