@@ -127,6 +127,29 @@ const deletePreference = async (req, res) => {
     }
 }
 
+
+
+const getOptionsRelation = async (req, res) => {
+    try {
+        const relationOptions = await conx.getOptionsRelation();
+        res.status(200).json(relationOptions);
+    } catch (error) {
+        console.error('Error al obtener las opciones de tipo de relación', error);
+        res.status(500).json({ msg: "Error al obtener las opciones de tipo de relación" });
+    }
+}
+
+const getOptionsInterest = async (req, res) => {
+    try {
+        const interestOptions = await conx.getOptionsInterest();
+        res.status(200).json(interestOptions);
+    } catch (error) {
+        console.error('Error al obtener las opciones de interés', error);
+        res.status(500).json({ msg: "Error al obtener las opciones de interés" });
+    }
+}
+
 module.exports = {
-    index, getPreferencesById, createPreference, updatePreference, deletePreference
+    index, getPreferencesById, createPreference, updatePreference, deletePreference,
+    getOptionsInterest, getOptionsRelation
 };
