@@ -54,7 +54,7 @@ export class ConsultEventComponent {
         this.inscriptions = data;
         if (Array.isArray(data)) {
           data.forEach((inscription) => {
-            this.getUsersInfo(inscription.id_user); // Llamar getUsersInfo con el id_user de cada inscripción
+            this.getUsersInfo(inscription.id_user); 
           });
         }
       },
