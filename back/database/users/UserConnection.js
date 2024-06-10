@@ -5,7 +5,7 @@ const Conexion = require("../connection.js");
 
 const conexion = new Conexion();
 
-class UserModel {
+class RecommendUserModel {
   constructor() {}
     
   async indexUsers() {
@@ -214,4 +214,4 @@ class UserModel {
   }
 }
 
-module.exports = UserModel;
+module.exports = RecommendUserModel;

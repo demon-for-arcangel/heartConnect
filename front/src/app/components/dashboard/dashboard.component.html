@@ -15,20 +15,24 @@
         <app-menu></app-menu>
         <div class="main-content">
             <div class="container">
-                <div class="view-people">
-                    <div class="info-user">
-                        <div class="card-user">
-                            <p>perfil de usuarios</p>
+                @if(hasPreferences == false){
+                    <app-create-preferences></app-create-preferences>
+                }@else{
+                    <div class="view-people">
+                        <div class="info-user">
+                            <div class="card-user">
+                                <p>perfil de usuarios</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="search-suggestions">
-                    <div class="search">
-                        <app-search></app-search>
+                    <div class="search-suggestions">
+                        <div class="search">
+                            <app-search></app-search>
+                        </div>
+                        <div class="suggestions">
+                        </div>
                     </div>
-                    <div class="suggestions">
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </div>
