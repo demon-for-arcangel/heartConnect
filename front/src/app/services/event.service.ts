@@ -20,6 +20,11 @@ export class EventService {
   private urlsearchEvent: string = this.baseUrl + environment.searchEvent;
   private urlInscriptions: string = this.baseUrl + environment.inscriptions; 
   
+  getInscription(inscriptionId: string): Observable<any[]>{
+    const inscriptionUrl = `${this.urlInscriptions}/${inscriptionId}`;
+    return this.http.get<any[]>(inscriptionUrl);
+  }
+
   createInscription(userId: string, eventId: string): Observable<any> {
     const body = { userId, eventId };
     return this.http.post<any>(this.urlInscriptions, body).pipe(
