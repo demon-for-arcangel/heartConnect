@@ -56,7 +56,7 @@ class UserPreferencesModel {
     
             const sum_preferences = preferencesData.sports + preferencesData.artistic + preferencesData.politicians;
     
-            const [updateCount, updateRows] = await models.Preferences.update({
+            const updateCount = await models.Preferences.update({
                 sum_preferences: sum_preferences
             }, {
                 where: {
