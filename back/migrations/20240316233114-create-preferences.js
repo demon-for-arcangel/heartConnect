@@ -31,6 +31,9 @@ module.exports = {
       interest: {
         type: Sequelize.STRING 
       },
+      sum_preferences: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

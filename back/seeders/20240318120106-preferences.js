@@ -11,6 +11,7 @@ module.exports = {
         has_children: false,
         wants_children: true,
         interest: 1, 
+        sum_preferences: 112,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -22,6 +23,7 @@ module.exports = {
         has_children: true,
         wants_children: false,
         interest: 3, 
+        sum_preferences: 185,
         createdAt: new Date(),
         updatedAt: new Date()
       },

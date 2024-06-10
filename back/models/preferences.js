@@ -32,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     has_children: DataTypes.BOOLEAN,
     wants_children: DataTypes.BOOLEAN,
     interest: DataTypes.NUMBER,
+    sum_preferences: DataTypes.NUMBER
   }, {
     sequelize,
     modelName: 'Preferences',

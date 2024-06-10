@@ -25,6 +25,8 @@ class RecommendUserModel {
       const preferences = user.preferences[0];
       const { sports, artistic, politicians, relationship_type, has_children, wants_children, interest } = preferences;
 
+      const averagePreference = (sports + artistic + politicians) / 3;
+
       const recommendedUsers = await models.User.findAll({
         where: {
           id: { [Op.ne]: userId }
@@ -33,13 +35,16 @@ class RecommendUserModel {
           model: models.Preferences,
           as: 'preferences',
           where: {
-            sports: { [Op.gte]: Sequelize.literal(`${sports} / 2`) },
-            artistic: { [Op.gte]: Sequelize.literal(`${artistic} / 2`) },
-            politicians: { [Op.gte]: Sequelize.literal(`${politicians} / 2`) },
-            relationship_type: relationship_type,
-            has_children: has_children,
-            wants_children: wants_children,
-            interest: interest
+            [Op.and]: [
+              Sequelize.where(
+                Sequelize.fn('ABS', Sequelize.literal(`(sports + artistic + politicians) / 3 - ${averagePreference}`)),
+                { [Op.lte]: 10 } 
+              ),
+              { relationship_type: relationship_type },
+              { has_children: has_children },
+              { wants_children: wants_children },
+              { interest: interest }
+            ]
           }
         }
       });
