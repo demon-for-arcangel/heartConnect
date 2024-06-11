@@ -21,7 +21,29 @@
                     <div class="view-people">
                         <div class="info-user">
                             <div class="card-user">
-                                <p>perfil de usuarios</p>
+                                @if(errorMessage){
+                                    <div class="error-message">
+                                        {{ errorMessage }}
+                                    </div>
+                                }@else{
+                                    @if(recommendedUsers.length > 0){
+                                        <div>
+                                            <div>
+                                                <img [src]="recommendedUsers[currentUserIndex].photo_profile" width="150px">
+                                                <p>{{ recommendedUsers[currentUserIndex].firstName }} {{ recommendedUsers[currentUserIndex].lastName }}</p>
+                                                <p>{{ recommendedUsers[currentUserIndex].email }}</p>
+                                            </div>
+                                            <button (click)="prevUser()" [disabled]="currentUserIndex === 0">Anterior</button>
+                                            <button (click)="nextUser()" [disabled]="currentUserIndex === recommendedUsers.length - 1">Siguiente</button>
+                                        </div>
+                                        
+                                    }
+                                    @if(recommendedUsers.length === 0){
+                                        <div>
+                                            <p>No hay usuarios recomendados disponibles.</p>
+                                        </div>
+                                    }
+                                }
                             </div>
                         </div>
                     </div>

@@ -10,6 +10,7 @@ import { SearchComponent } from '../shared/search/search.component';
 import { CreatePreferencesComponent } from '../preferences/create-preferences/create-preferences.component';
 import { PreferencesService } from '../../services/preferences.service';
 import { DialogService } from 'primeng/dynamicdialog';
+import { RecommendedUsersService } from '../../services/recommended-users.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,8 +24,13 @@ export class DashboardComponent implements OnInit {
   isAdmin: boolean = false;
   hasPreferences: boolean = false;
   userId: number | null = null;
+  recommendedUsers: any[] = [];
+  currentUserIndex: number = 0;
+  errorMessage: string | null = null;
 
-  constructor(private authService: AuthService, private preferencesService: PreferencesService) {}
+  constructor(private authService: AuthService, private preferencesService: PreferencesService,
+    private recommendedUsersService: RecommendedUsersService
+  ) {}
   
   ngOnInit() {
     this.authService.isAdmin().subscribe(isAdmin => {
@@ -40,6 +46,19 @@ export class DashboardComponent implements OnInit {
           this.preferencesService.getUserPreferences(this.userId).subscribe(
             (preferences) => {
               this.hasPreferences = !!preferences;
+
+              if (this.userId) {
+                this.recommendedUsersService.recommendUsers(this.userId.toString()).subscribe(
+                  (users) => {
+                    this.recommendedUsers = users;
+                    this.currentUserIndex = 0; // Reset the index when new users are loaded
+                  },
+                  (error) => {
+                    console.error('Error al obtener los usuarios recomendados', error);
+                    this.errorMessage = 'Error al obtener los usuarios recomendados: ' + (error.message || error.statusText);
+                  }
+                );
+              }
             },
             (error) => {
               if (error.status === 404) {
@@ -54,6 +73,19 @@ export class DashboardComponent implements OnInit {
       });
     }
   }
+
+  nextUser() {
+    if (this.currentUserIndex < this.recommendedUsers.length - 1) {
+      this.currentUserIndex++;
+    }
+  }
+
+  prevUser() {
+    if (this.currentUserIndex > 0) {
+      this.currentUserIndex--;
+    }
+  }
+
 
   cards: any[] = [
     {

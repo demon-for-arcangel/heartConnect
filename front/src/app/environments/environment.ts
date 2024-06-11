@@ -53,7 +53,7 @@ export const environment = {
     getAssetsOfUser: '/assets/user',
 
     //recommend
-    recommend: 'recommendations',
+    recommend: '/recommendations',
 
     rol_admin : 1,
     admin_gestion_image:'../../assets/cards-dashboard/gestion.png',
