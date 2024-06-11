@@ -32,6 +32,7 @@ export class GraphqlService {
     const query = `
       query GetUserPeopleInterests($userId: Int!) {
         userPeopleInterests(userId: $userId) {
+          id
           userId
           personId
         }
@@ -51,6 +52,18 @@ export class GraphqlService {
       }
     `;
     const variables = { userId, personId };
+    return this.executeMutation(mutation, variables);
+  }
+
+  deleteUserPeopleInterest(id: string): Observable<any> {
+    const mutation = `
+      mutation DeleteUserPeopleInterest($id: Int!) {
+        deleteUserPeopleInterest(id: $id){
+          success
+        }
+      }
+    `;
+    const variables = { id };
     return this.executeMutation(mutation, variables);
   }
 }
