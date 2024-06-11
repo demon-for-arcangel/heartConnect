@@ -28,10 +28,10 @@ class RecommendUserModel {
       
       let recommendedUsers = await models.User.findAll({
         where: {
-          id: { [Op.ne]: userId }, // Excluye al usuario actual
+          id: { [Op.ne]: userId },
           '$preferences.avg_preferences$': {
-            [Op.gte]: avg1, // Mayor o igual a avg1
-            [Op.lte]: avg2   // Menor o igual a avg2
+            [Op.gte]: avg1, 
+            [Op.lte]: avg2   
           },
           '$preferences.relationship_type$': relationship_type, 
           '$preferences.has_children$': has_children, 
