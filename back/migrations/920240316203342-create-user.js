@@ -51,6 +51,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull:true
       },
+      gender: {
+        type: Sequelize.ENUM('Mujer', 'Hombre'),
+        allowNull: false 
+      },
       active: {
         type: Sequelize.BOOLEAN,
         allowNull:false,

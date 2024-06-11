@@ -55,9 +55,10 @@ class UserPreferencesModel {
             });
     
             const sum_preferences = preferencesData.sports + preferencesData.artistic + preferencesData.politicians;
+            const avg_preferences = sum_preferences / 3;
     
             const updateCount = await models.Preferences.update({
-                sum_preferences: sum_preferences
+                avg_preferences: avg_preferences
             }, {
                 where: {
                     id: id 
@@ -65,9 +66,9 @@ class UserPreferencesModel {
             });
             
             if (updateCount > 0) {
-                console.log(`Se actualizó sum_preferences correctamente para el usuario con ID ${userId}`);
+                console.log(`Se actualizó avg_preferneces correctamente para el usuario con ID ${userId}`);
             } else {
-                console.log(`No se encontró ninguna fila para actualizar sum_preferences para el usuario con ID ${userId}`);
+                console.log(`No se encontró ninguna fila para actualizar avg_preferneces para el usuario con ID ${userId}`);
             }
     
             return newUserPreference;

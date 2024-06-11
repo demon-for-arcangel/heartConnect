@@ -19,6 +19,7 @@ module.exports = {
       born_date: new Date('2000-01-01'),
       domicile: '403691.30310115 4282638.6555873',
       phone_number: '666 66 66 66',
+      gender: 'Hombre',
       active: true,
       createdAt: new Date(),
       updatedAt: new Date()
@@ -35,6 +36,7 @@ module.exports = {
       domicile: '403691.30310115 4282638.6555873',
       phone_number: '666 66 66 66',
       active: true,
+      gender: 'Mujer',
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -50,6 +52,7 @@ module.exports = {
       domicile: '403691.30310115 4282638.6555873',
       phone_number: '666 66 66 66',
       active: true,
+      gender: 'Mujer',
       createdAt: new Date(),
       updatedAt: new Date()
     },

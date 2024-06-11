@@ -71,6 +71,7 @@ module.exports = (sequelize, DataTypes) => {
     born_date: DataTypes.DATE,
     domicile: DataTypes.STRING,
     phone_number: DataTypes.INTEGER,
+    gender: DataTypes.ENUM('Mujer', 'Hombre'),
     active: DataTypes.BOOLEAN,
   }, {
     sequelize,

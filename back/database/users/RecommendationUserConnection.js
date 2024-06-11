@@ -1,4 +1,3 @@
-require("dotenv").config();
 const { Sequelize, Op } = require("sequelize");
 const models = require("../../models");
 
@@ -7,47 +6,51 @@ class RecommendUserModel {
 
   async recommendUsers(userId) {
     try {
+      console.log(`Buscando usuario con ID: ${userId}`);
       const user = await models.User.findByPk(userId, {
-        include: {
+        include: [{
           model: models.Preferences,
           as: 'preferences'
-        }
+        }]
       });
 
-      if (!user) {
-        throw new Error('Usuario no encontrado');
+      if (!user ||!user.preferences || user.preferences.length === 0) {
+        console.error('Usuario no encontrado o preferencias del usuario no encontradas'); // Registro de error
+        throw new Error('Usuario no encontrado o preferencias del usuario no encontradas');
       }
 
-      if (!user.preferences || user.preferences.length === 0) {
-        throw new Error('Preferencias del usuario no encontradas');
-      }
+      const { avg_preferences, relationship_type, has_children, wants_children, interest } = user.preferences[0];
 
-      const preferences = user.preferences[0];
-      const { sports, artistic, politicians, relationship_type, has_children, wants_children, interest } = preferences;
+      const avg1 = Math.round(avg_preferences - 5);
+      const avg2 = Math.round(avg_preferences + 5);    
 
-      const averagePreference = (sports + artistic + politicians) / 3;
-
-      const recommendedUsers = await models.User.findAll({
+      console.log(`Promedio: ${avg_preferences}, Rango Inferior: ${avg1}, Rango Superior: ${avg2}`);
+      
+      let recommendedUsers = await models.User.findAll({
         where: {
-          id: { [Op.ne]: userId }
+          id: { [Op.ne]: userId }, // Excluye al usuario actual
+          '$preferences.avg_preferences$': {
+            [Op.gte]: avg1, // Mayor o igual a avg1
+            [Op.lte]: avg2   // Menor o igual a avg2
+          },
+          '$preferences.relationship_type$': relationship_type, 
+          '$preferences.has_children$': has_children, 
+          '$preferences.wants_children$': wants_children, 
         },
-        include: {
+        include: [{
           model: models.Preferences,
           as: 'preferences',
-          where: {
-            [Op.and]: [
-              Sequelize.where(
-                Sequelize.fn('ABS', Sequelize.literal(`(sports + artistic + politicians) / 3 - ${averagePreference}`)),
-                { [Op.lte]: 10 } 
-              ),
-              { relationship_type: relationship_type },
-              { has_children: has_children },
-              { wants_children: wants_children },
-              { interest: interest }
-            ]
-          }
-        }
+        }],
       });
+
+      // revisar porque no funciona correctamente
+      if (interest === 'Mujeres') {
+        recommendedUsers = recommendedUsers.filter(user => user.gender === 'Mujer');
+      } else if (interest === 'Hombres') {
+        recommendedUsers = recommendedUsers.filter(user => user.gender === 'Hombre');
+      }
+
+      console.log('Usuarios recomendados', recommendedUsers);
 
       return recommendedUsers;
     } catch (error) {

@@ -31,7 +31,7 @@ module.exports = {
       interest: {
         type: Sequelize.STRING 
       },
-      sum_preferences: {
+      avg_preferences: {
         type: Sequelize.INTEGER
       },
       createdAt: {
