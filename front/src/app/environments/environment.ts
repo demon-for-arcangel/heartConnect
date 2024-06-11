@@ -52,6 +52,9 @@ export const environment = {
     uploadAssets: '/assets/upload',
     getAssetsOfUser: '/assets/user',
 
+    //recommend
+    recommend: 'recommendations',
+
     rol_admin : 1,
     admin_gestion_image:'../../assets/cards-dashboard/gestion.png',
     entrenador_faltas_image:'../../assets/cards-dashboard/listado.png',
