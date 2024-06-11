@@ -5,6 +5,7 @@ export const environment = {
     --------------------------
     */
     baseUrl: 'http://localhost:9292/api',
+    graphqlApiUrl: 'http://localhost:9292/graphql',
     
     // usuarios
     login: '/login',

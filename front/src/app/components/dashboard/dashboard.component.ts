@@ -12,6 +12,7 @@ import { PreferencesService } from '../../services/preferences.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { RecommendedUsersService } from '../../services/recommended-users.service';
 import { FileService } from '../../services/file.service';
+import { GraphqlService } from '../../services/graphql.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,7 +33,8 @@ export class DashboardComponent implements OnInit {
   user: any = null;
 
   constructor(private authService: AuthService, private preferencesService: PreferencesService,
-    private recommendedUsersService: RecommendedUsersService, private fileService: FileService
+    private recommendedUsersService: RecommendedUsersService, private fileService: FileService,
+    private graphQLService: GraphqlService
   ) {}
   
   ngOnInit() {
@@ -110,8 +112,18 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  likeUser(){
-    
+  likeUser() {
+    if (this.userId && this.recommendedUsers[this.currentUserIndex]) {
+      const personId = this.recommendedUsers[this.currentUserIndex].id;
+      this.graphQLService.addUserPeopleInterest(this.userId, personId).subscribe({
+        next: (response) => {
+          console.log('User liked successfully:', response);
+        },
+        error: (error) => {
+          console.error('Error liking user:', error);
+        }
+      });
+    }
   }
 
   cards: any[] = [
