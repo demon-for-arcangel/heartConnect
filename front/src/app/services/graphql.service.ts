@@ -12,12 +12,33 @@ export class GraphqlService {
 
   constructor(private http: HttpClient) { }
 
+  executeQuery(query: string, variables: any): Observable<any> {
+    const body = {
+      query: query,
+      variables: variables
+    };
+    return this.http.post<any>(this.graphUrl, body);
+  }
+
   executeMutation(mutation: string, variables: any): Observable<any> {
     const body = {
       query: mutation,
       variables: variables
     };
     return this.http.post<any>(this.graphUrl, body);
+  }
+
+  getUserPeopleInterests(userId: number): Observable<any> {
+    const query = `
+      query GetUserPeopleInterests($userId: Int!) {
+        userPeopleInterests(userId: $userId) {
+          userId
+          personId
+        }
+      }
+    `;
+    const variables = { userId };
+    return this.executeQuery(query, variables);
   }
 
   addUserPeopleInterest(userId: number, personId: number): Observable<any> {
