@@ -110,6 +110,9 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  likeUser(){
+    
+  }
 
   cards: any[] = [
     {

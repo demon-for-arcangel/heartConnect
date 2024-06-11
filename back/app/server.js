@@ -5,8 +5,8 @@ const { socketController } = require("../controllers/services/socketController")
 const fileUpload = require('express-fileupload');
 const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4')
-const typeDefs = require('../typeDefs/userPeopleInterest.js');
-const resolvers = require('../resolvers/userPeopleInterest.js');
+const typeDefs = require('../typeDefs/typeDefs.js');
+const resolvers = require('../resolvers/resolvers.js');
 
 class Server {
   constructor() {

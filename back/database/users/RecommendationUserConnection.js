@@ -25,6 +25,7 @@ class RecommendUserModel {
       const avg2 = Math.round(avg_preferences + 5);    
 
       console.log(`Promedio: ${avg_preferences}, Rango Inferior: ${avg1}, Rango Superior: ${avg2}`);
+      console.log(`Tipo de relacion: ${relationship_type}, tiene hijos: ${has_children}, quiere hijos: ${wants_children}, interes en: ${interest}`)
       
       let recommendedUsers = await models.User.findAll({
         where: {
@@ -43,11 +44,10 @@ class RecommendUserModel {
         }],
       });
 
-      // revisar porque no funciona correctamente
-      if (interest === 'Mujeres') {
-        recommendedUsers = recommendedUsers.filter(user => user.gender === 'Mujer');
-      } else if (interest === 'Hombres') {
-        recommendedUsers = recommendedUsers.filter(user => user.gender === 'Hombre');
+      if (interest === 1) {
+        recommendedUsers = recommendedUsers.filter(user => user.gender.toLowerCase() === 'mujer');
+      } else if (interest === 2) {
+        recommendedUsers = recommendedUsers.filter(user => user.gender.toLowerCase() === 'hombre');
       }
 
       console.log('Usuarios recomendados', recommendedUsers);

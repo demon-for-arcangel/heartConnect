@@ -8,12 +8,12 @@ const typeDefs = gql`
   }
 
   type Query {
-    userPeopleInterests: [UserPeopleInterest]
+    userPeopleInterests(userId: Int): [UserPeopleInterest]
   }
 
   type Mutation {
-    addUserPeopleInterest(userId: Int!, personId: Int!): UserPeopleInterest
-    deleteUserPeopleInterest(id: Int!): Boolean
+    addUserPeopleInterest(userId: Int!, personId: Int): UserPeopleInterest!
+    deleteUserPeopleInterest(id: String): Boolean!
   }
 `;
 
