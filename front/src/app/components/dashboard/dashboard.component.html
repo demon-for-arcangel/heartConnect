@@ -15,20 +15,47 @@
         <app-menu></app-menu>
         <div class="main-content">
             <div class="container">
-                <div class="view-people">
-                    <div class="info-user">
-                        <div class="card-user">
-                            <p>perfil de usuarios</p>
+                @if(hasPreferences == false){
+                    <app-create-preferences></app-create-preferences>
+                }@else{
+                    <div class="view-people">
+                        <div class="info-user">
+                            <div class="card-user">
+                                @if(errorMessage){
+                                    <div class="error-message">
+                                        {{ errorMessage }}
+                                    </div>
+                                }@else{
+                                    @if(recommendedUsers.length > 0){
+                                        <div>
+                                            <div>
+                                                <img [src]="userProfileImageUrl" width="150px">
+                                                <p>{{ recommendedUsers[currentUserIndex].firstName }} {{ recommendedUsers[currentUserIndex].lastName }}</p>
+                                                <p>{{ recommendedUsers[currentUserIndex].email }}</p>
+                                            </div>
+                                            <button (click)="prevUser()" [disabled]="currentUserIndex === 0">Anterior</button>
+                                            <button (click)="nextUser()" [disabled]="currentUserIndex === recommendedUsers.length - 1">Siguiente</button>
+                                            <button (click)="likeUser()">Me gusta</button>
+                                        </div>
+                                        
+                                    }
+                                    @if(recommendedUsers.length === 0){
+                                        <div>
+                                            <p>No hay usuarios recomendados disponibles.</p>
+                                        </div>
+                                    }
+                                }
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="search-suggestions">
-                    <div class="search">
-                        <app-search></app-search>
+                    <div class="search-suggestions">
+                        <div class="search">
+                            <app-search></app-search>
+                        </div>
+                        <div class="suggestions">
+                        </div>
                     </div>
-                    <div class="suggestions">
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </div>

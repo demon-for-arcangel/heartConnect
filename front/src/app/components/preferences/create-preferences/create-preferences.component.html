@@ -1,0 +1,45 @@
+<div class="preferences-container">
+    <p>Rellene el formulario para poder hacer uso de la aplicacion</p>
+    <div class="preference-grid">
+      <div class="preference-item">
+        <label>Tipo de relación:</label>
+        <select [(ngModel)]="relationshipType">
+          @for(option of relationshipTypeOptions; track option){
+            <option [value]="option.type">
+              {{ option.type }}
+            </option>
+          }
+        </select>
+      </div>
+      <div class="preference-item">
+        <label>Interés en deportes (0-100):</label>
+        <input type="number" [(ngModel)]="sportsInterest">
+      </div>
+      <div class="preference-item">
+        <label>Interés artístico (0-100):</label>
+        <input type="number" [(ngModel)]="artisticInterest">
+      </div>
+      <div class="preference-item">
+        <label>Interés político (0-100):</label>
+        <input type="number" [(ngModel)]="politicalInterest">
+      </div>
+      <div class="preference-item">
+        <label>Tienes hijos:</label>
+        <input type="checkbox" [(ngModel)]="hasChildren">
+        <label>Quieres hijos:</label>
+        <input type="checkbox" [(ngModel)]="wantsChildren">
+      </div>
+      <div class="preference-item">
+        <label>Interesado/a en:</label>
+        <select [(ngModel)]="interestedIn">
+          @for(option of interestedInOptions; track option){
+            <option [value]="option.gender">
+              {{ option.gender }}
+            </option>
+          }
+        </select>
+      </div>
+    </div>
+    </div>
+  <button class="save-preferences-btn" (click)="savePreferences()">Guardar</button>
+  

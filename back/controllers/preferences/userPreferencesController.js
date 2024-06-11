@@ -71,9 +71,15 @@ const createUserPreference = async (req, res) => {
             return res.status(400).json({ msg: "Los IDs de relationship_type o interest proporcionados no son válidos" });
         }
 
+        console.log(preferencesData);
+
         const newPreference = await models.Preferences.create(preferencesData);
 
-        const newUserPreference = await conx.createUserPreference(userId, { preferenceId: newPreference.id });
+        if (!newPreference.id) {
+            return res.status(500).json({ msg: "Error al crear la preferencia: ID nulo" });
+        }
+
+        const newUserPreference = await conx.createUserPreference(userId, newPreference.id, preferencesData);
         
         res.status(201).json(newUserPreference);
     } catch (error) {
@@ -81,6 +87,7 @@ const createUserPreference = async (req, res) => {
         res.status(500).json({ msg: "Error" });
     }
 }
+
 
 
 const updateUserPreference = async (req, res) => {

@@ -43,16 +43,21 @@ module.exports = (sequelize, DataTypes) => {
         as: 'friendOf'
       });
 
-      // Alias para la asociación con Chat como usuario
       this.hasMany(models.Chat, {
         foreignKey: 'userId',
         as: 'chatsAsUser'
       });
 
-      // Alias para la asociación con Chat como amigo
       this.hasMany(models.Chat, {
         foreignKey: 'friendId',
         as: 'chatsAsFriend'
+      });
+
+      this.belongsToMany(models.Preferences, {
+        through: models.UserPreferences,
+        foreignKey: 'id_user',
+        otherKey: 'id_preferences',
+        as: 'preferences'
       });
     }
   }
@@ -66,6 +71,7 @@ module.exports = (sequelize, DataTypes) => {
     born_date: DataTypes.DATE,
     domicile: DataTypes.STRING,
     phone_number: DataTypes.INTEGER,
+    gender: DataTypes.ENUM('Mujer', 'Hombre'),
     active: DataTypes.BOOLEAN,
   }, {
     sequelize,

@@ -16,6 +16,7 @@ import { MyProfileComponent } from './components/user/my-profile/my-profile.comp
 import { SearchComponent } from './components/search/search.component';
 import { ShowPreferencesComponent } from './components/preferences/show-preferences/show-preferences.component';
 import { ShowEventsComponent } from './components/events/show-events/show-events.component';
+import { CreatePreferencesComponent } from './components/preferences/create-preferences/create-preferences.component';
 
 export const routes: Routes = [
     //cualquier usuario sin registrar
@@ -34,6 +35,7 @@ export const routes: Routes = [
     {path: 'search', component: SearchComponent, canActivate:[anyLoggedGuard]},
     {path: 'my-preferences', component: ShowPreferencesComponent, canActivate:[anyLoggedGuard]},
     {path: 'show-events', component: ShowEventsComponent, canActivate:[anyLoggedGuard]},
+    {path: 'create-preferences', component: CreatePreferencesComponent, canActivate: [anyLoggedGuard]},
 
     //admin
     {path: 'user-management', component: UserManagementComponent, canActivate:[adminGuard]},

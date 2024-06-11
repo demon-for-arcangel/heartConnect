@@ -47,19 +47,37 @@ class UserPreferencesModel {
         }
     }   
 
-    async createUserPreference(userId, preferencesData) {
+    async createUserPreference(userId, id, preferencesData) {
         try {
             const newUserPreference = await models.UserPreferences.create({
                 id_user: userId,
-                id_preferences: preferencesData.preferenceId
+                id_preferences: id
             });
+    
+            const sum_preferences = preferencesData.sports + preferencesData.artistic + preferencesData.politicians;
+            const avg_preferences = sum_preferences / 3;
+    
+            const updateCount = await models.Preferences.update({
+                avg_preferences: avg_preferences
+            }, {
+                where: {
+                    id: id 
+                }
+            });
+            
+            if (updateCount > 0) {
+                console.log(`Se actualizó avg_preferneces correctamente para el usuario con ID ${userId}`);
+            } else {
+                console.log(`No se encontró ninguna fila para actualizar avg_preferneces para el usuario con ID ${userId}`);
+            }
+    
             return newUserPreference;
         } catch (error) {
-            console.error('Error al crear la preferencia: ', error);
+            console.error('Error al crear o actualizar la preferencia: ', error);
             throw error;
         }
     }
-
+    
     async updateUserPreference(userId, preferencesData) {
         try {
             const userPreference = await models.UserPreferences.findOne({

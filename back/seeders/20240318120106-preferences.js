@@ -11,6 +11,7 @@ module.exports = {
         has_children: false,
         wants_children: true,
         interest: 1, 
+        avg_preferences: 37,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -22,6 +23,7 @@ module.exports = {
         has_children: true,
         wants_children: false,
         interest: 3, 
+        avg_preferences: 62,
         createdAt: new Date(),
         updatedAt: new Date()
       },

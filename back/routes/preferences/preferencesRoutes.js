@@ -11,4 +11,7 @@ router.post('/', controlador.createPreference);
 router.put('/:id', controlador.updatePreference);
 router.delete('/:id', controlador.deletePreference);
 
+router.get('/options/relation', controlador.getOptionsRelation);
+router.get('/options/interest', controlador.getOptionsInterest);
+
 module.exports = router;

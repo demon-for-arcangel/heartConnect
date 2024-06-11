@@ -12,7 +12,6 @@ export class EventService {
   constructor(private http: HttpClient) { }
   private baseUrl: string = environment.baseUrl;
   private urlEvents: string = this.baseUrl + environment.events;
-  //realizar en el servidor
   private urlActiveEvents: string = this.baseUrl + environment.activeEvents;
   private urlInactiveEvents: string = this.baseUrl + environment.inactiveEvents;
   private urlActivateEvents: string = this.baseUrl + environment.activateEvents;

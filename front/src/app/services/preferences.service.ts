@@ -10,12 +10,14 @@ export class PreferencesService {
 
   constructor(private http: HttpClient) { }
   private baseUrl: string = environment.baseUrl;
-  private urlGetPreferencesById: string = this.baseUrl + environment.getPreferencesById;
-  private urlGetOptionsRelation: string = this.baseUrl + environment.getPreferencesById + environment.getOptionsRelation;
-  private urlGetOptionsInterest: string = this.baseUrl + environment.getPreferencesById + environment.getOptionsInterest;
+  private urlpreferences: string = this.baseUrl + environment.preferences;
+  private urlGetOptionsRelation: string = this.baseUrl + environment.preferences + environment.getOptionsRelation;
+  private urlGetOptionsInterest: string = this.baseUrl + environment.preferences + environment.getOptionsInterest;
+  private urlOptionsRel: string = this.baseUrl + environment.optionRelation;
+  private urlOptionInt: string = this.baseUrl + environment.optionInterest;
 
-  getUserPreferences(userId: string): Observable<any> {
-    const url = `${this.urlGetPreferencesById}/${userId}`;
+  getUserPreferences(userId: number): Observable<any> {
+    const url = `${this.urlpreferences}/${userId}`;
     return this.http.get<any>(url);
   }
 
@@ -27,13 +29,25 @@ export class PreferencesService {
     return this.http.get<{ id: number, gender: string }[]>(`${this.urlGetOptionsInterest}`);
   }
 
+  relationshipOptions(): Observable<{ id: number, type: string }[]> {
+    return this.http.get<{ id: number, type: string }[]>(`${this.urlOptionsRel}`);
+  }
+
+  interestOptions(): Observable<{ id: number, gender: string }[]> {
+    return this.http.get<{ id: number, gender: string }[]>(`${this.urlOptionInt}`);
+  }
+
   editPreferences(userId: string, preferencesData: any): Observable<any> {
-    const url = `${this.urlGetPreferencesById}/${userId}`;
+    const url = `${this.urlpreferences}/${userId}`;
     return this.http.put<any>(url, preferencesData).pipe(
       catchError(error => {
         console.error('Error al actualizar las preferencias', error);
         return of(null);
       })
     );
+  }
+
+  createPreferences(userId: number, preferences: any): Observable<any> {
+    return this.http.post(`${this.urlpreferences}/${userId}`, preferences);
   }
 }
