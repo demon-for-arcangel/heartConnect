@@ -29,7 +29,7 @@
                                     @if(recommendedUsers.length > 0){
                                         <div>
                                             <div>
-                                                <img [src]="recommendedUsers[currentUserIndex].photo_profile" width="150px">
+                                                <img [src]="userProfileImageUrl" width="150px">
                                                 <p>{{ recommendedUsers[currentUserIndex].firstName }} {{ recommendedUsers[currentUserIndex].lastName }}</p>
                                                 <p>{{ recommendedUsers[currentUserIndex].email }}</p>
                                             </div>

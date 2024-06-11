@@ -11,6 +11,7 @@ import { CreatePreferencesComponent } from '../preferences/create-preferences/cr
 import { PreferencesService } from '../../services/preferences.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { RecommendedUsersService } from '../../services/recommended-users.service';
+import { FileService } from '../../services/file.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,9 +28,11 @@ export class DashboardComponent implements OnInit {
   recommendedUsers: any[] = [];
   currentUserIndex: number = 0;
   errorMessage: string | null = null;
+  userProfileImageUrl: string | null = null;
+  user: any = null;
 
   constructor(private authService: AuthService, private preferencesService: PreferencesService,
-    private recommendedUsersService: RecommendedUsersService
+    private recommendedUsersService: RecommendedUsersService, private fileService: FileService
   ) {}
   
   ngOnInit() {
@@ -42,6 +45,7 @@ export class DashboardComponent implements OnInit {
       this.authService.getUserByToken(token).subscribe(user => {
         if (user && user.id) {
           this.userId = user.id;
+          this.user = user;  // Asignar el usuario
 
           this.preferencesService.getUserPreferences(this.userId).subscribe(
             (preferences) => {
@@ -51,7 +55,11 @@ export class DashboardComponent implements OnInit {
                 this.recommendedUsersService.recommendUsers(this.userId.toString()).subscribe(
                   (users) => {
                     this.recommendedUsers = users;
-                    this.currentUserIndex = 0; // Reset the index when new users are loaded
+                    this.currentUserIndex = 0;
+                    console.log(users)
+                    
+                    // Obtener la imagen de perfil para el usuario actual
+                    this.updateUserProfileImage(this.user.photo_profile);
                   },
                   (error) => {
                     console.error('Error al obtener los usuarios recomendados', error);
@@ -74,15 +82,31 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  updateUserProfileImage(photoProfile: string) {
+    if (photoProfile) {
+      this.fileService.getFileById(photoProfile).subscribe({
+        next: (response: { filePath: string }) => {
+          this.userProfileImageUrl = response.filePath;
+          console.log('URL de la imagen del perfil:', this.userProfileImageUrl);
+        },
+        error: error => {
+          console.error('Error al obtener la imagen del perfil:', error);
+        }
+      });
+    }
+  }
+
   nextUser() {
     if (this.currentUserIndex < this.recommendedUsers.length - 1) {
       this.currentUserIndex++;
+      this.updateUserProfileImage(this.recommendedUsers[this.currentUserIndex].photo_profile);
     }
   }
 
   prevUser() {
     if (this.currentUserIndex > 0) {
       this.currentUserIndex--;
+      this.updateUserProfileImage(this.recommendedUsers[this.currentUserIndex].photo_profile);
     }
   }
 
