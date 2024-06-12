@@ -23,7 +23,6 @@ export class EditUserComponent {
         if (user) {
           this.user = user;
           this.user.born_date = this.user.born_date ? new Date(this.user.born_date).toISOString().split('T')[0] : '';
-          console.log(this.user);
         } else {
           console.error('No se encontró el usuario con el ID proporcionado.');
         }
