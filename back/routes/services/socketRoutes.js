@@ -3,8 +3,8 @@ const { getUserChatsCon, getChatMessagesCon, createChat } = require('../../contr
 const { checkToken } = require('../../middlewares/abilities');
 const router = Router();
 
-router.get('/:userId', /* checkToken, */ getUserChatsCon);
-router.get('/messages/:chatId', getChatMessagesCon);
-router.post('/new', createChat);
+router.get('/:userId', checkToken, getUserChatsCon);
+router.get('/messages/:chatId', checkToken, getChatMessagesCon);
+router.post('/new', checkToken, createChat);
 
 module.exports = router;

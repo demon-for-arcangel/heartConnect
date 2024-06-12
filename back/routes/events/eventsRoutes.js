@@ -1,20 +1,18 @@
 const {Router } = require('express');
 const controlador = require('../../controllers/events/eventsController.js');
-const { check } = require('express-validator');
-const { validateFilds, checkDiferenceAsign } = require('../../middlewares/validators.js');
-const { statusUser, tokenCanAdmin, tokenCanUserAuth, checkToken, tokenCanSocio } = require('../../middlewares/abilities');
+const { tokenCanAdmin, checkToken } = require('../../middlewares/abilities');
 const router = Router();
 
-router.get('/', /*[checkToken, tokenCanAdmin],*/ controlador.index);
-router.get('/:id', controlador.getEventsById);
-router.post('/', controlador.createEvent);
-router.put('/:id', controlador.updateEvent);
-router.delete('/', controlador.deleteEvents);
+router.get('/', [checkToken, tokenCanAdmin], controlador.index);
+router.get('/:id', [checkToken], controlador.getEventsById);
+router.post('/', [checkToken], controlador.createEvent);
+router.put('/:id', [checkToken, tokenCanAdmin], controlador.updateEvent);
+router.delete('/', [checkToken, tokenCanAdmin], controlador.deleteEvents);
 
-router.get('/show/active', controlador.getActiveEvents);
-router.get('/show/inactive', controlador.getInactiveEvents);
-router.put('/update/activate', /* [checkToken, tokenCanAdmin], */controlador.activateEvents);
-router.put('/update/desactivate', /* [checkToken, tokenCanAdmin], */controlador.desactivateEvents);
+router.get('/show/active', [checkToken, tokenCanAdmin], controlador.getActiveEvents);
+router.get('/show/inactive', [checkToken, tokenCanAdmin], controlador.getInactiveEvents);
+router.put('/update/activate', [checkToken, tokenCanAdmin], controlador.activateEvents);
+router.put('/update/desactivate', [checkToken, tokenCanAdmin], controlador.desactivateEvents);
 
 router.get('/search/:query', controlador.searchEvents);
 
