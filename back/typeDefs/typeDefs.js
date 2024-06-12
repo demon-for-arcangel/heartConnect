@@ -7,16 +7,30 @@ const typeDefs = gql`
     personId: Int
   }
 
+  type UserFriendShip {
+    id: Int!
+    id_user: Int!
+    id_friendship: Int!
+  }
+
   type Query {
     userPeopleInterests(userId: Int): [UserPeopleInterest]
+    getListFriends(id_user: Int): [UserFriendShip]
   }
 
   type Mutation {
     addUserPeopleInterest(userId: Int!, personId: Int): UserPeopleInterest!
+    addFriendship(id_user: Int!, id_friendship: Int): UserFriendShip!
     deleteUserPeopleInterest(id: Int): DeleteUserPeopleInterestResult!
+    deleteUserFriendShip(id: Int): DeleteUserFriendShipResult!
   }
 
   type DeleteUserPeopleInterestResult {
+    success: Boolean!
+    message: String
+  }
+
+  type DeleteUserFriendShipResult {
     success: Boolean!
     message: String
   }

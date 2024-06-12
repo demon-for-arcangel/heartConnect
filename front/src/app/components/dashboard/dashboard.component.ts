@@ -126,12 +126,25 @@ export class DashboardComponent implements OnInit {
       this.graphQLService.addUserPeopleInterest(this.userId, personId).subscribe({
         next: (response) => {
           console.log('User liked successfully:', response);
-          this.userInterests.push({ id: response.data.addUserPeopleInterest.id, userId: this.userId, personId });
+          // Asegúrate de que la estructura de la respuesta coincida con tu API GraphQL
+          const newInterest = {
+            id: response.data.addUserPeopleInterest.id, // Ajusta esto según la estructura real de tu respuesta
+            userId: this.userId,
+            personId
+          };
+          this.userInterests.push(newInterest);
+          // Actualiza la UI para reflejar el nuevo interés, por ejemplo, mostrando un mensaje o cambiando el estado de un botón
+          // Considera actualizar la lista de usuarios recomendados si es necesario
         },
         error: (error) => {
           console.error('Error liking user:', error);
+          // Proporciona feedback al usuario
+         // Opcional: Proporciona una opción de reintentar o muestra detalles del error
         }
       });
+    } else {
+      console.error('Invalid state: userId or current recommended user is missing.', { userId: this.userId, recommendedUsers: this.recommendedUsers, currentUserIndex: this.currentUserIndex });
+     // Opcional: Muestra un mensaje al usuario o maneja este caso de error de manera adecuada
     }
   }
 

@@ -16,18 +16,6 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        sports: 40,
-        artistic: 85,
-        politicians: 60,
-        relationship_type: 2,
-        has_children: true,
-        wants_children: false,
-        interest: 3, 
-        avg_preferences: 62,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
         sports: 12,
         artistic: 30,
         politicians: 70,
@@ -36,6 +24,18 @@ module.exports = {
         wants_children: true,
         interest: 1, 
         avg_preferences: 37,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        sports: 3,
+        artistic: 20,
+        politicians: 40,
+        relationship_type: 1, 
+        has_children: false,
+        wants_children: true,
+        interest: 1, 
+        avg_preferences: 21,
         createdAt: new Date(),
         updatedAt: new Date()
       },
