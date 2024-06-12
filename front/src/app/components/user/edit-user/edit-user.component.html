@@ -14,7 +14,7 @@
         </div>
         <div class="form-field">
             <label for="born_date">Fecha de Nacimiento:</label>
-            <input type="text" id="born_date" [(ngModel)]="user.born_date">
+            <input type="date" id="born_date" [(ngModel)]="user.born_date">
         </div>
     </div>
 
@@ -29,7 +29,9 @@
         </div>
         <div class="form-field">
             <label for="roles">Roles:</label>
-            <input type="text" id="roles" [(ngModel)]="user.roles">
+            @for(role of user.roles; track role){
+                <input type="text" id="roles" [(ngModel)]="role.name">
+            }
         </div>
     </div>
 </div>
