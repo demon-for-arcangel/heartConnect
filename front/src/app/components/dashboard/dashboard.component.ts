@@ -138,25 +138,33 @@ export class DashboardComponent implements OnInit {
   deleteUserInterest() {
     if (this.userId && this.recommendedUsers[this.currentUserIndex]) {
       const personId = this.recommendedUsers[this.currentUserIndex].id;
-      console.log('Deleting interest for personId:', personId); 
-      const interest = this.userInterests.find(i => i.personId === personId);
-      
-      console.log('Found interest:', interest); 
+      console.log('Deleting interest for personId:', personId);
   
-      this.graphQLService.deleteUserPeopleInterest(interest.id.toString()).subscribe({
-        next: (response) => {
-          console.log('User interest deleted successfully:', response);
-        },
-        error: (error) => {
-          console.error('Error deleting user interest:', error);
-          if (error.errors && error.errors.length > 0) {
-            // Explicitly annotate 'e' as an object with a 'message' property of type 'string'
-            console.error('Server error messages:', error.errors.map((e: { message: string }) => e.message));
+      const interest = this.userInterests.find(i => i.personId === personId);
+  
+      if (interest) { 
+        console.log('Found interest:', interest);
+  
+        this.graphQLService.deleteUserPeopleInterest(interest.id).subscribe({
+          next: (response) => {
+            console.log('User interest deleted successfully:', response);
+            this.userInterests = this.userInterests.filter(i => i.id!== interest.id);
+          },
+          error: (error) => {
+            console.error('Error deleting user interest:', error);
+            if (error.errors && error.errors.length > 0) {
+              console.error('Server error messages:', error.errors.map((e: { message: string }) => e.message));
+              alert(`Error removing interest: ${error.errors[0].message}`);
+            }
           }
-        }
-      });
-    }else {
+        });
+      } else {
+        console.error('Interest not found for personId:', personId);
+        alert('Interest not found for the selected user.');
+      }
+    } else {
       console.error('Invalid state: userId or current recommended user is missing.', { userId: this.userId, recommendedUsers: this.recommendedUsers, currentUserIndex: this.currentUserIndex });
+      alert('Invalid state: Please select a user first.');
     }
   }
 

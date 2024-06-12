@@ -55,11 +55,12 @@ export class GraphqlService {
     return this.executeMutation(mutation, variables);
   }
 
-  deleteUserPeopleInterest(id: string): Observable<any> {
+  deleteUserPeopleInterest(id: number): Observable<any> {
     const mutation = `
       mutation DeleteUserPeopleInterest($id: Int!) {
-        deleteUserPeopleInterest(id: $id){
+        deleteUserPeopleInterest(id: $id) {
           success
+          message
         }
       }
     `;
