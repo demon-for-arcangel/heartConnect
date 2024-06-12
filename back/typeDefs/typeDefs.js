@@ -13,7 +13,12 @@ const typeDefs = gql`
 
   type Mutation {
     addUserPeopleInterest(userId: Int!, personId: Int): UserPeopleInterest!
-    deleteUserPeopleInterest(id: String): Boolean!
+    deleteUserPeopleInterest(id: Int): DeleteUserPeopleInterestResult!
+  }
+
+  type DeleteUserPeopleInterestResult {
+    success: Boolean!
+    message: String
   }
 `;
 

@@ -58,9 +58,8 @@ module.exports = {
     },
    ], {});
 
-   let factoryUser = await userFactory(10)
+   let factoryUser = await userFactory(20)
    await queryInterface.bulkInsert(process.env.TABLE_USERS, factoryUser, {})
- 
   },
 
   async down (queryInterface, Sequelize) {

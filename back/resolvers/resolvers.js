@@ -18,8 +18,17 @@ const userPeopleInterests = {
       return interest;
     },
     deleteUserPeopleInterest: async (_, { id }) => {
-      const success = await deletePeopleInterest(id);
-      return success;
+      try {
+        const success = await deletePeopleInterest(id);
+        if (success) {
+          return { success: true, message: "Interest deleted successfully" };
+        } else {
+          return { success: false, message: "Failed to delete interest" };
+        }
+      } catch (error) {
+        console.error("Error deleting user interest:", error);
+        return { success: false, message: "An unexpected error occurred" };
+      }
     },
   },
 };
