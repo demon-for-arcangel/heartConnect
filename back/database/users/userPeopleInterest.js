@@ -16,6 +16,7 @@ console.log(initialInterest)
 
   if (reverseInterest) {
     await models.UserFriendShip.create({ id_user: personId, id_friendship: userId });
+    await models.UserFriendShip.create({ id_user: userId, id_friendship: personId})
   }
 
   return initialInterest;
