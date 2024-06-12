@@ -35,14 +35,10 @@ input {
 button {
     margin-top: 20px;
     padding: 10px;
-    background-color: #FFB6C1; 
+    background-color: #d2142e; 
     color: #000000; 
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease; 
-}
-
-button:hover {
-    background-color: #FF69B4;
 }
