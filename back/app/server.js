@@ -30,7 +30,6 @@ class Server {
     this.apiEvents = "/api/events"
     this.apiPreferences = "/api/preferences"
     this.apiUserPreferences = "/api/userPreferences"
-    this.apiFriendship = "/api/friendship"
     this.apiChats = "/api/chats"
     this.apiAssets = "/api/assets"
     this.apiUserEvents = "/api/userEvents"
@@ -81,7 +80,6 @@ class Server {
     this.app.use(this.apiEvents, require('../routes/events/eventsRoutes'));
     this.app.use(this.apiPreferences, require('../routes/preferences/preferencesRoutes'));
     this.app.use(this.apiUserPreferences, require('../routes/preferences/userPreferencesRoutes'))
-    this.app.use(this.apiFriendship, require("../routes/users/userFriendshipRoutes"));
     this.app.use(this.apiChats, require("../routes/services/socketRoutes.js"));
     this.app.use(this.apiAssets, require("../routes/assets/assetsRoutes.js"));
     this.app.use(this.apiUserEvents, require('../routes/events/userEventsRoutes.js'));

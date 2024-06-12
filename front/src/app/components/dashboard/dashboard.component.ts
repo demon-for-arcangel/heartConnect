@@ -42,55 +42,56 @@ export class DashboardComponent implements OnInit {
     this.authService.isAdmin().subscribe(isAdmin => {
       this.isAdmin = isAdmin;
     });
-  
+
     const token = localStorage.getItem('user');
     if (token) {
       this.authService.getUserByToken(token).subscribe(user => {
         if (user && user.id) {
           this.userId = user.id;
           this.user = user;
-  
-          this.graphQLService.getUserPeopleInterests(this.userId).subscribe(interests => {
-            this.userInterests = interests.data.userPeopleInterests;
-            console.log('User interests:', this.userInterests);  // Debug log
-          });
-  
-          if (this.userId !== null) {
-            this.preferencesService.getUserPreferences(this.userId).subscribe(
-              (preferences) => {
-                this.hasPreferences = !!preferences;
-  
-                if (this.userId) {
-                  this.recommendedUsersService.recommendUsers(this.userId.toString()).subscribe(
-                    (users) => {
-                      this.recommendedUsers = users;
-                      this.currentUserIndex = 0;
-                      console.log(users)
-  
-                      this.updateUserProfileImage(this.user.photo_profile);
-                    },
-                    (error) => {
-                      console.error('Error al obtener los usuarios recomendados', error);
-                      this.errorMessage = 'Error al obtener los usuarios recomendados: ' + (error.message || error.statusText);
-                    }
-                  );
+
+          if (!this.isAdmin) {
+            this.graphQLService.getUserPeopleInterests(this.userId).subscribe(interests => {
+              this.userInterests = interests.data.userPeopleInterests;
+              console.log('User interests:', this.userInterests);
+            });
+
+            if (this.userId !== null) {
+              this.preferencesService.getUserPreferences(this.userId).subscribe(
+                (preferences) => {
+                  this.hasPreferences = !!preferences;
+
+                  if (this.userId) {
+                    this.recommendedUsersService.recommendUsers(this.userId.toString()).subscribe(
+                      (users) => {
+                        this.recommendedUsers = users;
+                        this.currentUserIndex = 0;
+                        console.log(users);
+
+                        this.updateUserProfileImage(this.user.photo_profile);
+                      },
+                      (error) => {
+                        console.error('Error al obtener los usuarios recomendados', error);
+                        this.errorMessage = 'Error al obtener los usuarios recomendados: ' + (error.message || error.statusText);
+                      }
+                    );
+                  }
+                },
+                (error) => {
+                  if (error.status === 404) {
+                    console.error('No se encontraron preferencias para el usuario, mostrando el formulario de creación.');
+                    this.hasPreferences = false;
+                  } else {
+                    console.error('Error al obtener las preferencias del usuario', error);
+                  }
                 }
-              },
-              (error) => {
-                if (error.status === 404) {
-                  console.error('No se encontraron preferencias para el usuario, mostrando el formulario de creación.');
-                  this.hasPreferences = false;
-                } else {
-                  console.error('Error al obtener las preferencias del usuario', error);
-                }
-              }
-            );
+              );
+            }
           }
         }
       });
     }
   }
-  
 
   updateUserProfileImage(photoProfile: string) {
     if (photoProfile) {
@@ -125,26 +126,20 @@ export class DashboardComponent implements OnInit {
       const personId = this.recommendedUsers[this.currentUserIndex].id;
       this.graphQLService.addUserPeopleInterest(this.userId, personId).subscribe({
         next: (response) => {
-          console.log('User liked successfully:', response);
-          // Asegúrate de que la estructura de la respuesta coincida con tu API GraphQL
+          console.log('Like creado:', response);
           const newInterest = {
-            id: response.data.addUserPeopleInterest.id, // Ajusta esto según la estructura real de tu respuesta
+            id: response.data.addUserPeopleInterest.id,
             userId: this.userId,
             personId
           };
           this.userInterests.push(newInterest);
-          // Actualiza la UI para reflejar el nuevo interés, por ejemplo, mostrando un mensaje o cambiando el estado de un botón
-          // Considera actualizar la lista de usuarios recomendados si es necesario
         },
         error: (error) => {
-          console.error('Error liking user:', error);
-          // Proporciona feedback al usuario
-         // Opcional: Proporciona una opción de reintentar o muestra detalles del error
+          console.error('Error al dar like al usuario:', error);
         }
       });
     } else {
-      console.error('Invalid state: userId or current recommended user is missing.', { userId: this.userId, recommendedUsers: this.recommendedUsers, currentUserIndex: this.currentUserIndex });
-     // Opcional: Muestra un mensaje al usuario o maneja este caso de error de manera adecuada
+      console.error('Error.', { userId: this.userId, recommendedUsers: this.recommendedUsers, currentUserIndex: this.currentUserIndex });
     }
   }
 
