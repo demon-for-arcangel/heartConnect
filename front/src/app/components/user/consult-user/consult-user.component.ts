@@ -21,6 +21,7 @@ export class ConsultUserComponent {
       this.userService.getUserById(userId).subscribe(user => {
         if (user) {
           this.user = user;
+          console.log(this.user)
         } else {
           console.error('No se encontró el usuario con el ID proporcionado.');
         }
