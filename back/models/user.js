@@ -20,13 +20,12 @@ module.exports = (sequelize, DataTypes) => {
 
       this.belongsToMany(models.Asset, {
         through: models.UserAssets,
-        foreignKey: "id_user",
+        foreignKey: 'id_user',
+        as: 'assets'
       });
-
       this.hasOne(models.Asset, {
-        foreignKey: "id",
-        sourceKey: "photo_profile",
-        as: "image",
+        as: 'photoProfile',
+        foreignKey: 'photo_profile'
       });
 
       /* this.belongsToMany(models.Rol, {
@@ -44,16 +43,21 @@ module.exports = (sequelize, DataTypes) => {
         as: 'friendOf'
       });
 
-      // Alias para la asociación con Chat como usuario
       this.hasMany(models.Chat, {
         foreignKey: 'userId',
         as: 'chatsAsUser'
       });
 
-      // Alias para la asociación con Chat como amigo
       this.hasMany(models.Chat, {
         foreignKey: 'friendId',
         as: 'chatsAsFriend'
+      });
+
+      this.belongsToMany(models.Preferences, {
+        through: models.UserPreferences,
+        foreignKey: 'id_user',
+        otherKey: 'id_preferences',
+        as: 'preferences'
       });
     }
   }
@@ -62,10 +66,12 @@ module.exports = (sequelize, DataTypes) => {
     lastName: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
+    desc: DataTypes.TEXT,
     photo_profile: DataTypes.INTEGER,
     born_date: DataTypes.DATE,
     domicile: DataTypes.STRING,
     phone_number: DataTypes.INTEGER,
+    gender: DataTypes.ENUM('Mujer', 'Hombre'),
     active: DataTypes.BOOLEAN,
   }, {
     sequelize,

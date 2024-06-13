@@ -1,26 +1,38 @@
 const { gql } = require('graphql-tag');
 
 const typeDefs = gql`
-  type User {
-    id: ID!
-    name: String!
-    messages: [Message!]!
+  type UserPeopleInterest {
+    id: Int
+    userId: Int
+    personId: Int
   }
 
-  type Message {
-    id: ID!
-    content: String!
-    sender: User!
-    receiver: User!
-    timestamp: String!
+  type UserFriendShip {
+    id: Int!
+    id_user: Int!
+    id_friendship: Int!
   }
 
   type Query {
-    messages: [Message!]!
+    userPeopleInterests(userId: Int): [UserPeopleInterest]
+    getListFriends(id_user: Int): [UserFriendShip]
   }
 
   type Mutation {
-    sendMessage(content: String!, senderId: ID!, receiverId: ID): Message!
+    addUserPeopleInterest(userId: Int!, personId: Int): UserPeopleInterest!
+    addFriendship(id_user: Int!, id_friendship: Int): UserFriendShip!
+    deleteUserPeopleInterest(id: Int): DeleteUserPeopleInterestResult!
+    deleteUserFriendShip(id: Int): DeleteUserFriendShipResult!
+  }
+
+  type DeleteUserPeopleInterestResult {
+    success: Boolean!
+    message: String
+  }
+
+  type DeleteUserFriendShipResult {
+    success: Boolean!
+    message: String
   }
 `;
 

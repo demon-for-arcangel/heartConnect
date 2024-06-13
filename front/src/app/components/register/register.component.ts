@@ -73,7 +73,7 @@ export class RegisterComponent {
       if (this.suggestions.length > 0){
         this.suggestions = [];
       }
-    }, 20000);
+    }, 2000);
   }
 
   selectSuggestion(suggestion: any) {

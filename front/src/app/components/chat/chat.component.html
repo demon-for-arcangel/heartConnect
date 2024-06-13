@@ -1,65 +1,68 @@
-<div class="chat-container">
-  <div class="title">
-    <h1>Chat</h1>
-  </div>
-  <div class="buttons-and-content">
-    <div class="chat-buttons">
-      <button class="chat-btn" [class.active]="activeSection === 'chats'" (click)="toggleSection('chats')">
-        <h2>Chats</h2>
-      </button>
-      <button class="chat-btn" [class.active]="activeSection === 'friends'" (click)="toggleSection('friends')">
-        <h2>Amigos</h2>
-      </button>
-    </div>
-  
-    <div class="content">
-      @if (activeSection === 'chats'){
-        <div class="chat-list">
-          <ul>
-            @for (chat of chats; track chat) {
-              <li>
-                <button (click)="selectChat(chat)">{{ chat.friend.firstName }} {{ chat.friend.lastName }}</button>
-              </li>
-            }
-          </ul>
-        </div>
-      }
-
-      @if (activeSection === 'friends'){
-        <div class="friends-list">
-          <ul>
-            @for (friend of friends; track friend){
-              <li>
-                <button (click)="selectFriend(friend)">{{ friend.firstName }} {{ friend.lastName }}</button>
-              </li> 
-            }
-          </ul>
-        </div>
-      }
-    </div>  
-  </div>
-  
-  <div class="messages">
-    <h2>{{ selectedFriend ? selectedFriend.firstName + ' ' + selectedFriend.lastName : 'Mensajes' }}</h2>    
-    <div class="message-container">
-        <ul>
-          @if (activeSection === 'chats') {
-            @for (message of messages; track message) {
-              <li>{{ message.message }}</li>
-            }
-          }
-           @if (activeSection === 'friends'){
-            @for (message of messages; track message) {
-              <li>{{ message.message }}</li>
-            }
-          }
-        </ul>
-    </div>
-      <div class="message-input">
-        <input type="text" placeholder="Escribe tu mensaje aquí..." [(ngModel)]="newMessage" />
-        <button (click)="sendMessage()">
-          <i class="pi pi-send"></i>
-        </button>
+<div class="main-container">
+  <app-menu></app-menu>
+  <div class="main-content">
+    <div class="chat-container">
+      <div class="buttons-and-content">
+        <div class="chat-buttons">
+          <button class="chat-btn" [class.active]="activeSection === 'chats'" (click)="toggleSection('chats')">
+            <h2>Chats</h2>
+          </button>
+          <button class="chat-btn" [class.active]="activeSection === 'friends'" (click)="toggleSection('friends')">
+            <h2>Amigos</h2>
+          </button>
       </div>
+      
+        <div class="content">
+          @if (activeSection === 'chats'){
+            <div class="chat-list">
+              <ul>
+                @for (chat of chats; track chat) {
+                  <li>
+                    <button (click)="selectChat(chat)">{{ chat.friend.firstName }} {{ chat.friend.lastName }}</button>
+                  </li>
+                }
+              </ul>
+            </div>
+          }
+    
+          @if (activeSection === 'friends'){
+            <div class="friends-list">
+              <ul>
+                @for (friend of friends; track friend){
+                  <li>
+                    <button (click)="selectFriend(friend)">{{ friend.firstName }} {{ friend.lastName }}</button>
+                  </li> 
+                }
+              </ul>
+            </div>
+          }
+        </div>  
+      </div>
+      
+      <div class="messages">
+        <h2>{{ selectedFriend ? selectedFriend.firstName + ' ' + selectedFriend.lastName : 'Mensajes' }}</h2>    
+        <div class="message-container">
+            <ul>
+              @if (activeSection === 'chats') {
+                @for (message of messages; track message) {
+                  <li>{{ message.message }}</li>
+                }
+              }
+               @if (activeSection === 'friends'){
+                @for (message of messages; track message) {
+                  <li>{{ message.message }}</li>
+                }
+              }
+            </ul>
+        </div>
+          <div class="message-input">
+            <input type="text" placeholder="Escribe tu mensaje aquí..." [(ngModel)]="newMessage" />
+            <button (click)="sendMessage()">
+              <i class="pi pi-send"></i>
+            </button>
+          </div>
+      </div>
+    </div>
   </div>
 </div>
+

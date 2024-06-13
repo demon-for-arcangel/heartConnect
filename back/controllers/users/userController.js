@@ -175,8 +175,8 @@ const desactivateUsers = async (req, res) => {
     const result = await conx.desactivateUsers(userIds);
     res.status(200).json(result);
   } catch (error) {
-    console.error('Error in deactivateUsers controller: ', error);
-    res.status(500).json({ message: 'Error deactivating users', error });
+    console.error('Error al desactivar el usuario: ', error);
+    res.status(500).json({ message: 'Error al desactivar el usuario', error });
   }
 }
 
@@ -203,7 +203,19 @@ const getUserByToken = async (req, res) => {
   }
 };
 
+const searchUsers = async (req, res) => {
+  const { query } = req.params; 
+
+  try {
+    const users = await conx.searchUsers(query);
+    res.status(200).json(users);
+  } catch (error) {
+    console.error('Error al buscar usuarios:', error);
+    res.status(500).json({ msg: "Error al buscar usuarios" });
+  }
+};
 module.exports = {
   index, getUserById, getUserByEmail, registerUserByAdmin, updateUser, deleteUsers,
-  getActiveUsers, getInactiveUsers, activateUser, desactivateUsers, getUserByToken
+  getActiveUsers, getInactiveUsers, activateUser, desactivateUsers, getUserByToken,
+  searchUsers
 };

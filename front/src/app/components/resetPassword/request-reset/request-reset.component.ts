@@ -37,8 +37,4 @@ export class RequestResetComponent {
       );
     }
   }
-
-  goBack(): void {
-    this.location.back();
-  }
 }

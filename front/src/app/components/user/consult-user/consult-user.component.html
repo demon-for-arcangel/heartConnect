@@ -14,7 +14,7 @@
         </div>
         <div class="form-field">
             <label for="birthDate">Fecha de Nacimiento:</label>
-            <p id="birthDate">{{ user.birthDate }}</p>
+            <p id="birthDate">{{ user.born_date }}</p>
         </div>
     </div>
 
@@ -29,7 +29,9 @@
         </div>
         <div class="form-field">
             <label for="roles">Roles:</label>
-            <p id="roles">{{ user.roles }}</p>
+            @for(role of user.roles; track role){
+                <p id="roles">{{ role.name }}</p>
+            }
         </div>
         <div class="form-field is-active-field">
             <label for="active">Activo:</label>

@@ -1,0 +1,76 @@
+.event-details {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    color: black;
+}
+
+.form-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 400px; /* Adjust this value as needed */
+    margin-right: 20px; /* Space between form and map */
+}
+
+.form-field {
+    margin-bottom: 10px;
+}
+
+.form-field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-field input {
+    margin: 0;
+    padding: 8px;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.form-field.is-active-field input {
+    color: #007bff;
+    font-weight: bold;
+}
+
+.map-container {
+    flex: 1;
+    height: 300px;
+    position: relative;
+}
+
+google-map {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+.update-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    align-self: flex-end;
+}
+
+.update-button:hover {
+    background-color: #0056b3;
+}
+
+.update-button:active {
+    background-color: #004085;
+}

@@ -22,7 +22,7 @@ class EventsModel {
     try {
       const event = await models.Events.findByPk(id);
       if (!event) {
-        throw new Error('Evento no encontrado');
+        throw new Error('ooEvento no encontrado');
       }
       return event;
     } catch (error){
@@ -51,6 +51,12 @@ class EventsModel {
         throw new Error('Evento no encontrado');
       }
 
+      const now = new Date();
+      const eventDate = new Date(event.date);
+      if (eventDate < now) {
+        throw new Error('No se puede actualizar un evento cuya fecha ya ha pasado');
+      }
+
       const updatedEvent = await event.update(updatedData);
       if (!updatedEvent) {
         throw new Error('No se pudo actualizar el evento');
@@ -74,6 +80,90 @@ class EventsModel {
       return { message: `${deletedEvents} eventos eliminados correctamente` };
     } catch (error) {
       console.error('Error al eliminar los eventos: ', error);
+      throw error;
+    }
+  }
+
+  async getActiveEvents() {
+    try {
+      console.log('Función getActiveEvents llamada en el modelo');
+      const activeEvents = await models.Events.findAll({
+        where: {
+          public: 1
+        }
+      });
+      console.log('Eventos activos:', activeEvents);
+      return activeEvents;
+    } catch (error) {
+      console.error('Error al mostrar los eventos activos: ', error);
+      throw error;
+    }
+  }
+  
+  getInactiveEvents = async () => {
+    try {
+      const inactiveEvents = await models.Events.findAll({
+        where: {
+          public: 0
+        }
+      }); 
+      return inactiveEvents;
+    } catch (error) {
+      console.error('Error al mostrar los eventos inactivos: ', error);
+      throw error;
+    }
+  }
+
+  activateEvents = async (eventsIds) => {
+    try {
+      if (!Array.isArray(eventsIds) || eventsIds.length === 0) {
+         throw new Error('No se proporcionaron IDs de los eventos.');
+      }
+   
+      const updatedEvents = await models.Events.update(
+         { public: 1 },
+         { where: { id: eventsIds } } 
+      );
+   
+      return { message: `${updatedEvents} eventos activados.` };
+    } catch (error) {
+      console.error('Error al activar los eventos: ', error);
+      throw error;
+    }
+  }
+
+  desactivateEvents = async (eventsIds) => {
+    try {
+      if (!Array.isArray(eventsIds) || eventsIds.length === 0) {
+        throw new Error('No se proporcionaron IDs de los eventos.');
+      }
+
+      const updatedEvents = await models.Events.update(
+        { public: 0 },
+        { where: { id: eventsIds } } 
+      );
+  
+      return { message: `${updatedEvents} eventos desactivados.` };
+    } catch (error) {
+      console.error('Error al desactivar los eventos: ', error);
+      throw error;
+    }
+  }
+
+  async searchEvents(term) {
+    try {
+      const events = await models.Events.findAll({
+        where: {
+          [Op.or]: [
+            { name: { [Op.like]: `%${term}%` } },
+            { des: { [Op.like]: `%${term}%` } },
+/*             { location: { [Op.like]: `%${term}%` } }
+ */          ]
+        }
+      });
+      return events;
+    } catch (error) {
+      console.error('Error al buscar eventos:', error);
       throw error;
     }
   }

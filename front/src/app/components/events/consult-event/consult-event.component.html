@@ -1,0 +1,36 @@
+<div class="event-details">
+    <div class="form-column">
+        <div class="form-field">
+            <label for="name">Nombre:</label>
+            <p id="name">{{ event.name }}</p>
+        </div>
+        <div class="form-field">
+            <label for="des">Descripción:</label>
+            <p id="des">{{ event.des }}</p>
+        </div>
+    </div>
+    
+    <div class="form-column">
+        <div class="form-field">
+            <label for="date">Fecha:</label>
+            <p id="date">{{ event.date }}</p>
+        </div>
+        <div class="form-field">
+            <label for="public">Publico:</label>
+            <p id="public">{{ event.public }}</p>
+        </div>
+    </div>
+
+    <google-map [center]="{ lat: latitude, lng: longitude }" [zoom]="zoom">
+        <map-marker [position]="{ lat: latitude, lng: longitude }"></map-marker>
+    </google-map>
+
+    <div class="inscriptions">
+        <h3>Inscriptions</h3>
+        <ul>
+            @for(user of usersInfo; track user){
+                <li>{{ user.firstName }} {{ user.lastName }} - {{ user.email }}</li>
+            }
+        </ul>
+    </div>
+</div>

@@ -22,6 +22,7 @@ export class EditUserComponent {
       this.userService.getUserById(userId).subscribe(user => {
         if (user) {
           this.user = user;
+          this.user.born_date = this.user.born_date ? new Date(this.user.born_date).toISOString().split('T')[0] : '';
         } else {
           console.error('No se encontró el usuario con el ID proporcionado.');
         }
@@ -36,14 +37,12 @@ export class EditUserComponent {
     this.userService.updateUser(userId, this.user).subscribe(
       updatedUser => {
         console.log('Usuario actualizado con éxito:', updatedUser);
-        // hacer mensaje
         setTimeout(() => {
           location.reload();
         }, 3000);
       },
       error => {
         console.error('Error al actualizar el usuario:', error);
-        // hacer mensaje
       }
     );
   }

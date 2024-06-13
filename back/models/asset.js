@@ -12,17 +12,17 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsToMany(models.User, {
         through: models.UserAssets,
-        foreignKey:'id_asset'
+        foreignKey: 'id_asset',
+        as: 'users'
       });
-
       this.hasOne(models.User, {
         foreignKey: 'photo_profile',
-        as: 'image'
-     });
+        as: 'profileImage'
+      });
     }
   }
   Asset.init({
-    ruta: DataTypes.STRING,
+    path: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Asset',

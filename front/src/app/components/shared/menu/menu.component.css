@@ -1,94 +1,117 @@
-/* menu.component.css */
-.header-container {
-    background-color: #000000;
+.sidebar {
+    width: 25%; /* El menú de navegación ocupa el 25% del ancho de la pantalla */
+    height: 100vh; /* Ocupa toda la altura de la pantalla */
+    background-color: #111111;
     color: #fff;
+    display: flex;
+    flex-direction: column; /* Los elementos dentro de la barra lateral se apilan verticalmente */
+    align-items: center;
     padding: 20px 0;
-    text-align: center;
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+    position: fixed; /* Asegura que el menú esté siempre visible en el lado izquierdo */
 }
 
-.header-content {
-    width: 80%;
-    margin: 0 auto;
+.sidebar-content {
+    width: 100%; /* Asegura que el contenido de la barra lateral ocupe todo el ancho */
     display: flex; 
-    justify-content: space-between; 
+    flex-direction: column; 
     align-items: center; 
 }
 
-.header-content img {
-    margin-right: 20px; 
+.sidebar-content img {
+    margin-bottom: 20px; 
 }
 
-.header-content ul {
+nav {
+    width: 100%;
+}
+
+.sidebar-content ul {
     list-style-type: none; 
     padding: 0;
     margin: 0;
     display: flex; 
-    justify-content: center; 
+    flex-direction: column; 
+    align-items: center; 
 }
 
-.header-content ul li {
-    margin-right: 10px; 
+.sidebar-content ul li {
+    width: 100%;
+    margin-bottom: 10px; 
 }
 
-.header-content ul li a {
+.sidebar-content ul li a {
     color: #fff;
     text-decoration: none;
+    display: flex; /* Cambiado a flex para alinear el icono y el texto horizontalmente */
+    align-items: center; /* Centra los elementos verticalmente */
+    padding: 10px 20px;
+    width: 100%; /* Asegura que los enlaces ocupen todo el ancho del contenedor */
+    box-sizing: border-box;
 }
 
-.header-content ul li a:hover {
-    text-decoration: underline;
+.sidebar-content ul li a i {
+    margin-right: 10px; /* Espacio entre el icono y el texto */
+}
+.opciones-label {
+   color: #fff;
+    text-decoration: none;
+    display: flex; /* Cambiado a flex para alinear el icono y el texto horizontalmente */
+    align-items: center; /* Centra los elementos verticalmente */
+    padding: 10px 20px;
+    width: 100%; /* Asegura que los enlaces ocupen todo el ancho del contenedor */
+    box-sizing: border-box;
+
+    margin-right: 10px;
+}
+
+.opciones-label i {
+    margin-right: 10px; /* Espacio entre el icono y el texto */
+}
+
+.sidebar-content ul li a:hover {
+    background-color: #333333; /* Cambia el color de fondo al pasar el cursor */
 }
 
 /* Estilos para pantallas pequeñas (menos de 600px de ancho) */
 @media (max-width: 600px) {
-    .header-content {
-        width: 95%; 
-        flex-direction: column; 
-    }
-
-    .header-content img {
-        margin-bottom: 20px; 
-    }
-
-    .header-content ul {
-        justify-content: flex-start; 
-    }
-
-    .header-content ul li {
-        margin-bottom: 5px; 
+    .sidebar {
+        width: 100%; /* La barra lateral ocupa todo el ancho en pantallas pequeñas */
+        height: auto; /* Permite que la barra lateral se ajuste en altura */
+        position: static; /* No es fija en pantallas pequeñas */
     }
 }
 
-/* Estilos para pantallas medianas (entre 600px y 900px de ancho) */
-@media (min-width: 600px) and (max-width: 900px) {
-    .header-content {
-        width: 95%;
-        flex-direction: column; 
-    }
-
-    .header-content img {
-        margin-bottom: 20px;
-    }
-
-    .header-content ul {
-        justify-content: flex-start;
-    }
-
-    .header-content ul li {
-        margin-bottom: 5px;
-    }
+.opciones-dropdown {
+    display: none;
+    position: absolute;
+    background-color: #0c0c0c;
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+    bottom: 100%; /* Cambia de top a bottom */
+    border-radius: 8px;
 }
 
-/* Estilos para pantallas grandes (más de 900px de ancho) */
-@media (min-width: 900px) {
-    .header-content {
-        width: 80%; 
-    }
+.opciones-dropdown a {
+    color: rgb(255, 255, 255);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
 }
 
-/* Estilos para pantallas extra grandes (por ejemplo, 1024px de ancho o más) */
-@media (min-width: 1024px) {
-    .header-content {
-        width: 70%; 
-    }
+.opciones-toggle:checked ~ .opciones-dropdown {
+    display: block;
+}
+
+.opciones-toggle {
+    display: none;
+}
+
+.opciones-label {
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
 }

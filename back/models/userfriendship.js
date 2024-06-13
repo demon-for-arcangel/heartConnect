@@ -18,8 +18,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   UserFriendShip.init({
-    id_user: DataTypes.NUMBER,
-    id_friendship: DataTypes.NUMBER
+    id_user: DataTypes.INTEGER,
+    id_friendship: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'UserFriendShip',

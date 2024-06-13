@@ -26,6 +26,9 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull:true
       },
+      desc: {
+        type: Sequelize.TEXT,
+      },
       photo_profile: {
         defaultValue: 1,
         type: Sequelize.INTEGER,
@@ -47,6 +50,10 @@ module.exports = {
       phone_number: {
         type: Sequelize.STRING,
         allowNull:true
+      },
+      gender: {
+        type: Sequelize.ENUM('Mujer', 'Hombre'),
+        allowNull: false 
       },
       active: {
         type: Sequelize.BOOLEAN,

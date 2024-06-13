@@ -1,6 +1,13 @@
 export const environment = {
-    // Servidor
+    /*
+    ------------------------
+    -       Servidor         -
+    --------------------------
+    */
     baseUrl: 'http://localhost:9292/api',
+    graphqlApiUrl: 'http://localhost:9292/graphql',
+    
+    // usuarios
     login: '/login',
     register: '/register',
     sendMail: '/mail/request-reset',
@@ -14,11 +21,40 @@ export const environment = {
     desactivateUsers: '/users/desactivate',
     createUser: '/user/new-user',
     updateUser: '/user',
-    showRols: '/rols/',
     showFriendship: '/friendship',
+    searchUser: '/users/search',
+
+    // preferencias
+    preferences: '/userPreferences',
+    getOptionsRelation: '/options/relation',
+    getOptionsInterest: '/options/interest',
+    optionInterest: '/preferences/options/interest',
+    optionRelation: '/preferences/options/relation',
+    
+    // roles
+    showRols: '/rols/',
+    
+    // chat
     showChatsUser: '/chats',
     getChatMessages: '/chats/messages',
     createChat: '/chats/new',
+
+    // eventos
+    events: '/events',
+    activeEvents: '/events/show/active',
+    inactiveEvents: '/events/show/inactive',
+    activateEvents: '/events/update/activate',
+    desactivateEvents: '/events/update/desactivate',
+    searchEvent: '/events/search',
+    inscriptions: '/userEvents',
+
+    // assets
+    getFile: '/assets',
+    uploadAssets: '/assets/upload',
+    getAssetsOfUser: '/assets/user',
+
+    //recommend
+    recommend: '/recommendations',
 
     rol_admin : 1,
     admin_gestion_image:'../../assets/cards-dashboard/gestion.png',

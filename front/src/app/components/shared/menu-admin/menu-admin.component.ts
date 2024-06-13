@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-menu-admin',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './menu-admin.component.html',
   styleUrl: './menu-admin.component.css'
 })

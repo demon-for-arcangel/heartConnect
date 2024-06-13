@@ -14,17 +14,17 @@ module.exports = {
       const userRole = await models.Rol.findOne({ where: { name: 'usuario' }});
 
       if (adminUser && adminRole) {
-        await adminUser.setRoles(adminRole);
+        await adminUser.setRoles([adminRole]); 
       }
 
       if (user && userRole) {
-        await user.setRoles(userRole);
+        await user.setRoles([userRole]); 
       }
     } catch(error) {
       console.error(error);
     }
 
-    let factoryUserRols = await userRolFactory(5);
+    let factoryUserRols = await userRolFactory(21);
     await queryInterface.bulkInsert(process.env.TABLE_USER_ROLS, factoryUserRols);
  },
 

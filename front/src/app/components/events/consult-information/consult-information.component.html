@@ -1,0 +1,16 @@
+<div class="modal-container">
+    <div class="modal-header">
+      <h2>{{ event?.name }}</h2>
+    </div>
+    <div class="modal-body">
+      <p><strong>Description:</strong> {{ event?.des }}</p>
+      <p><strong>Date:</strong> {{ event?.date }}</p>
+      <p><strong>Status:</strong> {{ event?.public ? 'Active' : 'Inactive' }}</p>
+      <google-map [center]="{ lat: latitude, lng: longitude }" [zoom]="zoom">
+        <map-marker [position]="{ lat: latitude, lng: longitude }"></map-marker>
+      </google-map>
+    </div>
+    <div class="modal-footer">
+      <button (click)="inscription()">Inscribirse en el Evento</button>
+    </div>
+</div>

@@ -17,15 +17,9 @@ const index = async (req, res) => {
 const getEventsById = async (req, res) => {
     const eventId = req.params.id;
     try {
-      const event = await models.Events.findOne({
-        where: { id: eventId },
-      });
+      const events = await conx.getEventById(eventId);
    
-      if (!event) {
-        return res.status(404).json({ msg: "Evento no encontrado" });
-      }
-   
-      res.status(200).json(event);
+      res.status(200).json(events);
     } catch (error) {
       console.error('Error al obtener el evento por ID', error);
       res.status(500).json({ msg: "Error" });
@@ -72,6 +66,65 @@ const deleteEvents = async (req, res) => {
   }
 };
 
+const getActiveEvents = async (req, res) => {
+  console.log('Controlador getActiveEvents llamado');
+  try {
+    const activeEvents = await conx.getActiveEvents();
+    console.log('Eventos activos obtenidos:', activeEvents);
+    res.status(200).json(activeEvents);
+  } catch (error) {
+    console.error('Error al obtener eventos activos', error);
+    res.status(500).json({ msg: "Error al obtener eventos activos" });
+  }
+};
+
+const getInactiveEvents = async (req, res) => {
+  try {
+    const inactiveEvents = await conx.getInactiveEvents();
+    res.status(200).json(inactiveEvents);
+  } catch (error) {
+    console.error('Error al obtener eventos inactivos', error);
+    res.status(500).json({ msg: "Error al obtener eventos inactivos" });
+  }
+};
+
+const activateEvents = async (req, res) => {
+  const { eventsIds } = req.body;
+  console.log(eventsIds)
+  try {
+    const updatedEvents = await conx.activateEvents(eventsIds);
+    res.status(200).json({ message: 'Evento activado correctamente', event: updatedEvents });
+  } catch (error) {
+    console.error('Error: ', error);
+    res.status(500).json({ message: 'Error al activar el evento', error });
+  }
+}
+
+const desactivateEvents = async (req, res) => {
+  const { eventsIds } = req.body; 
+  try {
+    const result = await conx.desactivateEvents(eventsIds);
+    res.status(200).json(result);
+  } catch (error) {
+    console.error('Error al desactivar el evento: ', error);
+    res.status(500).json({ message: 'Error al desactivar el evento', error });
+  }
+}
+
+const searchEvents = async (req, res) => {
+  const { query } = req.params; 
+
+  try {
+    const events = await conx.searchEvents(query);
+    res.status(200).json(events);
+  } catch (error) {
+    console.error('Error al buscar eventos:', error);
+    res.status(500).json({ msg: "Error al buscar eventos" });
+  }
+};
+
+
 module.exports = {
-    index, getEventsById, createEvent, updateEvent, deleteEvents
+  index, getEventsById, createEvent, updateEvent, deleteEvents, getActiveEvents, getInactiveEvents,
+  activateEvents, desactivateEvents, searchEvents
 }
