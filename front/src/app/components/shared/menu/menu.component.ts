@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-menu',
@@ -12,15 +13,12 @@ export class MenuComponent {
   opcionesMenu = [
     { nombre: 'Ver eventos disponibles', accion: 'verEventos' },
     { nombre: 'Modo noche', accion: 'modoNoche' },
-    // Puedes agregar más opciones aquí
   ];
 
-  ejecutarAccion(accion: string) {
-    // Implementa la lógica para cada opción del menú
-    if (accion === 'verEventos') {
-      // Lógica para ver eventos disponibles
-    } else if (accion === 'modoNoche') {
-      // Lógica para activar el modo noche
-    }
+  constructor(private authService: AuthService, private router: Router){}
+
+  logout() {
+    this.authService.logout(); 
+    this.router.navigate(['/']); 
   }
 }

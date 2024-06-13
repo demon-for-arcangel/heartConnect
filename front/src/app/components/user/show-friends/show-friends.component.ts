@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { UserFriendship } from '../../../interfaces/user';
+import { User, UserFriendship } from '../../../interfaces/user';
 import { AuthService } from '../../../services/auth.service';
 import { UserFriendshipService } from '../../../services/user-friendship.service';
+import { GraphqlService } from '../../../services/graphql.service';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-show-friends',
@@ -12,11 +14,13 @@ import { UserFriendshipService } from '../../../services/user-friendship.service
 })
 export class ShowFriendsComponent {
   friends: UserFriendship[] = [];
+  friendDetails: User[] = [];
   errorMessage: string = '';
 
   constructor(
     private authService: AuthService,
-    private userFriendshipService: UserFriendshipService
+    private graphService: GraphqlService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -25,7 +29,7 @@ export class ShowFriendsComponent {
       this.authService.getUserByToken(token).subscribe(
         user => {
           if (user && user.id) {
-            this.loadFriends(user.id.toString());
+            this.loadFriends(user.id);
           } else {
             this.errorMessage = 'Usuario no encontrado';
           }
@@ -40,15 +44,40 @@ export class ShowFriendsComponent {
     }
   }
 
-  loadFriends(userId: string) {
-    this.userFriendshipService.showFriendship(userId).subscribe(
-      friends => {
-        this.friends = friends;
+  loadFriends(userId: number) {
+    this.graphService.getListFriends(userId).subscribe(
+      response => {
+        this.friends = response.data.getListFriends;
+        this.loadFriendDetails();
       },
       error => {
-        this.errorMessage = 'Error al obtener la lista de amigos';
+        this.errorMessage = 'Error al cargar la lista de amigos';
         console.error(error);
       }
     );
   }
-}
+
+  loadFriendDetails() {
+    this.friendDetails = [];
+    for (let friend of this.friends) {
+      if (friend.id_friendship !== undefined) {
+        this.userService.getUserById(friend.id_friendship.toString()).subscribe(
+          user => {
+            if (user) {
+              this.friendDetails.push(user);
+              console.log(this.friendDetails);
+            } else {
+              console.error('Usuario no encontrado para id_friendship:', friend.id_friendship);
+            }
+          },
+          error => {
+            this.errorMessage = 'Error al cargar los detalles de los amigos';
+            console.error(error);
+          }
+        );
+      } else {
+        console.warn('id_friendship es undefined para el amigo:', friend);
+      }
+    }
+  }
+  }
