@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { WebsocketsService } from '../../services/websockets.service';
 import { UserService } from '../../services/user.service';
 import { MenuComponent } from '../shared/menu/menu.component';
+import { GraphqlService } from '../../services/graphql.service';
 
 @Component({
   selector: 'app-chat',
@@ -20,6 +21,7 @@ import { MenuComponent } from '../shared/menu/menu.component';
 export class ChatComponent {
   private socket = io('http://localhost:8090');
   friends: UserFriendship[] = [];
+  friendDetails: User[] = []; 
   chats: any[] = [];
   messages: any[] = [];
   user: any = {};
@@ -27,12 +29,14 @@ export class ChatComponent {
   newMessage: string = '';
   selectedFriend: UserFriendship | null = null;
   selectedChatId: string | null = null;
+  errorMessage: string = '';
 
   constructor(
     private userFriendshipService: UserFriendshipService,
     private authService: AuthService,
     private websocketService: WebsocketsService,
-    private userService: UserService
+    private userService: UserService,
+    private graphService: GraphqlService
   ) {}
 
   ngOnInit() {
@@ -40,7 +44,7 @@ export class ChatComponent {
     this.authService.getUserByToken(token).subscribe(user => {
       if (user && user.id) {
         this.user = user.id.toString();
-        this.loadFriends(this.user);
+        this.loadFriends(Number(this.user));
         this.socket.emit('login', this.user);
         this.loadUserChats();
       } else {
@@ -75,18 +79,48 @@ export class ChatComponent {
     });
   }
 
-  loadFriends(userId: string) {
-    this.userFriendshipService.showFriendship(userId).subscribe(friends => {
-      if (friends) {
-        this.friends = friends;
-        this.filterFriendsWithoutChats();
-      } else {
-        console.error('No se ha encontrado una lista de amigos de este usuario.');
+  loadFriends(userId: number) {
+    this.graphService.getListFriends(userId).subscribe(
+      response => {
+        if (response && response.data && response.data.getListFriends) {
+          this.friends = response.data.getListFriends;
+          this.loadFriendDetails();
+        } else {
+          this.errorMessage = 'No se recibieron datos válidos al cargar la lista de amigos';
+        }
+      },
+      error => {
+        this.errorMessage = 'Error al cargar la lista de amigos';
+        console.error(error);
       }
-    }, error => {
-      console.error('Error al obtener los amigos del usuario:', error);
-    });
+    );
   }
+  
+
+  loadFriendDetails() {
+    this.friendDetails = [];
+    for (let friend of this.friends) {
+      if (friend.id_friendship !== undefined) {
+        this.userService.getUserById(friend.id_friendship.toString()).subscribe(
+          user => {
+            if (user) {
+              this.friendDetails.push(user);
+              console.log(this.friendDetails);
+            } else {
+              console.error('Usuario no encontrado para id_friendship:', friend.id_friendship);
+            }
+          },
+          error => {
+            this.errorMessage = 'Error al cargar los detalles de los amigos';
+            console.error(error);
+          }
+        );
+      } else {
+        console.warn('id_friendship es undefined para el amigo:', friend);
+      }
+    }
+  }
+
 
   loadUserChats() {
     this.websocketService.getUserChats(this.user).subscribe({
