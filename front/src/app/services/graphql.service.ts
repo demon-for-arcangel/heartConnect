@@ -67,4 +67,18 @@ export class GraphqlService {
     const variables = { id };
     return this.executeMutation(mutation, variables);
   }
+
+  getListFriends(id_user: number): Observable<any> {
+    const query = `
+      query GetListFriends($id_user: Int!) {
+        getListFriends(id_user: $id_user) {
+          id
+          id_user
+          id_friendship
+        }
+      }
+    `;
+    const variables = { id_user };
+    return this.executeQuery(query, variables);
+  }
 }
