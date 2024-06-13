@@ -26,9 +26,11 @@
                   <button (click)="deleteEvents()">
                     <i class="pi pi-trash"></i>
                   </button>
-                  <button (click)="editEvent()">
-                    <i class="pi pi-pencil"></i>
-                  </button>
+                  @if(getSelectedEvents().length === 1 && isEventEditable(getSelectedEvents()[0])){
+                     <button (click)="editEvent()">
+                        <i class="pi pi-pencil"></i>
+                     </button>
+                  }
                   <button (click)="consultEvent()">
                     <i class="pi pi-info-circle"></i>
                   </button>

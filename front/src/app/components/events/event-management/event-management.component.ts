@@ -31,6 +31,7 @@ export class EventManagementComponent {
   hasSelectedActiveEvents: boolean = false;
   hasSelectedInactiveEvents: boolean = false;
   allEventsSelected: boolean = false;
+  isEditable: boolean = true;
 
   activeSection: string = 'todos';
 
@@ -198,17 +199,25 @@ export class EventManagementComponent {
       });
     } else if (selectedEvents.length === 1) {
       const selectedEvent = selectedEvents[0];
-      this.ref = this.dialogService.open(EditEventComponent, {
-        header: 'Editar Evento',
-        modal: true,
-        width: '60%',
-        breakpoints: {
-          '960px': '75vw',
-          '640px': '90vw'
-        },
-        styleClass: 'custom-modal',
-        data: { eventId: selectedEvent.id }
-      });
+      if (this.isEventEditable(selectedEvent)) {
+        this.ref = this.dialogService.open(EditEventComponent, {
+          header: 'Editar Evento',
+          modal: true,
+          width: '60%',
+          breakpoints: {
+            '960px': '75vw',
+            '640px': '90vw'
+          },
+          styleClass: 'custom-modal',
+          data: { eventId: selectedEvent.id }
+        });
+      } else {
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'Advertencia',
+          detail: 'No se puede editar un evento con fecha pasada.',
+        });
+      }
     } else {
       this.messageService.add({
         severity: 'info',
@@ -252,7 +261,7 @@ export class EventManagementComponent {
     return event.id;
   }
 
-  private getSelectedEventIds(eventType?: string): number[] {
+  getSelectedEventIds(eventType?: string): number[] {
     let eventsList = [];
   
     if (eventType === 'active') {
@@ -266,8 +275,14 @@ export class EventManagementComponent {
     return eventsList.filter(event => event.selected).map(event => event.id);
   }  
 
-  private getSelectedEvents(): any[] {
+  getSelectedEvents(): any[] {
     return this.allEvents.filter(event => event.selected);
+  }
+
+  isEventEditable(event: any): boolean {
+    const now = new Date();
+    const eventDate = new Date(event.date);
+    return eventDate >= now; 
   }
 }
 
