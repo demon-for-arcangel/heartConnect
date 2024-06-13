@@ -5,13 +5,13 @@ const { validateFilds, checkDiferenceAsign } = require('../../middlewares/valida
 const { statusUser, tokenCanAdmin, tokenCanUserAuth, checkToken, tokenCanSocio } = require('../../middlewares/abilities');
 const router = Router();
 
-router.get('/', /*[checkToken, tokenCanAdmin],*/ controlador.index);
-router.get('/:userId', controlador.getUserPreferencesById);
-router.post('/:userId', controlador.createUserPreference);
-router.put('/:userId', controlador.updateUserPreference);
-router.delete('/:userId', controlador.deleteUserPreference);
+router.get('/', /* [checkToken],  */controlador.index);
+router.get('/:userId', /* [checkToken],  */controlador.getUserPreferencesById);
+router.post('/:userId', /* [checkToken], */ controlador.createUserPreference);
+router.put('/:userId', /* [checkToken],  */controlador.updateUserPreference);
+router.delete('/:userId', /* [checkToken],  */controlador.deleteUserPreference);
 
-router.get('/options/relation', controlador.getOptionsRelation);
-router.get('/options/interest', controlador.getOptionsInterest);
+router.get('/options/relation', /* [checkToken],  */controlador.getOptionsRelation);
+router.get('/options/interest', /* [checkToken],  */controlador.getOptionsInterest);
 
 module.exports = router;

@@ -24,7 +24,7 @@ module.exports = {
       console.error(error);
     }
 
-    let factoryUserRols = await userRolFactory(5);
+    let factoryUserRols = await userRolFactory(21);
     await queryInterface.bulkInsert(process.env.TABLE_USER_ROLS, factoryUserRols);
  },
 

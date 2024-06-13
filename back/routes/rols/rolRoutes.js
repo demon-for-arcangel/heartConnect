@@ -5,8 +5,8 @@ const { validateFilds, checkDiferenceAsign } = require('../../middlewares/valida
 const { statusUser, tokenCanAdmin, tokenCanUserAuth, checkToken, tokenCanSocio } = require('../../middlewares/abilities');
 const router = Router();
 
-router.get('/', /*[checkToken, tokenCanAdmin],*/ controlador.index);
-router.get('/:id', controlador.getRolById);
-router.put('/:id', /* [checkToken, tokenCanAdmin], */controlador.updateRol );
+router.get('/', /* [checkToken], */ controlador.index);
+router.get('/:id', /* [checkToken], */ controlador.getRolById);
+router.put('/:id', /* [checkToken], */ controlador.updateRol );
 
 module.exports = router;
