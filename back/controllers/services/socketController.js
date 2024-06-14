@@ -31,7 +31,7 @@ const socketController = (socket) => {
 
   socket.on('send-private-message', async (data) => {
     const { chatId, messageContent, senderId } = data;
-    console.log('Mensaje recibido:', { chatId, messageContent, senderId }); // Log de depuración
+    console.log('Mensaje recibido:', { chatId, messageContent, senderId }); 
     if (!chatId || !messageContent || !senderId) {
       console.error('chatId, messageContent o senderId no proporcionado en el evento send-private-message');
       return;
@@ -40,7 +40,6 @@ const socketController = (socket) => {
       const chat = await createChatIfNotExist(senderId, chatId);
       const newMessage = await sendMessage(chatId, messageContent, senderId);
   
-      // Emitir evento de nuevo chat a ambos usuarios si el chat es nuevo
       if (chat.isNew) {
         const recipientSocket = findSocketIdByUserId(chat.friendId);
         if (recipientSocket) {
@@ -49,7 +48,6 @@ const socketController = (socket) => {
         socket.emit('new-chat', chat);
       }
   
-      // Enviar el nuevo mensaje al destinatario si está conectado
       const recipientSocket = findSocketIdByUserId(chat.friendId);
       if (recipientSocket) {
         io.to(recipientSocket).emit('new-private-message', newMessage);
@@ -57,7 +55,6 @@ const socketController = (socket) => {
         console.log('El destinatario no está conectado actualmente.');
       }
   
-      // Enviar el nuevo mensaje al remitente
       socket.emit('new-private-message', newMessage);
     } catch (error) {
       console.error('Error al enviar el mensaje privado:', error);
@@ -105,13 +102,13 @@ const getChatMessagesCon = async (req, res) => {
 
 const createChat = async (req, res) => {
     try {
-        const { userId, friendId } = req.body; // Suponiendo que los IDs del usuario y del amigo se pasan en el cuerpo de la solicitud
-        const chat = await createChatIfNotExist(userId, friendId); // Crear el chat si no existe
+        const { userId, friendId } = req.body; 
+        const chat = await createChatIfNotExist(userId, friendId); 
 
-        res.status(201).json({ chat }); // Enviar una respuesta con el chat creado
+        res.status(201).json({ chat }); 
     } catch (error) {
         console.error('Error al crear el chat:', error);
-        res.status(500).json({ message: 'Error al crear el chat' }); // Enviar una respuesta de error si falla la creación del chat
+        res.status(500).json({ message: 'Error al crear el chat' }); 
     }
 };
 

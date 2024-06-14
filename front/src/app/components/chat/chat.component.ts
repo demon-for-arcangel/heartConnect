@@ -116,7 +116,7 @@ export class ChatComponent {
           }
         );
       } else {
-        console.warn('id_friendship es undefined para el amigo:', friend);
+        console.error('id_friendship es undefined para el amigo:', friend);
       }
     }
   }
@@ -182,7 +182,7 @@ export class ChatComponent {
     if (messageContent && this.selectedChatId) {
       const chatId = this.selectedChatId;
       const senderId = this.user;
-      console.log('Enviando mensaje:', { chatId, messageContent, senderId }); // Log de depuración
+      console.log('Enviando mensaje:', { chatId, messageContent, senderId }); 
       this.socket.emit('send-private-message', { chatId, messageContent, senderId });
   
       this.messages.push({ message: this.newMessage, sender: 'yo', type: 'chat' });
