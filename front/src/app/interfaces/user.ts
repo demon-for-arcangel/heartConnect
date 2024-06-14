@@ -11,10 +11,13 @@ export interface User {
     phone_number?: string;
     roles?: Role[];
     photo_profile?: number;
+
+    id_user?: number;
+    id_friendship?: number;
 }
 
 export interface Role {
-    id: number;
+    id?: number;
     name?: string;
     admin?: string;
 }
@@ -28,4 +31,7 @@ export interface UserFriendship {
     id: number;
     firstName?: string;
     lastName?: string;
+
+    id_user?: number;
+    id_friendship?: number;
 }
