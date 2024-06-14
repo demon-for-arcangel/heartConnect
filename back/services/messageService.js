@@ -2,13 +2,40 @@ const db = require('../models');
 
 const sendMessage = async (chatId, messageContent, senderId) => {
   try {
-    const message = await db.Message.create({ chatId, message: messageContent, senderId });
+    if (!chatId || !messageContent || !senderId) {
+      throw new Error('Los parámetros chatId, messageContent y senderId son obligatorios');
+    }
+
+    const message = await db.Message.create({
+      chatId,
+      message: messageContent,
+      senderId,
+    });
+
+    const chat = await db.Chat.findByPk(chatId);
+
+    const invertedChat = await db.Chat.findOne({
+      where: {
+        userId: chat.friendId,
+        friendId: chat.userId,
+      },
+    });
+
+    if (invertedChat) {
+      await db.Message.create({
+        chatId: invertedChat.id,
+        message: messageContent,
+        senderId,
+      });
+    }
+
     return message;
   } catch (error) {
     console.error('Error al enviar el mensaje:', error);
     throw error;
   }
 };
+
 
 const getChatMessages = async (chatId) => {
   try {
@@ -22,12 +49,22 @@ const getChatMessages = async (chatId) => {
 
 const createChatIfNotExist = async (userId, friendId) => {
   try {
+    if (!userId || !friendId) {
+      throw new Error('Los parámetros userId y friendId son obligatorios');
+    }
+
+    // Buscar el chat existente
     let chat = await db.Chat.findOne({ where: { userId, friendId } });
     let isNew = false;
+
     if (!chat) {
       chat = await db.Chat.create({ userId, friendId });
       isNew = true;
+
+      // Crear el chat inverso
+      await db.Chat.create({ userId: friendId, friendId: userId });
     }
+
     return { ...chat.toJSON(), isNew };
   } catch (error) {
     console.error('Error al crear el chat:', error);
@@ -43,9 +80,9 @@ const getUserChats = async (userId) => {
         {
           model: db.User,
           as: 'friend',
-          attributes: ['id', 'firstName', 'lastName']
-        }
-      ]
+          attributes: ['id', 'firstName', 'lastName'],
+        },
+      ],
     });
     return chats;
   } catch (error) {
@@ -53,4 +90,5 @@ const getUserChats = async (userId) => {
     throw error;
   }
 };
+
 module.exports = { sendMessage, getChatMessages, createChatIfNotExist, getUserChats };
