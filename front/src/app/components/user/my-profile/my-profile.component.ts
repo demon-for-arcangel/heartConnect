@@ -26,7 +26,7 @@ export class MyProfileComponent implements OnInit {
   editingIndex: number | null = null;
   previewImage: string = '';
   editing: boolean = false;
-  maxNumberPhotos: number = 88;
+  maxNumberPhotos: number = 8;
 
   ref: DynamicDialogRef | undefined;
 
@@ -118,10 +118,10 @@ export class MyProfileComponent implements OnInit {
           console.log('Respuesta del servidor:', response);
           if (response && response.length > 0 && response[0].Asset) {
             const asset = response[0].Asset;
-            const path = asset.path + '?t=' + new Date().getTime(); // Force reload by appending timestamp
+            const path = asset.path 
             console.log('New image path:', path);
             this.images.push({ id: asset.id, path });
-            this.previewImage = `"` + path + `"`;
+            this.previewImage = path;
             console.log('Preview image path:', this.previewImage);
             this.cdr.detectChanges(); // Trigger change detection
           }

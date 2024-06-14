@@ -19,7 +19,7 @@
           <button (click)="showLikeUsers()">Personas de interés</button>
         </div>
         <p>{{ user.desc }}</p>
-        <div class="image-grid">
+        <div class="image-grid">   
           <h1>Fotos</h1>
           <div class="grid-container">
             @for (image of images; track image){
@@ -28,6 +28,7 @@
                   @if(image){
                     <img [src]="image.Asset?.path" alt="Assets">
                     @if (previewImage){
+                      <p>chao  </p>
                       <img [src]="previewImage" alt="Vista previa">
                     }
                   }
