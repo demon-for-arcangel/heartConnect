@@ -40,4 +40,13 @@ export class FileService {
   getUserAssets(userId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.urlGetAssetsofUser}/${userId}`);
   }
+
+  deleteAsset(assetId: number): Observable<any> {
+    return this.http.delete<any>(`${this.urlGetFile}/${assetId}`).pipe(
+      catchError((error) => {
+        console.error('Error al eliminar el archivo:', error);
+        return of(null);
+      })
+    );
+  }
 }

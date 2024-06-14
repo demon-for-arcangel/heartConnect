@@ -26,12 +26,12 @@
               <div class="image-container">
                 <div class="grid-item">
                   @if(image){
-                    <img [src]="image.Asset?.path" alt="Imagen">
+                    <img [src]="image.Asset?.path" alt="Assets">
+                    @if (previewImage){
+                      <img [src]="previewImage" alt="Vista previa">
+                    }
                   }
                   @if(image.Asset?.id !== undefined){
-                    <button class="edit-button" (click)="editImage(image.Asset?.id)">
-                      <i class="fas fa-pencil-alt"></i>
-                    </button>
                     <button class="delete-button" (click)="deleteImage(image.Asset?.id)">
                       <i class="fas fa-trash-alt"></i>
                     </button>
@@ -47,9 +47,6 @@
                     <i class="fas fa-plus"></i>
                   </label>
                   <input id="fileInput" type="file" style="display:none" (change)="addImage($event)">
-                  <!-- @if (previewImage){
-                    <img [src]="previewImage" alt="Vista previa de la imagen">
-                  } -->
                 </div>
               </div>
             }

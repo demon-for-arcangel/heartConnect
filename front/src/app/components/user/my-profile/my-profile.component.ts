@@ -9,7 +9,6 @@ import { ShowFriendsComponent } from '../show-friends/show-friends.component';
 import { ShowLikeUsersComponent } from '../show-like-users/show-like-users.component';
 import { CommonModule } from '@angular/common';
 import { MenuComponent } from '../../shared/menu/menu.component';
-import { Image } from '../../../interfaces/assets';
 import { Router } from '@angular/router';
 
 @Component({
@@ -27,7 +26,7 @@ export class MyProfileComponent implements OnInit {
   editingIndex: number | null = null;
   previewImage: string = '';
   editing: boolean = false;
-  maxNumberPhotos: number = 8;
+  maxNumberPhotos: number = 88;
 
   ref: DynamicDialogRef | undefined;
 
@@ -37,7 +36,8 @@ export class MyProfileComponent implements OnInit {
     private fileService: FileService,
     public dialogService: DialogService,
     private messageService: MessageService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -93,14 +93,20 @@ export class MyProfileComponent implements OnInit {
     });
   }
 
-  editImage(index: number): void {
-    this.editingIndex = index;
-    this.editing = true;
-    this.previewImage = this.images[index].path;
-  }
-
-  deleteImage(index: number): void {
-    this.images.splice(index, 1);
+  deleteImage(imageId: number) {
+    if (imageId) {
+      this.fileService.deleteAsset(imageId).subscribe(
+        (response) => {
+          console.log('Imagen eliminada correctamente:', response);
+          this.images = this.images.filter(img => img.id !== imageId);
+        },
+        (error) => {
+          console.error('Error al eliminar la imagen:', error);
+        }
+      );
+    } else {
+      console.error('ID de imagen inválido:', imageId);
+    }
   }
 
   addImage(fileInputEvent: any): void {
@@ -111,9 +117,12 @@ export class MyProfileComponent implements OnInit {
           console.log('Respuesta del servidor:', response);
           if (response && response.length > 0 && response[0].Asset) {
             const asset = response[0].Asset;
-            this.images.push({ id: asset.id, path: asset.path });
-            console.log('Ruta de la imagen subida:', asset.path);
-            this.loadImages()  // Forzar la detección de cambios
+            const path = asset.path + '?t=' + new Date().getTime(); // Force reload by appending timestamp
+            console.log('New image path:', path);
+            this.images.push({ id: asset.id, path });
+            this.previewImage = `"` + path + `"`;
+            console.log('Preview image path:', this.previewImage);
+            this.cdr.detectChanges(); // Trigger change detection
           }
         },
         error: (error) => {
@@ -122,6 +131,7 @@ export class MyProfileComponent implements OnInit {
       });
     }
   }
+  
   
   loadImages(): void {
     if (this.user.id) {
@@ -148,14 +158,7 @@ export class MyProfileComponent implements OnInit {
   saveImage(): void {
     if (this.editingIndex !== null) {
       this.images[this.editingIndex].path = this.previewImage;
-      this.cancelEditing();
     }
-  }
-
-  cancelEditing(): void {
-    this.editingIndex = null;
-    this.editing = false;
-    this.previewImage = '';
   }
 
   saveAllImages(): void {

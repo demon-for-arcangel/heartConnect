@@ -25,7 +25,7 @@ const showAsset = async (req, res = response) => {
     const asset = await assetsModel.getAssetById(assetId);
     console.log(asset)
     if (asset) {
-      const relativePath = path.relative(__dirname, path.join(__dirname, '../../../../assets/uploads/photo_profile/', path.basename(asset.path)));
+      const relativePath = path.relative(__dirname, path.join(__dirname, '/assets/uploads/photo_profile/', path.basename(asset.path)));
       const normalizedPath = relativePath.replace(/\\/g, '/');
       console.log('Archivo encontrado:', normalizedPath);
       res.status(200).json({ filePath: normalizedPath });
@@ -93,7 +93,7 @@ const uploadAsset = async (req, res = response) => {
 
           console.log("Archivo guardado en el sistema de archivos:", absoluteFilePath);
 
-          const asset = { path: `../../../../${relativeFilePath}` };  
+          const asset = { path: `/${relativeFilePath}` };  
           try {
             const savedAsset = await assetsModel.saveAsset(asset);
             console.log("Asset guardado correctamente:", savedAsset);
