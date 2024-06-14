@@ -30,7 +30,8 @@
               <ul>
                 @for (friendDetail of friendDetails; track friendDetail){
                   <li>
-                    <button (click)="selectFriend({ id: friendDetail.id!, firstName: friendDetail.firstName, lastName: friendDetail.lastName })">{{ friendDetail.firstName }}</button>                  </li> 
+                    <button (click)="selectFriend({ id: friendDetail.id!, firstName: friendDetail.firstName, lastName: friendDetail.lastName })">{{ friendDetail.firstName }}</button>
+                  </li> 
                 }
               </ul>
             </div>
@@ -64,4 +65,3 @@
     </div>
   </div>
 </div>
-

@@ -13,6 +13,10 @@ const socketController = (socket) => {
   });
 
   socket.on('login', async (userId) => {
+    if (!userId) {
+      console.error('userId no proporcionado en el evento de login');
+      return;
+    }
     activeSockets[userId] = socket;
     socket.userId = userId;
     console.log(`Usuario ${userId} conectado con el socket ${socket.id}`);
@@ -25,57 +29,48 @@ const socketController = (socket) => {
     }
   });
 
-  socket.on('create-new', (payload, callback) => {
-    socket.broadcast.emit('created-new', payload);
-    callback({ msg: "Mensaje recibido" });
-  });
-
-  socket.on('message', (message) => {
-    console.log(`Mensaje recibido de: ${JSON.stringify(message)}`);
-    socket.broadcast.emit('message', message);
-  });
-
-  socket.on('send-message', async (data) => {
-    const { chatId, message } = data;
-    try {
-      const newMessage = await sendMessage(chatId, message, socket.userId);
-      socket.to(chatId).emit('new-message', newMessage);
-    } catch (error) {
-      console.error('Error al enviar el mensaje:', error);
-    }
-  });
-
   socket.on('send-private-message', async (data) => {
-    const { recipientId, message } = data;
+    const { chatId, messageContent, senderId } = data;
+    console.log('Mensaje recibido:', { chatId, messageContent, senderId }); // Log de depuración
+    if (!chatId || !messageContent || !senderId) {
+      console.error('chatId, messageContent o senderId no proporcionado en el evento send-private-message');
+      return;
+    }
     try {
-      const chat = await createChatIfNotExist(socket.userId, recipientId);
-      const newMessage = await sendMessage(chat._id, message, socket.userId);
-
+      const chat = await createChatIfNotExist(senderId, chatId);
+      const newMessage = await sendMessage(chatId, messageContent, senderId);
+  
       // Emitir evento de nuevo chat a ambos usuarios si el chat es nuevo
       if (chat.isNew) {
-        const recipientSocket = findSocketIdByUserId(recipientId);
+        const recipientSocket = findSocketIdByUserId(chat.friendId);
         if (recipientSocket) {
           io.to(recipientSocket).emit('new-chat', chat);
         }
         socket.emit('new-chat', chat);
       }
-
+  
       // Enviar el nuevo mensaje al destinatario si está conectado
-      const recipientSocket = findSocketIdByUserId(recipientId);
+      const recipientSocket = findSocketIdByUserId(chat.friendId);
       if (recipientSocket) {
         io.to(recipientSocket).emit('new-private-message', newMessage);
       } else {
         console.log('El destinatario no está conectado actualmente.');
       }
-
+  
       // Enviar el nuevo mensaje al remitente
       socket.emit('new-private-message', newMessage);
     } catch (error) {
       console.error('Error al enviar el mensaje privado:', error);
     }
   });
+  
+  
 
   socket.on('join-chat', async (chatId) => {
+    if (!chatId) {
+      console.error('chatId no proporcionado en el evento join-chat');
+      return;
+    }
     try {
       const messages = await getChatMessages(chatId);
       socket.emit('chat-messages', messages);
@@ -84,6 +79,7 @@ const socketController = (socket) => {
     }
   });
 }
+
 
 const getUserChatsCon = async (req, res) => {
   try {

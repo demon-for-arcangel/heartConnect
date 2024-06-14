@@ -127,6 +127,7 @@ export class ChatComponent {
       next: (chats) => {
         this.chats = chats;
         this.filterFriendsWithoutChats();
+        console.log(this.chats);
       },
       error: (error) => {
         console.error('Error al obtener los chats del usuario:', error);
@@ -177,11 +178,13 @@ export class ChatComponent {
   }
 
   sendMessage() {
-    const messageText = this.newMessage.trim();
-    if (messageText && this.selectedChatId) {
-      const recipientId = this.selectedChatId.toString();
-      this.socket.emit('send-private-message', { recipientId, messageText });
-
+    const messageContent = this.newMessage.trim();
+    if (messageContent && this.selectedChatId) {
+      const chatId = this.selectedChatId;
+      const senderId = this.user;
+      console.log('Enviando mensaje:', { chatId, messageContent, senderId }); // Log de depuración
+      this.socket.emit('send-private-message', { chatId, messageContent, senderId });
+  
       this.messages.push({ message: this.newMessage, sender: 'yo', type: 'chat' });
       this.newMessage = '';
       setTimeout(() => {
@@ -192,6 +195,7 @@ export class ChatComponent {
       });
     }
   }
+    
 
   toggleSection(section: string) {
     this.activeSection = section;
