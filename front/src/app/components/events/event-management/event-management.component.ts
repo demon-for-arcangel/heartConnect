@@ -31,6 +31,7 @@ export class EventManagementComponent {
   hasSelectedActiveEvents: boolean = false;
   hasSelectedInactiveEvents: boolean = false;
   allEventsSelected: boolean = false;
+  isEditable: boolean = true;
 
   activeSection: string = 'todos';
 
@@ -45,7 +46,6 @@ export class EventManagementComponent {
   loadAllEvents() {
     this.eventService.getEvents().subscribe(events => {
       this.allEvents = events;
-      console.log('todos los eventos', this.allEvents)
       this.updateSelectedEvents();
     });
     this.eventService.getActiveEvents().subscribe(events => {
@@ -70,8 +70,8 @@ export class EventManagementComponent {
       eventsList = this.allEvents;
     }
 
-    eventsList.forEach(event => {
-      event.selected = isChecked;
+    eventsList.forEach(eventItem => {
+      eventItem.selected = isChecked;
     });
 
     this.updateSelectedEvents();
@@ -91,10 +91,11 @@ export class EventManagementComponent {
 
   toggleSection(section: string) {
     this.activeSection = section;
+    this.updateSelectedEvents();
   }
 
   deleteEvents() {
-    const selectedEventIds = this.allEvents.filter(event => event.selected).map(event => event.id);
+    const selectedEventIds = this.getSelectedEventIds();
     if (selectedEventIds.length === 0) {
       this.messageService.add({
         severity: 'info',
@@ -126,7 +127,7 @@ export class EventManagementComponent {
   }
 
   activateSelectedEvents() {
-    const selectedEventIds = this.inactiveEvents.filter(event => event.selected).map(event => event.id);
+    const selectedEventIds = this.getSelectedEventIds('inactive');
     if (selectedEventIds.length > 0) {
       this.eventService.activateEvent(selectedEventIds).subscribe(
         response => {
@@ -151,7 +152,7 @@ export class EventManagementComponent {
   }
 
   desactivateSelectedEvents() {
-    const selectedEventIds = this.activeEvents.filter(event => event.selected).map(event => event.id);
+    const selectedEventIds = this.getSelectedEventIds('active');
     if (selectedEventIds.length > 0) {
       this.eventService.desactivateEvent(selectedEventIds).subscribe(
         response => {
@@ -189,7 +190,7 @@ export class EventManagementComponent {
   }
 
   editEvent(): void {
-    const selectedEvents = this.allEvents.filter(event => event.selected);
+    const selectedEvents = this.getSelectedEvents();
     if (selectedEvents.length > 1) {
       this.messageService.add({
         severity: 'warn',
@@ -198,17 +199,25 @@ export class EventManagementComponent {
       });
     } else if (selectedEvents.length === 1) {
       const selectedEvent = selectedEvents[0];
-      this.ref = this.dialogService.open(EditEventComponent, {
-        header: 'Editar Evento',
-        modal: true,
-        width: '60%',
-        breakpoints: {
-          '960px': '75vw',
-          '640px': '90vw'
-        },
-        styleClass: 'custom-modal',
-        data: { eventId: selectedEvent.id }
-      });
+      if (this.isEventEditable(selectedEvent)) {
+        this.ref = this.dialogService.open(EditEventComponent, {
+          header: 'Editar Evento',
+          modal: true,
+          width: '60%',
+          breakpoints: {
+            '960px': '75vw',
+            '640px': '90vw'
+          },
+          styleClass: 'custom-modal',
+          data: { eventId: selectedEvent.id }
+        });
+      } else {
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'Advertencia',
+          detail: 'No se puede editar un evento con fecha pasada.',
+        });
+      }
     } else {
       this.messageService.add({
         severity: 'info',
@@ -219,7 +228,7 @@ export class EventManagementComponent {
   }
 
   consultEvent(): void {
-    const selectedEvents = this.allEvents.filter(event => event.selected);
+    const selectedEvents = this.getSelectedEvents();
     if (selectedEvents.length > 1) {
       this.messageService.add({
         severity: 'warn',
@@ -247,4 +256,33 @@ export class EventManagementComponent {
       });
     }
   }
+
+  trackEvent(index: number, event: any): number {
+    return event.id;
+  }
+
+  getSelectedEventIds(eventType?: string): number[] {
+    let eventsList = [];
+  
+    if (eventType === 'active') {
+      eventsList = this.activeEvents;
+    } else if (eventType === 'inactive') {
+      eventsList = this.inactiveEvents;
+    } else {
+      eventsList = this.allEvents;
+    }
+  
+    return eventsList.filter(event => event.selected).map(event => event.id);
+  }  
+
+  getSelectedEvents(): any[] {
+    return this.allEvents.filter(event => event.selected);
+  }
+
+  isEventEditable(event: any): boolean {
+    const now = new Date();
+    const eventDate = new Date(event.date);
+    return eventDate >= now; 
+  }
 }
+

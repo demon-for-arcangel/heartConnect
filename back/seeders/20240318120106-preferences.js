@@ -1,34 +1,84 @@
 'use strict';
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert(process.env.TABLE_PREFERENCES, [
       {
-        sports: 'Football',
-        artistic: 'Painting',
-        politicians: 'Democrat',
-        relationship_type: 'seria',
+        sports: 12,
+        artistic: 30,
+        politicians: 70,
+        relationship_type: 1, 
         has_children: false,
         wants_children: true,
-        interest: 'mujeres',
+        interest: 1, 
+        avg_preferences: 37,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        sports: 'Basketball',
-        artistic: 'Sculpture',
-        politicians: 'Republican',
-        relationship_type: 'esporádica',
-        has_children: true,
-        wants_children: false,
-        interest: 'ambos',
+        sports: 12,
+        artistic: 30,
+        politicians: 70,
+        relationship_type: 1, 
+        has_children: false,
+        wants_children: true,
+        interest: 1, 
+        avg_preferences: 37,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        sports: 3,
+        artistic: 20,
+        politicians: 40,
+        relationship_type: 1, 
+        has_children: false,
+        wants_children: true,
+        interest: 1, 
+        avg_preferences: 21,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        sports: 12,
+        artistic: 30,
+        politicians: 70,
+        relationship_type: 1, 
+        has_children: false,
+        wants_children: true,
+        interest: 1, 
+        avg_preferences: 37,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        sports: 12,
+        artistic: 30,
+        politicians: 70,
+        relationship_type: 1, 
+        has_children: false,
+        wants_children: true,
+        interest: 1, 
+        avg_preferences: 37,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        sports: 12,
+        artistic: 30,
+        politicians: 70,
+        relationship_type: 1, 
+        has_children: false,
+        wants_children: true,
+        interest: 1, 
+        avg_preferences: 37,
         createdAt: new Date(),
         updatedAt: new Date()
       },
     ], {});
   },
 
-  down: async (queryInterface, Sequelize) => {
+  async down (queryInterface, Sequelize) {
     await queryInterface.bulkDelete(process.env.TABLE_PREFERENCES, null, {});
   }
 };

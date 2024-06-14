@@ -28,9 +28,9 @@
           @if (activeSection === 'friends'){
             <div class="friends-list">
               <ul>
-                @for (friend of friends; track friend){
+                @for (friendDetail of friendDetails; track friendDetail){
                   <li>
-                    <button (click)="selectFriend(friend)">{{ friend.firstName }} {{ friend.lastName }}</button>
+                    <button (click)="selectFriend({ id: friendDetail.id!, firstName: friendDetail.firstName, lastName: friendDetail.lastName })">{{ friendDetail.firstName }}</button>
                   </li> 
                 }
               </ul>
@@ -65,4 +65,3 @@
     </div>
   </div>
 </div>
-

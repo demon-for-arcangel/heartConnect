@@ -4,11 +4,11 @@
     }
     @if(friends.length > 0){
         <ul>
-            @for(friend of friends; track friend){
+            @for(friendDetail of friendDetails; track friendDetail){
                 <li>
                     <div class="friend-info">
-                        <p><strong>Nombre:</strong> {{ friend.firstName }}</p>
-                        <p><strong>Apellido:</strong> {{ friend.lastName }}</p>
+                        <p><strong>Nombre:</strong> {{ friendDetail.firstName }}</p>
+                        <p><strong>Apellido:</strong> {{ friendDetail.lastName }}</p>
                     </div>
                 </li>
             }

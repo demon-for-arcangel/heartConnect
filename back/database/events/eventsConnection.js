@@ -48,7 +48,13 @@ class EventsModel {
     try {
       const event = await models.Events.findByPk(id);
       if (!event) {
-        throw new Error('sssEvento no encontrado');
+        throw new Error('Evento no encontrado');
+      }
+
+      const now = new Date();
+      const eventDate = new Date(event.date);
+      if (eventDate < now) {
+        throw new Error('No se puede actualizar un evento cuya fecha ya ha pasado');
       }
 
       const updatedEvent = await event.update(updatedData);

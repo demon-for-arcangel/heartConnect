@@ -1,0 +1,26 @@
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class PreferencesRelation extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      PreferencesRelation.hasMany(models.Preferences, {
+        foreignKey: 'id'
+      });
+    }
+  }
+  PreferencesRelation.init({
+    type: DataTypes.STRING
+  }, {
+    sequelize,
+    modelName: 'PreferencesRelation',
+    tableName: process.env.TABLE_PREFERENCES_RELATION
+  });
+  return PreferencesRelation;
+};

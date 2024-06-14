@@ -14,7 +14,7 @@
             <input type="email" id="email" name="email" required>
         </div>
         <div>
-            <label for="domicile">Domicilio</label>
+            <label for="domicile">Localidad</label>
             <div class="input-group">
                 <input type="text" id="domicile" name="domicile" required [(ngModel)]="domicileValue" (input)="onDomicileInput($event)" (blur)="onBlur()">
                 @if (suggestions.length > 0){

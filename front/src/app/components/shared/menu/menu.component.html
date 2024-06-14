@@ -11,10 +11,6 @@
                     <i class="pi pi-search"></i>
                     <p>Explorar</p>
                 </a></li>
-                <li><a routerLink="">
-                    <i class="pi pi-bell"></i>
-                    <p>Notificaciones</p>
-                </a></li>
                 <li><a routerLink="/messenger">
                     <i class="pi pi-envelope"></i>
                     <p>Mensajes</p>
@@ -36,9 +32,8 @@
                       <p>Más Opciones</p>
                     </label>
                     <div class="opciones-dropdown">
-                      <a routerLink="#">Ver eventos disponibles</a>
-                      <a routerLink="#">Cerrar Sesión</a>
-                      <!-- Agrega más opciones aquí -->
+                      <a routerLink="/show-events">Ver eventos disponibles</a>
+                      <a (click)="logout()">Cerrar Sesión</a>
                     </div>
                 </li>
             </ul>

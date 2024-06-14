@@ -10,14 +10,16 @@ const userRolFactory = async (num_gen) => {
     const users = await conx.indexUsers();
     const rols = await conxRol.indexRols();
 
-    for (let i = 0; i < num_gen; i++){
+    const assignedUsers = new Set();
+
+    for (let i = 0; i < num_gen; i++) {
         let randUserNum = Math.floor(Math.random() * users.length);
         let randRolNum = Math.floor(Math.random() * rols.length);
 
         let userId = users[randUserNum].id;
         let rolId = rols[randRolNum].id;
 
-        if (userId && rolId) {
+        if (userId && rolId && !assignedUsers.has(userId)) {
             const fakeUserRol = {
                 id_user: userId,
                 id_rol: rolId,
@@ -26,6 +28,7 @@ const userRolFactory = async (num_gen) => {
             };
 
             arrUserRols.push(fakeUserRol);
+            assignedUsers.add(userId);
         }
     }
     return Promise.all(arrUserRols);

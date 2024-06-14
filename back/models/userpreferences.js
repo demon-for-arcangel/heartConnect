@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   UserPreferences.init({
     id_user: DataTypes.INTEGER,
-    id_preferennces: DataTypes.INTEGER
+    id_preferences: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'UserPreferences',

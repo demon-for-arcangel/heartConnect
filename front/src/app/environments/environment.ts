@@ -5,6 +5,7 @@ export const environment = {
     --------------------------
     */
     baseUrl: 'http://localhost:9292/api',
+    graphqlApiUrl: 'http://localhost:9292/graphql',
     
     // usuarios
     login: '/login',
@@ -22,6 +23,13 @@ export const environment = {
     updateUser: '/user',
     showFriendship: '/friendship',
     searchUser: '/users/search',
+
+    // preferencias
+    preferences: '/userPreferences',
+    getOptionsRelation: '/options/relation',
+    getOptionsInterest: '/options/interest',
+    optionInterest: '/preferences/options/interest',
+    optionRelation: '/preferences/options/relation',
     
     // roles
     showRols: '/rols/',
@@ -38,11 +46,15 @@ export const environment = {
     activateEvents: '/events/update/activate',
     desactivateEvents: '/events/update/desactivate',
     searchEvent: '/events/search',
+    inscriptions: '/userEvents',
 
     // assets
     getFile: '/assets',
     uploadAssets: '/assets/upload',
     getAssetsOfUser: '/assets/user',
+
+    //recommend
+    recommend: '/recommendations',
 
     rol_admin : 1,
     admin_gestion_image:'../../assets/cards-dashboard/gestion.png',

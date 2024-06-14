@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   UserEvents.init({
     id_user: DataTypes.INTEGER,
-    id_rol: DataTypes.INTEGER
+    id_events: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'UserEvents',

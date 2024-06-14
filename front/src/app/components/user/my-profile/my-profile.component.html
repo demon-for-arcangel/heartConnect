@@ -10,7 +10,7 @@
             <h2>{{ user.lastName }}</h2>
           </div>
           <div class="buttons">
-            <button>Ver preferencias</button>
+            <button (click)="navigatePreferences()">Ver preferencias</button>
             <button (click)="editProfile()">Editar perfil</button>
           </div>
         </div>
@@ -25,12 +25,14 @@
             @for (image of images; track image){
               <div class="image-container">
                 <div class="grid-item">
-                    <img [src]="image.path" alt="Imagen">
-                  @if(image.id !== undefined){
-                    <button class="edit-button" (click)="editImage(image.id)">
+                  @if(image){
+                    <img [src]="image.Asset?.path" alt="Imagen">
+                  }
+                  @if(image.Asset?.id !== undefined){
+                    <button class="edit-button" (click)="editImage(image.Asset?.id)">
                       <i class="fas fa-pencil-alt"></i>
                     </button>
-                    <button class="delete-button" (click)="deleteImage(image.id)">
+                    <button class="delete-button" (click)="deleteImage(image.Asset?.id)">
                       <i class="fas fa-trash-alt"></i>
                     </button>
                   }
@@ -45,15 +47,14 @@
                     <i class="fas fa-plus"></i>
                   </label>
                   <input id="fileInput" type="file" style="display:none" (change)="addImage($event)">
-                  @if (previewImage){
+                  <!-- @if (previewImage){
                     <img [src]="previewImage" alt="Vista previa de la imagen">
-                  }
+                  } -->
                 </div>
               </div>
             }
           </div>
         </div>
-        <button class="save-all-button" (click)="saveAllImages()">Guardar</button>
       </div>
     </div>
   </div>

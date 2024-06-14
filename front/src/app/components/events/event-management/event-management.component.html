@@ -26,9 +26,11 @@
                   <button (click)="deleteEvents()">
                     <i class="pi pi-trash"></i>
                   </button>
-                  <button (click)="editEvent()">
-                    <i class="pi pi-pencil"></i>
-                  </button>
+                  @if(getSelectedEvents().length === 1 && isEventEditable(getSelectedEvents()[0])){
+                     <button (click)="editEvent()">
+                        <i class="pi pi-pencil"></i>
+                     </button>
+                  }
                   <button (click)="consultEvent()">
                     <i class="pi pi-info-circle"></i>
                   </button>
@@ -55,15 +57,16 @@
             <h2>Eventos Activados</h2>
             @if (hasSelectedActiveEvents) {
                <div>
-                  <button (click)="deleteEvents()">
+                  <!-- <button (click)="deleteEvents()">
                      <i class="pi pi-trash"></i>
-                  </button>
-                  <button (click)="editEvent()">
+                   </button>
+                   <button (click)="editEvent()">
                      <i class="pi pi-pencil"></i>
-                  </button>
-                  <button (click)="consultEvent()">
+                   </button>
+                   <button (click)="consultEvent()">
                      <i class="pi pi-info-circle"></i>
-                  </button>
+                   </button>
+  -->
                   <button (click)="desactivateSelectedEvents()">Desactivar Evento</button>
                </div>
             }
@@ -89,7 +92,7 @@
             <h2>Eventos Sin Activar</h2>
             @if (hasSelectedInactiveEvents) {
                <div>
-                  <button (click)="deleteEvents()">
+                  <!-- <button (click)="deleteEvents()">
                      <i class="pi pi-trash"></i>
                   </button>
                   <button (click)="editEvent()">
@@ -97,7 +100,7 @@
                   </button>
                   <button (click)="consultEvent()">
                      <i class="pi pi-info-circle"></i>
-                  </button>
+                  </button> -->
                   <button (click)="activateSelectedEvents()">Activar Evento</button>
                </div>
             }
