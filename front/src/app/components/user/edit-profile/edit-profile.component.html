@@ -12,10 +12,7 @@
             <label for="email">Email:</label>
             <input type="text" id="email" [(ngModel)]="user.email">
         </div>
-        <div class="form-field">
-            <label for="born_date">Fecha de Nacimiento:</label>
-            <input type="text" id="born_date" [(ngModel)]="user.born_date">
-        </div>
+        
         <div class="form-field">
             <label for="desc">Descripción:</label>
             <input type="text" id="desc" [(ngModel)]="user.desc">
@@ -23,6 +20,10 @@
     </div>
 
     <div class="form-column">
+        <div class="form-field">
+            <label for="born_date">Fecha de Nacimiento:</label>
+            <input type="text" id="born_date" [(ngModel)]="user.born_date">
+        </div>
         <div class="form-field">
             <label for="domicile">Domicilio:</label>
             <input type="text" id="domicile" [(ngModel)]="user.domicile">
