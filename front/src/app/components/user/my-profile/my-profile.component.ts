@@ -99,6 +99,7 @@ export class MyProfileComponent implements OnInit {
         (response) => {
           console.log('Imagen eliminada correctamente:', response);
           this.images = this.images.filter(img => img.id !== imageId);
+          window.location.reload();
         },
         (error) => {
           console.error('Error al eliminar la imagen:', error);
