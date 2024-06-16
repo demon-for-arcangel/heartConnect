@@ -30,7 +30,7 @@
               <ul>
                 @for (friendDetail of friendDetails; track friendDetail){
                   <li>
-                    <button (click)="selectFriend({ id: friendDetail.id!, firstName: friendDetail.firstName, lastName: friendDetail.lastName })">{{ friendDetail.firstName }}</button>
+                    <button (click)="selectFriend({ id: friendDetail.id!, firstName: friendDetail.firstName, lastName: friendDetail.lastName })">{{ friendDetail.firstName }} {{ friendDetail.lastName }}</button>
                   </li> 
                 }
               </ul>
@@ -44,23 +44,28 @@
         <div class="message-container">
             <ul>
               @if (activeSection === 'chats') {
-                @for (message of messages; track message) {
-                  <li>{{ message.message }}</li>
+
+                @for(message of messages; track message){
+                  <li class="message-content">
+                    <span class="message-sender">{{ message.senderName }}:</span> <!-- Añade el nombre del remitente aquí -->
+                    <br><hr>
+                    <span>{{ message.message }}</span> 
+                  </li>
                 }
               }
                @if (activeSection === 'friends'){
-                @for (message of messages; track message) {
-                  <li>{{ message.message }}</li>
-                }
+                <p>Seleccione un Amigo para empezar a chatear</p>
               }
             </ul>
         </div>
+        @if(activeSection === 'chats'){
           <div class="message-input">
             <input type="text" placeholder="Escribe tu mensaje aquí..." [(ngModel)]="newMessage" />
             <button (click)="sendMessage()">
               <i class="pi pi-send"></i>
             </button>
           </div>
+        }
       </div>
     </div>
   </div>

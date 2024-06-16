@@ -144,6 +144,7 @@ export class ChatComponent {
     this.selectedFriend = friend;
     this.selectedChatId = null;
     this.createOrLoadChat(this.user, friend.id.toString());
+    window.location.reload();
   }
 
   selectChat(chat: any) {
@@ -166,36 +167,46 @@ export class ChatComponent {
     });
   }
 
-  loadMessages(chatId: string) {
-    this.websocketService.getChatMessages(chatId).subscribe({
-      next: (messages) => {
-        this.messages = messages.map(msg => ({ ...msg, type: 'chat' }));
-      },
-      error: (error) => {
-        console.error('Error al obtener los mensajes del chat:', error);
+  async loadMessages(chatId: string) {
+    try {
+      const messagesResponse = await this.websocketService.getChatMessages(chatId).toPromise();
+      if (messagesResponse){
+        const messagesWithSenderNames = messagesResponse.map(async msg => {
+          const sender = await this.getUserById(msg.senderId);
+          return {...msg, senderName: sender? `${sender.firstName} ${sender.lastName}` : 'Desconocido' };
+        });
+        this.messages = await Promise.all(messagesWithSenderNames);
+        console.log(this.messages);
       }
-    });
+    } catch (error) {
+      console.error('Error al obtener los mensajes del chat:', error);
+    }
   }
 
-  sendMessage() {
+  async sendMessage() {
     const messageContent = this.newMessage.trim();
     if (messageContent && this.selectedChatId) {
       const chatId = this.selectedChatId;
       const senderId = this.user;
-      console.log('Enviando mensaje:', { chatId, messageContent, senderId }); 
-      this.socket.emit('send-private-message', { chatId, messageContent, senderId });
   
-      this.messages.push({ message: this.newMessage, sender: 'yo', type: 'chat' });
+      const sender = await this.getUserById(senderId);
+      const senderName = sender? `${sender.firstName} ${sender.lastName}` : 'Desconocido';
+  
+      console.log('Enviando mensaje:', { chatId, messageContent, senderId, senderName });
+  
+      this.socket.emit('send-private-message', { chatId, messageContent, senderId, senderName });
+  
+      this.messages.push({ message: this.newMessage, senderId: this.user, type: 'chat', senderName });
       this.newMessage = '';
+  
       setTimeout(() => {
         const messageContainer = document.querySelector('.message-container');
         if (messageContainer) {
           messageContainer.scrollTop = messageContainer.scrollHeight;
         }
-      });
+      }, 0); 
     }
   }
-    
 
   toggleSection(section: string) {
     this.activeSection = section;
