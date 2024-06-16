@@ -28,7 +28,7 @@ module.exports = {
         name: 'Evento 3',
         des: 'Descripción del Evento 3',
         date: new Date('2026-06-13T00:00:00'),
-        public: 0,
+        public: 1,
         latitude: 38.735575,
         longitude: -4.073282,
         createdAt: new Date(),

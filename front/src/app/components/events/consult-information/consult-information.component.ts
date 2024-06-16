@@ -43,6 +43,15 @@ export class ConsultInformationComponent {
     );
   }
 
+  isEventPast(): boolean {
+    if (!this.event || !this.event.date) {
+      return true;
+    }
+    const eventDate = new Date(this.event.date);
+    const today = new Date();
+    return eventDate < today;
+  }
+
   inscription(): void {
     this.authService.getUserByToken(localStorage.getItem('user')).subscribe(
       (user) => {

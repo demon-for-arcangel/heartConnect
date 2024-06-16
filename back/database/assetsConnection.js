@@ -9,7 +9,7 @@ class AssetsModel {
   constructor() {}
 
   getAssetById = async (assetId) => {
-    let resultado = []; // Inicializamos resultado como null
+    let resultado = []; 
     try {
         conexion.conectar();
         resultado = await models.Asset.findOne({
@@ -118,6 +118,29 @@ class AssetsModel {
   
       return true;
     } catch (error) {
+      throw error;
+    }
+  };
+
+  async addAsset (filePath) {
+    try {
+      const asset = await models.Asset.create({ path: filePath });
+      return asset.id;
+    } catch (error) {
+      console.error('Error adding asset:', error);
+      throw error;
+    }
+  };
+
+  async updateUserProfilePhoto (userId, assetId) {
+    try {
+      await models.User.update(
+        { photo_profile: assetId },
+        { where: { id: userId } }
+      );
+      console.log('User profile photo updated successfully.');
+    } catch (error) {
+      console.error('Error updating user profile photo:', error);
       throw error;
     }
   };

@@ -23,7 +23,8 @@ export class ShowEventsComponent {
   ngOnInit(): void {
     this.eventService.getEvents().subscribe(
       (data) => {
-        this.events = data;
+        this.events = data.filter(event => event.public); 
+        console.log(this.events);
       },
       (error) => {
         console.error('Error al obtener eventos:', error);
