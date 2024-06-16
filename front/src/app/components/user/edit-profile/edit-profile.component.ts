@@ -41,15 +41,10 @@ export class EditProfileComponent implements OnInit {
     const files = event.target.files;
     if (files && files.length > 0) {
       for (const file of files) {
-        // Validar tipo de archivo (opcional)
         if (file.type.startsWith('image/')) {
           if (this.images.length < this.maxImages) {
             this.images.push(file);
-          } else {
-            alert(`Solo se permiten ${this.maxImages} imágenes.`);
-          }
-        } else {
-          alert('Solo se permiten archivos de imagen.');
+          } 
         }
       }
     }

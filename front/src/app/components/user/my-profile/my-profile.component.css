@@ -44,14 +44,14 @@
     align-items: center;
     justify-content: center;
     position: absolute;
-    left: 49%; /* Ajusta la posición del botón de edición */
-    top: 130px; /* Centra verticalmente el botón de edición */
+    left: 49%; 
+    top: 130px; 
 }
 
 .profile-header img {
-    width: 100px; /* ajusta el tamaño de la foto de perfil según sea necesario */
+    width: 100px; 
     height: 100px;
-    border-radius: 50%; /* para que la foto sea redonda */
+    border-radius: 50%; 
     margin-right: 20px;
 }
 
@@ -61,8 +61,8 @@
 }
 
 .name-container h2 {
-    margin: 0; /* Elimina el margen predeterminado de los encabezados */
-    margin-right: 10px; /* Espacio entre el nombre y el apellido */
+    margin: 0;
+    margin-right: 10px; 
 }
 
 .buttons {
@@ -76,17 +76,17 @@
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    background-color: #4CAF50; /* color de fondo verde */
+    background-color: #4CAF50; 
     color: white;
     cursor: pointer;
 }
 
 .buttons button:hover {
-    background-color: #45a049; /* color de fondo verde más oscuro al pasar el ratón */
+    background-color: #45a049; 
 }
 
 .buttons button:focus {
-    outline: none; /* elimina el borde al enfocar */
+    outline: none; 
 }
 
 .profile-info p {
@@ -187,13 +187,13 @@
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    background: linear-gradient(to right, #ff416c, #ff4b2b); /* gradient button */
+    background: linear-gradient(to right, #ff416c, #ff4b2b); 
     color: white;
     cursor: pointer;
 }
 
 .save-all-button:hover {
-    background: linear-gradient(to right, #ff4b2b, #ff416c); /* gradient button on hover */
+    background: linear-gradient(to right, #ff4b2b, #ff416c); 
 }
 
 .save-all-button:focus {
