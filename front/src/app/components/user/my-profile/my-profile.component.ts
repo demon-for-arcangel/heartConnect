@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { UserService } from '../../../services/user.service';
 import { FileService } from '../../../services/file.service';
@@ -27,6 +27,8 @@ export class MyProfileComponent implements OnInit {
   previewImage: string = '';
   editing: boolean = false;
   maxNumberPhotos: number = 8;
+
+  @ViewChild('fileInput') fileInput!: ElementRef;
 
   ref: DynamicDialogRef | undefined;
 
@@ -74,6 +76,30 @@ export class MyProfileComponent implements OnInit {
               });
             }
           });
+        }
+      });
+    }
+  }
+
+  openFileInput() {
+    this.fileInput.nativeElement.click();
+  }
+
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file && this.user.id) {
+      const formData = new FormData();
+      formData.append('photo_profile', file);
+      formData.append('userId', this.user.id.toString());
+  
+      this.fileService.uploadProfileImage(formData, this.user.id).subscribe({
+        next: (response: { filePath: string }) => {
+          this.userProfileImageUrl = response.filePath;
+          console.log('URL de la nueva imagen del perfil:', this.userProfileImageUrl);
+          window.location.reload();
+        },
+        error: (error) => {
+          console.error('Error al subir la imagen del perfil:', error);
         }
       });
     }

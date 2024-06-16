@@ -53,6 +53,7 @@ export const environment = {
     getFile: '/assets',
     uploadAssets: '/assets/upload',
     getAssetsOfUser: '/assets/user',
+    updatePhotoProfile: '/assets/photo-profile',
 
     //recommend
     recommend: '/recommendations',

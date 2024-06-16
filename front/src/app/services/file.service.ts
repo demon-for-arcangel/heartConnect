@@ -12,11 +12,16 @@ export class FileService {
   private urlGetFile: string = this.baseUrl + environment.getFile;
   private urlUploadFile: string = this.baseUrl + environment.uploadAssets;
   private urlGetAssetsofUser: string = this.baseUrl + environment.getAssetsOfUser;
+  private urlUpdatePhotoProfile: string = this.baseUrl + environment.updatePhotoProfile;
 
   constructor(private http: HttpClient) { }
 
   getFileById(assetId: string): Observable<{ filePath: string }> {
     return this.http.get<{ filePath: string }>(`${this.urlGetFile}/${assetId}`);
+  }
+
+  uploadProfileImage(formData: FormData, userId: number): Observable<any> {
+    return this.http.put<any>(`${this.urlUpdatePhotoProfile}/${userId}`, formData);
   }
 
   uploadFile(file: File, userId: string): Observable<any> {
