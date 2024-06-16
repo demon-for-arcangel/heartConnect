@@ -26,18 +26,15 @@
           <button (click)="showLikeUsers()">Personas de interés</button>
         </div>
         <p>{{ user.desc }}</p>
+        <img src="/assets/uploads/photos/1718571163597-gvwwbum5mb5.png" width="300px">
         <div class="image-grid">   
           <h1>Fotos</h1>
           <div class="grid-container">
             @for (image of images; track image){
               <div class="image-container">
                 <div class="grid-item">
-                  @if(image){
-                    <img [src]="image.Asset?.path" alt="Assets">
-                    @if (previewImage){
-                      <p>chao  </p>
-                      <img [src]="previewImage" alt="Vista previa">
-                    }
+                  @if(image.Asset?.path){
+                    <img [src]="image.Asset.path" alt="Assets">
                   }
                   @if(image.Asset?.id !== undefined){
                     <button class="delete-button" (click)="deleteImage(image.Asset?.id)">

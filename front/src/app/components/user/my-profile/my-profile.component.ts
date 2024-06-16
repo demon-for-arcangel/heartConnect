@@ -24,7 +24,7 @@ export class MyProfileComponent implements OnInit {
   userProfileImageUrl: string = '';
   images: any[] = [];
   editingIndex: number | null = null;
-  previewImage: string = '';
+  previewImage: any[] = [];
   editing: boolean = false;
   maxNumberPhotos: number = 8;
 
@@ -45,43 +45,49 @@ export class MyProfileComponent implements OnInit {
 
   ngOnInit() {
     const token = localStorage.getItem('user');
-    console.log('token del usuario', token);
-
     if (token) {
       this.authService.getUserByToken(token).subscribe(user => {
         if (user && user.id) {
           this.userService.getUserById(user.id.toString()).subscribe(userData => {
             this.user = userData;
-            console.log('Usuario:', this.user);
             if (this.user.photo_profile) {
-              this.fileService.getFileById(this.user.photo_profile).subscribe({
-                next: (response: { filePath: string }) => {
-                  this.userProfileImageUrl = response.filePath;
-                  console.log('URL de la imagen del perfil:', this.userProfileImageUrl);
-                },
-                error: error => {
-                  console.error('Error al obtener la imagen del perfil:', error);
-                }
-              });
+              this.loadUserProfileImage();
             }
-
-            if (this.user.id) {
-              this.fileService.getUserAssets(this.user.id).subscribe({
-                next: (assets: any[]) => {
-                  console.log('Assets del usuario:', assets);
-                  this.images = assets;
-                },
-                error: (error) => {
-                  console.error('Error al obtener los assets del usuario:', error);
-                }
-              });
-            }
+            this.loadUserImages();
           });
         }
       });
     }
   }
-
+  
+  loadUserProfileImage() {
+    this.fileService.getFileById(this.user.photo_profile).subscribe({
+      next: (response: { filePath: string }) => {
+        this.userProfileImageUrl = response.filePath;
+      },
+      error: error => {
+        console.error('Error al obtener la imagen del perfil:', error);
+      }
+    });
+  }
+  
+  loadUserImages() {
+    if (this.user.id) {
+      this.fileService.getUserAssets(this.user.id).subscribe({
+        next: (assets: any[]) => {
+          console.log('Assets del usuario:', assets);
+          this.images = assets;
+          assets.forEach(asset => {
+            console.log('Ruta de la imagen:', asset.Asset.path);
+          });
+        },
+        error: (error) => {
+          console.error('Error al obtener los assets del usuario:', error);
+        }
+      });
+    }
+  }   
+  
   openFileInput() {
     this.fileInput.nativeElement.click();
   }
@@ -122,6 +128,24 @@ export class MyProfileComponent implements OnInit {
     }
   }
 
+addImage(fileInputEvent: any): void {
+  const file = fileInputEvent.target.files[0];
+  if (file && this.user.id) {
+    this.fileService.uploadFile(file, this.user.id.toString()).subscribe({
+      next: (response: any[]) => {
+        if (response && response.length > 0 && response[0].Asset) {
+          const asset = response[0];
+          this.images.push(asset); 
+          this.messageService.add({severity: 'success', summary: 'Éxito', detail: 'Imagen agregada correctamente.'});
+        }
+      },
+      error: (error) => {
+        console.error('Error al subir la imagen:', error);
+      }
+    });
+  }
+}
+  
   deleteImage(imageId: number) {
     if (imageId) {
       this.fileService.deleteAsset(imageId).subscribe(
@@ -139,51 +163,10 @@ export class MyProfileComponent implements OnInit {
     }
   }
 
-  addImage(fileInputEvent: any): void {
-    const file = fileInputEvent.target.files[0];
-    if (file && this.user.id) {
-      this.fileService.uploadFile(file, this.user.id.toString()).subscribe({
-        next: (response: any[]) => {
-          console.log('Respuesta del servidor:', response);
-          if (response && response.length > 0 && response[0].Asset) {
-            const asset = response[0].Asset;
-            const path = asset.path 
-            console.log('New image path:', path);
-            this.images.push({ id: asset.id, path });
-            this.previewImage = path;
-            console.log('Preview image path:', this.previewImage);
-          }
-        },
-        error: (error) => {
-          console.error('Error al subir la imagen:', error);
-        }
-      });
-    }
-    this.loadImages();
-  }
-  
-  loadImages(): void {
-    if (this.user.id) {
-      this.fileService.getUserAssets(this.user.id).subscribe({
-        next: (assets: any[]) => {
-          console.log('Assets del usuario:', assets);
-          this.images = assets;
-          /* setTimeout(() => {
-            window.location.reload();
-          }, 50); */
-        },
-        error: (error) => {
-          console.error('Error al obtener los assets del usuario:', error);
-        }
-      });
-    }
-  }
-
   navigatePreferences(){
     this.router.navigate(['/my-preferences']);
   }
   
-
   saveImage(): void {
     if (this.editingIndex !== null) {
       this.images[this.editingIndex].path = this.previewImage;
