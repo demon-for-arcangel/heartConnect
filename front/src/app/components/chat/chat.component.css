@@ -1,22 +1,22 @@
 .main-container {
     display: flex;
-    height: 100vh; /* Asegura que el contenedor principal ocupe toda la altura de la pantalla */
+    height: 100vh;
 }
 
 .main-content {
-    margin-left: 25%; /* Deja espacio para el menú lateral */
-    flex-grow: 1; /* El contenido principal ocupa el espacio restante */
-    padding: 20px; /* Añade un poco de padding */
-    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+    margin-left: 25%; 
+    flex-grow: 1; 
+    padding: 20px; 
+    box-sizing: border-box; 
     display: flex;
-    flex-direction: column; /* Permite que los hijos crezcan verticalmente */
+    flex-direction: column; 
 }
 
 .chat-container {
     display: grid;
-    grid-template-columns: 1fr 3fr; /* La segunda columna ocupa el doble de espacio */
-    gap: 20px; /* Espacio entre columnas */
-    flex-grow: 1; /* Permite que el contenedor de chat crezca verticalmente */
+    grid-template-columns: 1fr 3fr;
+    gap: 20px; 
+    flex-grow: 1; 
     padding: 20px;
     background-color: #1d1c1c;
     border-radius: 8px;
@@ -28,7 +28,7 @@
 .buttons-and-content {
     display: flex;
     flex-direction: column;
-    grid-column: 1; /* Ocupa la primera columna */
+    grid-column: 1; 
 }
 
 .chat-buttons {
@@ -62,18 +62,18 @@
 .messages {
     display: flex;
     flex-direction: column;
-    flex-grow: 1; /* Permite que el contenedor de mensajes crezca verticalmente */
+    flex-grow: 1; 
     overflow: hidden;
     border: 1px solid #060606;
     border-radius: 4px;
     padding: 10px;
     background-color: #111111;
-    grid-column: 2; /* Ocupa la segunda columna */
+    grid-column: 2; 
 }
 
 .message-container {
-    overflow-y: auto; /* Hace que el contenido se desplace verticalmente */
-    flex-grow: 1; /* Permite que el contenedor de mensajes crezca verticalmente */
+    overflow-y: auto;
+    flex-grow: 1; 
     margin-bottom: 10px;
 }
 
@@ -82,12 +82,12 @@
 }
 
 .message-input {
-    display: flex; /* Asegura que el botón y el input estén en la misma línea */
+    display: flex;
     align-items: center; 
 }
 
 .message-input input {
-    flex-grow: 1; /* Permite que el input crezca y ocupe todo el espacio disponible */
+    flex-grow: 1;
     padding: 10px;
     border: none;
     border-radius: 4px;
@@ -124,7 +124,6 @@
     margin-bottom: 0;
 }
 
-/*barra de scroll */
 ::-webkit-scrollbar {
     width: 8px; 
 }

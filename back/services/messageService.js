@@ -53,7 +53,6 @@ const createChatIfNotExist = async (userId, friendId) => {
       throw new Error('Los parámetros userId y friendId son obligatorios');
     }
 
-    // Buscar el chat existente
     let chat = await db.Chat.findOne({ where: { userId, friendId } });
     let isNew = false;
 
@@ -61,7 +60,6 @@ const createChatIfNotExist = async (userId, friendId) => {
       chat = await db.Chat.create({ userId, friendId });
       isNew = true;
 
-      // Crear el chat inverso
       await db.Chat.create({ userId: friendId, friendId: userId });
     }
 

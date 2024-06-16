@@ -130,7 +130,6 @@ class UserPreferencesModel {
     
             console.log(`Preferencias del usuario con ID: ${userId} eliminadas de la tabla UserPreferences`);
     
-            // Luego, eliminar la preferencia de la tabla Preferences
             const deletedPreference = await models.Preferences.destroy({
                 where: { id: userPreference.id_preferences }
             });
