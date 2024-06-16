@@ -102,6 +102,22 @@ export class MyProfileComponent implements OnInit {
           console.error('Error al subir la imagen del perfil:', error);
         }
       });
+
+      this.userService.getUserById(this.user.id.toString()).subscribe(userData => {
+        this.user = userData;
+        console.log('Usuario:', this.user);
+        if (this.user.photo_profile) {
+          this.fileService.getFileById(this.user.photo_profile).subscribe({
+            next: (response: { filePath: string }) => {
+              this.userProfileImageUrl = response.filePath;
+              console.log('URL de la imagen del perfil:', this.userProfileImageUrl);
+            },
+            error: error => {
+              console.error('Error al obtener la imagen del perfil:', error);
+            }
+          });
+        }
+      });
     }
   }
 
