@@ -23,6 +23,7 @@ export const environment = {
     updateUser: '/user',
     showFriendship: '/friendship',
     searchUser: '/users/search',
+    googleSignIn: '/google',
 
     // preferencias
     preferences: '/userPreferences',

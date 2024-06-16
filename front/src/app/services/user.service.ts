@@ -22,6 +22,7 @@ export class UserService {
   private urlCreateUser: string = this.baseUrl + environment.createUser;
   private urlUpdateUser: string = this.baseUrl + environment.updateUser;
   private urlSearchUser: string = this.baseUrl + environment.searchUser;
+  private urlSiginGoogle: string = this.baseUrl + environment.googleSignIn;
 
   login(user: User): Observable<User | undefined>{
     return this.http.post<User>(this.urlLogin, user, {withCredentials: false}).pipe(
@@ -104,5 +105,9 @@ export class UserService {
         return of([]);
       })
     );
+  }
+
+  googleLogin(token: string): Observable<any> {
+    return this.http.post(`${this.urlSiginGoogle}`, { id_token: token });
   }
 }
