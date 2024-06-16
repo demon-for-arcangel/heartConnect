@@ -49,7 +49,6 @@ class RecommendUserModel {
 
   async registerUser(userData) {
     try {
-      console.log('datos del nuevo: ', userData);
       if (!userData || typeof userData !== 'object') {
         throw new Error('Datos de usuario inválidos');
       }

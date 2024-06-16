@@ -138,7 +138,6 @@ class AssetsModel {
         { photo_profile: assetId },
         { where: { id: userId } }
       );
-      console.log('User profile photo updated successfully.');
     } catch (error) {
       console.error('Error updating user profile photo:', error);
       throw error;

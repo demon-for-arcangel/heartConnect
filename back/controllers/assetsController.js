@@ -9,7 +9,6 @@ const showAssetsUser = async (req, res = response) => {
     const assets = await conx.getAssetsOfUser(req.params.id);
     res.status(200).json(assets);
   } catch (err) {
-    console.error(err);
     res.status(404).json({ msg: "Usuario no tiene assets" });
   }
 };
@@ -23,19 +22,15 @@ const showAsset = async (req, res = response) => {
     }
 
     const asset = await conx.getAssetById(assetId);
-    console.log(asset)
     if (asset) {
       const relativePath = path.relative(__dirname, path.join(__dirname, 'assets/uploads/photo_profile/', path.basename(asset.path)));
       const normalizedPath = relativePath.replace(/\\/g, '/');
-      console.log('Archivo encontrado:', normalizedPath);
       res.status(200).json({ filePath: normalizedPath });
     } else {
-      console.log("Asset no encontrado");
       res.status(404).json({ msg: "Asset no encontrado" });
     }
 
   } catch (err) {
-    console.error(err);
     res.status(404).json({ msg: "Asset no encontrado" });
   }
 };
@@ -60,7 +55,6 @@ const updatePhotoProfile = async (req, res = response) => {
 
     file.mv(uploadPath, async (err) => {
       if (err) {
-        console.error(err);
         return res.status(500).send(err);
       }
 
@@ -69,12 +63,10 @@ const updatePhotoProfile = async (req, res = response) => {
         await conx.updateUserProfilePhoto(userId, assetId);
         res.status(200).json({ msg: "Foto de perfil actualizada", filePath: relativePath });
       } catch (error) {
-        console.error(error);
         res.status(500).json({ msg: "Error al actualizar la foto de perfil" });
       }
     });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ msg: "Error al actualizar la foto de perfil" });
   }
 }
@@ -85,12 +77,10 @@ const uploadAsset = async (req, res = response) => {
     const userId = req.headers['user-id'];
 
     if (!userId) {
-      console.log("Falta userId en los headers");
       return res.status(400).json({ msg: "User ID is required in headers" });
     }
 
     if (!req.files || Object.keys(req.files).length === 0) {
-      console.log("No se encontró ningún archivo en la solicitud");
       return res.status(400).json({ msg: "No file was uploaded" });
     }
 
@@ -109,7 +99,6 @@ const uploadAsset = async (req, res = response) => {
       const absoluteUploadsDir = path.resolve(__dirname, './../../front/src/assets/uploads/photos/');
 
       if (!fs.existsSync(absoluteUploadsDir)) {
-        console.log(`Creando directorio: ${absoluteUploadsDir}`);
         fs.mkdirSync(absoluteUploadsDir, { recursive: true });
       }
 
@@ -118,7 +107,6 @@ const uploadAsset = async (req, res = response) => {
       await new Promise((resolve, reject) => {
         file.mv(absoluteFilePath, async (err) => {
           if (err) {
-            console.error("Error al mover el archivo:", err);
             return reject(err);
           }
 
@@ -140,7 +128,6 @@ const uploadAsset = async (req, res = response) => {
     res.status(201).json(savedAssets);
 
   } catch (err) {
-    console.error("Error durante la carga del archivo:", err);
     res.status(500).json({ msg: "Error al subir el archivo" });
   }
 };

@@ -5,14 +5,10 @@ const getPeopleInterest = async (userId) => {
 };
 
 const addPeopleInterest = async (userId, personId) => {
-  console.log(userId, personId)
   const initialInterest = await models.UserPeopleInterest.create({ userId, personId });
-console.log(initialInterest)
   const reverseInterest = await models.UserPeopleInterest.findOne({
     where: { userId: personId, personId: userId }
   });
-
-  console.log(reverseInterest)
 
   if (reverseInterest) {
     await models.UserFriendShip.create({ id_user: personId, id_friendship: userId });

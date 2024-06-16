@@ -21,7 +21,6 @@ const userPeopleInterests = {
   },
   Mutation: {
     addUserPeopleInterest: async (_, { userId, personId }) => {
-      console.log(userId, personId)
       const interest = await addPeopleInterest(userId, personId);
       return interest;
     },
