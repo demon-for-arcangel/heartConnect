@@ -51,10 +51,10 @@
             @if(images.length < maxNumberPhotos){
               <div class="image-container">
                 <div class="grid-item add-button-container">
-                  <label for="fileInput" class="add-button">
+                  <label for="imagesFile" class="add-button">
                     <i class="fas fa-plus"></i>
                   </label>
-                  <input id="fileInput" type="file" style="display:none" (change)="addImage($event)">
+                  <input id="imagesFile" type="file" style="display:none" (change)="addImage($event)">
                 </div>
               </div>
             }

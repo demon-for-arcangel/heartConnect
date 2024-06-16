@@ -25,7 +25,7 @@ const showAsset = async (req, res = response) => {
     const asset = await conx.getAssetById(assetId);
     console.log(asset)
     if (asset) {
-      const relativePath = path.relative(__dirname, path.join(__dirname, '/assets/uploads/photo_profile/', path.basename(asset.path)));
+      const relativePath = path.relative(__dirname, path.join(__dirname, 'assets/uploads/photo_profile/', path.basename(asset.path)));
       const normalizedPath = relativePath.replace(/\\/g, '/');
       console.log('Archivo encontrado:', normalizedPath);
       res.status(200).json({ filePath: normalizedPath });
@@ -103,7 +103,7 @@ const uploadAsset = async (req, res = response) => {
     const savedAssets = [];
 
     for (const file of files) {
-      const fileName = generateUniqueFileNameWithExtension(file.name);
+      const fileName = generateUniqueName(file.name);
       const relativeUploadsDir = 'assets/uploads/photos/';
       const relativeFilePath = path.join(relativeUploadsDir, fileName).replace(/\\/g, '/');
       const absoluteUploadsDir = path.resolve(__dirname, './../../front/src/assets/uploads/photos/');
@@ -145,7 +145,7 @@ const uploadAsset = async (req, res = response) => {
   }
 };
 
-function generateUniqueFileNameWithExtension(originalFileName) {
+function generateUniqueName(originalFileName) {
   if (!originalFileName) {
     throw new TypeError('Es necesario el nombre del archivo');
   }

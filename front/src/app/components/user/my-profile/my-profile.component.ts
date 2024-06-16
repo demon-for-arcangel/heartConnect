@@ -29,6 +29,7 @@ export class MyProfileComponent implements OnInit {
   maxNumberPhotos: number = 8;
 
   @ViewChild('fileInput') fileInput!: ElementRef;
+  @ViewChild('imageFileInput') imageFileInput!: ElementRef;
 
   ref: DynamicDialogRef | undefined;
 
@@ -121,20 +122,6 @@ export class MyProfileComponent implements OnInit {
     }
   }
 
-  editProfile(): void {
-    this.ref = this.dialogService.open(EditProfileComponent, {
-      header: 'Editar Mi Perfil',
-      modal: true,
-      width: '60%',
-      breakpoints: {
-        '960px': '75vw',
-        '640px': '90vw'
-      },
-      styleClass: 'custom-modal',
-      data: { userId: this.user.id }
-    });
-  }
-
   deleteImage(imageId: number) {
     if (imageId) {
       this.fileService.deleteAsset(imageId).subscribe(
@@ -165,7 +152,6 @@ export class MyProfileComponent implements OnInit {
             this.images.push({ id: asset.id, path });
             this.previewImage = path;
             console.log('Preview image path:', this.previewImage);
-            this.cdr.detectChanges(); // Trigger change detection
           }
         },
         error: (error) => {
@@ -173,8 +159,8 @@ export class MyProfileComponent implements OnInit {
         }
       });
     }
+    this.loadImages();
   }
-  
   
   loadImages(): void {
     if (this.user.id) {
@@ -182,9 +168,9 @@ export class MyProfileComponent implements OnInit {
         next: (assets: any[]) => {
           console.log('Assets del usuario:', assets);
           this.images = assets;
-          setTimeout(() => {
+          /* setTimeout(() => {
             window.location.reload();
-          }, 50);
+          }, 50); */
         },
         error: (error) => {
           console.error('Error al obtener los assets del usuario:', error);
@@ -204,8 +190,18 @@ export class MyProfileComponent implements OnInit {
     }
   }
 
-  saveAllImages(): void {
-    console.log('Guardando todas las imágenes...');
+  editProfile(): void {
+    this.ref = this.dialogService.open(EditProfileComponent, {
+      header: 'Editar Mi Perfil',
+      modal: true,
+      width: '60%',
+      breakpoints: {
+        '960px': '75vw',
+        '640px': '90vw'
+      },
+      styleClass: 'custom-modal',
+      data: { userId: this.user.id }
+    });
   }
 
   showFriends(): void {
