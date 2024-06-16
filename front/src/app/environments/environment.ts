@@ -23,6 +23,7 @@ export const environment = {
     updateUser: '/user',
     showFriendship: '/friendship',
     searchUser: '/users/search',
+    googleSignIn: '/google',
 
     // preferencias
     preferences: '/userPreferences',
@@ -52,6 +53,7 @@ export const environment = {
     getFile: '/assets',
     uploadAssets: '/assets/upload',
     getAssetsOfUser: '/assets/user',
+    updatePhotoProfile: '/assets/photo-profile',
 
     //recommend
     recommend: '/recommendations',

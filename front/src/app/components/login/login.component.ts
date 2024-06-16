@@ -72,10 +72,4 @@ export class LoginComponent {
       });
     }
   }
-
-  ngOnInit(){
-    if (localStorage.getItem('user') != null || localStorage.getItem('user') != undefined){
-      
-    }
-  }
 }

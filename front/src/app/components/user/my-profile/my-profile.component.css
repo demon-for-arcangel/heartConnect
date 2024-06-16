@@ -33,6 +33,21 @@
     margin-bottom: 20px;
 }
 
+.edit-image {
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 49%; /* Ajusta la posición del botón de edición */
+    top: 130px; /* Centra verticalmente el botón de edición */
+}
+
 .profile-header img {
     width: 100px; /* ajusta el tamaño de la foto de perfil según sea necesario */
     height: 100px;

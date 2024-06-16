@@ -10,8 +10,8 @@ module.exports = {
       const adminUser = await models.User.findOne({ where: { email: 'admin@heartconnect.com' }});
       const user = await models.User.findOne({ where: { email: 'user@heartconnect.com' }});
 
-      const adminRole = await models.Rol.findOne({ where: { name: 'administrador' }});
-      const userRole = await models.Rol.findOne({ where: { name: 'usuario' }});
+      const adminRole = await models.Rol.findOne({ where: { id: process.env.ID_ROL_ADMIN }});
+      const userRole = await models.Rol.findOne({ where: { id: process.env.ID_ROL_USER }});
 
       if (adminUser && adminRole) {
         await adminUser.setRoles([adminRole]); 

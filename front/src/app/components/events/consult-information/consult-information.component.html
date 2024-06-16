@@ -10,7 +10,9 @@
         <map-marker [position]="{ lat: latitude, lng: longitude }"></map-marker>
       </google-map>
     </div>
-    <div class="modal-footer">
-      <button (click)="inscription()">Inscribirse en el Evento</button>
-    </div>
+    @if(!isEventPast()){
+      <div class="modal-footer">
+        <button (click)="inscription()">Inscribirse en el Evento</button>
+      </div>
+    }
 </div>

@@ -1,3 +1,5 @@
+<input id="fileInput" type="file" style="display:none" #fileInput (change)="onFileSelected($event)">
+
 <div class="main-container">
   <app-menu></app-menu>
   <div class="main-content">
@@ -5,6 +7,11 @@
       <div class="profile-info">
         <div class="profile-header">
           <img [src]="userProfileImageUrl" alt="Foto de perfil">
+          <div class="edit-image">
+            <button class="edit-button" (click)="openFileInput()">
+              <i class="fas fa-pencil-alt"></i>
+            </button>
+          </div>
           <div class="name-container">
             <h2>{{ user.firstName }}</h2>
             <h2>{{ user.lastName }}</h2>
@@ -19,19 +26,20 @@
           <button (click)="showLikeUsers()">Personas de interés</button>
         </div>
         <p>{{ user.desc }}</p>
-        <div class="image-grid">
+        <div class="image-grid">   
           <h1>Fotos</h1>
           <div class="grid-container">
             @for (image of images; track image){
               <div class="image-container">
                 <div class="grid-item">
                   @if(image){
-                    <img [src]="image.Asset?.path" alt="Imagen">
+                    <img [src]="image.Asset?.path" alt="Assets">
+                    @if (previewImage){
+                      <p>chao  </p>
+                      <img [src]="previewImage" alt="Vista previa">
+                    }
                   }
                   @if(image.Asset?.id !== undefined){
-                    <button class="edit-button" (click)="editImage(image.Asset?.id)">
-                      <i class="fas fa-pencil-alt"></i>
-                    </button>
                     <button class="delete-button" (click)="deleteImage(image.Asset?.id)">
                       <i class="fas fa-trash-alt"></i>
                     </button>
@@ -47,9 +55,6 @@
                     <i class="fas fa-plus"></i>
                   </label>
                   <input id="fileInput" type="file" style="display:none" (change)="addImage($event)">
-                  <!-- @if (previewImage){
-                    <img [src]="previewImage" alt="Vista previa de la imagen">
-                  } -->
                 </div>
               </div>
             }
