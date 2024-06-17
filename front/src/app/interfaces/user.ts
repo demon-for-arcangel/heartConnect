@@ -35,3 +35,9 @@ export interface UserFriendship {
     id_user?: number;
     id_friendship?: number;
 }
+
+export interface FriendDetails {
+    user?: User;
+    friendshipId?: number;
+    listId?: number;
+}

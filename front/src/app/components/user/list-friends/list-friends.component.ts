@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MenuComponent } from '../../shared/menu/menu.component';
-import { User, UserFriendship } from '../../../interfaces/user';
+import { FriendDetails, UserFriendship } from '../../../interfaces/user';
 import { AuthService } from '../../../services/auth.service';
 import { UserFriendshipService } from '../../../services/user-friendship.service';
 import { GraphqlService } from '../../../services/graphql.service';
@@ -15,7 +15,7 @@ import { UserService } from '../../../services/user.service';
 })
 export class ListFriendsComponent {
   friends: UserFriendship[] = [];
-  friendDetails: User[] = [];
+  friendDetails: FriendDetails[] = [];
   errorMessage: string = '';
 
   constructor(
@@ -49,6 +49,7 @@ export class ListFriendsComponent {
     this.graphService.getListFriends(userId).subscribe(
       response => {
         this.friends = response.data.getListFriends;
+        console.log('lista', this.friends)
         this.loadFriendDetails();
       },
       error => {
@@ -61,11 +62,11 @@ export class ListFriendsComponent {
   loadFriendDetails() {
     this.friendDetails = [];
     for (let friend of this.friends) {
-      if (friend.id_friendship !== undefined) {
+      if (friend.id_friendship !== undefined && friend.id !== undefined) {
         this.userService.getUserById(friend.id_friendship.toString()).subscribe(
           user => {
             if (user) {
-              this.friendDetails.push(user);
+              this.friendDetails.push({ user, friendshipId: friend.id_friendship, listId: friend.id });
               console.log(this.friendDetails);
             } else {
               console.error('Usuario no encontrado para id_friendship:', friend.id_friendship);
@@ -77,10 +78,31 @@ export class ListFriendsComponent {
           }
         );
       } else {
-        console.warn('id_friendship es undefined para el amigo:', friend);
+        console.warn('id_friendship o friend.id es undefined para el amigo:', friend);
       }
     }
   }
-  
-  
+
+  deleteFriend(listId: number) {
+    if (listId === undefined) {
+      console.error('El ID de la relación de amistad es undefined');
+      return;
+    }
+    console.log(listId);
+    this.graphService.deleteUserFriends(listId).subscribe({
+      next: (response) => {
+        if (response.data.deleteUserFriendShip.success) {
+          this.friends = this.friends.filter(friend => friend.id !== listId);
+          this.friendDetails = this.friendDetails.filter(detail => detail.friendshipId !== listId);
+        } else {
+          console.error('Error al eliminar amigo:', response.data.deleteUserFriendShip.message);
+          this.errorMessage = `Error al eliminar amigo: ${response.data.deleteUserFriendShip.message}`;
+        }
+      },
+      error: (err) => {
+        this.errorMessage = 'Error al eliminar al amigo';
+        console.error(err);
+      }
+    });
+  }
 }

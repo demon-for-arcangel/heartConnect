@@ -81,4 +81,17 @@ export class GraphqlService {
     const variables = { id_user };
     return this.executeQuery(query, variables);
   }
+
+  deleteUserFriends(id: number): Observable<any> {
+    const mutation = `
+      mutation DeleteUserFriendShip($id: Int!) {
+        deleteUserFriendShip(id: $id) {
+          success
+          message
+        }
+      }
+    `;
+    const variables = { id };
+    return this.executeMutation(mutation, variables);
+  }
 }
