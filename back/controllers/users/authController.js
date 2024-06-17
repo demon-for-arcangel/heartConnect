@@ -9,7 +9,6 @@ const conx = new Conexion();
 const register = async (req, res) => {
   let body = req.body;
   let roles = req.body.roles; 
-  console.log('cuerpo', body);
   try {
       let existingUser = await conx.getUserByEmail(body.email, body);
       if (existingUser) {
@@ -22,28 +21,26 @@ const register = async (req, res) => {
       body.active = false;
 
       let newUser = await conx.registerUser(body);
-      console.log('usuario nuevo creado: ', newUser)
 
       if (roles && roles.length > 0) {
-          await conx.assignRolesToUser(newUser.id, roles);
+        await conx.assignRolesToUser(newUser.id, roles);
       }
 
       let token = await generarJWT(newUser.id, roles);
 
       res.status(201).json({ 
-          firstName: body.firstName, 
-          lastName: body.lastName, 
-          email: body.email, 
-          password: body.password, 
-          photo_profile: body.photo_profile, 
-          born_date: body.born_date, 
-          domicile: body.domicile, 
-          phone_number: body.phone_number, 
-          token 
+        firstName: body.firstName, 
+        lastName: body.lastName, 
+        email: body.email, 
+        password: body.password, 
+        photo_profile: body.photo_profile, 
+        born_date: body.born_date, 
+        domicile: body.domicile, 
+        phone_number: body.phone_number, 
+        token 
       });
   } catch (err) {
-      console.log(err);
-      res.status(500).json({ msg: "Error al registrar el usuario" });
+    res.status(500).json({ msg: "Error al registrar el usuario" });
   }
 };
 
@@ -63,7 +60,6 @@ const login = async (req, res) => {
       let token = await generarJWT(searchUser.id);
       res.status(200).json({ token });
     }catch(err){
-      console.log(err)
       res.status(400).json({msg: "Credenciales invalidas"});
     }
 };

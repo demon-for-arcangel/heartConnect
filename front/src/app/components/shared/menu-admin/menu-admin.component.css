@@ -44,7 +44,6 @@
     text-decoration: underline;
 }
 
-/* Estilos para pantallas pequeñas (menos de 600px de ancho) */
 @media (max-width: 600px) {
     .header-content {
         width: 95%; 
@@ -64,7 +63,6 @@
     }
 }
 
-/* Estilos para pantallas medianas (entre 600px y 900px de ancho) */
 @media (min-width: 600px) and (max-width: 900px) {
     .header-content {
         width: 95%;
@@ -84,14 +82,12 @@
     }
 }
 
-/* Estilos para pantallas grandes (más de 900px de ancho) */
 @media (min-width: 900px) {
     .header-content {
         width: 80%; 
     }
 }
 
-/* Estilos para pantallas extra grandes (por ejemplo, 1024px de ancho o más) */
 @media (min-width: 1024px) {
     .header-content {
         width: 70%; 

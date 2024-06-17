@@ -18,7 +18,7 @@ Component({
   providers: [DialogService]
 })
 export class HomeComponent {
-  constructor(private messageService: MessageService, /* private router: Router, private route: ActivatedRoute, */ public dialogService: DialogService) {}
+  constructor(private messageService: MessageService, public dialogService: DialogService) {}
 
   ref: DynamicDialogRef | undefined;
   dialog: any;
