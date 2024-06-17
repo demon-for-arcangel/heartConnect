@@ -28,6 +28,34 @@
 - [25. Crear Nuevo Evento](#25-crear-nuevo-evento)
 - [26. Actualizar Evento](#26-actualizar-evento)
 - [27. Eliminar eventos por id](#27-eliminar-eventos-por-id)
+- [28. Listar Amistades del Usuario](#28-listar-amistades-del-usuario)
+- [29. Consultar Usuario por su Token](#29-consultar-usuario-por-su-token)
+- [30. Listar Chats](#30-listar-chats)
+- [31. Listar Mensajes por el Id de un Chat](#31-listar-mensajes-por-el-id-de-un-chat)
+- [32. Buscar Usuarios](#32-buscar-usuarios)
+- [33. Usuarios Recomendados](#33-usuarios-recomendados)
+- [34. Listar las Preferencias de un Usuario](#34-listar-las-preferencias-de-un-usuario)
+- [35. Listar Preferencias de un Usuario por el Id](#35-listar-preferencias-de-un-usuario-por-el-id)
+- [36. Crear Preferencias de un Usuario](#36-crear-preferencias-de-un-usuario)
+- [37. Actualizar Preferencias de un Usuario](#37-actualizar-preferencias-de-un-usuario)
+- [38. Eliminar Preferencias de un usuario](#38-eliminar-preferencias-de-un-usuario)
+- [39. Listar la Opcion del tipo de Relacion del Usuario](#39-listar-las-opciones-del-tipo-de-relacion-del-usuario)
+- [40. Listar la Opcion del tipo de Interes del Usuario](#40-listar-las-opciones-del-tipo-de-interes-del-usuario)
+- [41. Obtener posibles opciones del tipo de relacion](#41-obtener-posibles-opciones-del-tipo-de-relacion)
+- [42. Obtener posibles opciones del tipo de interes](#42-obtener-posibles-opciones-del-tipo-de-interes)
+- [43. Listar Los Eventos Activos](#43-listar-los-eventos-activos)
+- [44. Listar Los Eventos Inactivos](#44-listar-los-eventos-inactivos)
+- [45. Activar Eventos](#45-activar-eventos)
+- [46. Desactivar Evento](#46-desactivar-eventos)
+- [47. Buscar Eventos](#47-buscar-eventos)
+- [48. Crear Inscripcion a un evento](#48-crear-inscripcion-a-un-evento)
+- [49. Listar Inscripciones de un evento](#49-listar-inscripciones-de-un-evento)
+- [50. Eliminar Inscripciones de un evento](#50-eliminar-inscripciones-de-un-evento)
+- [51. Listar Assets de un Usuario](#51-listar-assets-de-un-usuario)
+- [52. Listar Assets por su Id](#52-listar-assets-por-su-id)
+- [53. Cargar Assets](#53-cargar-assets)
+- [54. Eliminar Assets](#54-eliminar-assets)
+- [55. Actualizar foto de perfil](#55-actualizar-foto-de-perfil)
 
 ### 1. Registro de Usuario
 
@@ -249,7 +277,7 @@
   "wants_children": true,
   "interest": "mujeres"
 }
-``
+```
 
 ### 22. Eliminar las preferencias por id
 - **Método**: DELETE
@@ -304,3 +332,175 @@
  "ids": [3, 6]
 }
 ```
+
+### 28. Listar Amistades del Usuario
+- **Método**: GET
+- **URL**: `localhost:9292/api/friendship/{id}`
+- **Descripción**: Listar las amistades del usuario que le pasamos con ese id.
+
+### 29. Consultar Usuario por su Token
+- **Método**: GET
+- **URL**: `localhost:9292/api/userToken/`
+- **Headers**: `x-token`.
+- **Descripción**: Listar el usuario que coincidan con tenga ese token.
+
+### 30. Listar Chats
+- **Método**: GET
+- **URL**: `localhost:9292/api/chats/{id}`
+- **Descripción**: Listar los chats que tiene el usuario se busca con el id de este.
+
+### 31. Listar Mensajes por el Id de un Chat
+- **Método**: GET
+- **URL**: `localhost:9292/api/messages/{id}`
+- **Descripción**: Listar los mensajes que contiene el chat.
+
+### 32. Buscar Usuarios
+- **Método**: GET
+- **URL**: `localhost:9292/api/preferences/{value}`
+- **Descripción**: Listar los usuarios que coincidan con el valor proporcionado.
+
+### 33. Usuarios Recomendados
+- **Método**: GET
+- **URL**: `localhost:9292/api/preferences/{id}`
+- **Descripción**: Listar los usuarios recomendados para el usuario del que se proporciona el id.
+
+### 34. Listar las Preferencias de un Usuario
+- **Método**: GET
+- **URL**: `localhost:9292/api/userPreferences`
+- **Descripción**: Listar las preferencias de todos los usuarios.
+
+### 35. Listar Preferencias de un Usuario por el Id
+- **Método**: GET
+- **URL**: `localhost:9292/api/userPreferences/{id}`
+- **Descripción**: Listar las preferencias que tiene el usuario con ese id.
+
+### 36. Crear Preferencias de un Usuario
+- **Método**: POST
+- **URL**: `localhost:9292/api/userPreferences/{id}`
+- **Descripción**: Crear preferencias para un usuario.
+- **Cuerpo de la solicitud**:
+```json 
+{
+    "sports": 14,
+    "artistic": 30,
+    "politicians": 70,
+    "relationship_type": 1,  
+    "has_children": false,
+    "wants_children": true,
+    "interest": 3
+}
+```
+### 37. Actualizar Preferencias de un Usuario
+- **Método**: PUT
+- **URL**: `localhost:9292/api/userPreferences/{id}`
+- **Descripción**: Actualizar las preferencias de un usuario.
+- **Cuerpo de la solicitud**:
+```json 
+{
+    "sports": 10,
+    "artistic": 10,
+    "politicians": 10,
+    "relationship_type": 2,  
+    "has_children": true,
+    "wants_children": false,
+    "interest": 1  
+}
+```
+
+### 38. Eliminar Preferencias de un usuario
+- **Método**: DELETE
+- **URL**: `localhost:9292/api/userPreferences/{id}`
+- **Descripción**: Eliminar las preferencias de un usuario.
+
+### 39. Listar la Opcion del tipo de Relacion del Usuario
+- **Método**: GET
+- **URL**: `localhost:9292/api/userPreferences/options/relation`
+- **Descripción**: Listar las opciones del tipo de relacion posible.
+
+### 40. Listar la Opcion del tipo de Interes del Usuario
+- **Método**: GET
+- **URL**: `localhost:9292/api/userPreferences/options/interest`
+- **Descripción**: Listar las opciones del tipo de interes posible.
+
+### 43. Listar Los Eventos Activos
+- **Método**: GET
+- **URL**: `localhost:9292/api/events/show/active`
+- **Descripción**: Listar los eventos que esten disponibles.
+
+### 44. Listar Los Eventos Inactivos
+- **Método**: GET
+- **URL**: `localhost:9292/api/events/show/inactive`
+- **Descripción**: Listar los eventos que no esten disponibles.
+
+### 45. Activar Eventos
+- **Método**: PUT
+- **URL**: `localhost:9292/api/events/update/activate`
+- **Descripción**: Activar los eventos.
+- **Cuerpo de la solicitud**:
+```json 
+{
+  "eventsIds": [2, 3, 4]
+}
+```
+
+### 46. Desactivar Evento
+- **Método**: PUT
+- **URL**: `localhost:9292/api/events/update/desactivate`
+- **Descripción**: Activar los eventos.
+- **Cuerpo de la solicitud**:
+```json 
+{
+  "eventsIds": [2, 3, 4]
+}
+```
+
+### 47. Buscar Eventos
+- **Método**: GET
+- **URL**: `localhost:9292/api/events/search/{value}`
+- **Descripción**: Listar los eventos que se encuentren con ese valor.
+
+### 48. Crear Inscripcion a un evento
+- **Método**: POST
+- **URL**: `localhost:9292/api/userEvents`
+- **Descripción**: Crear inscripcion para un evento.
+- **Cuerpo de la solicitud**:
+```json 
+{
+    "userId": 2,
+    "eventId": 2
+}
+```
+
+### 49. Listar Inscripciones de un evento
+- **Método**: GET
+- **URL**: `localhost:9292/api/userEvents/{id}`
+- **Descripción**: Listar las inscripciones que se encuentren en el evento del que pasamos el id.
+
+### 50. Eliminar Inscripciones de un evento
+- **Método**: DELETE
+- **URL**: `localhost:9292/api/userEvents/{id}`
+- **Descripción**: Eliminar las inscripciones que coincidan con ese id.
+
+### 51. Listar Assets de un Usuario
+- **Método**: GET
+- **URL**: `localhost:9292/api/assets/user/{id}`
+- **Descripción**: Listar los assets que contiene el usuario del que pasamos el id.
+
+### 52. Listar Assets por su Id
+- **Método**: GET
+- **URL**: `localhost:9292/api/assets/{id}`
+- **Descripción**: Listar assets que coincida con ese id.
+
+### 53. Cargar Assets
+- **Método**: POST
+- **URL**: `localhost:9292/api/assets/upload`
+- **Descripción**: Crear inscripcion para un evento.
+- **Cuerpo de la solicitud**:
+    - form-data:
+        - file: File
+        - user-id: Text
+
+### 54. Eliminar Assets
+- **Método**: DELETE
+- **URL**: `localhost:9292/api/assets/{id}`
+- **Descripción**: Eliminar los assets que coincidan con ese id.
