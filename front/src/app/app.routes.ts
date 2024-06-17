@@ -2,9 +2,6 @@ import { Routes } from '@angular/router';
 import { anyLoggedGuard } from './guards/any-logged.guard';
 import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { InformationComponent } from './components/information/information.component';
-import { PrivacyComponent } from './components/legal/privacy/privacy.component';
-import { TermsOfServiceComponent } from './components/legal/terms-of-service/terms-of-service.component';
 import { adminGuard } from './guards/admin.guard';
 import { RequestResetComponent } from './components/resetPassword/request-reset/request-reset.component';
 import { ResetPasswordComponent } from './components/resetPassword/reset-password/reset-password.component';
@@ -21,9 +18,6 @@ import { CreatePreferencesComponent } from './components/preferences/create-pref
 export const routes: Routes = [
     //cualquier usuario sin registrar
     {path: '', component: HomeComponent},
-    {path: 'information', component: InformationComponent},
-    {path: 'privacy', component: PrivacyComponent},
-    {path: 'terms-of-service', component: TermsOfServiceComponent},
     {path: 'forgot-password', component: RequestResetComponent},
     {path: 'reset/:token', component: ResetPasswordComponent},
 

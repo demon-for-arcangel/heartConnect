@@ -57,16 +57,6 @@
             <h2>Eventos Activados</h2>
             @if (hasSelectedActiveEvents) {
                <div>
-                  <!-- <button (click)="deleteEvents()">
-                     <i class="pi pi-trash"></i>
-                   </button>
-                   <button (click)="editEvent()">
-                     <i class="pi pi-pencil"></i>
-                   </button>
-                   <button (click)="consultEvent()">
-                     <i class="pi pi-info-circle"></i>
-                   </button>
-  -->
                   <button (click)="desactivateSelectedEvents()">Desactivar Evento</button>
                </div>
             }
@@ -92,15 +82,6 @@
             <h2>Eventos Sin Activar</h2>
             @if (hasSelectedInactiveEvents) {
                <div>
-                  <!-- <button (click)="deleteEvents()">
-                     <i class="pi pi-trash"></i>
-                  </button>
-                  <button (click)="editEvent()">
-                     <i class="pi pi-user-edit"></i>
-                  </button>
-                  <button (click)="consultEvent()">
-                     <i class="pi pi-info-circle"></i>
-                  </button> -->
                   <button (click)="activateSelectedEvents()">Activar Evento</button>
                </div>
             }

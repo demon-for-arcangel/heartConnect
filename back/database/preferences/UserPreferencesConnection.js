@@ -89,8 +89,6 @@ class UserPreferencesModel {
                 throw new Error('Preferencias no encontradas');
             }
 
-            console.log(`Preferencia encontrada para el usuario: ${JSON.stringify(userPreference)}`);
-
             const updatedPreference = await models.Preferences.update(preferencesData, {
                 where: { id: userPreference.id_preferences }
             });
@@ -100,8 +98,6 @@ class UserPreferencesModel {
                 throw new Error('Preferencia no encontrada para este usuario');
             }
 
-            console.log(`Preferencia actualizada: ${JSON.stringify(updatedPreference)}`);
-
             return updatedPreference;
         } catch (error) {
             console.error('Error al actualizar las preferencias: ', error);
@@ -110,9 +106,7 @@ class UserPreferencesModel {
     }
 
     async deleteUserPreference(userId) {
-        try {
-            console.log(`Buscando preferencias para el usuario con ID: ${userId}`);
-    
+        try {  
             const userPreference = await models.UserPreferences.findOne({
                 where: { id_user: userId }
             });
@@ -121,16 +115,11 @@ class UserPreferencesModel {
                 console.error(`No se encontraron preferencias para el usuario con ID: ${userId}`);
                 throw new Error('Preferencias no encontradas');
             }
-    
-            console.log(`Encontrada preferencia con ID: ${userPreference.id_preferences} para el usuario con ID: ${userId}`);
-    
+        
             await models.UserPreferences.destroy({
                 where: { id_user: userId }
             });
-    
-            console.log(`Preferencias del usuario con ID: ${userId} eliminadas de la tabla UserPreferences`);
-    
-            // Luego, eliminar la preferencia de la tabla Preferences
+        
             const deletedPreference = await models.Preferences.destroy({
                 where: { id: userPreference.id_preferences }
             });
@@ -139,8 +128,6 @@ class UserPreferencesModel {
                 console.error(`No se encontraron preferencias en la tabla Preferences con ID: ${userPreference.id_preferences}`);
                 throw new Error('Preferencias no encontradas en la tabla Preferences');
             }
-    
-            console.log(`Preferencia con ID: ${userPreference.id_preferences} eliminada de la tabla Preferences`);
             return deletedPreference;
         } catch (error) {
             console.error('Error al eliminar la preferencia: ', error);

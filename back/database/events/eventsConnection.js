@@ -86,13 +86,11 @@ class EventsModel {
 
   async getActiveEvents() {
     try {
-      console.log('Función getActiveEvents llamada en el modelo');
       const activeEvents = await models.Events.findAll({
         where: {
           public: 1
         }
       });
-      console.log('Eventos activos:', activeEvents);
       return activeEvents;
     } catch (error) {
       console.error('Error al mostrar los eventos activos: ', error);

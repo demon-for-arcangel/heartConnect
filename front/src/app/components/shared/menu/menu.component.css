@@ -1,18 +1,18 @@
 .sidebar {
-    width: 25%; /* El menú de navegación ocupa el 25% del ancho de la pantalla */
-    height: 100vh; /* Ocupa toda la altura de la pantalla */
+    width: 25%; 
+    height: 100vh; 
     background-color: #111111;
     color: #fff;
     display: flex;
-    flex-direction: column; /* Los elementos dentro de la barra lateral se apilan verticalmente */
+    flex-direction: column; 
     align-items: center;
     padding: 20px 0;
-    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
-    position: fixed; /* Asegura que el menú esté siempre visible en el lado izquierdo */
+    box-sizing: border-box; 
+    position: fixed; 
 }
 
 .sidebar-content {
-    width: 100%; /* Asegura que el contenido de la barra lateral ocupe todo el ancho */
+    width: 100%;
     display: flex; 
     flex-direction: column; 
     align-items: center; 
@@ -43,42 +43,41 @@ nav {
 .sidebar-content ul li a {
     color: #fff;
     text-decoration: none;
-    display: flex; /* Cambiado a flex para alinear el icono y el texto horizontalmente */
-    align-items: center; /* Centra los elementos verticalmente */
+    display: flex; 
+    align-items: center;
     padding: 10px 20px;
-    width: 100%; /* Asegura que los enlaces ocupen todo el ancho del contenedor */
+    width: 100%;
     box-sizing: border-box;
 }
 
 .sidebar-content ul li a i {
-    margin-right: 10px; /* Espacio entre el icono y el texto */
+    margin-right: 10px; 
 }
 .opciones-label {
    color: #fff;
     text-decoration: none;
-    display: flex; /* Cambiado a flex para alinear el icono y el texto horizontalmente */
-    align-items: center; /* Centra los elementos verticalmente */
+    display: flex; 
+    align-items: center; 
     padding: 10px 20px;
-    width: 100%; /* Asegura que los enlaces ocupen todo el ancho del contenedor */
+    width: 100%; 
     box-sizing: border-box;
 
     margin-right: 10px;
 }
 
 .opciones-label i {
-    margin-right: 10px; /* Espacio entre el icono y el texto */
+    margin-right: 10px;
 }
 
 .sidebar-content ul li a:hover {
-    background-color: #333333; /* Cambia el color de fondo al pasar el cursor */
+    background-color: #333333; 
 }
 
-/* Estilos para pantallas pequeñas (menos de 600px de ancho) */
 @media (max-width: 600px) {
     .sidebar {
-        width: 100%; /* La barra lateral ocupa todo el ancho en pantallas pequeñas */
-        height: auto; /* Permite que la barra lateral se ajuste en altura */
-        position: static; /* No es fija en pantallas pequeñas */
+        width: 100%; 
+        height: auto;
+        position: static; 
     }
 }
 
@@ -89,7 +88,7 @@ nav {
     min-width: 160px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     z-index: 1;
-    bottom: 100%; /* Cambia de top a bottom */
+    bottom: 100%;
     border-radius: 8px;
 }
 

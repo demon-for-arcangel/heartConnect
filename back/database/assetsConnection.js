@@ -138,7 +138,6 @@ class AssetsModel {
         { photo_profile: assetId },
         { where: { id: userId } }
       );
-      console.log('User profile photo updated successfully.');
     } catch (error) {
       console.error('Error updating user profile photo:', error);
       throw error;
@@ -146,12 +145,16 @@ class AssetsModel {
   };
 
   //-------------------------User_Assets---------------------------
-  async associateAssetWithUser(assetId, userId) {
+  async associateAssetWithUser(userId, assetId) {
     try {
-        await models.UserAssets.create({
+      console.log('asset', assetId);
+      console.log('user', userId);
+        const userAssets = await models.UserAssets.create({
             id_user: userId,
             id_asset: assetId
         });
+        console.log(userAssets)
+        return userAssets;
     } catch (error) {
         throw error;
     }

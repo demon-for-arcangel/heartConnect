@@ -67,10 +67,8 @@ const deleteEvents = async (req, res) => {
 };
 
 const getActiveEvents = async (req, res) => {
-  console.log('Controlador getActiveEvents llamado');
   try {
     const activeEvents = await conx.getActiveEvents();
-    console.log('Eventos activos obtenidos:', activeEvents);
     res.status(200).json(activeEvents);
   } catch (error) {
     console.error('Error al obtener eventos activos', error);
@@ -90,7 +88,6 @@ const getInactiveEvents = async (req, res) => {
 
 const activateEvents = async (req, res) => {
   const { eventsIds } = req.body;
-  console.log(eventsIds)
   try {
     const updatedEvents = await conx.activateEvents(eventsIds);
     res.status(200).json({ message: 'Evento activado correctamente', event: updatedEvents });

@@ -14,17 +14,14 @@ let transporter = nodemailer.createTransport({
 const sendMail = async (mailOptions) =>{
     transporter.sendMail(mailOptions, function(error, info) {
         if (error) {
-            console.log('Error al enviar el correo electrónico:', error);
             res.status(203).json({'msg' : 'Correo NO enviado'})
         } else {
-            console.log('Correo electrónico enviado exitosamente:', info.response);
             res.status(200).json({'msg' : 'Correo enviado'})
         }
     });
 }
 
 const requestPasswordReset = async (req, res) => {
-    console.log(req.body);
     const { email } = req.body;
     if (!email) {
         return res.status(400).json({ msg: 'El email es necesario.'});
@@ -64,7 +61,6 @@ const resetPassword = async (req, res) =>{
 
     try{
         const decoded = verifyToken(token);
-        console.log(decoded);
         const userId = decoded.uid.id;
 
         const user = await User.findOne({ where: { id: userId }});
@@ -81,7 +77,6 @@ const resetPassword = async (req, res) =>{
         revokeToken(token);
         res.status(200).json({ msg: 'Contraseña restablecida con éxito' });
     }catch(error){
-        console.log('Error al restablecer la contraseña: ', error.message);
         res.status(400).json({ msg: 'Error al restablecer la contraseña' });
     }
 }

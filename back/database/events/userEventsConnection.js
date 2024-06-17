@@ -33,9 +33,7 @@ class UserEventsModel {
 
   async createInscription(userId, eventId) {
     try {
-        console.log(userId, eventId)
       const newInscription = await models.UserEvents.create({ id_user: userId, id_events: eventId });
-      console.log('creado', newInscription)
       return newInscription;
     } catch (error) {
       console.error('Error al crear la inscripcion: ', error);

@@ -13,7 +13,6 @@ const statusUser = (req, res, next) => {
         }
     })
     .catch((err) => {
-        console.log(err);
         res.status(400).json({ msg: "User not found", error: err });
     });
 };
@@ -29,11 +28,8 @@ const checkToken = (req, res, next) => {
       const { uid, roles } = jwt.verify(token, process.env.SECRETORPRIVATEKEY);
       req.userId = uid;
       req.uroles = roles;
-      console.log(uid);
-      console.log(token);
       next();
     } catch (error) {
-      console.log(error);
       res.status(401).json({ msg: "Token no valido" });
     }
 };

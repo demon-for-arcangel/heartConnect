@@ -6,7 +6,6 @@ class RecommendUserModel {
 
   async recommendUsers(userId) {
     try {
-      console.log(`Buscando usuario con ID: ${userId}`);
       const user = await models.User.findByPk(userId, {
         include: [{
           model: models.Preferences,
@@ -23,9 +22,6 @@ class RecommendUserModel {
 
       const avg1 = Math.round(avg_preferences - 5);
       const avg2 = Math.round(avg_preferences + 5);    
-
-      console.log(`Promedio: ${avg_preferences}, Rango Inferior: ${avg1}, Rango Superior: ${avg2}`);
-      console.log(`Tipo de relacion: ${relationship_type}, tiene hijos: ${has_children}, quiere hijos: ${wants_children}, interes en: ${interest}`)
       
       let recommendedUsers = await models.User.findAll({
         where: {
@@ -49,8 +45,6 @@ class RecommendUserModel {
       } else if (interest === 2) {
         recommendedUsers = recommendedUsers.filter(user => user.gender.toLowerCase() === 'hombre');
       }
-
-      console.log('Usuarios recomendados', recommendedUsers);
 
       return recommendedUsers;
     } catch (error) {

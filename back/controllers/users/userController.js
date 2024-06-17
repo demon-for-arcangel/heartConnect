@@ -68,10 +68,8 @@ let transporter = nodemailer.createTransport({
 const sendMail = async (mailOptions) =>{
   transporter.sendMail(mailOptions, function(error, info) {
       if (error) {
-          console.log('Error al enviar el correo electrónico:', error);
           res.status(203).json({'msg' : 'Correo NO enviado'})
       } else {
-          console.log('Correo electrónico enviado exitosamente:', info.response);
           res.status(200).json({'msg' : 'Correo enviado'})
       }
   });
@@ -83,7 +81,6 @@ const registerUserByAdmin = async (req, res) => {
   conx.registerUser(req.body)
   .then((msg) => {
     conx.createUserRols(msg.id, req.body.roles).then(async (rtnMsg) => {
-      console.log(rtnMsg);
       let mailOptions = {
         from: process.env.MAIL_USER,
         to: msg.email,
@@ -97,7 +94,6 @@ const registerUserByAdmin = async (req, res) => {
       };
       sendMail(mailOptions);
     });
-    console.log(msg);
 
     res.status(200).json(msg);
   })
@@ -159,7 +155,6 @@ const getInactiveUsers = async (req, res) => {
 
 const activateUser = async (req, res) => {
   const { userIds } = req.body;
-  console.log(userIds)
   try {
     const updatedUsers = await conx.activateUsers(userIds);
     res.status(200).json({ message: 'Usuario activado correctamente', user: updatedUsers });
@@ -181,9 +176,7 @@ const desactivateUsers = async (req, res) => {
 }
 
 const getUserByToken = async (req, res) => {
-  console.log('Entrando en getUserByToken');
   const token = req.headers['x-token'];
-  console.log('Token recibido:', token);
   
   if (!token) {
     return res.status(400).json({ error: 'Token no proporcionado en el encabezado x-token' });
@@ -191,7 +184,6 @@ const getUserByToken = async (req, res) => {
   
   try {
     const decodedToken = jwt.verify(token, process.env.SECRETORPRIVATEKEY);
-    console.log(decodedToken)
     const userId = decodedToken.uid;
     
     const user = await conx.getUserById(userId);

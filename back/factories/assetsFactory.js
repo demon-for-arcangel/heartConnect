@@ -3,7 +3,6 @@ const assetsFactory = async (arr) => {
     let i = 0;
     let arrAssets = []
     while (i < arr.length) {
-        console.log(arr[i].toString())
         let newAsset = {
             path:String(arr[i]),
             createdAt: new Date(),
@@ -12,7 +11,6 @@ const assetsFactory = async (arr) => {
         arrAssets.push(newAsset);
         i++;
     }
-    console.log(arrAssets)
     return Promise.all(arrAssets);
 }
 

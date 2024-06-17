@@ -39,5 +39,5 @@ export class ResetPasswordComponent {
     } else {
         console.error('Las contraseñas no coinciden');
     }
-}
+  }
 }

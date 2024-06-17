@@ -3,10 +3,8 @@ const { sendMessage, getChatMessages, createChatIfNotExist, getUserChats } = req
 const activeSockets = {};
 
 const socketController = (socket) => {
-  console.log(`Cliente ${socket.id} conectado en ${process.env.WEBSOCKETPORT}`);
 
   socket.on('disconnect', () => {
-    console.log(`Cliente ${socket.id} desconectado en ${process.env.WEBSOCKETPORT}`);
     if (socket.userId) {
       delete activeSockets[socket.userId];
     }
@@ -19,7 +17,6 @@ const socketController = (socket) => {
     }
     activeSockets[userId] = socket;
     socket.userId = userId;
-    console.log(`Usuario ${userId} conectado con el socket ${socket.id}`);
 
     try {
       const chats = await getUserChats(userId);
@@ -31,7 +28,6 @@ const socketController = (socket) => {
 
   socket.on('send-private-message', async (data) => {
     const { chatId, messageContent, senderId } = data;
-    console.log('Mensaje recibido:', { chatId, messageContent, senderId }); 
     if (!chatId || !messageContent || !senderId) {
       console.error('chatId, messageContent o senderId no proporcionado en el evento send-private-message');
       return;
@@ -51,8 +47,6 @@ const socketController = (socket) => {
       const recipientSocket = findSocketIdByUserId(chat.friendId);
       if (recipientSocket) {
         io.to(recipientSocket).emit('new-private-message', newMessage);
-      } else {
-        console.log('El destinatario no está conectado actualmente.');
       }
   
       socket.emit('new-private-message', newMessage);
