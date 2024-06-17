@@ -44,6 +44,14 @@
                 </div>
               </div>
             }
+
+            @if(previewImage){
+              <div class="image-container">
+                <div class="grid-item">
+                  <img [src]="previewImage" alt="Vista previa de la imagen">
+                </div>
+              </div>
+            }
             
             @if(images.length < maxNumberPhotos){
               @if(editingPhotos){

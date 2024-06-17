@@ -131,6 +131,14 @@ export class MyProfileComponent implements OnInit {
 
   addImage(fileInputEvent: any): void {
     const file = fileInputEvent.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.previewImage = e.target.result; 
+      };
+      reader.readAsDataURL(file);
+    }
+  
     if (file && this.user.id) {
       this.fileService.uploadFile(file, this.user.id.toString()).subscribe({
         next: (response: any[]) => {
@@ -138,14 +146,18 @@ export class MyProfileComponent implements OnInit {
             const asset = response[0];
             this.images.push(asset); 
             this.messageService.add({severity: 'success', summary: 'Éxito', detail: 'Imagen agregada correctamente.'});
+            this.previewImage = [];
           }
         },
         error: (error) => {
           console.error('Error al subir la imagen:', error);
         }
       });
+      window.location.reload();
     }
   }
+  
+  
 
   deleteImage(imageId: number) {
     if (imageId) {
