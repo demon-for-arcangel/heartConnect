@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { EventService } from '../../../services/event.service';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-create-event',
@@ -15,11 +16,11 @@ import { GoogleMapsModule } from '@angular/google-maps';
 })
 export class CreateEventComponent {
   eventForm!: FormGroup;
-  latitude: number = 0;
-  longitude: number = 0; 
+  latitude: number = 40.4165;
+  longitude: number = -3.70256; 
   zoom: number = 12;
 
-  constructor(private fb: FormBuilder, private eventService: EventService) {}
+  constructor(private fb: FormBuilder, private eventService: EventService, private messageService: MessageService) {}
 
   ngOnInit() {
     this.eventForm = this.fb.group({
@@ -37,9 +38,14 @@ export class CreateEventComponent {
       this.eventService.createNewEvent(this.eventForm.value).subscribe(
         event => {
           console.log('Evento creado:', event);
+          this.messageService.add({severity:'success', summary:'Éxito', detail:'Evento creado exitosamente'});
+          setTimeout(() => {
+            window.location.reload()
+          }, 1500);
         },
         error => {
           console.error('Error al crear el evento:', error);
+          this.messageService.add({severity:'error', summary:'Error', detail:'No se pudo crear el evento'});
         }
       );
     }

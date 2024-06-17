@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -17,7 +18,7 @@ export class RegisterComponent {
   domicileValue: string = '';
   dialogRef: DynamicDialogRef;
 
-  constructor(private http: HttpClient, private userService: UserService, dialogRef: DynamicDialogRef, private router: Router, private route: ActivatedRoute, public config: DynamicDialogConfig) {
+  constructor(private http: HttpClient, private userService: UserService, dialogRef: DynamicDialogRef, private router: Router, private route: ActivatedRoute, public config: DynamicDialogConfig, private messageService: MessageService) {
     this.dialogRef = dialogRef;
   }
 
@@ -50,9 +51,14 @@ export class RegisterComponent {
     this.userService.register(userData).subscribe(
       user => {
         console.log('Usuario registrado con éxito:', user);
+        this.messageService.add({severity:'success', summary:'Éxito', detail:'Usuario registrado exitosamente. Espere a la activación de la cuenta.'});
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       },
       error => {
         console.error('Error al registrar el usuario:', error);
+        this.messageService.add({severity:'error', summary:'Error', detail:'No se pudo registrar el usuario'});
       }
     );
  }
