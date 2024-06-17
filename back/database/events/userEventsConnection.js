@@ -33,10 +33,18 @@ class UserEventsModel {
 
   async createInscription(userId, eventId) {
     try {
+      const existingInscription = await models.UserEvents.findOne({
+        where: { id_user: userId, id_events: eventId }
+      });
+  
+      if (existingInscription) {
+        return existingInscription;
+      }
+  
       const newInscription = await models.UserEvents.create({ id_user: userId, id_events: eventId });
       return newInscription;
     } catch (error) {
-      console.error('Error al crear la inscripcion: ', error);
+      console.error('Error al crear la inscripción: ', error);
       throw error;
     }
   }

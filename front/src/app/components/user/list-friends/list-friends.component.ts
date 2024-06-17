@@ -48,8 +48,18 @@ export class ListFriendsComponent {
   loadFriends(userId: number) {
     this.graphService.getListFriends(userId).subscribe(
       response => {
-        this.friends = response.data.getListFriends;
-        console.log('lista', this.friends)
+        const uniqueFriendsMap: { [key: string]: boolean } = {}; 
+        const uniqueFriends: UserFriendship[] = []; 
+  
+        response.data.getListFriends.forEach((friend: UserFriendship) => {
+          if (friend.id_friendship!== undefined &&!uniqueFriendsMap[friend.id_friendship]) {
+            uniqueFriendsMap[friend.id_friendship] = true; 
+            uniqueFriends.push(friend);
+          }
+        });
+  
+        this.friends = uniqueFriends;
+        console.log('lista', this.friends);
         this.loadFriendDetails();
       },
       error => {

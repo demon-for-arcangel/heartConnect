@@ -17,6 +17,7 @@ export class ConsultInformationComponent {
   latitude: number = 0;
   longitude: number = 0;
   zoom: number = 12;
+  inscriptionMessage: string = '';
 
   constructor(
     public config: DynamicDialogConfig,
@@ -62,14 +63,14 @@ export class ConsultInformationComponent {
           this.eventService.createInscription(userId, eventId).subscribe(
             (response) => {
               console.log('Usuario inscrito exitosamente:', response);
+              this.inscriptionMessage = '¡Te has inscrito exitosamente en el evento!';
             },
             (error) => {
               console.error('Error al inscribir al usuario en el evento:', error);
+              this.inscriptionMessage = 'Hubo un error al intentar inscribirte en el evento.';
             }
           );
-        } else {
-          console.error('No se pudo obtener el ID del usuario');
-        }
+        } 
       },
       (error) => {
         console.error('Error al obtener el usuario:', error);
