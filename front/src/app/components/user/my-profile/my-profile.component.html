@@ -26,34 +26,36 @@
           <button (click)="showLikeUsers()">Personas de interés</button>
         </div>
         <p>{{ user.desc }}</p>
-        <img src="/assets/uploads/photos/1718571163597-gvwwbum5mb5.png" width="300px">
         <div class="image-grid">   
           <h1>Fotos</h1>
+          <button (click)="toggleEditPhotos()">Editar Fotos</button>
           <div class="grid-container">
             @for (image of images; track image){
               <div class="image-container">
                 <div class="grid-item">
                   @if(image.Asset?.path){
                     <img [src]="image.Asset.path" alt="Assets">
-                  }
-                  @if(image.Asset?.id !== undefined){
-                    <button class="delete-button" (click)="deleteImage(image.Asset?.id)">
-                      <i class="fas fa-trash-alt"></i>
-                    </button>
+                    @if(editingPhotos === true){
+                      <button class="delete-button" (click)="deleteImage(image.Asset?.id)">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    }
                   }
                 </div>
               </div>
             }
             
             @if(images.length < maxNumberPhotos){
-              <div class="image-container">
-                <div class="grid-item add-button-container">
-                  <label for="imagesFile" class="add-button">
-                    <i class="fas fa-plus"></i>
-                  </label>
-                  <input id="imagesFile" type="file" style="display:none" (change)="addImage($event)">
+              @if(editingPhotos){
+                <div class="image-container">
+                  <div class="grid-item add-button-container">
+                    <label for="imagesFile" class="add-button">
+                      <i class="fas fa-plus"></i>
+                    </label>
+                    <input id="imagesFile" type="file" style="display:none" (change)="addImage($event)">  
+                  </div>
                 </div>
-              </div>
+                }
             }
           </div>
         </div>

@@ -26,6 +26,7 @@ export class MyProfileComponent implements OnInit {
   editingIndex: number | null = null;
   previewImage: any[] = [];
   editing: boolean = false;
+  editingPhotos: boolean = false; 
   maxNumberPhotos: number = 8;
 
   @ViewChild('fileInput') fileInput!: ElementRef;
@@ -128,24 +129,24 @@ export class MyProfileComponent implements OnInit {
     }
   }
 
-addImage(fileInputEvent: any): void {
-  const file = fileInputEvent.target.files[0];
-  if (file && this.user.id) {
-    this.fileService.uploadFile(file, this.user.id.toString()).subscribe({
-      next: (response: any[]) => {
-        if (response && response.length > 0 && response[0].Asset) {
-          const asset = response[0];
-          this.images.push(asset); 
-          this.messageService.add({severity: 'success', summary: 'Éxito', detail: 'Imagen agregada correctamente.'});
+  addImage(fileInputEvent: any): void {
+    const file = fileInputEvent.target.files[0];
+    if (file && this.user.id) {
+      this.fileService.uploadFile(file, this.user.id.toString()).subscribe({
+        next: (response: any[]) => {
+          if (response && response.length > 0 && response[0].Asset) {
+            const asset = response[0];
+            this.images.push(asset); 
+            this.messageService.add({severity: 'success', summary: 'Éxito', detail: 'Imagen agregada correctamente.'});
+          }
+        },
+        error: (error) => {
+          console.error('Error al subir la imagen:', error);
         }
-      },
-      error: (error) => {
-        console.error('Error al subir la imagen:', error);
-      }
-    });
+      });
+    }
   }
-}
-  
+
   deleteImage(imageId: number) {
     if (imageId) {
       this.fileService.deleteAsset(imageId).subscribe(
@@ -212,5 +213,10 @@ addImage(fileInputEvent: any): void {
       styleClass: 'custom-modal',
       data: { id: this.user.id }
     });
+  }
+
+  toggleEditPhotos(): void {
+    this.editingPhotos = !this.editingPhotos;
+    console.log('editingPhotos:', this.editingPhotos);  
   }
 }

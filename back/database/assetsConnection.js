@@ -145,12 +145,16 @@ class AssetsModel {
   };
 
   //-------------------------User_Assets---------------------------
-  async associateAssetWithUser(assetId, userId) {
+  async associateAssetWithUser(userId, assetId) {
     try {
-        await models.UserAssets.create({
+      console.log('asset', assetId);
+      console.log('user', userId);
+        const userAssets = await models.UserAssets.create({
             id_user: userId,
             id_asset: assetId
         });
+        console.log(userAssets)
+        return userAssets;
     } catch (error) {
         throw error;
     }

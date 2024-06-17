@@ -75,78 +75,48 @@ const uploadAsset = async (req, res = response) => {
   try {
     const contentType = req.headers['content-type'];
     const userId = req.headers['user-id'];
-
+console.log(userId)
     if (!userId) {
-      return res.status(400).json({ msg: "User ID is required in headers" });
+      return res.status(400).json({ msg: "User ID es necesario" });
     }
 
     if (!req.files || Object.keys(req.files).length === 0) {
-      return res.status(400).json({ msg: "No file was uploaded" });
+      return res.status(400).send('No se ha subido ningún archivo.');
     }
 
-    let files = req.files.file;
+    const file = req.files.file;
+    console.log('objeto', file)
+    const fileName = file.name;
+    console.log('nombre', fileName)
+    const uploadDir = path.join(__dirname, './../../front/src/assets/uploads/photo_profile/');
+    const uploadPath = path.join(uploadDir, fileName);
+    const relativePath = `assets/uploads/photo_profile/${fileName}`;
 
-    if (!Array.isArray(files)) {
-      files = [files];
-    }
-
-    const savedAssets = [];
-
-    for (const file of files) {
-      const fileName = generateUniqueName(file.name);
-      const relativeUploadsDir = 'assets/uploads/photos/';
-      const relativeFilePath = path.join(relativeUploadsDir, fileName).replace(/\\/g, '/');
-      const absoluteUploadsDir = path.resolve(__dirname, './../../front/src/assets/uploads/photos/');
-
-      if (!fs.existsSync(absoluteUploadsDir)) {
-        fs.mkdirSync(absoluteUploadsDir, { recursive: true });
+    file.mv(uploadPath, async (err) => {
+      if (err) {
+        return res.status(500).send(err);
       }
+    
+      try {
+        const assetId = await conx.addAsset(relativePath);
+        console.log('Asset ID:', assetId);
 
-      const absoluteFilePath = path.join(absoluteUploadsDir, fileName);
-
-      await new Promise((resolve, reject) => {
-        file.mv(absoluteFilePath, async (err) => {
-          if (err) {
-            return reject(err);
-          }
-
-          const asset = { path: `/${relativeFilePath}` };  
-          try {
-            const savedAsset = await conx.saveAsset(asset);
-
-            await conx.associateAssetWithUser(savedAsset.id, userId);
-
-            savedAssets.push({ id_user: userId, Asset: savedAsset });
-            resolve();
-          } catch (error) {
-            reject(error);
-          }
-        });
-      });
-    }
-
-    res.status(201).json(savedAssets);
-
+         const userIdInt = parseInt(userId);
+         if (isNaN(userIdInt)) {
+           return res.status(400).json({ msg: "User ID no es un número válido" });
+         } 
+    
+        await conx.associateAssetWithUser(userIdInt, assetId);
+        res.status(200).json({ msg: "Foto guardada", filePath: relativePath });
+      } catch (error) {
+        console.error('Error al asociar asset con usuario:', error);
+        res.status(500).json({ msg: "Error al guardar la foto" });
+      }
+    });    
   } catch (err) {
     res.status(500).json({ msg: "Error al subir el archivo" });
   }
 };
-
-function generateUniqueName(originalFileName) {
-  if (!originalFileName) {
-    throw new TypeError('Es necesario el nombre del archivo');
-  }
-
-  const timestamp = Date.now();
-  const randomString = Math.random().toString(36).substring(2, 15);
-  const fileExtension = path.extname(originalFileName);
-
-  if (!fileExtension) {
-    throw new TypeError('La extension del archivo es necesaria');
-  }
-
-  return `${timestamp}-${randomString}${fileExtension}`;
-}
 
 const deleteAssetById = async (req, res) => {
   try {
